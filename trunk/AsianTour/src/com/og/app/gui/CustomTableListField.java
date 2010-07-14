@@ -10,7 +10,7 @@ import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.component.ListField;
 import java.util.*;
 
-public class CustomTableListField extends ListField {//implements ListFieldCallback{//, Runnable{
+public class CustomTableListField extends ListField {//implements ListFieldCallback, Runnable{
     
     //screen sizes: 320, 360, 480
     
