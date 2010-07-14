@@ -83,7 +83,6 @@ public class NewsListField extends CustomListField {
 					final int index = i;
 					try {
 						Utility.getWebData(item[i].thumbnailurl, new WebDataCallback() {
-							
 							public void callback(String data) {
 								item[index].thumbnail = data.getBytes();								
 							}
