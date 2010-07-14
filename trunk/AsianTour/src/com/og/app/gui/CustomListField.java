@@ -133,7 +133,14 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
                 imgy = y + rowTopSpacing + 1;
             }
             //} else draw the thumbnail from rss {}
-            g.drawBitmap(3, imgy, previewWidth, previewHeight, news_thumbnail, 0, 0);
+            Bitmap thumbnailBitmap = null;
+            if(ni.thumbnail!=null && ni.thumbnail.length > 2){
+            	thumbnailBitmap = Bitmap.createBitmapFromBytes(ni.thumbnail, 0, ni.thumbnail.length, 1);
+            	g.drawBitmap(3, imgy, previewWidth, previewHeight,thumbnailBitmap, 0, 0);
+            }
+            else{
+            	g.drawBitmap(3, imgy, previewWidth, previewHeight, news_thumbnail, 0, 0);
+            }
             
             //getting output
             Font textFont = GuiConst.FONT_BOLD;
