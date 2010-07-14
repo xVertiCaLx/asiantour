@@ -3,18 +3,12 @@ package com.og.app.gui;
 import com.og.app.asiantour.*;
 import com.og.app.gui.component.*;
 import com.og.app.gui.listener.*;
-import com.og.app.object.*;
 import com.og.app.*;
-import com.og.app.util.*;
-import com.og.rss.*;
-
 import net.rim.device.api.ui.*;
 import net.rim.device.api.ui.container.*;
 import net.rim.device.api.ui.component.*;
 import net.rim.device.api.system.*;
 import net.rim.blackberry.api.browser.*;
-
-import java.util.*;
 
 public class VersionScreen extends MainScreen implements ImageButtonListener
 {

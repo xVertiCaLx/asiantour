@@ -4,14 +4,8 @@ import com.og.app.gui.listener.*;
 import com.og.rss.*;
 
 import net.rim.device.api.system.*;
-import net.rim.device.api.ui.*;
-import net.rim.device.api.ui.UiApplication;
-import net.rim.device.api.ui.container.*;
-import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.component.*;
-
-import java.util.*;
 
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener {
     

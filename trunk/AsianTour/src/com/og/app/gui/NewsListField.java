@@ -1,23 +1,10 @@
 package com.og.app.gui;
 
-import com.og.app.object.*;
 import com.og.app.gui.listener.*;
-import com.og.app.gui.component.*;
-import com.og.app.*;
-import com.og.app.util.*;
 import com.og.rss.*;
 
-import net.rim.device.api.system.Characters;
-import net.rim.device.api.ui.Manager;
-import net.rim.device.api.ui.component.ListField;
-import net.rim.device.api.ui.component.ListFieldCallback;
 import net.rim.device.api.system.*;
 import net.rim.device.api.ui.*;
-
-import javax.microedition.io.*;
-
-import java.util.*;
-import java.io.*;
 
 public class NewsListField extends CustomListField {
     private NewsPanel newsPanel = null;

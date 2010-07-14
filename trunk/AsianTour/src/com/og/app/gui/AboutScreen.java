@@ -1,18 +1,7 @@
 package com.og.app.gui;
 
-import com.og.app.gui.component.*;
-import com.og.app.gui.listener.*;
-import com.og.app.object.*;
-import com.og.app.*;
-import com.og.app.util.*;
-import com.og.rss.*;
-
 import net.rim.device.api.ui.*;
 import net.rim.device.api.ui.container.*;
-import net.rim.device.api.ui.component.*;
-import net.rim.device.api.system.*;
-
-import java.util.*;
 
 class AboutScreen extends MainScreen
 {

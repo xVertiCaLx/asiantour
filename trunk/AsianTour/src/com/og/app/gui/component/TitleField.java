@@ -2,12 +2,8 @@ package com.og.app.gui.component;
 
 import com.og.app.util.*;
 import com.og.app.gui.GuiConst;
-import com.og.app.gui.listener.ImageButtonListener;
-
 import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
-import net.rim.device.api.ui.container.*;
-import net.rim.device.api.ui.component.*;
 
 public class TitleField extends Field {
     final Bitmap bg_title = Bitmap.getBitmapResource("res/bg_title_320.png");

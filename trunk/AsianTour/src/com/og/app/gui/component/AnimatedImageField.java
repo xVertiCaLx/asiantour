@@ -1,18 +1,9 @@
 package com.og.app.gui.component;
 
 import com.og.app.gui.*;
-import com.og.app.*;
-import com.og.app.util.*;
-import com.og.rss.*;
-import java.util.Vector; 
-import java.io.*;
-
-import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.*;
 import net.rim.device.api.ui.component.*;
 import net.rim.device.api.system.*;
-
-import javax.microedition.io.*;
 
 public class AnimatedImageField  extends BitmapField implements Runnable
 {  

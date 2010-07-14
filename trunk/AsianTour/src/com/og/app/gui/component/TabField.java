@@ -4,7 +4,6 @@ import com.og.app.gui.GuiConst;
 import com.og.app.gui.listener.TabListener;
 
 import net.rim.device.api.ui.*;
-import net.rim.device.api.ui.container.*;
 import net.rim.device.api.ui.component.*;
 import net.rim.device.api.system.*;
 

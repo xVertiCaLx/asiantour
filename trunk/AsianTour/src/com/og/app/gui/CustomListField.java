@@ -1,13 +1,9 @@
 package com.og.app.gui;
 
-import com.og.app.*;
 import com.og.rss.*;
-import com.og.app.object.*;
 import com.og.app.util.Utility;
 import com.og.app.gui.GuiConst;
 import com.og.app.gui.listener.*;
-import com.og.app.gui.component.*;
-
 import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
 import net.rim.device.api.ui.Manager;
@@ -16,10 +12,7 @@ import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.component.ListField;
 import net.rim.device.api.ui.component.ListFieldCallback;
 
-import javax.microedition.io.*;
-
 import java.util.*;
-import java.io.*;
 
 public class CustomListField extends ListField implements ListFieldCallback, Runnable {
     protected Vector _pelements = new Vector();

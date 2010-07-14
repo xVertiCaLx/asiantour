@@ -1,25 +1,13 @@
 package com.og.app.gui;
 
-import com.og.app.*;
-import com.og.rss.*;
-import com.og.app.object.*;
-import com.og.app.util.Utility;
 import com.og.app.gui.GuiConst;
 import com.og.app.gui.listener.*;
-import com.og.app.gui.component.*;
 import com.og.app.util.DataCentre;
 
 import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
-import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.Graphics;
-import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.component.ListField;
-import net.rim.device.api.ui.component.ListFieldCallback;
-
-import javax.microedition.io.*;
-
-import java.io.*;
 import java.util.*;
 
 public class CustomTableListField extends ListField {//implements ListFieldCallback{//, Runnable{
