@@ -1,6 +1,5 @@
 package com.og.app.object;
 
-import com.og.app.Const;
 import com.og.rss.ANewsFeed;
 
 public class Settings implements net.rim.device.api.util.Persistable {

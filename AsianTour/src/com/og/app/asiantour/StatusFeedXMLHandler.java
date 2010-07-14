@@ -3,7 +3,6 @@ package com.og.app.asiantour;
 import org.xml.sax.helpers.*;
 import org.xml.sax.*;
 import java.lang.StringBuffer;
-import java.util.*;
 
 public class StatusFeedXMLHandler extends DefaultHandler
 {

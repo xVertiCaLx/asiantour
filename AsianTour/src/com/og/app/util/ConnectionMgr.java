@@ -1,32 +1,18 @@
 package com.og.app.util;
 
-import com.og.rss.*;
-import com.og.app.gui.*;
-import com.og.app.object.Settings;
-
-import net.rim.device.api.ui.*;
-import net.rim.device.api.system.*;
 import net.rim.device.api.xml.parsers.*;
-import net.rim.device.api.servicebook.*;
-import net.rim.device.api.ui.component.*;
 import net.rim.device.api.system.WLANInfo;
 import net.rim.device.api.util.DataBuffer;
 import net.rim.device.api.system.GPRSInfo;
-import net.rim.device.api.ui.UiApplication;
-import net.rim.device.api.system.RadioInfo;
 import net.rim.device.api.system.CoverageInfo;
 import net.rim.device.api.servicebook.ServiceBook;
 import net.rim.device.api.servicebook.ServiceRecord;
-import net.rim.device.api.system.RadioStatusListener;
 import net.rim.device.api.synchronization.ConverterUtilities;
 
-import java.util.Vector;
 import java.io.*;
 
 
 import javax.microedition.io.*;
-import javax.microedition.lcdui.CustomItem;
-
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.*;
 import org.xml.sax.*;

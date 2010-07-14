@@ -2,23 +2,14 @@ package com.og.rss;
 
 import com.og.app.util.*;
 
-import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
-import net.rim.device.api.servicebook.*;
-import net.rim.device.api.xml.parsers.*;
-import net.rim.device.api.ui.component.LabelField;
-
 import java.io.*;
 import java.lang.Thread;
 import java.util.Vector;
 
-import javax.microedition.rms.*;
-import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 
-import org.xml.sax.*;
 import org.xml.sax.helpers.*;
-import org.xml.sax.InputSource;
 
 public class RssManager implements Runnable
 {
@@ -119,7 +110,7 @@ public class RssManager implements Runnable
         {
                 if ( afeed.feedType==ANewsFeed.FEEDTYPE_NEWS ){
                         RssXMLHandler myHandler= new RssXMLHandler(rsslistener,afeed);
-                        myHandler = (RssXMLHandler)(ConnectionMgr.requestFeed(afeed.url, (DefaultHandler)myHandler));
+                        myHandler = (RssXMLHandler)(ConnectionMgr.requestFeed(afeed.url, myHandler));
                 }/*else{
                         PhotoXMLHandler myHandler= new PhotoXMLHandler(rsslistener,afeed);
                         myHandler = (PhotoXMLHandler)(ConnectionMgr.requestFeed(afeed.url, (DefaultHandler)myHandler));                    

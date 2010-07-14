@@ -1,10 +1,6 @@
 package com.og.app.gui;
 
-import net.rim.device.api.system.*;
 import net.rim.device.api.ui.*;
-import net.rim.device.api.ui.UiApplication;
-import net.rim.device.api.ui.container.*;
-import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.component.*;
 

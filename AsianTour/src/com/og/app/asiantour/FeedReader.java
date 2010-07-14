@@ -4,24 +4,8 @@ import com.og.rss.*;
 import com.og.app.*;
 import com.og.app.util.*;
 
-import net.rim.device.api.xml.parsers.*;
-import net.rim.device.api.ui.*;
-import net.rim.device.api.ui.component.LabelField;
-import net.rim.device.api.system.*;
-import net.rim.device.api.servicebook.*;
-
-import java.lang.Thread;
-import java.util.*;
 import java.util.Vector;
-import java.io.*;
-
-import javax.microedition.io.HttpConnection;
-import javax.microedition.io.Connector;
-import javax.microedition.rms.*;
-
-import org.xml.sax.InputSource;
 import org.xml.sax.helpers.*;
-import org.xml.sax.*;
 
 public class FeedReader
 {
@@ -30,7 +14,7 @@ public class FeedReader
     {
         try {
                 StatusFeedXMLHandler myHandler = new StatusFeedXMLHandler  ();
-                myHandler = (StatusFeedXMLHandler)(ConnectionMgr.requestFeed(url, (DefaultHandler)myHandler));
+                myHandler = (StatusFeedXMLHandler)(ConnectionMgr.requestFeed(url, myHandler));
                 return myHandler.getStatusObj();
         }catch (Exception e){                                                                     
         }
@@ -91,7 +75,7 @@ public class FeedReader
             if ( deletelist==null || !statuslastBuildDate.equalsIgnoreCase(lastbuilddate) ){
                                         
                 DeleteFeedXMLHandler  myHandler= new DeleteFeedXMLHandler (lastbuilddate);
-                myHandler = (DeleteFeedXMLHandler )(ConnectionMgr.requestFeed(url, (DefaultHandler)myHandler));
+                myHandler = (DeleteFeedXMLHandler )(ConnectionMgr.requestFeed(url, myHandler));
 
                 Vector v = myHandler.getDeleteList();
                 ADeleteList list = new ADeleteList ();
@@ -305,7 +289,7 @@ public class FeedReader
                 if ( categorylist==null || !statuslastBuildDate.equalsIgnoreCase(lastbuilddate) ){
                     // connect to feed's URL
                     IndexFeedXMLHandler myHandler= new IndexFeedXMLHandler (lastbuilddate);
-                    myHandler = (IndexFeedXMLHandler)(ConnectionMgr.requestFeed(url, (DefaultHandler)myHandler));
+                    myHandler = (IndexFeedXMLHandler)(ConnectionMgr.requestFeed(url, myHandler));
                     
                     if ( saveCategoryList(myHandler.getCategoryList(), myHandler.getLastBuildDate())==true ){
                         return 1;

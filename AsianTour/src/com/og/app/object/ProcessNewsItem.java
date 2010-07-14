@@ -1,10 +1,6 @@
 package com.og.app.object;
 
-import com.og.app.Const;
-import com.og.rss.ANewsItemObj;
 import com.og.app.util.*;
-
-import java.util.*;
 
 public class ProcessNewsItem {
    private String displaydate = "";

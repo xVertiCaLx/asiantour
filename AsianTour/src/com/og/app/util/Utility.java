@@ -6,10 +6,7 @@ import com.og.rss.*;
 import com.og.app.gui.*;
 import com.og.app.asiantour.*;
 
-import net.rim.device.api.ui.*;
-import net.rim.device.api.ui.component.*;
 import net.rim.device.api.system.*;
-import net.rim.device.api.servicebook.*;
 import net.rim.blackberry.api.mail.*;
 
 import java.util.*;

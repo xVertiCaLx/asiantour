@@ -1,7 +1,5 @@
 package com.og.app.gui;
 
-import com.og.app.*;
-import com.og.app.object.*;
 import com.og.app.gui.listener.*;
 import com.og.app.gui.component.*;
 
@@ -9,10 +7,6 @@ import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
 import net.rim.device.api.ui.container.*;
 import net.rim.device.api.ui.component.*;
-
-import java.util.*;
-
-import javax.microedition.lcdui.TextField;
 
 public class NewsPanel extends VerticalFieldManager {
     

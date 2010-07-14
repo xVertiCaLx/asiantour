@@ -1,27 +1,13 @@
 package com.og.app.gui;
 
-import com.og.app.*;
 import com.og.rss.*;
 import com.og.app.util.*;
-import com.og.app.object.*;
-import com.og.app.gui.listener.*;
 import com.og.app.gui.component.*;
 
 import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
-import net.rim.device.api.xml.parsers.*;
-import net.rim.blackberry.api.browser.*;
 import net.rim.device.api.ui.component.*;
 import net.rim.device.api.ui.container.*;
-
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-import org.xml.sax.InputSource;
-
-import java.io.*;
-import java.util.*;
-
-import javax.microedition.rms.*;
 
 public class NewsDetailScreen extends MainScreen implements Runnable {//implements ImageButtonListener, Runnable {
     
@@ -109,10 +95,10 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
         
         if (finalHeight != 0 && finalWidth !=0) {
             if (finalWidth > finalHeight) {
-                int tmpWidth = (int)((GuiConst.SCREENWIDTH - 20)* (double)0.5);
+                int tmpWidth = (int)((GuiConst.SCREENWIDTH - 20)* 0.5);
                 int tmpHeight = (int)((double)tmpWidth*finalHeight/finalWidth);
-                if (tmpHeight > (GuiConst.SCREENHEIGHT-headLineHeight)*(double)0.5) {
-                    tmpHeight = (int)((GuiConst.SCREENHEIGHT-headLineHeight)*(double)0.5);
+                if (tmpHeight > (GuiConst.SCREENHEIGHT-headLineHeight)*0.5) {
+                    tmpHeight = (int)((GuiConst.SCREENHEIGHT-headLineHeight)*0.5);
                     tmpWidth = (int)((double)tmpHeight*finalWidth/finalHeight);
                 }
                 
@@ -121,7 +107,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
                     finalHeight = tmpHeight;
                 }
             } else {
-                int tmpHeight = (int)((GuiConst.SCREENHEIGHT-headLineHeight) * (double)0.5);
+                int tmpHeight = (int)((GuiConst.SCREENHEIGHT-headLineHeight) * 0.5);
                 int tmpWidth = (int)((double)tmpHeight*finalWidth/finalHeight);
                 if (tmpWidth <= finalWidth && tmpHeight <= finalHeight) {
                     finalWidth = tmpWidth;
