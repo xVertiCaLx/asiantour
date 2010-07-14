@@ -19,5 +19,6 @@ public class MainApp extends UiApplication{
         SplashScreen s = new SplashScreen();
         pushScreen(s);
         enterEventDispatcher();
+        //added line test
     }
 } 
