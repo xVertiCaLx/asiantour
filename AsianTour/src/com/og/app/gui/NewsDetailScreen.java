@@ -1,0 +1,327 @@
+package com.og.app.gui;
+
+import com.og.app.*;
+import com.og.rss.*;
+import com.og.app.util.*;
+import com.og.app.object.*;
+import com.og.app.gui.listener.*;
+import com.og.app.gui.component.*;
+
+import net.rim.device.api.ui.*;
+import net.rim.device.api.system.*;
+import net.rim.device.api.xml.parsers.*;
+import net.rim.blackberry.api.browser.*;
+import net.rim.device.api.ui.component.*;
+import net.rim.device.api.ui.container.*;
+
+import org.xml.sax.*;
+import org.xml.sax.helpers.*;
+import org.xml.sax.InputSource;
+
+import java.io.*;
+import java.util.*;
+
+import javax.microedition.rms.*;
+
+public class NewsDetailScreen extends MainScreen implements Runnable {//implements ImageButtonListener, Runnable {
+    
+    private ANewsItemObj newsItem = null;
+    
+    private VerticalFieldManager mainFM = null;
+    private HorizontalFieldManager bottomFM = new HorizontalFieldManager(Field.USE_ALL_WIDTH);
+    
+    private Bitmap imgUp = null;
+    private Bitmap imgDown = null;
+    
+    private int myIndex = -1;
+    private int finalWidth = 0;
+    private int finalHeight = 0;
+    private int index_btnSaved = 0;
+    private int headLineHeight = 0;
+    
+    private ArticlePanel vFM = null;
+    private ImagePanel childPanel = null;
+    //private ImagePanel bannerPanel = null;
+    
+    private String feedName = "";
+    private String bannerURL = "";
+    private String bannerTitle = "";
+    
+    private BitmapField webImg = null;
+    private BitmapField newsImg = null;
+    private TitleField lblTitle = null;
+    private SpaceField spaceField = null;
+    private CustomListField listField = null;
+    private AnimatedImageField animatedImg = null;
+    //private ClickableImageField bannerField = null;
+    
+    public NewsDetailScreen (CustomListField listField, ANewsItemObj newsItem) {
+        super();
+        imgUp = Bitmap.getBitmapResource("res/up.png");
+        imgDown = Bitmap.getBitmapResource("res/down.png");
+        this.newsItem = newsItem;
+        this.myIndex = newsItem.index;
+        this.listField = listField;
+        
+        if (newsItem.hasread == false) {
+            newsItem.hasread = true;
+            //listField.saveChanges(newsItem, myIndex);
+        }
+        
+        Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_news.png");
+        lblTitle = new TitleField("Full Article", settingIcon);
+        headLineHeight = lblTitle.getPreferredHeight();
+        
+        mainFM = new VerticalFieldManager(Manager.VERTICAL_SCROLL | Manager.VERTICAL_SCROLLBAR);
+        
+        RichTextField lblHeadlineField = new RichTextField(newsItem.title);
+        lblHeadlineField.select(false);
+        
+        lblHeadlineField.setFont(GuiConst.FONT_BOLD);
+        
+        String newsInfo = "";
+        
+        if (newsItem.author != null && !newsItem.author.equals("")) {
+            newsInfo = "written by " + newsItem.author + " | ";
+        }
+        
+        newsInfo += newsItem.pubDate.substring(8, 11) + " " + newsItem.pubDate.substring(5,7);
+        
+        LabelField lblNewsInfo = new LabelField(newsInfo, Field.FOCUSABLE) {
+            public void paint(Graphics g) {
+                g.setBackgroundColor(Color.WHITE);
+                g.fillRect(0,0,getWidth(),getHeight());
+                g.setColor(Color.BLACK);
+                g.clear();
+                super.paint(g);
+            }
+        };
+        
+        lblNewsInfo.setFont(GuiConst.FONT_DATE);
+        
+        RichTextField lblDesc = new RichTextField(newsItem.description);
+        lblDesc.select(false);
+        lblDesc.setFont(GuiConst.FONT_PLAIN); //| DrawStyle.HFULL);
+        
+        
+        finalWidth = newsItem.imagewidth;
+        finalHeight = newsItem.imageheight;
+        
+        if (finalHeight != 0 && finalWidth !=0) {
+            if (finalWidth > finalHeight) {
+                int tmpWidth = (int)((GuiConst.SCREENWIDTH - 20)* (double)0.5);
+                int tmpHeight = (int)((double)tmpWidth*finalHeight/finalWidth);
+                if (tmpHeight > (GuiConst.SCREENHEIGHT-headLineHeight)*(double)0.5) {
+                    tmpHeight = (int)((GuiConst.SCREENHEIGHT-headLineHeight)*(double)0.5);
+                    tmpWidth = (int)((double)tmpHeight*finalWidth/finalHeight);
+                }
+                
+                if (tmpWidth <= finalWidth && tmpHeight <= finalHeight) {
+                    finalWidth = tmpWidth;
+                    finalHeight = tmpHeight;
+                }
+            } else {
+                int tmpHeight = (int)((GuiConst.SCREENHEIGHT-headLineHeight) * (double)0.5);
+                int tmpWidth = (int)((double)tmpHeight*finalWidth/finalHeight);
+                if (tmpWidth <= finalWidth && tmpHeight <= finalHeight) {
+                    finalWidth = tmpWidth;
+                    finalHeight = tmpHeight;
+                }
+            }
+        }
+        
+        if (newsItem.image == null) {
+            //this means NO THUMBNAIL
+            if (finalHeight !=0 && finalWidth !=0 & newsItem.imageurl.equals("")) {
+                Bitmap loadingimg= Bitmap.getBitmapResource("res/loading.png");
+                    animatedImg = new AnimatedImageField(finalWidth, finalHeight, loadingimg, 12, 100, Field.FIELD_HCENTER|Field.FOCUSABLE);
+                    animatedImg.startAnimation();
+                    childPanel = new ImagePanel(finalHeight);
+                    childPanel.add(animatedImg);          
+                    Thread thread = new Thread(this);
+                    thread.start(); 
+            }
+        } else {
+            try {
+                Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(newsItem.image, 0, -1, 1);
+                tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);         
+                webImg = new BitmapField( tmpbitmap, Field.FIELD_HCENTER|Field.FOCUSABLE);    
+                childPanel = new ImagePanel(tmpbitmap.getHeight());
+                childPanel.add(webImg);
+            } catch (Exception e) {
+                System.out.println("aloy.NewsDetailScreen.exceptione: " +e);
+            }
+        }
+        //define the vertical field manager's screen details
+        vFM = new ArticlePanel(GuiConst.SCREENHEIGHT - lblTitle.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
+        //adds a line to space the top, so that the "twitter/fb" banner will show 10 pixel lower
+        //vFM.add(newLineField(10));
+        
+        //add in twitter/fb banner, but not today
+        //adds a headline
+        vFM.add(new LineField(5)); /*to remove when twitter banner up*/
+        vFM.add(lblHeadlineField);
+        //adds a <hr>
+        vFM.add(new LineField(2, GuiConst.LINE_COLOR_BYLINE));
+        //adds the author name(s), published date and other information.
+        vFM.add(lblNewsInfo);
+        vFM.add(new LineField(5));
+        
+        if (childPanel != null) {
+            System.out.println("i believe this is for the thumbnail");
+            vFM.add(childPanel);
+            vFM.add(new LineField(5));
+        }
+        
+        vFM.add(lblDesc);
+        
+        spaceField = new SpaceField(10, GuiConst.SCREENHEIGHT - lblTitle.getPreferredHeight()) {
+            protected void paint(Graphics g) {
+                if (vFM.getVerticalScroll() > 0) {
+                    g.drawBitmap(this.getPreferredWidth() - imgUp.getWidth(), 0, imgUp.getWidth(), imgUp.getHeight(), imgUp, 0,0);
+                }
+                
+                if (vFM.getVerticalScroll() + vFM.getPreferredHeight() < vFM.getVirtualHeight()) {
+                    g.drawBitmap(this.getPreferredWidth() - imgDown.getWidth(), GuiConst.SCREENHEIGHT - lblTitle.getPreferredHeight() - imgDown.getHeight(), imgDown.getWidth(), imgDown.getHeight(), imgDown, 0,0);
+                }
+            }
+        };
+        
+        bottomFM.add(new SpaceField(10, vFM.getPreferredHeight()));
+        bottomFM.add(vFM);
+        bottomFM.add(spaceField);
+        
+        mainFM.add(new NullField(Field.FOCUSABLE));
+        mainFM.add(lblTitle);
+        mainFM.add(bottomFM);
+        
+        add(mainFM);
+        
+        
+    }
+    
+    protected void paint(Graphics graphics)
+    {
+        try{
+            super.paint(graphics);
+    
+            spaceField.repaintField();
+        }catch(Exception e){}        
+    }   
+    
+    public void run(){
+            byte[] imgbytes = null;
+            /*try{ 
+                    imgbytes = ConnectionMgr.loadImage(newsItem.imageurl);
+                    if ( imgbytes!=null ){
+                        newsItem.image=imgbytes;
+                        Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(imgbytes, 0, -1, 1);
+                        newsItem.imageheight=tmpbitmap.getHeight();
+                        newsItem.imagewidth=tmpbitmap.getWidth();
+                        tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);                              
+                        listfield.saveChanges(newsitem, myindex);                        
+
+                        synchronized(Application.getEventLock() ){
+                            animatedimg.stopAnimation(tmpbitmap);
+                        }
+                    }                    
+            }catch (Exception e){
+                    e.printStackTrace();
+                    //System.out.println("run error:"+e);
+            }*/
+            imgbytes=null;
+    }
+    
+    public void setNewsImage(BitmapField newsimg){
+        this.newsImg = newsimg;
+    }
+
+    protected boolean navigationMovement(int dx,
+                                     int dy,
+                                     int status,
+                                     int time){
+         return false;
+         //return super.navigationMovement(dx, dy, status, time);
+    }
+    
+    public boolean keyChar(char key, int status, int time) {
+        switch (key) {
+            case Characters.ESCAPE:
+                try{
+                    Screen s = UiApplication.getUiApplication().getActiveScreen();
+                    s.deleteAll();
+                    UiApplication.getUiApplication().popScreen(s);
+                    clearResource();
+                    return true;
+                }catch(Exception e){
+                    //System.out.println(e);
+                }
+                break;
+        }
+        return true;
+    }
+    
+    public void clearResource(){
+        newsItem = null;
+        mainFM = null;
+        bottomFM = null;
+        vFM = null;
+        webImg = null;
+        newsImg= null;
+        listField = null;
+        childPanel = null;
+        animatedImg = null;        
+    } 
+    
+    class ArticlePanel extends VerticalFieldManager{
+        int fixheight = 0;
+        int fixwidth = 0;
+        
+        public ArticlePanel(int fixheight, int fixwidth){
+            super(Manager.VERTICAL_SCROLL|Manager.VERTICAL_SCROLLBAR);
+            this.fixheight=fixheight;
+            this.fixwidth=fixwidth;
+        }
+
+        public int getPreferredWidth()
+        {
+            return fixwidth;
+        }
+        
+        public int getPreferredHeight()
+        {
+            return fixheight;
+        }        
+
+        protected void sublayout(int width, int height)
+        {
+            super.sublayout(fixwidth, fixheight);
+            setExtent(fixwidth, fixheight);
+        }        
+    }       
+        
+    class ImagePanel extends VerticalFieldManager{
+        int fixheight = 0;
+
+        public ImagePanel (int height){
+            super(Field.USE_ALL_WIDTH);
+            this.fixheight=height;
+        }
+                
+        public void updateLayout(int height){
+            this.fixheight=height;
+            super.updateLayout();
+        }
+
+        public int getPreferredHeight()
+        {
+            return fixheight;
+        }
+        
+        protected void sublayout(int width, int height)
+        {
+            super.sublayout(width, fixheight);
+            setExtent(width, fixheight);
+        }        
+    }
+} 
