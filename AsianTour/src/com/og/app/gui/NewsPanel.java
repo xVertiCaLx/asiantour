@@ -30,13 +30,15 @@ public class NewsPanel extends VerticalFieldManager {
         imgDown = Bitmap.getBitmapResource("res/down.png");
         
         newsList = new NewsListField(this, listener);
-        loadNews(0);
         childNewsPanel = new ChildNewsPanel(fixHeight);
-        
-        
-        
         childNewsPanel.add(newsList);
         add(childNewsPanel);
+        loadNews(0);
+       
+        
+        
+        
+        
     }
     
     public synchronized static NewsPanel getInstance(ListFieldListener listener, int fixHeight) {
