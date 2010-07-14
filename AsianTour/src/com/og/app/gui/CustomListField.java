@@ -2,6 +2,7 @@ package com.og.app.gui;
 
 import com.og.rss.*;
 import com.og.app.util.Utility;
+import com.og.app.util.WebDataCallback;
 import com.og.app.gui.GuiConst;
 import com.og.app.gui.listener.*;
 import net.rim.device.api.ui.*;
@@ -12,6 +13,7 @@ import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.component.ListField;
 import net.rim.device.api.ui.component.ListFieldCallback;
 
+import java.io.IOException;
 import java.util.*;
 
 public class CustomListField extends ListField implements ListFieldCallback, Runnable {
@@ -110,7 +112,7 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
         }
     }
     
-    public void drawListRow(ListField listField, Graphics g, int index, int y, int width) {
+    public void drawListRow(ListField listField, final Graphics g, int index, int y, int width) {
         if (index < getSize()) {
             int rowHeight = getRowHeight();
             if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
@@ -131,7 +133,6 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
                 imgy = y + rowTopSpacing + 1;
             }
             //} else draw the thumbnail from rss {}
-            
             g.drawBitmap(3, imgy, previewWidth, previewHeight, news_thumbnail, 0, 0);
             
             //getting output

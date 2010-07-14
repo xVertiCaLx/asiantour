@@ -116,7 +116,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
             }
         }
         
-        if (newsItem.image == null) {
+        if (newsItem.imageurl.length() == 0) {
             //this means NO THUMBNAIL
             if (finalHeight !=0 && finalWidth !=0 & newsItem.imageurl.equals("")) {
                 Bitmap loadingimg= Bitmap.getBitmapResource("res/loading.png");
@@ -129,11 +129,12 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
             }
         } else {
             try {
-                Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(newsItem.image, 0, -1, 1);
-                tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);         
-                webImg = new BitmapField( tmpbitmap, Field.FIELD_HCENTER|Field.FOCUSABLE);    
-                childPanel = new ImagePanel(tmpbitmap.getHeight());
-                childPanel.add(webImg);
+//                Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(newsItem.image, 0, -1, 1);
+//                tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);         
+//                webImg = new BitmapField( tmpbitmap, Field.FIELD_HCENTER|Field.FOCUSABLE);    
+               
+            	webImg = new WebBitmapField(newsItem.imageurl);
+                
             } catch (Exception e) {
                 System.out.println("aloy.NewsDetailScreen.exceptione: " +e);
             }
@@ -152,7 +153,9 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
         //adds the author name(s), published date and other information.
         vFM.add(lblNewsInfo);
         vFM.add(new LineField(5));
-        
+        if(webImg!=null){
+        	vFM.add(webImg);
+        }
         if (childPanel != null) {
             System.out.println("i believe this is for the thumbnail");
             vFM.add(childPanel);

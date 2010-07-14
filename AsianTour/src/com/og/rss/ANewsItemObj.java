@@ -1,5 +1,7 @@
 package com.og.rss;
 
+import net.rim.device.api.system.Bitmap;
+
 public class ANewsItemObj implements net.rim.device.api.util.Persistable {
     public int index = 0;
     public String title = "";
