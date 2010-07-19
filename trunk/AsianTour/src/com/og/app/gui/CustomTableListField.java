@@ -8,9 +8,10 @@ import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.component.ListField;
+import net.rim.device.api.ui.component.ListFieldCallback;
 import java.util.*;
 
-public class CustomTableListField extends ListField {//implements ListFieldCallback, Runnable{
+public class CustomTableListField extends ListField implements ListFieldCallback, Runnable {
     
     //screen sizes: 320, 360, 480
     
@@ -64,7 +65,7 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
         this.text_x = padding;
         this.text_y = padding;
         setEmptyString("", DrawStyle.HCENTER);
-        //setCallback(this);
+        setCallback(this);
         header_bg = Bitmap.getBitmapResource("res/table_header_bg.png");
         header_separator = Bitmap.getBitmapResource("res/table_header_separator.png");
         even_bg = Bitmap.getBitmapResource("res/table_even_bg.png");
@@ -96,6 +97,8 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
         }
     }
 
+    public void run() {}
+
     public void drawListRow(ListField listField, Graphics g, int index, int y, int width) {
     
         //int rowHeight = getRowHeight();
@@ -107,6 +110,19 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
         1 - TV Schedule
         2 - Tour Schedule
         3 - Live Score*/
+        
+        if (row == 0) {
+            /* header */
+            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
+        } else if ((row != 0) && ((row % 2) == 0)) {
+            /* even row */
+            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
+        } else if ((row != 0) && ((row % 2) == 1)) {
+            /* odd row */
+            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
+        }
+        bg_y += header_bg.getHeight();
+        row++;
         
         switch (table) {
             
@@ -509,7 +525,7 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
                         textFont = GuiConst.FONT_TABLE;
                         g.setFont(textFont);
                         g.setColor(GuiConst.FONT_COLOR_TITLE);
-                        //"Pos", "To Par", "Hole",  "Today", "R1", "R2", "R3", "R4", "Total"
+                        //"Pos", "To Par", "Hole",  
                         g.drawText(item.ls_playerFirstName, text_x, text_y);
                         text_x += liveWidth[0];
                         if ((row % 2) == 0) {
@@ -559,7 +575,7 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
                         g.setFont(textFont);
                         
                         for (int i = 0; i <= 5; i++) { 
-                            if ((i == 0) || (i == 3) || (i == 4) || (i == 5)) {
+                            if ((i == 0) || (i == 6) || (i == 7) || (i == 8) || (i == 9) || (i == 10) || (i == 11)) {
                                 temp_x += ((liveWidth[i]-textFont.getAdvance(liveLabel[i]))/2);
                                 g.drawText(liveLabel[i], temp_x, text_y);
                                 text_x += liveWidth[i]; //+ padding;
@@ -586,7 +602,7 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
                         textFont = GuiConst.FONT_TABLE;
                         g.setFont(textFont);
                         g.setColor(GuiConst.FONT_COLOR_TITLE);
-                        //"Pos", "To Par", "Hole",  "Today", "R1", "R2", "R3", "R4", "Total"
+                        //"Today", "R1", "R2", "R3", "R4", "Total"
                         g.drawText(item.ls_playerFirstName, text_x, text_y);
                         text_x += liveWidth[0];
                         if ((row % 2) == 0) {
@@ -596,8 +612,8 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
                         }
                         text_x += header_separator.getWidth();
                         
-                        g.drawText(item.ls_pos, text_x, text_y);
-                        text_x += liveWidth[3];
+                        g.drawText(item.ls_today, text_x, text_y);
+                        text_x += liveWidth[6];
                         if ((row % 2) == 0) {
                             g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
                         } else {
@@ -605,8 +621,8 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
                         }
                         text_x += header_separator.getWidth();
                         
-                        g.drawText(item.ls_toPar, text_x, text_y);
-                        text_x += tourWidth[4];
+                        g.drawText(item.ls_r1, text_x, text_y);
+                        text_x += tourWidth[7];
                         if ((row % 2) == 0) {
                             g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
                         } else {
@@ -614,8 +630,35 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
                         }
                         text_x += header_separator.getWidth();
                         
-                        g.drawText(item.ls_hole, text_x, text_y);
-                        text_x += liveWidth[5];
+                        g.drawText(item.ls_r2, text_x, text_y);
+                        text_x += liveWidth[8];
+                        if ((row % 2) == 0) {
+                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
+                        } else {
+                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
+                        }
+                        text_x += header_separator.getWidth();
+                        
+                        g.drawText(item.ls_r3, text_x, text_y);
+                        text_x += liveWidth[9];
+                        if ((row % 2) == 0) {
+                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
+                        } else {
+                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
+                        }
+                        text_x += header_separator.getWidth();
+                        
+                        g.drawText(item.ls_r4, text_x, text_y);
+                        text_x += liveWidth[10];
+                        if ((row % 2) == 0) {
+                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
+                        } else {
+                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
+                        }
+                        text_x += header_separator.getWidth();
+                        
+                        g.drawText(item.ls_r2, text_x, text_y);
+                        text_x += liveWidth[11];
                         if ((row % 2) == 0) {
                             g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
                         } else {
@@ -648,5 +691,73 @@ public class CustomTableListField extends ListField {//implements ListFieldCallb
         }
         bg_y += header_bg.getHeight();
         row++;
+    }
+    
+    protected boolean navigationMovement(int dx,
+                                     int dy,
+                                     int status,
+                                     int time) {
+
+         //System.out.println("navigationMovement:"+dx+","+dy+","+status+","+time);        
+         invalidate();
+         return false;
+    }
+    
+    public Object get(ListField listField, int index) {
+        if ((index >= 0) && (index < getSize())) {
+            return _elements.elementAt(index);
+        }
+        return null;
+    }
+    
+    public int getPreferredWidth(ListField listField) {
+        return Display.getWidth();
+    }
+    
+    public int indexOfList(ListField listField, String prefix, int start) {
+        return listField.indexOfList(prefix, start);
+    }
+    
+    public boolean keyChar(char key, int status, int time) {
+        if (getSize() > 0 && key == Characters.SPACE) {
+            getScreen().scroll(Manager.DOWNWARD);
+            return true;
+        }
+        return super.keyChar(key, status, time);
+    }
+    
+    public synchronized void saveChanges(DataCentre ni, int index) {
+        try {
+            //to save news as loaded/read
+            System.out.println("saveeeededdd");
+        } catch (Exception e) {
+            System.out.println("aloy.CustomListField.exceptione.saveChanges(ni, index):"+e);
+        }
+    }
+    
+    public boolean navigationClick(int status, int time) {
+        System.out.println("aloy.CustomListField.navigationClick: got enter or not?");
+        
+        
+        return false;
+    }
+    
+    public void remove(int index) {
+        synchronized(lock){
+            _elements.removeElementAt(index);
+            //_pelements.removeElementAt(index);
+            setSize(getSize());
+        }
+        invalidate();
+        
+    }
+        
+    protected void removeAll() {
+        synchronized(lock){
+            _elements.removeAllElements();
+            //_pelements.removeAllElements();
+            setSize(0);
+        }
+        invalidate();
     }
 } 

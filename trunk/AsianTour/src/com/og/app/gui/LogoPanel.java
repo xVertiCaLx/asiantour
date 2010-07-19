@@ -21,13 +21,13 @@ public class LogoPanel extends HorizontalFieldManager {
     }
     
     protected void paint (Graphics g) {
-        g.drawBitmap(0,0,logoIcon.getWidth(),logoIcon.getHeight(),logoIcon, 0,0);
+        g.drawBitmap((GuiConst.SCREENWIDTH - logoIcon.getWidth())/2,0,logoIcon.getWidth(),logoIcon.getHeight(),logoIcon, 0,0);
         //Font font = setFontSize(GuiConst.FONT_BOLD);//((logoIcon.getHeight()-7)/3));
         g.setFont(GuiConst.FONT_BOLD);
         g.setColor(GuiConst.FONT_COLOR_BLACK);
         //int line1width = font.getAdvance("Asian Tour BlackBerry Application");
         String applicationTitle = "Asian Tour BlackBerry App";
-        g.drawText(applicationTitle, ((GuiConst.SCREENWIDTH - GuiConst.FONT_BOLD.getAdvance(applicationTitle)/*font.getAdvance(applicationTitle)*/)/2), logoIcon.getHeight()/3);
+        //g.drawText(applicationTitle, ((GuiConst.SCREENWIDTH - GuiConst.FONT_BOLD.getAdvance(applicationTitle))/2), logoIcon.getHeight()/3);
     }
     
     //------------------------- Mandatory ------------------------------
