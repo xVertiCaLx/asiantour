@@ -110,20 +110,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         1 - TV Schedule
         2 - Tour Schedule
         3 - Live Score*/
-        
-        if (row == 0) {
-            /* header */
-            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
-        } else if ((row != 0) && ((row % 2) == 0)) {
-            /* even row */
-            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
-        } else if ((row != 0) && ((row % 2) == 1)) {
-            /* odd row */
-            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
-        }
-        bg_y += header_bg.getHeight();
-        row++;
-        
+
         switch (table) {
             
             /*TV Schedule*/
