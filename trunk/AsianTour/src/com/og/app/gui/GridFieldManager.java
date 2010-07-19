@@ -25,6 +25,7 @@ package com.og.app.gui;
 
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.TouchEvent;
 
 public class GridFieldManager extends Manager {
 	private int[] columnWidths;
@@ -68,6 +69,13 @@ public class GridFieldManager extends Manager {
 		this.allRowHeight  = rowHeight;
 	}
 	
+	protected boolean touchEvent(TouchEvent message) {
+		invalidate();
+		return super.touchEvent(message);
+		
+	}
+
+
 	protected boolean navigationMovement(int dx, int dy, int status, int time) {
 		
 		int focusIndex = getFieldWithFocusIndex();
