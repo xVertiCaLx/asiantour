@@ -1,6 +1,7 @@
 package com.og.xml;
 
 import java.io.IOException;
+import java.util.Vector;
 
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
@@ -17,7 +18,7 @@ public class XmlHelper {
 	
 	public static String newsXmlString = "";
 	
-	private static void downloadNews(){
+	public static void downloadNews(){
 		if(STATE==STATE_DOWNLOADING){
 			return;
 		}
@@ -27,6 +28,9 @@ public class XmlHelper {
 				public void callback(String data) {
 					STATE = STATE_DOWNLOAD_COMPLETE;
 					newsXmlString = data;
+					System.out.println("Download is complete: " + data);
+					Vector newsCollection = parseDownloadedNews(data);
+					
 				}
 			});
 		} catch (IOException e) {
@@ -36,11 +40,9 @@ public class XmlHelper {
 		}
 	}
 	
-	public static String getDownloadedNews(){
-		downloadNews();
-		if (STATE == STATE_DOWNLOADING) {
-			return "";
-		}		
-		return newsXmlString;
+	private static Vector parseDownloadedNews(String data){
+		Vector newsCollection = new Vector();
+		data = data.substring(data.indexOf("<news>"));
+		return newsCollection;
 	}
 }
