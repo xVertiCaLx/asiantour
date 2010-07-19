@@ -8,7 +8,9 @@ import com.og.rss.*;
 import net.rim.device.api.system.*;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.FontFamily;
+import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
+import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.component.*;
 
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener {
@@ -56,17 +58,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         //add(newsPanel);
         //add(tablePanel);
         
-        GridFieldManager gridFieldManager = new GridFieldManager(new int[]{100,100,100,100,100,100}, HORIZONTAL_SCROLL | HORIZONTAL_SCROLLBAR);
-        
-        FontFamily fontFamily[] = FontFamily.getFontFamilies(); 
-        net.rim.device.api.ui.Font font = fontFamily[1].getFont(FontFamily.CBTF_FONT, 8); 
-        gridFieldManager.add(new NullField(FOCUSABLE));
-        for(int i=0; i<11; i++){
-        	LabelField labelField = new LabelField("Text Text |");
-        	labelField.setFont(font);
-        	gridFieldManager.add(labelField);
-        }
-        add(gridFieldManager);
+        add(tablePanel);
         
     }
     
@@ -184,6 +176,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
     }
     
     public void drawBottomPanel(){
+    	
             /*if ( selectedTab==9)
                 //photopanel.loadPhoto(selectedTab);    
                 newsPanel.loadNews(selectedTab);          

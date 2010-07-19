@@ -13,6 +13,7 @@ public class TablePanel extends VerticalFieldManager{
     private TableListField tableList = null;
     private int fixHeight = 0;
     private ChildNewsPanel childNewsPanel = null;
+    private Bitmap bg_scroll = Bitmap.getBitmapResource("res/background_scroll.png");
     
     Bitmap imgUp = null;
     Bitmap imgDown = null;
@@ -33,9 +34,9 @@ public class TablePanel extends VerticalFieldManager{
         
         tableList = new TableListField(this, listener, tableNo, page);
         childNewsPanel = new ChildNewsPanel(fixHeight);
-        childNewsPanel.add(tableList);
+        //childNewsPanel.add(tableList);
         add(childNewsPanel);
-        loadNews(tableNo);
+        //loadNews(tableNo);
         
     }
     
@@ -53,6 +54,7 @@ public class TablePanel extends VerticalFieldManager{
     public void setFocus() {
            tableList.setFocus();
     }
+    
     
     
     public synchronized void loadNews(int tableNo) {
@@ -95,14 +97,21 @@ public class TablePanel extends VerticalFieldManager{
     }
     
     protected void paint (Graphics g) {
-        super.paint(g);
-        //if (listener.isListFieldFocus()) {
+//    	g.setColor(0x00FFFFFF);
+//        g.fillRect(0, 0,Display.getWidth(), Display.getHeight());
+    	super.paint(g);
+        //if (listener.isListFieldFocus()) {	
+        
+        //g.drawBitmap(Display.getWidth()-imgUp.getWidth(), 0, 10, Display.getHeight(), bg_scroll,0,0);
             if (childNewsPanel.getVerticalScroll() > 0) {
-                g.drawBitmap(Display.getWidth()-imgUp.getWidth(), 0, imgUp.getWidth(), imgUp.getHeight(), imgUp, 0,0);   
+            	 //g.clear(Display.getWidth()-imgDown.getWidth(), 0, imgDown.getWidth(), 400); 
+            	g.drawBitmap(Display.getWidth()-imgUp.getWidth(), 0, imgUp.getWidth(), imgUp.getHeight(), imgUp, 0,0);   
             }
             if ((childNewsPanel.getVerticalScroll() + fixHeight) < (childNewsPanel.getVirtualHeight())) {
-                g.drawBitmap(Display.getWidth()-imgDown.getWidth(), fixHeight-imgDown.getHeight(), imgDown.getWidth(), imgDown.getHeight(), imgDown, 0,0);
+            	 //g.clear(Display.getWidth()-imgDown.getWidth(), 0, imgDown.getWidth(), 400); 
+            	g.drawBitmap(Display.getWidth()-imgDown.getWidth(), fixHeight-imgDown.getHeight(), imgDown.getWidth(), imgDown.getHeight(), imgDown, 0,0);
             }
+           
         //}
     }
     
@@ -112,7 +121,19 @@ public class TablePanel extends VerticalFieldManager{
         
         public ChildNewsPanel(int fixHeight) {
             super(Manager.VERTICAL_SCROLL | Manager.VERTICAL_SCROLLBAR);
+            GridFieldManager g = new GridFieldManager(6, VERTICAL_SCROLL | VERTICAL_SCROLLBAR);
             this.fixHeight = fixHeight;
+            FontFamily fontFamily[] = FontFamily.getFontFamilies(); 
+            net.rim.device.api.ui.Font font = fontFamily[1].getFont(FontFamily.CBTF_FONT, 8); 
+
+            for(int i=0; i<4000; i++){
+            	LabelField labelField = new LabelField("Test " + i, Field.FOCUSABLE);
+            	labelField.select(true);
+            	
+            	labelField.setFont(font);
+            	g.add(labelField);
+            }
+            add(g);
             return;
         }
         
@@ -129,5 +150,6 @@ public class TablePanel extends VerticalFieldManager{
             this.fixHeight = height;
             super.updateLayout();
         }
+        
     }
 } 
