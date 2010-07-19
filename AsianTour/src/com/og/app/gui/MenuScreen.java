@@ -1,9 +1,13 @@
 package com.og.app.gui;
 
+import javax.microedition.lcdui.Font;
+
 import com.og.app.gui.listener.*;
 import com.og.rss.*;
 
 import net.rim.device.api.system.*;
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.FontFamily;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.component.*;
 
@@ -46,23 +50,24 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         newsPanel = NewsPanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
         tablePanel = TablePanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, 1,1);
         
-        GridFieldManager gfm = new GridFieldManager(5, FIELD_HCENTER);
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        gfm.add(new LabelField("String 1)"));
-        
         System.out.println("Display height is: " + Display.getHeight() + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
         add(logoPanel);
         add(tabPanel);
         //add(newsPanel);
-        add(gfm);
+        //add(tablePanel);
+        
+        GridFieldManager gridFieldManager = new GridFieldManager(new int[]{100,100,100,100,100,100}, HORIZONTAL_SCROLL | HORIZONTAL_SCROLLBAR);
+        
+        FontFamily fontFamily[] = FontFamily.getFontFamilies(); 
+        net.rim.device.api.ui.Font font = fontFamily[1].getFont(FontFamily.CBTF_FONT, 8); 
+        gridFieldManager.add(new NullField(FOCUSABLE));
+        for(int i=0; i<11; i++){
+        	LabelField labelField = new LabelField("Text Text |");
+        	labelField.setFont(font);
+        	gridFieldManager.add(labelField);
+        }
+        add(gridFieldManager);
+        
     }
     
     public boolean onClose() {
