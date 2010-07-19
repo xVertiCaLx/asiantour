@@ -3,6 +3,7 @@ package com.og.app.gui;
 import com.og.app.*;
 import com.og.app.gui.listener.*;
 import com.og.app.gui.component.*;
+import com.og.xml.XmlHelper;
 
 import net.rim.device.api.system.*;
 import net.rim.device.api.ui.*;
