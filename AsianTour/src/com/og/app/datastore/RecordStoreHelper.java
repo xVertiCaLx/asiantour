@@ -8,13 +8,15 @@ import net.rim.device.api.system.PersistentStore;
 import com.og.rss.ANewsItemObj;
 
 public class RecordStoreHelper {
+	
+	//Hash of "com.og.app.datastore"
 	public static final long DATASTORE_KEY = 0x8d0ed7fadc56615cL;
 
 	private static PersistentObject getRecordStore(){
 		return PersistentStore.getPersistentObject(DATASTORE_KEY);
 	}
 
-	//Vector<ANewsItemObj>
+	//returns Vector<ANewsItemObj>
 	public static Vector getNewsCollection(){
 		PersistentObject recordStore = getRecordStore();
 		Vector newsCollection = (Vector)recordStore.getContents();
@@ -37,7 +39,7 @@ public class RecordStoreHelper {
 		return getNewsCollection().size();
 	}
 
-	public static boolean isNewsRead(int newsID){
+	public static boolean isNewsExist(int newsID){
 		int newsCount = getNewsCount();
 		if(newsCount==0){
 			return false;
