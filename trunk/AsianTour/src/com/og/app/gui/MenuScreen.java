@@ -46,11 +46,23 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         newsPanel = NewsPanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
         tablePanel = TablePanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, 1,1);
         
+        GridFieldManager gfm = new GridFieldManager(5, FIELD_HCENTER);
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        gfm.add(new LabelField("String 1)"));
+        
         System.out.println("Display height is: " + Display.getHeight() + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
         add(logoPanel);
         add(tabPanel);
         //add(newsPanel);
-        add(tablePanel);
+        add(gfm);
     }
     
     public boolean onClose() {
