@@ -17,6 +17,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
     private LogoPanel logoPanel = null;
     private TabPanel tabPanel = null;
     private NewsPanel newsPanel = null;
+    private TablePanel tablePanel = null;
     private ARssDB rssDB = null;
         
     //--------------------------- Single Turn Controll --------------------------------
@@ -43,11 +44,13 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         GuiConst.TABPANEL_HEIGHT=tabPanel.getPreferredHeight();
         
         newsPanel = NewsPanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
+        tablePanel = TablePanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, 1,1);
         
         System.out.println("Display height is: " + Display.getHeight() + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
         add(logoPanel);
         add(tabPanel);
-        add(newsPanel);
+        //add(newsPanel);
+        add(tablePanel);
     }
     
     public boolean onClose() {
@@ -85,6 +88,18 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
             return;
         } else {
             this.selectedTab = index;
+        }
+        
+        if (previndex == 9) {
+            delete(newsPanel);
+        } else if (previndex == 10) {
+            delete(tablePanel);
+        }
+        
+        if (index == 9) {
+            add(newsPanel);
+        } else if (index == 10) {
+            add(tablePanel);
         }
     
         //setting tab
@@ -130,7 +145,15 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         
         logoPanel.invalidate();
         setSelectedTab(9);//this.selectedTab);
-        tabPanel.reinitTab();                
+        tabPanel.reinitTab();      
+        
+        if (this.selectedTab == 9) {
+            setSelectedTab(9);
+        } else if (this.selectedTab == 10) {
+            setSelectedTab(10);
+        }
+        
+        //newsPanel.loadNews(selectedTab);          
         /*        
         if ( this.selectedTab==Const.ID_SETTING ){
             delete(newscategorypanel);
@@ -144,10 +167,11 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
     }
     
     public void drawBottomPanel(){
-            /*if ( selectedTab==Const.ID_PHOTOGALLERY)
-                photopanel.loadPhoto(selectedTab);             
-            else if ( selectedTab!=Const.ID_SETTING )
-                newsPanel.loadNews(selectedTab);     */        
+            /*if ( selectedTab==9)
+                //photopanel.loadPhoto(selectedTab);    
+                newsPanel.loadNews(selectedTab);          
+            else if ( selectedTab==10 )
+                newsPanel.loadNews(selectedTab);  */      
     }
     
     public boolean isSelectedTabHasNews(){
