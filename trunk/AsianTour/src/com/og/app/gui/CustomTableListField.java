@@ -3,6 +3,7 @@ package com.og.app.gui;
 import com.og.app.gui.GuiConst;
 import com.og.app.gui.listener.*;
 import com.og.app.util.DataCentre;
+import com.og.app.util.Utility;
 
 import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
@@ -36,14 +37,19 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     public int tmpx = 0;
     public int tmpy = 0;
     public int page = 1;
-    public int temp_x = padding;
+    public int temp_x = 0;
+    
+    
+    public int this_x = 0;
+    public int prev_x = 0;
+    public int total_x = 0;
     
     static final int constantColWidth = (GuiConst.SCREENWIDTH / 20);
     
     //header for TV Schedule table
     static final String[] tvLabel = {"Tour Name", "Broadcast Date", "Broadcast Time", "Broadcaster", "Region"};
     //                                  1/2               1               1                  2          2
-    static final int[] tvWidth = {constantColWidth*9,constantColWidth*5,constantColWidth*5,constantColWidth*5,constantColWidth*5};
+    static final int[] tvWidth = {constantColWidth*7,constantColWidth*7,constantColWidth*5,constantColWidth*6,constantColWidth*6};
     
     //header for Tour Schedule table
     static final String[] tourLabel = {"Tour Date", "Country", "Tour Name", "Golf Club", "Def Champion", "Prize Money"};
@@ -62,20 +68,24 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         this.table = table;
         this.page = page;
         this.row = 0;
-        this.text_x = padding;
-        this.text_y = padding;
+        //this.text_x = padding;
+        //this.text_y = padding;
         setEmptyString("", DrawStyle.HCENTER);
         setCallback(this);
-        header_bg = Bitmap.getBitmapResource("res/table_header_bg.png");
+        header_bg = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_header_bg.png"), this.getPreferredWidth(), 14);//Bitmap.getBitmapResource("res/table_header_bg.png");
+        even_bg = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_even_bg.png"), this.getPreferredWidth(), 14);
+        odd_bg = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_odd_bg.png"), this.getPreferredWidth(), 14);
+        
         header_separator = Bitmap.getBitmapResource("res/table_header_separator.png");
-        even_bg = Bitmap.getBitmapResource("res/table_even_bg.png");
         even_separator = Bitmap.getBitmapResource("res/table_even_separator.png");
-        odd_bg = Bitmap.getBitmapResource("res/table_odd_bg.png");
         odd_separator = Bitmap.getBitmapResource("res/table_odd_separator.png");
+        
+        
         setRowHeight(header_bg.getHeight());
     }
     
     public void onUnfocus() {
+    	super.onUnfocus();
     }
     
     public Vector getAllElements() {
@@ -105,7 +115,6 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     
         Font textFont = GuiConst.FONT_TABLE_HEADER;
         
-        
         /* Table No:    
         1 - TV Schedule
         2 - Tour Schedule
@@ -115,73 +124,88 @@ public class CustomTableListField extends ListField implements ListFieldCallback
             
             /*TV Schedule*/
             case 1: 
-                setupBackground(g);
+                
                 if (page == 1) {
-                    if (row == 0) {
+                	
+                    if (index == 0) {
+                    	setupBackground(g, index);
                         //if row is zero, it is a header row, set up Table Header
                         g.setColor(GuiConst.FONT_COLOR_WHITE);
                         g.setFont(textFont);
                         
-                        for (int i = 0; i <= 2; i++) { 
-                            temp_x += ((tvWidth[i]-textFont.getAdvance(tvLabel[i]))/2);
-                            g.drawText(tvLabel[i], temp_x, text_y);
-                            text_x += tvWidth[i]; //+ padding;
+                        for (int i = 0; i < 3; i++) { 
+                        	if ((tvWidth[i]-textFont.getAdvance(tvLabel[i])) > 0){
+                        		this_x = ((tvWidth[i]-textFont.getAdvance(tvLabel[i]))/2)+1;
+                        	} else {
+                        		this_x = 1;
+                        	}
+                            
+                            prev_x += this_x; //+ padding;
+                            
+                            g.drawText(tvLabel[i], prev_x, text_y);
+                            
+                            prev_x += textFont.getAdvance(tvLabel[i]) + this_x;
+                            
                             System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
                             
                             //need to check page
                             if (i != 2) {
                                 //if i equals tvLabel.length, it is already the last colomn, no need to have another separator
-                                g.drawBitmap(text_x, text_y, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
-                                text_x += header_separator.getWidth(); //+ padding;
+                                g.drawBitmap(prev_x, text_y-2, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
+                                prev_x += header_separator.getWidth();//+ padding;
                                 System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                temp_x += text_x;
+                                //temp_x = tvWidth[i];//text_x;
                             }
                         }
                         //next row
-                        text_y += header_separator.getHeight() + padding;
+                        text_y += header_separator.getHeight();
                         text_x = padding;
                         temp_x = padding;
                         row ++;
                     } else {
+                    	setupBackground(g, index);
                         //get content in array and draw list
+                    	//setupBackground(g);
+                    	System.out.println("this is row index : " + index);
                         DataCentre item = (DataCentre)_elements.elementAt(index);
                         textFont = GuiConst.FONT_TABLE;
                         g.setFont(textFont);
-                        g.setColor(GuiConst.FONT_COLOR_TITLE);
+                        g.setColor(GuiConst.FONT_COLOR_BLACK);
                         
                         g.drawText(item.tvName, text_x, text_y);
                         text_x += tvWidth[0];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
+                        if ((index % 2) == 0) {
+                            g.drawBitmap(text_x, text_y-2, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
                         } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
+                            g.drawBitmap(text_x, text_y-2, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
                         }
-                        text_x += header_separator.getWidth();
+                        text_x += header_separator.getWidth()+ padding;
                         
                         g.drawText(item.tvDate, text_x, text_y);
                         text_x += tvWidth[1];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
+                        if ((index % 2) == 0) {
+                            g.drawBitmap(text_x, text_y-2, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
                         } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
+                            g.drawBitmap(text_x, text_y-2, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
                         }
-                        text_x += header_separator.getWidth();
+                        text_x += header_separator.getWidth() + padding;
                         
                         g.drawText(item.tvBroadcastTime, text_x, text_y);
                         text_x += tvWidth[2];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
                         
                         
                         //this is to set it to the next row
-                        text_y += header_separator.getHeight() + padding;
+                        text_y += header_separator.getHeight();
                         //reset value
                         text_x = padding;
                         row ++;
+                        if (row > index) {
+                        	row = 0;
+                        	temp_x = 0;
+                        	text_x = 0;
+                        	prev_x = 0;
+                        	bg_y = 0;
+                        }
                     }
                 } else if (page == 2) {
                     if (row == 0) {
@@ -251,13 +275,14 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         //reset value
                         text_x = padding;
                         row ++;
+                        
                     }
                 }
                 break;
                 
             /*Tour Schedule*/
             case 2: 
-                setupBackground(g);
+                //setupBackground(g);
                 if (page == 1) {
                     if (row == 0) {
                         //if row is zero, it is a header row, set up Table Header
@@ -408,7 +433,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                 
             /*Live Score*/
             case 3: 
-                setupBackground(g);
+                //setupBackground(g);
                 if (page == 1) {
                     if (row == 0) {
                         //if row is zero, it is a header row, set up Table Header
@@ -507,6 +532,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         temp_x = padding;
                         row ++;
                     } else {
+                    	System.out.println("the element's index is: "+ index);
                         //get content in array and draw list
                         DataCentre item = (DataCentre)_elements.elementAt(index);
                         textFont = GuiConst.FONT_TABLE;
@@ -665,20 +691,22 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     //192.168.1.48 HPJET 3030
     }
     
-    public void setupBackground(Graphics g) {
-        if (row == 0) {
+    public void setupBackground(Graphics g, int index) {
+        if (index == 0) {
             /* header */
             g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
-            System.out.println("background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
-        } else if ((row != 0) && ((row % 2) == 0)) {
+            System.out.println("1background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+        } else if ((index != 0) && ((index % 2) == 0)) {
             /* even row */
             g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
-        } else if ((row != 0) && ((row % 2) == 1)) {
+            System.out.println("2background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+        } else if ((index != 0) && ((index % 2) == 1)) {
             /* odd row */
             g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
+            System.out.println("3background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
         }
-        bg_y += header_bg.getHeight()+padding;
-        row++;
+        bg_y += header_bg.getHeight();
+        //row+=1;
     }
     
     protected boolean navigationMovement(int dx,
@@ -687,7 +715,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                                      int time) {
 
          //System.out.println("navigationMovement:"+dx+","+dy+","+status+","+time);        
-         invalidate();
+         //invalidate();
          return false;
     }
     

@@ -1,13 +1,17 @@
 package com.og.app.gui;
 
-import net.rim.device.api.system.Display;
-import net.rim.device.api.ui.component.Dialog;
-import net.rim.device.api.ui.container.MainScreen;
+import javax.microedition.lcdui.Font;
 
-import com.og.app.gui.listener.ListFieldListener;
-import com.og.app.gui.listener.TabListener;
-import com.og.rss.ARssDB;
-import com.og.xml.XmlHelper;
+import com.og.app.gui.listener.*;
+import com.og.rss.*;
+
+import net.rim.device.api.system.*;
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.FontFamily;
+import net.rim.device.api.ui.container.HorizontalFieldManager;
+import net.rim.device.api.ui.container.MainScreen;
+import net.rim.device.api.ui.container.VerticalFieldManager;
+import net.rim.device.api.ui.component.*;
 
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener {
     
@@ -52,8 +56,8 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         add(logoPanel);
         add(tabPanel);
         //add(newsPanel);
-        //add(tablePanel);
         add(tablePanel);
+        
     }
     
     public boolean onClose() {

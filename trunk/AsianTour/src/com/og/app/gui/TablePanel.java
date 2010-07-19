@@ -13,12 +13,14 @@ public class TablePanel extends VerticalFieldManager{
     private TableListField tableList = null;
     private int fixHeight = 0;
     private ChildNewsPanel childNewsPanel = null;
-    private Bitmap bg_scroll = Bitmap.getBitmapResource("res/background_scroll.png");
+    //private Bitmap bg_scroll = Bitmap.getBitmapResource("res/background_scroll.png");
     
     Bitmap imgUp = null;
     Bitmap imgDown = null;
     
     private int tableNo = 1;
+    
+    
     
     private TablePanel (ListFieldListener listener, int fixHeight, int tableNo, int page) {
         super();
@@ -34,9 +36,9 @@ public class TablePanel extends VerticalFieldManager{
         
         tableList = new TableListField(this, listener, tableNo, page);
         childNewsPanel = new ChildNewsPanel(fixHeight);
-        //childNewsPanel.add(tableList);
+        childNewsPanel.add(tableList);
         add(childNewsPanel);
-        //loadNews(tableNo);
+        loadNews(tableNo);
         
     }
     
@@ -52,10 +54,9 @@ public class TablePanel extends VerticalFieldManager{
     } 
     
     public void setFocus() {
-           tableList.setFocus();
+       tableList.setFocus();
+    	//super.setFocus();
     }
-    
-    
     
     public synchronized void loadNews(int tableNo) {
     
@@ -76,9 +77,9 @@ public class TablePanel extends VerticalFieldManager{
             
             displayLabel.setFont(GuiConst.FONT_PLAIN);
             HorizontalFieldManager hfm = new HorizontalFieldManager();
-            hfm.add(new SpaceField(3));
+            //hfm.add(new SpaceField(3));
             hfm.add(displayLabel);
-            hfm.add(new SpaceField(3));
+            //hfm.add(new SpaceField(3));
             childNewsPanel.add(hfm);
             
         } else {
@@ -97,8 +98,7 @@ public class TablePanel extends VerticalFieldManager{
     }
     
     protected void paint (Graphics g) {
-//    	g.setColor(0x00FFFFFF);
-//        g.fillRect(0, 0,Display.getWidth(), Display.getHeight());
+
     	super.paint(g);
         //if (listener.isListFieldFocus()) {	
         
@@ -121,19 +121,22 @@ public class TablePanel extends VerticalFieldManager{
         
         public ChildNewsPanel(int fixHeight) {
             super(Manager.VERTICAL_SCROLL | Manager.VERTICAL_SCROLLBAR);
-            GridFieldManager g = new GridFieldManager(6, VERTICAL_SCROLL | VERTICAL_SCROLLBAR);
+            /*GridFieldManager g = new GridFieldManager(6, VERTICAL_SCROLL | VERTICAL_SCROLLBAR);
             this.fixHeight = fixHeight;
             FontFamily fontFamily[] = FontFamily.getFontFamilies(); 
-            net.rim.device.api.ui.Font font = fontFamily[1].getFont(FontFamily.CBTF_FONT, 8); 
+            net.rim.device.api.ui.Font font = fontFamily[1].getFont(FontFamily.CBTF_FONT, 12); 
 
             for(int i=0; i<4000; i++){
             	LabelField labelField = new LabelField("Test " + i, Field.FOCUSABLE);
             	labelField.select(true);
             	
-            	labelField.setFont(font);
+            	labelField.setFont(GuiConst.FONT_TABLE);//font);
             	g.add(labelField);
             }
-            add(g);
+            add(g);*/
+            
+            this.fixHeight = fixHeight;
+            
             return;
         }
         
