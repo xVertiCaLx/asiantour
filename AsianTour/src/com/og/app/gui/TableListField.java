@@ -24,6 +24,7 @@ public class TableListField extends CustomTableListField {
     
     protected synchronized boolean navigationMovement(int dx, int dy, int status, int time) {
                 tablePanel.invalidate();
+                System.out.println("this");
                 return false;
     }
     

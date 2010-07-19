@@ -24,6 +24,7 @@
 package com.og.app.gui;
 
 import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.TouchEvent;
 
@@ -73,6 +74,13 @@ public class GridFieldManager extends Manager {
 		invalidate();
 		return super.touchEvent(message);
 		
+	}
+
+	protected void drawFocus(Graphics g, boolean on) {
+		// TODO Auto-generated method stub
+		g.clear();
+		g.setColor(0x00000000);
+		super.drawFocus(g, on);
 	}
 
 
