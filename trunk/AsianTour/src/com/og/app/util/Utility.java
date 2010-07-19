@@ -476,7 +476,7 @@ public class Utility{
     			{
     				connection = (HttpConnection) Connector.open(url, Connector.READ, true);
     				inputStream = connection.openInputStream();
-    				byte[] responseData = new byte[10000];
+    				byte[] responseData = new byte[1000000];
     				int length = 0;
     				StringBuffer rawResponse = new StringBuffer();
     				while (-1 != (length = inputStream.read(responseData)))

@@ -6,6 +6,7 @@ import com.og.app.object.*;
 import com.og.app.*;
 import com.og.app.util.*;
 import com.og.rss.*;
+import com.og.xml.XmlHelper;
 
 import net.rim.device.api.ui.*;
 import net.rim.device.api.ui.container.*;
@@ -79,7 +80,7 @@ public class SplashScreen extends MainScreen implements Runnable
         return true;
     }  
        
-    public void run(){      
+    public void run(){
         boolean firsttimeuser = false;
         try{
                 String lastbuilddate = "";
