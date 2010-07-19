@@ -30,6 +30,10 @@ public class RecordStoreHelper {
 
 	//Vector<ANewsItemObj>
 	public static void setNewsCollection(Vector aNewsItemObj){
+		//Ensures only latest 20 news is stored.
+		while(aNewsItemObj.size() > 20){
+			aNewsItemObj.removeElementAt(0);
+		}
 		PersistentObject recordStore = getRecordStore();
 		recordStore.setContents(aNewsItemObj);
 		recordStore.commit();
