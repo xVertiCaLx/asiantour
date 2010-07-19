@@ -26,7 +26,7 @@ public class LogoPanel extends HorizontalFieldManager {
         g.setFont(GuiConst.FONT_BOLD);
         g.setColor(GuiConst.FONT_COLOR_BLACK);
         //int line1width = font.getAdvance("Asian Tour BlackBerry Application");
-        String applicationTitle = "Asian Tour BlackBerry App";
+        //String applicationTitle = "Asian Tour BlackBerry App";
         //g.drawText(applicationTitle, ((GuiConst.SCREENWIDTH - GuiConst.FONT_BOLD.getAdvance(applicationTitle))/2), logoIcon.getHeight()/3);
     }
     

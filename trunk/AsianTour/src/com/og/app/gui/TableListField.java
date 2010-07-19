@@ -42,7 +42,7 @@ public class TableListField extends CustomTableListField {
             if (tableNo == 1) {
                 
                 for (int i =0; i <5; i++) {
-                    if (i == 1) {
+                    /*if (i == 1) {
                         item[i] = new DataCentre("Asian Tour Highlights", "TBC", "TBC", "Guangdong Golf Channel", "China");
                     } else if (i == 2) {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "PCCW, Golf Tour Channel #683", "Hong Kong");
@@ -52,19 +52,25 @@ public class TableListField extends CustomTableListField {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
                     } else {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "Sky Sports 3 Digital", "UK");
-                    }
+                    }*/
+                	
+                	item[i] = new DataCentre("a" + i, "b", "c"+1, "d", "e"+i );
+                	
                     add(item[i]);
                 }
                 
             } else if (tableNo == 2) {
                 for (int i =0; i <5; i++) {
-                    if (i == 1) {
+                    /*if (i == 1) {
                         item[i] = new DataCentre("January 6-9", "Thailand", "Qualifying School First Stage ", "Creek GR, Kaeng Krachan CCR & Rayong CC", "none", "$0");
                     } else if (i == 2) {
                         item[i] = new DataCentre("January 13-16", "Thailand", "Qualifying School Final Stage", "Creek GR, Kaeng Krachan CCR & Rayong CC", "Artemio MURAKAMI", "$0");
                     } else if ((i >= 3)||(i ==0)) {
                         item[i] = new DataCentre("February 4-7", "Thailand", "Asian Tour International", "Suwan Golf and Country Club", "Gaganjeet BHULLAR", "$300,000");
-                    }
+                    }*/
+                	
+                	item[i] = new DataCentre("ab" + i, "bb", "cb"+1, "db", "eb"+i, "fb");
+                	
                     add(item[i]);
                 }
             }

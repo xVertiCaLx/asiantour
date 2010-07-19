@@ -669,6 +669,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         if (row == 0) {
             /* header */
             g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
+            System.out.println("background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
         } else if ((row != 0) && ((row % 2) == 0)) {
             /* even row */
             g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
@@ -676,7 +677,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
             /* odd row */
             g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
         }
-        bg_y += header_bg.getHeight();
+        bg_y += header_bg.getHeight()+padding;
         row++;
     }
     
