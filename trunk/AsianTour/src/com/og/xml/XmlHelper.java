@@ -37,7 +37,6 @@ public class XmlHelper {
 					newsXmlString = data;
 					System.out.println("Download is complete: " + data);
 					Vector newsCollection = parseDownloadedNews(data);
-					
 				}
 			});
 		} catch (IOException e) {
@@ -48,9 +47,9 @@ public class XmlHelper {
 	}
 	
 	private static Vector parseDownloadedNews(String data){
-		Vector newsCollection = new Vector();
+		Vector newsCollection = null;
 		data = data.substring(data.indexOf("<news>"));
-		XmlNewsParser.parse(data);
+		newsCollection = XmlNewsParser.parse(data);
 		return newsCollection;
 	}
 }

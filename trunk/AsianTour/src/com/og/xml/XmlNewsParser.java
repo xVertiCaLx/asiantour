@@ -19,13 +19,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class XmlNewsParser {
-	
-	public static XmlNewsItem parse(String strToParse){
-		XmlNewsItem item = null;
+	//Vector<XmlNewsItem>
+	public static Vector parse(String strToParse){
 		byte[] xmlByteArray = strToParse.getBytes();
 		ByteArrayInputStream xmlStream = new ByteArrayInputStream(xmlByteArray);
 		InputStreamReader xmlReader = new InputStreamReader(xmlStream);
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory. newInstance(); 
+		Vector xmlNewsItemCollection = new Vector();
 		try {
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(xmlStream);
@@ -33,7 +33,7 @@ public class XmlNewsParser {
 			NodeList list = doc.getElementsByTagName("*");
 			String node = "";
 			String element = "";
-			Vector xmlNewsItemCollection = new Vector();
+			
 			XmlNewsItem xmlNewsItem = new XmlNewsItem();
 			for(int i=0; i<list.getLength(); i++){
 				Node value = list.item(i).getChildNodes().item(0);
@@ -86,6 +86,6 @@ public class XmlNewsParser {
 			e.printStackTrace();
 		}
 
-		return item;
+		return xmlNewsItemCollection;
 	}
 }
