@@ -7,8 +7,9 @@ public class XmlNewsItem {
 	public String title = "";
 	public String description = "";
 	public String thumbnailURL = "";
+	public String imageURL = "";
 	public Calendar pubDate = null;
-	
+	public String author = "";
 //	public XmlNewsItem(String link, String title, String description, String thumbnailURL, Date pubDate){
 //		this.link = link;
 //		this.title = title;

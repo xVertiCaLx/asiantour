@@ -43,7 +43,7 @@ public class RecordStoreHelper {
 		return getNewsCollection().size();
 	}
 
-	public static boolean isNewsExist(int newsID){
+	public static boolean isNewsExist(String newsID){
 		int newsCount = getNewsCount();
 		if(newsCount==0){
 			return false;
@@ -51,7 +51,7 @@ public class RecordStoreHelper {
 		Vector newsCollection = getNewsCollection();
 		for(int i=0 ;i< newsCount; i++){
 			ANewsItemObj news = (ANewsItemObj)newsCollection.elementAt(i);
-			if(newsID == news.index){
+			if(newsID.equals(news.guid)){
 				return true;
 			}
 		}
