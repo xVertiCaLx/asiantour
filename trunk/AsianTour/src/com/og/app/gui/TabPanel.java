@@ -17,6 +17,7 @@ class TabPanel extends HorizontalFieldManager {
     private static TabPanel tabPanel = null;
     private ChildTabPanel childTabPanel = null;
     private TabListener listener = null;
+    private FocusChangeListener focusChangeListener = null;
     private TabField tabNext= null;
     private TabField tabPrev = null;
     private EmptyTabField emptyTabField = null;
@@ -40,7 +41,7 @@ class TabPanel extends HorizontalFieldManager {
     private TabPanel(TabListener listener) {
         super();        
         this.listener=listener;
-        
+        this.focusChangeListener = (FocusChangeListener) listener;
         /*-- START -- for bold & gemini version-- */
         tabNext = new TabField(TABID_NEXT, "", Bitmap.getBitmapResource("res/tab_next.png"), GuiConst.FONT_PLAIN, GuiConst.FONT_PLAIN, Field.NON_FOCUSABLE);
         tabPrev = new TabField(TABID_PREV, "", Bitmap.getBitmapResource("res/tab_prev.png"), GuiConst.FONT_PLAIN, GuiConst.FONT_PLAIN, Field.NON_FOCUSABLE);
@@ -85,6 +86,7 @@ class TabPanel extends HorizontalFieldManager {
             TabField tabField = new TabField(count,text,null,GuiConst.FONT_BOLD,GuiConst.FONT_BOLD_UNDERLINED);//new TabField(count,text,null,GuiConst.FONT_BOLD,GuiConst.FONT_BOLD_UNDERLINED);
             System.out.println("Aloys's 4ID: " + count + ", Name: " + text);
             tabField.setTabListener(listener);
+            tabField.setFocusListener(focusChangeListener);
             tabFields.addElement(tabField);
             childTabPanel.add(tabField);    
             childTabPanel.addChildWidth(tabField.getPreferredWidth());
