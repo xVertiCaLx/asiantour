@@ -26,6 +26,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
     private TablePanel tablePanel = null;
     private ARssDB rssDB = null;
         
+    private boolean isFocusEventBlocked = false;
     //--------------------------- Single Turn Controll --------------------------------
     public synchronized static MenuScreen getInstance() {
         if (thisInstance == null) { 
@@ -85,54 +86,18 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         return selectedTab;
     }
     
-    public void setSelectedTab(int index) {
-        int previndex = selectedTab;
-        
-        if (index == TabPanel.TABID_NEXT) {
-            //showNextCategory();
-            return;
-        } else if (index == TabPanel.TABID_PREV) {
-            //showPrevCategory();
-            return;
-        } else {
-            this.selectedTab = index;
-        }
-        
-        if (previndex == 9) {
-            delete(newsPanel);
-        } else if (previndex == 10) {
-            delete(tablePanel);
-        }
-        
-        if (index == 9) {
-            add(newsPanel);
-        } else if (index == 10) {
-            add(tablePanel);
-        }
-    
-        //setting tab
-        /*if ( previndex==Const.ID_SETTING)
-            delete(newscategorypanel);
-        else if ( previndex==Const.ID_PHOTOGALLERY)
-            delete(photopanel);        
-        else
-            delete(newspanel);
-            
-        if ( index==Const.ID_SETTING){
-                newscategorypanel = new NewsCategoryPanel(rssdb, newspanel.getPreferredHeight(),this);
-                add(newscategorypanel);
-        }else if ( index==Const.ID_PHOTOGALLERY){
-                this.removeAllMenuItems();
-                addMenuItems();                            
-                add(photopanel);        
-        }else{
-                this.removeAllMenuItems();
-                addMenuItems();                
-                add(newspanel);                        
-        }
-        
-        drawBottomPanel();    */
-        
+    public void setSelectedTab(int tabID) {
+    	for(int i=0; i<getFieldCount(); i++){
+    		Field f = getField(i);
+    		if(f instanceof TabField){
+    			TabField tf = (TabField)f;
+    			if(tabID == tf.getTabID()){
+    				tf.setFocus();
+    				selectedTab = tabID;
+    				return;
+    			}
+    		}
+    	}
     }
     
     public void setTabOnFocus(boolean isFocus){
@@ -209,6 +174,9 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 //END -- method for ListFieldListener
 
 	public void focusChanged(Field field, int eventType) {
+		if(isFocusEventBlocked){
+			return;
+		}
 		if(field instanceof TabField){
 			TabField f = (TabField)field;
 				if(eventType == FOCUS_LOST){
@@ -218,7 +186,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 					System.out.println("Tab " + f.getTabID() + " is out of focus!, Selected Tab: " + selectedTab);
 				}
 				else{
-					if(f.getTabID()==selectedTab && selectedTab!=1){
+					if(f.getTabID()==selectedTab){
 						return;
 					}
 					System.out.println("Tab " + f.getTabID() + " is in focus!");
@@ -230,6 +198,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 						case TabPanel.TAB_LIVE_SCORE:
 							break;
 						case TabPanel.TAB_TV_SCHEDULE:
+							showTVScheduleTab();
 							break;
 						case TabPanel.TAB_TOUR_SCHEDULE:
 							break;
@@ -242,11 +211,23 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	
 	private void showNewsTab(){
 		this.deleteAll();
+		isFocusEventBlocked = true;
 		add(logoPanel);
         add(tabPanel);
         add(newsPanel);
+        setSelectedTab(TabPanel.TAB_NEWS);
+        isFocusEventBlocked = false;
 	}
     
+	private void showTVScheduleTab(){
+		this.deleteAll();
+		isFocusEventBlocked = true;
+		add(logoPanel);
+        add(tabPanel);
+        add(tablePanel);
+        setSelectedTab(TabPanel.TAB_TV_SCHEDULE);
+        isFocusEventBlocked = false;
+	}
     
     /*--------------------------- Example of making a Horizontal Field Manager ----------------
     
