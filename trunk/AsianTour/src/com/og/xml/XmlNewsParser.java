@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.Vector;
 
+import javax.microedition.lcdui.Image;
+
 import net.rim.device.api.util.StringUtilities;
 import net.rim.device.api.xml.parsers.DocumentBuilder;
 import net.rim.device.api.xml.parsers.DocumentBuilderFactory;
@@ -50,6 +52,8 @@ public class XmlNewsParser {
 					xmlNewsItem.description = element;
 				}else if(node.equals("thumbnail")){
 					xmlNewsItem.thumbnailURL = element;
+				}else if(node.equals("image")){
+					xmlNewsItem.imageURL = element;
 				}else if(node.equals("pubDate")){
 					String dateString = element;
 					String gmt = "GMT" + dateString.substring(dateString.indexOf(" +"));
@@ -70,6 +74,8 @@ public class XmlNewsParser {
 					calendar.set(Calendar.MINUTE, Integer.parseInt(dateWords[5]));
 					calendar.set(Calendar.SECOND, Integer.parseInt(dateWords[6]));
 					xmlNewsItem.pubDate = calendar;
+				}else if(node.equals("author")){
+					xmlNewsItem.author = element;
 				}
 			}
 		} catch (ParserConfigurationException e) {

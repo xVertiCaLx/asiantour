@@ -1,11 +1,14 @@
 package com.og.app.gui;
 
+import java.util.Vector;
+
 import net.rim.device.api.system.Display;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.FocusChangeListener;
 import net.rim.device.api.ui.component.Dialog;
 import net.rim.device.api.ui.container.MainScreen;
 
+import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.component.TabField;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.gui.listener.TabListener;
@@ -14,6 +17,9 @@ import com.og.xml.XmlHelper;
 
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener, FocusChangeListener {
     
+	//Vector<ANewsItemObj>
+	public static Vector newsCollection = new Vector();
+	
     public static MenuScreen thisInstance = null;
     
     private int selectedTab = 1;
@@ -41,7 +47,8 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         fieldInit();
         //LabelField lblTitle = new LabelField("Asian Tour", LabelField.ELLIPSIS | LabelField.USE_ALL_WIDTH);
         //setTitle(lblTitle);
-        XmlHelper.downloadNews();
+        newsCollection = RecordStoreHelper.getNewsCollection();
+        //XmlHelper.downloadNews();
     }
     
     public void fieldInit() {
