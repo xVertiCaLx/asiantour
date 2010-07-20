@@ -1,7 +1,14 @@
 package com.og.xml;
 
+import java.io.DataInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Vector;
+
+import net.rim.device.api.xml.jaxp.XMLParser;
+import net.rim.device.api.xml.parsers.DocumentBuilder;
+import net.rim.device.api.xml.parsers.DocumentBuilderFactory;
+import net.rim.device.api.xml.parsers.ParserConfigurationException;
 
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
@@ -43,6 +50,7 @@ public class XmlHelper {
 	private static Vector parseDownloadedNews(String data){
 		Vector newsCollection = new Vector();
 		data = data.substring(data.indexOf("<news>"));
+		XmlNewsParser.parse(data);
 		return newsCollection;
 	}
 }

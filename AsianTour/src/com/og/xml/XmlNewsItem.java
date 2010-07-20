@@ -1,5 +1,19 @@
 package com.og.xml;
 
+import java.util.Calendar;
+
 public class XmlNewsItem {
-	//TO-DO
+	public String id = "";
+	public String title = "";
+	public String description = "";
+	public String thumbnailURL = "";
+	public Calendar pubDate = null;
+	
+//	public XmlNewsItem(String link, String title, String description, String thumbnailURL, Date pubDate){
+//		this.link = link;
+//		this.title = title;
+//		this.description = description;
+//		this.thumbnailURL = thumbnailURL;
+//		this.pubDate = pubDate;
+//	}
 }

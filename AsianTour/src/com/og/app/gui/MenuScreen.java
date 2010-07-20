@@ -4,6 +4,7 @@ import javax.microedition.lcdui.Font;
 
 import com.og.app.gui.listener.*;
 import com.og.rss.*;
+import com.og.xml.XmlHelper;
 
 import net.rim.device.api.system.*;
 import net.rim.device.api.ui.Field;
@@ -40,6 +41,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         fieldInit();
         //LabelField lblTitle = new LabelField("Asian Tour", LabelField.ELLIPSIS | LabelField.USE_ALL_WIDTH);
         //setTitle(lblTitle);
+        XmlHelper.downloadNews();
     }
     
     public void fieldInit() {
