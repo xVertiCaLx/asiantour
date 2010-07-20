@@ -112,7 +112,8 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     public void drawListRow(ListField listField, Graphics g, int index, int y, int width) {
     
         //int rowHeight = getRowHeight();
-    
+    	
+    	System.out.println("BIG ALERT!!!!!! aloy.drawList.index:"+ index);
         Font textFont = GuiConst.FONT_TABLE_HEADER;
         
         /* Table No:    
@@ -126,9 +127,10 @@ public class CustomTableListField extends ListField implements ListFieldCallback
             case 1: 
                 
                 if (page == 1) {
-                	
+                	text_y = y + 2;
                     if (index == 0) {
-                    	setupBackground(g, index);
+                    	setupBackground(g, index, y);
+                    	System.out.println("aloy.enter case 1 and row 0");
                         //if row is zero, it is a header row, set up Table Header
                         g.setColor(GuiConst.FONT_COLOR_WHITE);
                         g.setFont(textFont);
@@ -140,6 +142,8 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         		this_x = 1;
                         	}
                             
+                        	//text_y = y+2;
+                        	System.out.println(text_y + " "+ y);
                             prev_x += this_x; //+ padding;
                             
                             g.drawText(tvLabel[i], prev_x, text_y);
@@ -158,12 +162,13 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                             }
                         }
                         //next row
-                        text_y += header_separator.getHeight();
+                        //text_y += header_separator.getHeight();
                         text_x = padding;
                         temp_x = padding;
+                        prev_x = 0;
                         row ++;
                     } else {
-                    	setupBackground(g, index);
+                    	setupBackground(g, index, y);
                         //get content in array and draw list
                     	//setupBackground(g);
                     	System.out.println("this is row index : " + index);
@@ -174,19 +179,19 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         
                         g.drawText(item.tvName, text_x, text_y);
                         text_x += tvWidth[0];
-                        if ((index % 2) == 0) {
-                            g.drawBitmap(text_x, text_y-2, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
+                        if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
+                            g.drawBitmap(text_x, text_y-2, even_separator.getWidth(), even_separator.getHeight(), odd_separator, 0,0);
                         } else {
-                            g.drawBitmap(text_x, text_y-2, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
+                            g.drawBitmap(text_x, text_y-2, odd_separator.getWidth(), odd_separator.getHeight(), even_separator, 0,0);
                         }
                         text_x += header_separator.getWidth()+ padding;
                         
                         g.drawText(item.tvDate, text_x, text_y);
                         text_x += tvWidth[1];
-                        if ((index % 2) == 0) {
-                            g.drawBitmap(text_x, text_y-2, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
+                        if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
+                            g.drawBitmap(text_x, text_y-2, even_separator.getWidth(), even_separator.getHeight(), odd_separator, 0,0);
                         } else {
-                            g.drawBitmap(text_x, text_y-2, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
+                            g.drawBitmap(text_x, text_y-2, odd_separator.getWidth(), odd_separator.getHeight(), even_separator, 0,0);
                         }
                         text_x += header_separator.getWidth() + padding;
                         
@@ -202,9 +207,9 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         if (row > index) {
                         	row = 0;
                         	temp_x = 0;
-                        	text_x = 0;
+                        	text_x = 2;
                         	prev_x = 0;
-                        	bg_y = 0;
+                        	bg_y = y;
                         }
                     }
                 } else if (page == 2) {
@@ -691,20 +696,36 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     //192.168.1.48 HPJET 3030
     }
     
-    public void setupBackground(Graphics g, int index) {
+    public void setupBackground(Graphics g, int index, int bg_y) {
+        this.bg_y = bg_y;
+        
+//    	if (index == 0) {
+//            /* header */
+//            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
+//            System.out.println("1background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+//        } else if ((index != 0) && ((index % 2) == 0)) {
+//            /* even row */
+//            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
+//            System.out.println("2background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+//        } else if ((index != 0) && ((index % 2) == 1)) {
+//            /* odd row */
+//            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
+//            System.out.println("3background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+//        }
+        
         if (index == 0) {
-            /* header */
-            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
-            System.out.println("1background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
-        } else if ((index != 0) && ((index % 2) == 0)) {
-            /* even row */
-            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
-            System.out.println("2background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
-        } else if ((index != 0) && ((index % 2) == 1)) {
-            /* odd row */
-            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
-            System.out.println("3background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+        	g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
+    		System.out.println("header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+        } else {
+        	if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
+        		g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
+        		System.out.println("this is a selected row, so use ODD bg, header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+        	} else {
+        		g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
+        		System.out.println("this is NOT a selected row, so use EVEN bg, header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+        	}
         }
+        
         bg_y += header_bg.getHeight();
         //row+=1;
     }
