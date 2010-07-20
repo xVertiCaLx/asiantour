@@ -21,7 +21,8 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
     
     private LogoPanel logoPanel = null;
     private TabPanel tabPanel = null;
-    private NewsPanel newsPanel = null;
+
+	private NewsPanel newsPanel = null;
     private TablePanel tablePanel = null;
     private ARssDB rssDB = null;
         
@@ -210,11 +211,40 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	public void focusChanged(Field field, int eventType) {
 		if(field instanceof TabField){
 			TabField f = (TabField)field;
-			if(selectedTab!=f.getTabID()){
-				selectedTab = f.getTabID();
-				System.out.println("Tab " + selectedTab + " is in focus!");
-			}
+				if(eventType == FOCUS_LOST){
+					if(f.getTabID()==selectedTab){
+						return;
+					}
+					System.out.println("Tab " + f.getTabID() + " is out of focus!, Selected Tab: " + selectedTab);
+				}
+				else{
+					if(f.getTabID()==selectedTab && selectedTab!=1){
+						return;
+					}
+					System.out.println("Tab " + f.getTabID() + " is in focus!");
+					selectedTab = f.getTabID();
+					switch(selectedTab){
+						case TabPanel.TAB_NEWS:
+							showNewsTab();
+							break;
+						case TabPanel.TAB_LIVE_SCORE:
+							break;
+						case TabPanel.TAB_TV_SCHEDULE:
+							break;
+						case TabPanel.TAB_TOUR_SCHEDULE:
+							break;
+						case TabPanel.TAB_ORDER_OF_MERIT:
+							break;
+					}
+				}					
 		}		
+	}
+	
+	private void showNewsTab(){
+		this.deleteAll();
+		add(logoPanel);
+        add(tabPanel);
+        add(newsPanel);
 	}
     
     

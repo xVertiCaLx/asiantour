@@ -1,16 +1,18 @@
 package com.og.app.gui;
 
-import com.og.app.*;
-import com.og.app.gui.listener.*;
-import com.og.app.gui.component.*;
-import com.og.xml.XmlHelper;
+import java.util.Vector;
 
-import net.rim.device.api.system.*;
-import net.rim.device.api.ui.*;
+import net.rim.device.api.system.Bitmap;
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.FocusChangeListener;
+import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.component.BitmapField;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
-import net.rim.device.api.ui.component.*;
 
-import java.util.*;
+import com.og.app.Const;
+import com.og.app.gui.component.EmptyTabField;
+import com.og.app.gui.component.TabField;
+import com.og.app.gui.listener.TabListener;
 
 class TabPanel extends HorizontalFieldManager {
     
@@ -28,6 +30,12 @@ class TabPanel extends HorizontalFieldManager {
     public final static int TABID_PREV = -11;
     private Bitmap img_logo= null;
     private BitmapField btn_logo= null;
+    
+    public static final int TAB_NEWS = 1;
+    public static final int TAB_LIVE_SCORE = 2;
+    public static final int TAB_TV_SCHEDULE = 3;
+    public static final int TAB_TOUR_SCHEDULE = 4;
+    public static final int TAB_ORDER_OF_MERIT = 5;
     
     int count = 0;
     
