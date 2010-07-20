@@ -18,7 +18,7 @@ import com.og.xml.XmlHelper;
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener, FocusChangeListener {
     
 	//Vector<ANewsItemObj>
-	public static Vector newsCollection = new Vector();
+	public Vector newsCollection = new Vector();
 	
     public static MenuScreen thisInstance = null;
     
@@ -43,12 +43,13 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
     
     public MenuScreen() {
         super();
+        thisInstance = this;
         GuiConst.reinitFont();
         fieldInit();
         //LabelField lblTitle = new LabelField("Asian Tour", LabelField.ELLIPSIS | LabelField.USE_ALL_WIDTH);
         //setTitle(lblTitle);
         newsCollection = RecordStoreHelper.getNewsCollection();
-        //XmlHelper.downloadNews();
+        XmlHelper.downloadNews();
     }
     
     public void fieldInit() {
@@ -73,6 +74,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         if(Dialog.ask(Dialog.D_YES_NO, "Do you want to exit?") == Dialog.YES)
         {
             System.out.println("aloy.endapp");
+            RecordStoreHelper.setNewsCollection(newsCollection);
             clearResource();
             System.exit(0);
         }
@@ -224,6 +226,8 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         add(newsPanel);
         setSelectedTab(TabPanel.TAB_NEWS);
         isFocusEventBlocked = false;
+        System.out.println("newsCollection has " + newsCollection.size() + " news.");
+        NewsPanel.newsPanel.newsList.setSize(newsCollection.size());
 	}
     
 	private void showTVScheduleTab(){

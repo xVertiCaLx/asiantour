@@ -10,8 +10,8 @@ import net.rim.device.api.ui.component.*;
 
 public class NewsPanel extends VerticalFieldManager {
     
-    private static NewsPanel newsPanel = null;
-    private NewsListField newsList = null;
+    public static NewsPanel newsPanel = null;
+    public NewsListField newsList = null;
     private int fixHeight = 0;
     private ChildNewsPanel childNewsPanel = null;
     
@@ -33,10 +33,7 @@ public class NewsPanel extends VerticalFieldManager {
         childNewsPanel = new ChildNewsPanel(fixHeight);
         childNewsPanel.add(newsList);
         add(childNewsPanel);
-        loadNews(0);
-       
-        
-        
+        loadNews(0);  
         
         
     }
@@ -65,7 +62,7 @@ public class NewsPanel extends VerticalFieldManager {
         
         Field field = childNewsPanel.getField(0);
         
-        if (newsList.getSize() == 0) {
+        if (MenuScreen.getInstance().newsCollection.size() == 0) {
             childNewsPanel.deleteAll();
             String txtNoNews = "There are no available content at the moment.";
             
