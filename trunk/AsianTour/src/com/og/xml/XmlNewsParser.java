@@ -2,9 +2,7 @@ package com.og.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 import java.util.Vector;
 
@@ -23,7 +21,6 @@ public class XmlNewsParser {
 	public static Vector parse(String strToParse){
 		byte[] xmlByteArray = strToParse.getBytes();
 		ByteArrayInputStream xmlStream = new ByteArrayInputStream(xmlByteArray);
-		InputStreamReader xmlReader = new InputStreamReader(xmlStream);
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory. newInstance(); 
 		Vector xmlNewsItemCollection = new Vector();
 		try {
