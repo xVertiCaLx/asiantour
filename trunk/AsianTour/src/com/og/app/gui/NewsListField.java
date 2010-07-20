@@ -13,7 +13,7 @@ import net.rim.device.api.ui.*;
 public class NewsListField extends CustomListField {
         private NewsPanel newsPanel = null;
         private String feedname = "";
-        int newsID = 0;
+        private int newsID = 0;
         ANewsItemObj[] item = new ANewsItemObj[5];
 
         public NewsListField(NewsPanel newsPanel, ListFieldListener listener) {
@@ -46,18 +46,19 @@ public class NewsListField extends CustomListField {
         }
 
         public boolean navigationClick(int status, int time) {
-                if(getSize() > 0)
+        	System.out.println("Clicked at news item");
+                if(MenuScreen.getInstance().newsCollection.size() > 0)
                 {
                         try{
                                 synchronized(Application.getEventLock() ){
-                                        ANewsItemObj ni = (ANewsItemObj)_elements.elementAt(getSelectedIndex());
+                                        ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(getSelectedIndex());
                                         Screen s = UiApplication.getUiApplication().getActiveScreen();
                                         ni.index=getSelectedIndex();
                                         UiApplication.getUiApplication().pushScreen(new NewsDetailScreen(this, ni));
                                 }
                                 return true;
                         }catch(Exception e){
-                                //System.out.println(e);
+                                System.out.println(e);
                         }              
                 }
                 return false;
@@ -70,8 +71,8 @@ public class NewsListField extends CustomListField {
                 synchronized(lock) {
                         this.newsID = newsID;
 
-                        removeAll();
-                        for (int i = 0; i < 5; i++) {
+                        //removeAll();
+                        for (int i = 0; i < 2; i++) {
                                 System.out.println("aloy.NewsListField.loadNews: " + i);
                                 //item[i] = new ANewsItemObj("Test news "+i, "Aloysius Ong", " really really long string that is more than 11 character 5mins ago", "Some very long description or news content that must store more than 50 characters in order to try and let it show the triple dots which we have created earlier. So folks, this is news " + i + ".", "1");
                                 

@@ -18,7 +18,7 @@ import java.util.*;
 
 public class CustomListField extends ListField implements ListFieldCallback, Runnable {
     protected Vector _pelements = new Vector();
-    protected Vector _elements = new Vector();
+    //protected Vector _elements = new Vector();
     protected Vector imgLoadingList = new Vector();
     
     protected Bitmap news_bg_selected = null;
@@ -94,11 +94,13 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
     }
     
     public Vector getAllElements() {
-        return _elements;
+       // return _elements;
+    	return MenuScreen.getInstance().newsCollection;
     }
     
     public int getSize() {
-        return _elements.size();
+//        return _elements.size();
+    	return MenuScreen.getInstance().newsCollection.size();
     }
     
     public void addElements(ANewsItemObj element) {
@@ -107,13 +109,14 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
     
     protected void add(ANewsItemObj element) {
         synchronized(lock) {
-            _elements.addElement(element);
+        	MenuScreen.getInstance().newsCollection.addElement(element);
             setSize(getSize());
         }
     }
     
     public void drawListRow(ListField listField, final Graphics g, int index, int y, int width) {
-        if (index < getSize()) {
+    	System.out.println("drawListRow index("+index+"), size("+MenuScreen.getInstance().newsCollection.size()+") ");
+        if (index < MenuScreen.getInstance().newsCollection.size()) {
             int rowHeight = getRowHeight();
             if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
                 System.out.println("aloy.CustomListField(drawListRow index==this.getselectedIndex && listener.isListFieldFocus).info: this news item is in focus");
@@ -125,7 +128,7 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
                 //g.drawBitmap(0,y, news_bg_notSelected.getWidth(), news_bg_notSelected.getHeight(), news_bg_notSelected, 0, 0);
             }
             
-            ANewsItemObj ni = (ANewsItemObj)_elements.elementAt(index);
+            ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(index);
             
             //if no image to load {
             int imgy = y + (rowHeight - previewHeight)+5;///2;
@@ -220,8 +223,8 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
     }
     
     public Object get(ListField listField, int index) {
-        if ((index >= 0) && (index < getSize())) {
-            return _elements.elementAt(index);
+        if ((index >= 0) && (index < MenuScreen.getInstance().newsCollection.size())) {
+            return MenuScreen.getInstance().newsCollection.elementAt(index);
         }
         return null;
     }
@@ -235,7 +238,7 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
     }
     
     public boolean keyChar(char key, int status, int time) {
-        if (getSize() > 0 && key == Characters.SPACE) {
+        if (MenuScreen.getInstance().newsCollection.size() > 0 && key == Characters.SPACE) {
             getScreen().scroll(Manager.DOWNWARD);
             return true;
         }
@@ -253,10 +256,10 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
     
     public boolean navigationClick(int status, int time) {
         System.out.println("aloy.CustomListField.navigationClick: got enter or not?");
-        if (getSize() > 0) {
+        if (MenuScreen.getInstance().newsCollection.size() > 0) {
             try {
                 synchronized(Application.getEventLock()) {
-                    ANewsItemObj ni = (ANewsItemObj)_elements.elementAt(getSelectedIndex());
+                    ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(getSelectedIndex());
                     Screen s = UiApplication.getUiApplication().getActiveScreen();
                     ni.index = getSelectedIndex();
                     UiApplication.getUiApplication().pushScreen(new NewsDetailScreen(this, ni));
@@ -272,7 +275,7 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
     
     public void remove(int index) {
         synchronized(lock){
-            _elements.removeElementAt(index);
+        	MenuScreen.getInstance().newsCollection.removeElementAt(index);
             _pelements.removeElementAt(index);
             setSize(getSize());
         }
@@ -282,7 +285,7 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
         
     protected void removeAll() {
         synchronized(lock){
-            _elements.removeAllElements();
+        	MenuScreen.getInstance().newsCollection.removeAllElements();
             _pelements.removeAllElements();
             setSize(0);
         }

@@ -1,18 +1,31 @@
 package com.og.app.gui;
 
-import com.og.rss.*;
-import com.og.app.util.*;
-import com.og.app.gui.component.*;
+import net.rim.device.api.system.Bitmap;
+import net.rim.device.api.system.Characters;
+import net.rim.device.api.ui.Color;
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.Graphics;
+import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.Screen;
+import net.rim.device.api.ui.UiApplication;
+import net.rim.device.api.ui.component.BitmapField;
+import net.rim.device.api.ui.component.LabelField;
+import net.rim.device.api.ui.component.NullField;
+import net.rim.device.api.ui.component.RichTextField;
+import net.rim.device.api.ui.container.HorizontalFieldManager;
+import net.rim.device.api.ui.container.MainScreen;
+import net.rim.device.api.ui.container.VerticalFieldManager;
 
-import net.rim.device.api.ui.*;
-import net.rim.device.api.system.*;
-import net.rim.device.api.ui.component.*;
-import net.rim.device.api.ui.container.*;
+import com.og.app.gui.component.AnimatedImageField;
+import com.og.app.gui.component.LineField;
+import com.og.app.gui.component.SpaceField;
+import com.og.app.gui.component.TitleField;
+import com.og.app.gui.component.WebBitmapField;
+import com.og.rss.ANewsItemObj;
 
 public class NewsDetailScreen extends MainScreen implements Runnable {//implements ImageButtonListener, Runnable {
     
-    private ANewsItemObj newsItem = null;
-    
+   
     private VerticalFieldManager mainFM = null;
     private HorizontalFieldManager bottomFM = new HorizontalFieldManager(Field.USE_ALL_WIDTH);
     
@@ -45,7 +58,6 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
         super();
         imgUp = Bitmap.getBitmapResource("res/up.png");
         imgDown = Bitmap.getBitmapResource("res/down.png");
-        this.newsItem = newsItem;
         this.myIndex = newsItem.index;
         this.listField = listField;
         
@@ -71,7 +83,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
             newsInfo = "written by " + newsItem.author + " | ";
         }
         
-        newsInfo += newsItem.pubDate.substring(8, 11) + " " + newsItem.pubDate.substring(5,7);
+        newsInfo += newsItem.longdate;
         
         LabelField lblNewsInfo = new LabelField(newsInfo, Field.FOCUSABLE) {
             public void paint(Graphics g) {
@@ -251,7 +263,6 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
     }
     
     public void clearResource(){
-        newsItem = null;
         mainFM = null;
         bottomFM = null;
         vFM = null;

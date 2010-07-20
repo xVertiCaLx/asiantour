@@ -38,8 +38,7 @@ public class XmlNewsParser {
 				Node value = list.item(i).getChildNodes().item(0);
 				node = list.item(i).getNodeName();
 				element = value.getNodeValue();
-				System.out.println(i + ": Node["+node+"], Element["+element+"]");
-				
+			
 				if(node.equals("item") && i!=1){
 					xmlNewsItemCollection.addElement(xmlNewsItem);
 					xmlNewsItem = new XmlNewsItem();
