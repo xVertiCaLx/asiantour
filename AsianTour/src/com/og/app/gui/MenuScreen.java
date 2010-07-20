@@ -1,18 +1,13 @@
 package com.og.app.gui;
 
-import javax.microedition.lcdui.Font;
-
-import com.og.app.gui.listener.*;
-import com.og.rss.*;
-import com.og.xml.XmlHelper;
-
-import net.rim.device.api.system.*;
-import net.rim.device.api.ui.Field;
-import net.rim.device.api.ui.FontFamily;
-import net.rim.device.api.ui.container.HorizontalFieldManager;
+import net.rim.device.api.system.Display;
+import net.rim.device.api.ui.component.Dialog;
 import net.rim.device.api.ui.container.MainScreen;
-import net.rim.device.api.ui.container.VerticalFieldManager;
-import net.rim.device.api.ui.component.*;
+
+import com.og.app.gui.listener.ListFieldListener;
+import com.og.app.gui.listener.TabListener;
+import com.og.rss.ARssDB;
+import com.og.xml.XmlHelper;
 
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener {
     
