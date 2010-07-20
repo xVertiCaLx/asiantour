@@ -1,20 +1,20 @@
 package com.og.app.gui;
 
-import java.io.IOException;
+//import java.io.IOException;
 
 import com.og.app.gui.listener.*;
-import com.og.app.util.Utility;
+//import com.og.app.util.Utility;
 import com.og.app.util.DataCentre;
-import com.og.app.util.WebDataCallback;
-import com.og.rss.*;
+//import com.og.app.util.WebDataCallback;
+//import com.og.rss.*;
 
-import net.rim.device.api.system.*;
-import net.rim.device.api.ui.*;
+//import net.rim.device.api.system.*;
+//import net.rim.device.api.ui.*;
 
 public class TableListField extends CustomTableListField {
     private TablePanel tablePanel = null;
     DataCentre[] item = new DataCentre[500];
-    private int tableNo = 0;
+    //private int tableNo = 0;
 
     
     public TableListField(TablePanel tablePanel, ListFieldListener listener, int tableNo, int page) {
@@ -23,9 +23,43 @@ public class TableListField extends CustomTableListField {
     }
     
     protected synchronized boolean navigationMovement(int dx, int dy, int status, int time) {
-                tablePanel.invalidate();
-                System.out.println("this");
-                return false;
+    	if (dx > 0) {
+    		//move right
+    		System.out.println("right");
+    		
+    		if (page == 1) {
+    			page = 2;
+    		} else if (page ==2) {
+    			page = 3;
+    		}
+    		System.out.println(page);
+    		
+    	} else {
+    		System.out.println("left");
+    		if (page == 3) {
+    			page =2;
+    		} else if (page == 2) {
+    			page = 1;
+    		}
+    		System.out.println(page);
+    		//move left
+    	}
+    	
+    	if (dy != 0) {
+    		if (page == 1) {
+    			page = 1;
+    		} else if (page == 2) {
+    			page = 2;
+    		} else if (page == 3) {
+    			page = 3;
+    		}
+    	}
+    	
+		System.out.println("BIIIIIGGGGGGGGERRRR ALERT: page : " + page);
+    	
+    	tablePanel.invalidate();
+        System.out.println("this");
+        return false;
     }
     
     public boolean navigationClick(int status, int time) {
@@ -55,7 +89,7 @@ public class TableListField extends CustomTableListField {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "Sky Sports 3 Digital", "UK");
                     }*/
                 	
-                	item[i] = new DataCentre("WWWWWWWWWWWW"+ i, "WWWWWWWWWWWW", "WWWWWWWWWWWW", "WWWWWWWWWWWW", "WWWWWWWWWWWW" );
+                	item[i] = new DataCentre(i+"i want WWW something that is super logn so that i can see the effects of the truncation "+ i, "date 1 of " + i, "time 1 of " + i, "broadcaster 1 of " + i, "region 1 of " + i );
                 	
                     add(item[i]);
                 }
