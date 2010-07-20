@@ -13,7 +13,7 @@ import net.rim.device.api.ui.*;
 
 public class TableListField extends CustomTableListField {
     private TablePanel tablePanel = null;
-    DataCentre[] item = new DataCentre[5];
+    DataCentre[] item = new DataCentre[500];
     private int tableNo = 0;
 
     
@@ -42,7 +42,7 @@ public class TableListField extends CustomTableListField {
             3 - Live Score*/
             if (tableNo == 1) {
                 
-                for (int i =0; i <5; i++) {
+                for (int i =0; i <50; i++) {
                     /*if (i == 1) {
                         item[i] = new DataCentre("Asian Tour Highlights", "TBC", "TBC", "Guangdong Golf Channel", "China");
                     } else if (i == 2) {
@@ -55,7 +55,7 @@ public class TableListField extends CustomTableListField {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "Sky Sports 3 Digital", "UK");
                     }*/
                 	
-                	item[i] = new DataCentre("a" + i, "b", "c"+1, "d", "e"+i );
+                	item[i] = new DataCentre("WWWWWWWWWWWW"+ i, "WWWWWWWWWWWW", "WWWWWWWWWWWW", "WWWWWWWWWWWW", "WWWWWWWWWWWW" );
                 	
                     add(item[i]);
                 }
