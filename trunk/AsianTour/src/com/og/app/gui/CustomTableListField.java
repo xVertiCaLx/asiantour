@@ -37,8 +37,8 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     public int bg_y = 0;
     public int text_y = padding;
     public int text_x = padding;
-    public int tmpx = 0;
-    public int tmpy = 0;
+//    public int tmpx = 0;
+//    public int tmpy = 0;
     public int page = 1;
     public int temp_x = 0;
     
@@ -64,6 +64,9 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     //                                  1/2/3     1        1          2       2        2         3      3     3      3     3      3
     static final int[] liveWidth = {constantColWidth*9,constantColWidth*3,constantColWidth*6, constantColWidth*3,constantColWidth*3,constantColWidth*3, constantColWidth*2,constantColWidth,constantColWidth,constantColWidth,constantColWidth,constantColWidth*3};
     
+    static final String [] meritLabel = {};
+    static final int[] meritWidth = {};
+    
     //this is for live score
     public CustomTableListField (ListFieldListener listener, int table, int page) {
         super();
@@ -76,9 +79,8 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         setEmptyString("", DrawStyle.HCENTER);
         setCallback(this);
         header_bg = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_header_bg.png"), this.getPreferredWidth(), 18);//Bitmap.getBitmapResource("res/table_header_bg.png");
-        even_bg = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_even_bg.png"), this.getPreferredWidth(), 18);
-        odd_bg = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_odd_bg.png"), this.getPreferredWidth(), 18);
-        border = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_border.png"), this.getPreferredWidth(), 1);
+        even_bg = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_even_bg.png"), this.getPreferredWidth(), 36);
+        odd_bg = Utility.resizeBitmap(Bitmap.getBitmapResource("res/table_odd_bg.png"), this.getPreferredWidth(), 36);
         
         header_separator = Bitmap.getBitmapResource("res/table_header_separator.png");
         even_separator = Bitmap.getBitmapResource("res/table_even_separator.png");
@@ -87,7 +89,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         next_icon = Bitmap.getBitmapResource("res/table_next_page.png");
         
         
-        setRowHeight(header_bg.getHeight());
+        
     }
     
     public void onUnfocus() {
@@ -125,7 +127,8 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         /* Table No:    
         1 - TV Schedule
         2 - Tour Schedule
-        3 - Live Score*/
+        3 - Live Score
+        4 - Order of Merit*/
 
         switch (table) {
             
@@ -173,36 +176,59 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         //text_y += header_separator.getHeight();
                         
                         text_x = padding;
-                        temp_x = padding;
+                        temp_x = 0;
                         prev_x = 0;
                         row ++;
                     } else {
                     	setupBackground(g, index, y);
-                    	text_y += 1;
+                    	
                         //get content in array and draw list
                     	//setupBackground(g);
+                    	text_x = padding;
+                    	
                     	System.out.println("this is row index : " + index);
                         DataCentre item = (DataCentre)_elements.elementAt(index);
+                        
+                        String printText = item.tvName;
+                        Vector vText = Utility.breakIntoWords(printText);
+                        int lineNo = 1;
+                        
                         textFont = GuiConst.FONT_TABLE;
                         g.setFont(textFont);
                         g.setColor(GuiConst.FONT_COLOR_BLACK);
                         
-                        g.drawText(item.tvName, text_x, text_y-2);
-                        text_x += tvWidth[0];
-                        if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
-                            g.drawBitmap(text_x, text_y-2, even_separator.getWidth(), even_separator.getHeight(), odd_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y-2, odd_separator.getWidth(), odd_separator.getHeight(), even_separator, 0,0);
+                        for (int word = 0; word < vText.size(); word ++) {
+                        	if (lineNo > 2) {
+                        		break;
+                        	}
+                        	
+                        	String tempString = (String)vText.elementAt(word);
+                        	int wordWidth = GuiConst.FONT_BOLD.getAdvance(tempString+ " ");
+                        	if ((text_x + wordWidth >= tvWidth[1]) || ((lineNo == 2) && (text_x+wordWidth >= ((tvWidth[1]*75)/100)))) {
+                        		if (lineNo == 2) {
+                        			tempString = "...";
+                        		} else {
+                        			text_y +=  GuiConst.FONT_TABLE.getHeight() + padding;
+                        			text_x = padding;
+                        		}
+                        		lineNo ++;
+                        	}
+
+                        	g.drawText(tempString + " ", text_x, text_y);
+                        	text_x += wordWidth;
                         }
-                        text_x += header_separator.getWidth()+ padding;
+                        
+                        
+                        
+
                         
                         g.drawText(item.tvDate, text_x, text_y-2);
                         text_x += tvWidth[1];
-                        if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
-                            g.drawBitmap(text_x, text_y-2, even_separator.getWidth(), even_separator.getHeight(), odd_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y-2, odd_separator.getWidth(), odd_separator.getHeight(), even_separator, 0,0);
-                        }
+//                        if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
+//                            g.drawBitmap(text_x, text_y-3, even_separator.getWidth(), even_separator.getHeight(), odd_separator, 0,0);
+//                        } else {
+//                            g.drawBitmap(text_x, text_y-3, odd_separator.getWidth(), odd_separator.getHeight(), even_separator, 0,0);
+//                        }
                         text_x += header_separator.getWidth() + padding;
                         
                         g.drawText(item.tvBroadcastTime, text_x, text_y-2);
@@ -216,8 +242,8 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         row ++;
                         if (row > index) {
                         	row = 0;
-                        	temp_x = 0;
-                        	text_x = 2;
+                        	temp_x = padding;
+                        	text_x = padding;
                         	prev_x = 0;
                         	bg_y = y;
                         }
@@ -245,6 +271,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                                 }
                             }
                         }
+                        
                         //next row
                         text_y += header_separator.getHeight() + padding;
                         text_x = padding;
@@ -297,411 +324,18 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                 
             /*Tour Schedule*/
             case 2: 
-                //setupBackground(g);
-                if (page == 1) {
-                    if (row == 0) {
-                        //if row is zero, it is a header row, set up Table Header
-                        g.setColor(GuiConst.FONT_COLOR_WHITE);
-                        g.setFont(textFont);
-                        
-                        for (int i = 0; i <= 2; i++) { 
-                            temp_x += ((tourWidth[i]-textFont.getAdvance(tourLabel[i]))/2);
-                            g.drawText(tourLabel[i], temp_x, text_y);
-                            text_x += tourWidth[i]; //+ padding;
-                            System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                            
-                            //need to check page
-                            if (i != 2) {
-                                //if i equals tvLabel.length, it is already the last colomn, no need to have another separator
-                                g.drawBitmap(text_x, text_y, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
-                                text_x += header_separator.getWidth(); //+ padding;
-                                System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                temp_x += text_x;
-                            }
-                        }
-                        //next row
-                        text_y += header_separator.getHeight() + padding;
-                        text_x = padding;
-                        temp_x = padding;
-                        row ++;
-                    } else {
-                        //get content in array and draw list
-                        DataCentre item = (DataCentre)_elements.elementAt(index);
-                        textFont = GuiConst.FONT_TABLE;
-                        g.setFont(textFont);
-                        g.setColor(GuiConst.FONT_COLOR_TITLE);
-                        //"Tour Date", "Country", "Tour Name", 
-                        
-                        g.drawText(item.tourDate, text_x, text_y);
-                        text_x += tourWidth[0];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.tourCountry, text_x, text_y);
-                        text_x += tourWidth[1];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.tourName, text_x, text_y);
-                        text_x += tourWidth[2];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        
-                        //this is to set it to the next row
-                        text_y += header_separator.getHeight() + padding;
-                        //reset value
-                        text_x = padding;
-                        row ++;
-                    }
-                } else if (page == 2) {
-                    if (row == 0) {
-                        //if row is zero, it is a header row, set up Table Header
-                        g.setColor(GuiConst.FONT_COLOR_WHITE);
-                        g.setFont(textFont);
-                        
-                        for (int i = 0; i < tourLabel.length; i++) { 
-                            if ((i == 2) || (i == 3) || (i == 4) || (i == 5)) {
-                                temp_x += ((tourWidth[i]-textFont.getAdvance(tourLabel[i]))/2);
-                                g.drawText(tourLabel[i], temp_x, text_y);
-                                text_x += tourWidth[i]; //+ padding;
-                                System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                
-                                //need to check page
-                                if (i != (tourLabel.length - 1)) {
-                                    //if i equals tvLabel.length, it is already the last colomn, no need to have another separator
-                                    g.drawBitmap(text_x, text_y, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
-                                    text_x += header_separator.getWidth(); //+ padding;
-                                    System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                    temp_x += text_x;
-                                }
-                            }
-                        }
-                        //next row
-                        text_y += header_separator.getHeight() + padding;
-                        text_x = padding;
-                        temp_x = padding;
-                        row ++;
-                    } else {
-                        //get content in array and draw list
-                        DataCentre item = (DataCentre)_elements.elementAt(index);
-                        textFont = GuiConst.FONT_TABLE;
-                        g.setFont(textFont);
-                        g.setColor(GuiConst.FONT_COLOR_TITLE);
-                        //"Golf Club", "Def Champion", "Prize Money"
-                        g.drawText(item.tourName, text_x, text_y);
-                        text_x += tourWidth[2];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.tourGClub, text_x, text_y);
-                        text_x += tourWidth[3];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.tourDefChampion, text_x, text_y);
-                        text_x += tourWidth[4];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.tourPrize, text_x, text_y);
-                        text_x += tourWidth[5];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        //this is to set it to the next row
-                        text_y += header_separator.getHeight() + padding;
-                        //reset value
-                        text_x = padding;
-                        row ++;
-                    }
-                }
+                
                 break;
                 
             /*Live Score*/
             case 3: 
-                //setupBackground(g);
-                if (page == 1) {
-                    if (row == 0) {
-                        //if row is zero, it is a header row, set up Table Header
-                        g.setColor(GuiConst.FONT_COLOR_WHITE);
-                        g.setFont(textFont);
-                        
-                        for (int i = 0; i <= 2; i++) { 
-                            temp_x += ((liveWidth[i]-textFont.getAdvance(liveLabel[i]))/2);
-                            g.drawText(liveLabel[i], temp_x, text_y);
-                            text_x += liveWidth[i]; //+ padding;
-                            System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                            
-                            //need to check page
-                            if (i != 2) {
-                                //if i equals tvLabel.length, it is already the last colomn, no need to have another separator
-                                g.drawBitmap(text_x, text_y, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
-                                text_x += header_separator.getWidth(); //+ padding;
-                                System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                temp_x += text_x;
-                            }
-                        }
-                        //next row
-                        text_y += header_separator.getHeight() + padding;
-                        text_x = padding;
-                        temp_x = padding;
-                        row ++;
-                    } else {
-                        //get content in array and draw list
-                        DataCentre item = (DataCentre)_elements.elementAt(index);
-                        textFont = GuiConst.FONT_TABLE;
-                        g.setFont(textFont);
-                        g.setColor(GuiConst.FONT_COLOR_TITLE);
-                        //"Player","Mark", "Country",  
-                        
-                        //truncation
-                        g.drawText(item.ls_playerFirstName, text_x, text_y);
-                        text_x += liveWidth[0];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_mark, text_x, text_y);
-                        text_x += liveWidth[1];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_country, text_x, text_y);
-                        text_x += liveWidth[2];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        
-                        //this is to set it to the next row
-                        text_y += header_separator.getHeight() + padding;
-                        //reset value
-                        text_x = padding;
-                        row ++;
-                    }
-                } else if (page == 2) {
-                    if (row == 0) {
-                        //if row is zero, it is a header row, set up Table Header
-                        g.setColor(GuiConst.FONT_COLOR_WHITE);
-                        g.setFont(textFont);
-                        
-                        for (int i = 0; i <= 5; i++) { 
-                            if ((i == 0) || (i == 3) || (i == 4) || (i == 5)) {
-                                temp_x += ((liveWidth[i]-textFont.getAdvance(liveLabel[i]))/2);
-                                g.drawText(liveLabel[i], temp_x, text_y);
-                                text_x += liveWidth[i]; //+ padding;
-                                System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                
-                                //need to check page
-                                if (i != 5) {
-                                    //if i equals tvLabel.length, it is already the last colomn, no need to have another separator
-                                    g.drawBitmap(text_x, text_y, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
-                                    text_x += header_separator.getWidth(); //+ padding;
-                                    System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                    temp_x += text_x;
-                                }
-                            }
-                        }
-                        //next row
-                        text_y += header_separator.getHeight() + padding;
-                        text_x = padding;
-                        temp_x = padding;
-                        row ++;
-                    } else {
-                    	System.out.println("the element's index is: "+ index);
-                        //get content in array and draw list
-                        DataCentre item = (DataCentre)_elements.elementAt(index);
-                        textFont = GuiConst.FONT_TABLE;
-                        g.setFont(textFont);
-                        g.setColor(GuiConst.FONT_COLOR_TITLE);
-                        //"Pos", "To Par", "Hole",  
-                        g.drawText(item.ls_playerFirstName, text_x, text_y);
-                        text_x += liveWidth[0];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_pos, text_x, text_y);
-                        text_x += liveWidth[3];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_toPar, text_x, text_y);
-                        text_x += tourWidth[4];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_hole, text_x, text_y);
-                        text_x += liveWidth[5];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        //this is to set it to the next row
-                        text_y += header_separator.getHeight() + padding;
-                        //reset value
-                        text_x = padding;
-                        row ++;
-                    }
-                } else if (page == 3) { ///NOT YET DONE!!!
-                    if (row == 0) {
-                        //if row is zero, it is a header row, set up Table Header
-                        g.setColor(GuiConst.FONT_COLOR_WHITE);
-                        g.setFont(textFont);
-                        
-                        for (int i = 0; i <= 5; i++) { 
-                            if ((i == 0) || (i == 6) || (i == 7) || (i == 8) || (i == 9) || (i == 10) || (i == 11)) {
-                                temp_x += ((liveWidth[i]-textFont.getAdvance(liveLabel[i]))/2);
-                                g.drawText(liveLabel[i], temp_x, text_y);
-                                text_x += liveWidth[i]; //+ padding;
-                                System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                
-                                //need to check page
-                                if (i != 5) {
-                                    //if i equals tvLabel.length, it is already the last colomn, no need to have another separator
-                                    g.drawBitmap(text_x, text_y, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
-                                    text_x += header_separator.getWidth(); //+ padding;
-                                    System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
-                                    temp_x += text_x;
-                                }
-                            }
-                        }
-                        //next row
-                        text_y += header_separator.getHeight() + padding;
-                        text_x = padding;
-                        temp_x = padding;
-                        row ++;
-                    } else {
-                        //get content in array and draw list
-                        DataCentre item = (DataCentre)_elements.elementAt(index);
-                        textFont = GuiConst.FONT_TABLE;
-                        g.setFont(textFont);
-                        g.setColor(GuiConst.FONT_COLOR_TITLE);
-                        //"Today", "R1", "R2", "R3", "R4", "Total"
-                        g.drawText(item.ls_playerFirstName, text_x, text_y);
-                        text_x += liveWidth[0];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_today, text_x, text_y);
-                        text_x += liveWidth[6];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_r1, text_x, text_y);
-                        text_x += tourWidth[7];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_r2, text_x, text_y);
-                        text_x += liveWidth[8];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_r3, text_x, text_y);
-                        text_x += liveWidth[9];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_r4, text_x, text_y);
-                        text_x += liveWidth[10];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        g.drawText(item.ls_r2, text_x, text_y);
-                        text_x += liveWidth[11];
-                        if ((row % 2) == 0) {
-                            g.drawBitmap(text_x, text_y, even_separator.getWidth(), even_separator.getHeight(), even_separator, 0,0);
-                        } else {
-                            g.drawBitmap(text_x, text_y, odd_separator.getWidth(), odd_separator.getHeight(), odd_separator, 0,0);
-                        }
-                        text_x += header_separator.getWidth();
-                        
-                        //this is to set it to the next row
-                        text_y += header_separator.getHeight() + padding;
-                        //reset value
-                        text_x = padding;
-                        row ++;
-                    }
-                }
+                
                 break;
+                
+            /*Order of Merit*/
+            case 4:
+            	
+            	break;
         }
     //192.168.1.48 HPJET 3030
     }
@@ -724,18 +358,19 @@ public class CustomTableListField extends ListField implements ListFieldCallback
 //        }
         
         if (index == 0) {
+        	setRowHeight(header_bg.getHeight());
         	g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
-        	//this.bg_y = bg_y + header_bg.getHeight();
-        	//g.drawBitmap(0, this.bg_y, border.getWidth(), border.getHeight(), border, 0,0);
-    		System.out.println("header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+        	System.out.println("header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
         } else {
+        	setRowHeight(odd_bg.getHeight());
+        	this.bg_y = bg_y;
         	if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
-        		this.bg_y = bg_y;
-        		g.drawBitmap(0, this.bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
-        		System.out.println("this is a selected row, so use ODD bg, header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+        		g.drawBitmap(0, this.bg_y, this.getPreferredWidth(), odd_bg.getHeight(), odd_bg, 0,0);
+        		System.out.println("this is a selected row, so use ODD bg, header background = row"  + row + " height:" + odd_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
         	} else {
-        		g.drawBitmap(0, this.bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
-        		System.out.println("this is NOT a selected row, so use EVEN bg, header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+        		
+        		g.drawBitmap(0, this.bg_y, this.getPreferredWidth(), even_bg.getHeight(), even_bg, 0,0);
+        		System.out.println("this is NOT a selected row, so use EVEN bg, header background = row"  + row + " height:" + even_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
         	}
         }
         
