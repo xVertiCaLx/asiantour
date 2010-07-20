@@ -129,8 +129,8 @@ public class GuiConst{
             FONT_BOLD = ff.getFont(Font.BOLD, font_size);
             FONT_BOLD_UNDERLINED = ff.getFont(Font.BOLD|Font.UNDERLINED, font_size);
             FONT_DATE = ff.getFont(Font.ITALIC, datefont_size);  
-            FONT_TABLE = ff.getFont(Font.PLAIN, 12);
-            FONT_TABLE_HEADER = ff.getFont(Font.BOLD, 12);
+            FONT_TABLE = ff.getFont(Font.PLAIN, 14);
+            FONT_TABLE_HEADER = ff.getFont(Font.BOLD, 16);
             
             return;
         } catch (Exception e) {}
