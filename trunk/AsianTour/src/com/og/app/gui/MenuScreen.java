@@ -27,7 +27,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
     private LogoPanel logoPanel = null;
     private TabPanel tabPanel = null;
 
-	private NewsPanel newsPanel = null;
+	public NewsPanel newsPanel = null;
     private TablePanel tablePanel = null;
     
     private boolean isFocusEventBlocked = false;
