@@ -39,6 +39,8 @@ public class XmlHelper {
 						}
 					}
 					MenuScreen.getInstance().invalidate();
+					MenuScreen.getInstance().newsPanel.loadNews(0);
+					MenuScreen.getInstance().newsPanel.invalidate();
 				}
 			});
 		} catch (IOException e) {
