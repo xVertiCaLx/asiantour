@@ -42,7 +42,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     
     
     public int this_x = 0;
-    public int prev_x = 0;
+    public int prev_x = padding;
     public int total_x = 0;
     
     static final int constantColWidth = (GuiConst.SCREENWIDTH / 20);
@@ -87,7 +87,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         prev_icon = Bitmap.getBitmapResource("res/table_prev_page.png");
         next_icon = Bitmap.getBitmapResource("res/table_next_page.png");
         
-        setRowHeight(header_bg.getHeight() + border.getHeight());
+        setRowHeight(header_bg.getHeight());
         
     }
     
@@ -117,8 +117,6 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     public void run() {}
 
     public void drawListRow(ListField listField, Graphics g, int index, int y, int width) {
-    
-        //int rowHeight = getRowHeight();
     	
     	System.out.println("BIG ALERT!!!!!! aloy.drawList.index:"+ index);
         Font textFont = GuiConst.FONT_TABLE_HEADER;
@@ -144,19 +142,19 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         g.setFont(textFont);
                         text_y = (header_bg.getHeight() - textFont.getHeight())/2;
                         for (int i = 0; i < 3; i++) { 
-                        	if ((tvWidth[i]-textFont.getAdvance(tvLabel[i])) > 0){
-                        		this_x = ((tvWidth[i]-textFont.getAdvance(tvLabel[i]))/2)+1;
-                        	} else {
-                        		this_x = 1;
-                        	}
+//                        	if ((tvWidth[i]-textFont.getAdvance(tvLabel[i])) > 0){
+//                        		this_x = ((tvWidth[i]-textFont.getAdvance(tvLabel[i]))/2)+1;
+//                        	} else {
+//                        		this_x = 1;
+//                        	}
                             
                         	//text_y = y+2;
                         	System.out.println(text_y + " "+ y);
-                            prev_x += this_x; //+ padding;
+                            //prev_x += this_x; //+ padding;
                             
                             g.drawText(tvLabel[i], prev_x, text_y);
                             
-                            prev_x += textFont.getAdvance(tvLabel[i]) + this_x;
+                            prev_x += tvWidth[i]+ padding + header_separator.getWidth();//textFont.getAdvance(tvLabel[i]); + this_x;
                             
                             System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
                             
@@ -178,19 +176,18 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         }
                         //next row
                         //text_y += header_separator.getHeight();
-                        if (getRowHeight() == (header_bg.getHeight() + border.getHeight())) {
+                        if (getRowHeight() == header_bg.getHeight()) {
                     		setRowHeight(odd_bg.getHeight() + border.getHeight());
                     	}
                         text_x = padding;
                         temp_x = 0;
-                        prev_x = 0;
+                        prev_x = padding;
                         row ++;
                     } else {
                     	
                     	setupBackground(g, index, y);
                     	
                         //get content in array and draw list
-                    	//setupBackground(g);
                     	text_y = y+padding;
                     	text_x = padding;
                     	temp_x = padding;
@@ -303,7 +300,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         	row = 0;
                         	temp_x = padding;
                         	text_x = padding;
-                        	prev_x = 0;
+                        	prev_x = padding;
                         	bg_y = y;
                         }
                     }
@@ -317,19 +314,10 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         text_y = (header_bg.getHeight() - textFont.getHeight())/2;
                         for (int i = 0; i < tvLabel.length; i++) { 
 	                    	if ((i == 0)||(i == 3) || (i == 4)){
-	                        	if ((tvWidth[i]-textFont.getAdvance(tvLabel[i])) > 0){
-	                        		this_x = ((tvWidth[i]-textFont.getAdvance(tvLabel[i]))/2)+1;
-	                        	} else {
-	                        		this_x = 1;
-	                        	}
-	                            
-	                        	//text_y = y+2;
-	                        	System.out.println(text_y + " "+ y);
-	                            prev_x += this_x; //+ padding;
-	                            
+	                        		                            
 	                            g.drawText(tvLabel[i], prev_x, text_y);
 	                            
-	                            prev_x += textFont.getAdvance(tvLabel[i]) + this_x;
+	                            prev_x += tvWidth[i] + padding + header_separator.getWidth();
 	                            
 	                            System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
 	                            
@@ -347,12 +335,12 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         }
                         //next row
                         //text_y += header_separator.getHeight();
-                        if (getRowHeight() == (header_bg.getHeight() + border.getHeight())) {
+                        if (getRowHeight() == header_bg.getHeight()) {
                     		setRowHeight(odd_bg.getHeight() + border.getHeight());
                     	}
                         text_x = padding;
                         temp_x = 0;
-                        prev_x = 0;
+                        prev_x = padding;
                         row ++;
                     } else {
                     	
@@ -472,7 +460,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         	row = 0;
                         	temp_x = padding;
                         	text_x = padding;
-                        	prev_x = 0;
+                        	prev_x = padding;
                         	bg_y = y;
                         }
                     }
@@ -495,19 +483,10 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         text_y = (header_bg.getHeight() - textFont.getHeight())/2;
                         
                         for (int i = 0; i < 2; i++) { 
-                        	if ((tourWidth[i]-textFont.getAdvance(tourLabel[i])) > 0){
-                        		this_x = ((tourWidth[i]-textFont.getAdvance(tourLabel[i]))/2)+1;
-                        	} else {
-                        		this_x = 1;
-                        	}
-                            
-                        	//text_y = y+2;
-                        	System.out.println(text_y + " "+ y);
-                            prev_x += this_x; //+ padding;
-                            
+                        	                            
                             g.drawText(tourLabel[i], prev_x, text_y);
                             
-                            prev_x += textFont.getAdvance(tourLabel[i]) + this_x;
+                            prev_x += tourWidth[i] + padding + header_separator.getWidth();
 
                             if (i == 2) {
                             	g.drawBitmap((GuiConst.SCREENWIDTH - next_icon.getWidth()), text_y-2, next_icon.getWidth(), next_icon.getHeight(), next_icon, 0,0);
@@ -516,12 +495,12 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         }
                         //next row
                         //text_y += header_separator.getHeight();
-                        if (getRowHeight() == (header_bg.getHeight() + border.getHeight())) {
+                        if (getRowHeight() == header_bg.getHeight()) {
                     		setRowHeight(odd_bg.getHeight() + border.getHeight());
                     	}
                         text_x = padding;
                         temp_x = 0;
-                        prev_x = 0;
+                        prev_x = padding;
                         row ++;
                     } else {
                     	
@@ -641,7 +620,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         	row = 0;
                         	temp_x = padding;
                         	text_x = padding;
-                        	prev_x = 0;
+                        	prev_x = padding;
                         	bg_y = y;
                         }
                     }
@@ -671,19 +650,16 @@ public class CustomTableListField extends ListField implements ListFieldCallback
 	                        }
                         }
                         //next row
-                        if (getRowHeight() == (header_bg.getHeight() + border.getHeight())) {
+                        if (getRowHeight() == header_bg.getHeight()) {
                     		setRowHeight(odd_bg.getHeight() + border.getHeight());
                     	}
                         text_x = padding;
                         temp_x = 0;
-                        prev_x = 0;
+                        prev_x = padding;
                         row ++;
                     } else {
                     	
                     	setupBackground(g, index, y);
-                    	
-                        //get content in array and draw list
-                    	//setupBackground(g);
                     	text_y = y+padding;
                     	text_x = padding;
                     	temp_x = padding;
@@ -796,7 +772,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                         	row = 0;
                         	temp_x = padding;
                         	text_x = padding;
-                        	prev_x = 0;
+                        	prev_x = padding;
                         	bg_y = y;
                         }
                     }
@@ -836,8 +812,6 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         
         if (index == 0) {
         	g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
-        	bg_y += header_bg.getHeight();
-        	g.drawBitmap(0, bg_y, this.getPreferredWidth(), border.getHeight(), border, 0,0);
         	System.out.println("header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
         } else {
         	if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
@@ -853,9 +827,6 @@ public class CustomTableListField extends ListField implements ListFieldCallback
             	g.drawBitmap(0, bg_y, this.getPreferredWidth(), border.getHeight(), border, 0,0);
         	}
         }
-        
-        //bg_y += header_bg.getHeight()+1;
-        //row+=1;
     }
     
     protected boolean navigationMovement(int dx,
@@ -863,8 +834,6 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                                      int status,
                                      int time) {
     	
-         //System.out.println("navigationMovement:"+dx+","+dy+","+status+","+time);        
-         //invalidate();
          return false;
     }
     
@@ -910,7 +879,6 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     public void remove(int index) {
         synchronized(lock){
             _elements.removeElementAt(index);
-            //_pelements.removeElementAt(index);
             setSize(getSize());
         }
         invalidate();
@@ -920,7 +888,6 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     protected void removeAll() {
         synchronized(lock){
             _elements.removeAllElements();
-            //_pelements.removeAllElements();
             setSize(0);
         }
         invalidate();
