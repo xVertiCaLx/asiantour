@@ -220,6 +220,8 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	
 	private void showNewsTab(){
 		this.deleteAll();
+		newsPanel.loadNews(0);
+		NewsPanel.newsPanel.newsList.setSize(newsCollection.size());
 		isFocusEventBlocked = true;
 		add(logoPanel);
         add(tabPanel);
@@ -227,7 +229,6 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         setSelectedTab(TabPanel.TAB_NEWS);
         isFocusEventBlocked = false;
         System.out.println("newsCollection has " + newsCollection.size() + " news.");
-        NewsPanel.newsPanel.newsList.setSize(newsCollection.size());
 	}
     
 	private void showTVScheduleTab(){
