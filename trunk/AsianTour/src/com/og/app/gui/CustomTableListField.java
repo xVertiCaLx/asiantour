@@ -833,8 +833,8 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                                      int dy,
                                      int status,
                                      int time) {
-    	
-         return false;
+    	invalidate();
+        return false;
     }
     
     public Object get(ListField listField, int index) {
