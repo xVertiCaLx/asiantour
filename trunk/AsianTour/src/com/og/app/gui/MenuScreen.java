@@ -22,6 +22,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
     public static MenuScreen thisInstance = null;
     
     private int selectedTab = 1;
+    private int prevSelectedTab = 0;
     private boolean isTabFocus = true;
     
     private LogoPanel logoPanel = null;
@@ -200,22 +201,29 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		if(field instanceof TabField){
 			TabField f = (TabField)field;
 				if(eventType == FOCUS_LOST){
+					prevSelectedTab = f.getTabID();
+					System.out.println("Tab " + f.getTabID() + " is out of focus!, Selected Tab: " + selectedTab);
 					if(f.getTabID()==selectedTab){
 						return;
 					}
-					System.out.println("Tab " + f.getTabID() + " is out of focus!, Selected Tab: " + selectedTab);
+					
 				}
 				else{
 					if(f.getTabID()==selectedTab){
 						return;
 					}
-					System.out.println("Tab " + f.getTabID() + " is in focus!");
+					if(f.getTabID() == TabPanel.TAB_ORDER_OF_MERIT && selectedTab == prevSelectedTab){
+						setSelectedTab(selectedTab);
+						return;
+					}
+					System.out.println("Tab " + f.getTabID() + " is in focus! , Selected Tab: " + selectedTab);
 					selectedTab = f.getTabID();
 					switch(selectedTab){
 						case TabPanel.TAB_NEWS:
 							showNewsTab();
 							break;
 						case TabPanel.TAB_LIVE_SCORE:
+							setSelectedTab(TabPanel.TAB_LIVE_SCORE);
 							break;
 						case TabPanel.TAB_TV_SCHEDULE:
 							showTVScheduleTab();
@@ -224,6 +232,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 							showTourScheduleTab();
 							break;
 						case TabPanel.TAB_ORDER_OF_MERIT:
+							setSelectedTab(TabPanel.TAB_ORDER_OF_MERIT);
 							break;
 					}
 				}					

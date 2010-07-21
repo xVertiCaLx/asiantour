@@ -7,6 +7,7 @@ import net.rim.device.api.i18n.DateFormat;
 
 import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.MenuScreen;
+import com.og.app.gui.NewsPanel;
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
 import com.og.rss.ANewsItemObj;
@@ -38,9 +39,8 @@ public class XmlHelper {
 							System.out.println("News already exist: " + xmlNewsItem.id);
 						}
 					}
-					MenuScreen.getInstance().invalidate();
 					MenuScreen.getInstance().newsPanel.loadNews(0);
-					MenuScreen.getInstance().newsPanel.invalidate();
+					NewsPanel.newsPanel.newsList.setSize(MenuScreen.getInstance().newsCollection.size());
 				}
 			});
 		} catch (IOException e) {
