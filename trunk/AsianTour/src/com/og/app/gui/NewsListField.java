@@ -67,6 +67,25 @@ public class NewsListField extends CustomListField {
 	public void loadNews(int newsID) {
 		setRowHeight();
 
-	}
 
+		synchronized(lock) {
+			this.newsID = newsID;
+			for(int i=0; i<MenuScreen.getInstance().newsCollection.size(); i++){
+				if(((ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(i)).thumbnailurl.length()>0 && (((ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(i)).thumbnail ==null || ((ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(i)).thumbnail.length < 1)){
+					//fetch bytes
+					final int index = i;
+					try {
+						Utility.getWebData(((ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(i)).thumbnailurl, new WebDataCallback() {
+							public void callback(String data) {
+								((ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(index)).thumbnail = data.getBytes();                                                                
+							}
+						});
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
 }
+
