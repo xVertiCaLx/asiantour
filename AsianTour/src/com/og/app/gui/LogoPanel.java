@@ -16,7 +16,7 @@ public class LogoPanel extends HorizontalFieldManager {
         	} else if (GuiConst.SCREENWIDTH == 360) {
         		logoIcon = Bitmap.getBitmapResource("res/logo.png");
         	} else if (GuiConst.SCREENWIDTH == 480) {
-        		logoIcon = Bitmap.getBitmapResource("res/logo.png");
+        		logoIcon = Bitmap.getBitmapResource("res/ASIAN-TOUR-TOPBAR.png");
         	} else {
         		logoIcon = Bitmap.getBitmapResource("res/logo.png");
         	}
@@ -31,9 +31,9 @@ public class LogoPanel extends HorizontalFieldManager {
     
     protected void paint (Graphics g) {
     	
-    	
-    	
-        g.drawBitmap((GuiConst.SCREENWIDTH - logoIcon.getWidth())/2,0,logoIcon.getWidth(),logoIcon.getHeight(),logoIcon, 0,0);
+    	//(GuiConst.SCREENWIDTH - logoIcon.getWidth())/2
+    	int x = 0;
+        g.drawBitmap(x,0,logoIcon.getWidth(),logoIcon.getHeight(),logoIcon, 0,0);
         //Font font = setFontSize(GuiConst.FONT_BOLD);//((logoIcon.getHeight()-7)/3));
         g.setFont(GuiConst.FONT_BOLD);
         g.setColor(GuiConst.FONT_COLOR_BLACK);
