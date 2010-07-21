@@ -6,11 +6,20 @@ import net.rim.device.api.ui.container.HorizontalFieldManager;
 
 public class LogoPanel extends HorizontalFieldManager {
     private static LogoPanel logoPanel = null;
-    private Bitmap logoIcon = Bitmap.getBitmapResource("res/logo.png");
+    private static Bitmap logoIcon = null;
     
     public synchronized static LogoPanel getInstance() {
         if (logoPanel == null) {
             logoPanel = new LogoPanel();
+            if(GuiConst.SCREENWIDTH == 320) {
+        		logoIcon = Bitmap.getBitmapResource("res/logo.png");
+        	} else if (GuiConst.SCREENWIDTH == 360) {
+        		logoIcon = Bitmap.getBitmapResource("res/logo.png");
+        	} else if (GuiConst.SCREENWIDTH == 480) {
+        		logoIcon = Bitmap.getBitmapResource("res/logo.png");
+        	} else {
+        		logoIcon = Bitmap.getBitmapResource("res/logo.png");
+        	}
         }
         return logoPanel;
     }
@@ -21,6 +30,9 @@ public class LogoPanel extends HorizontalFieldManager {
     }
     
     protected void paint (Graphics g) {
+    	
+    	
+    	
         g.drawBitmap((GuiConst.SCREENWIDTH - logoIcon.getWidth())/2,0,logoIcon.getWidth(),logoIcon.getHeight(),logoIcon, 0,0);
         //Font font = setFontSize(GuiConst.FONT_BOLD);//((logoIcon.getHeight()-7)/3));
         g.setFont(GuiConst.FONT_BOLD);
