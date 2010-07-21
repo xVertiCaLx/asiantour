@@ -18,13 +18,14 @@ public class TablePanel extends VerticalFieldManager{
     Bitmap imgUp = null;
     Bitmap imgDown = null;
     
-    private int tableNo = 1;
+    private static int tableNo = 1;
     
     
     
     private TablePanel (ListFieldListener listener, int fixHeight, int tableNo, int page) {
         super();
         this.fixHeight = fixHeight;
+        this.tableNo = tableNo;
         imgUp = Bitmap.getBitmapResource("res/up.png");
         imgDown = Bitmap.getBitmapResource("res/down.png");
         
@@ -40,11 +41,14 @@ public class TablePanel extends VerticalFieldManager{
         add(childNewsPanel);
         loadNews(tableNo);
         
+        System.out.println("Table Number at Table Panel Class: " + tableNo);
+        
     }
     
     public synchronized static TablePanel getInstance(ListFieldListener listener, int fixHeight, int tableNo, int page) {
-        if (tablePanel == null)
+        if (tablePanel == null) {
             tablePanel = new TablePanel(listener, fixHeight, tableNo, page);
+        }
         return tablePanel;
     }
     
@@ -113,6 +117,10 @@ public class TablePanel extends VerticalFieldManager{
             }
            
         //}
+    }
+    
+    public void reinitThisThing() {
+    	tablePanel = null;
     }
     
     //child

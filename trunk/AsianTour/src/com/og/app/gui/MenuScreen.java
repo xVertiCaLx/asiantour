@@ -12,7 +12,6 @@ import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.component.TabField;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.gui.listener.TabListener;
-import com.og.rss.ARssDB;
 import com.og.xml.XmlHelper;
 
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener, FocusChangeListener {
@@ -30,8 +29,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	private NewsPanel newsPanel = null;
     private TablePanel tablePanel = null;
-    private ARssDB rssDB = null;
-        
+    
     private boolean isFocusEventBlocked = false;
     //--------------------------- Single Turn Controll --------------------------------
     public synchronized static MenuScreen getInstance() {
@@ -45,14 +43,25 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         super();
         thisInstance = this;
         GuiConst.reinitFont();
-        fieldInit();
+        fieldInit(1);
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Display height is: " + Display.getHeight() + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
+        System.out.println("-----------------------------------------------------");
+        add(logoPanel);
+        add(tabPanel);
+        add(newsPanel);
         //LabelField lblTitle = new LabelField("Asian Tour", LabelField.ELLIPSIS | LabelField.USE_ALL_WIDTH);
         //setTitle(lblTitle);
         newsCollection = RecordStoreHelper.getNewsCollection();
         XmlHelper.downloadNews();
     }
     
-    public void fieldInit() {
+    public void fieldInit(int tableNo) {
+    	
+    	System.out.println("-----------------------------------------------------");
+        System.out.println("Display tableNo is: " + tableNo); 
+        System.out.println("-----------------------------------------------------");
+    	
         logoPanel = LogoPanel.getInstance();
         tabPanel = TabPanel.getInstance(this);
         
@@ -60,13 +69,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         GuiConst.TABPANEL_HEIGHT=tabPanel.getPreferredHeight();
         
         newsPanel = NewsPanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
-        tablePanel = TablePanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, 1,1);
-        
-        System.out.println("Display height is: " + Display.getHeight() + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
-        add(logoPanel);
-        add(tabPanel);
-        //add(newsPanel);
-        add(tablePanel);
+        tablePanel = TablePanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, tableNo,1);
         
     }
     
@@ -81,10 +84,18 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
         return true;
     }
     
-    public void clearResource() {       
+    public void clearResource() { 
+    	
         tabPanel = null;        
         logoPanel = null;
         newsPanel = null;
+        tablePanel = null;
+        
+    }
+    
+    public void repainteverything() {
+    	this.deleteAll();
+    	tablePanel.reinitThisThing();
     }
     
     public void repaintTab(){
@@ -210,6 +221,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 							showTVScheduleTab();
 							break;
 						case TabPanel.TAB_TOUR_SCHEDULE:
+							showTourScheduleTab();
 							break;
 						case TabPanel.TAB_ORDER_OF_MERIT:
 							break;
@@ -219,7 +231,8 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	}
 	
 	private void showNewsTab(){
-		this.deleteAll();
+		repainteverything();
+		fieldInit(1);
 		newsPanel.loadNews(0);
 		NewsPanel.newsPanel.newsList.setSize(newsCollection.size());
 		isFocusEventBlocked = true;
@@ -232,12 +245,25 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	}
     
 	private void showTVScheduleTab(){
-		this.deleteAll();
+		
+		repainteverything();
+		fieldInit(1);
 		isFocusEventBlocked = true;
 		add(logoPanel);
         add(tabPanel);
         add(tablePanel);
         setSelectedTab(TabPanel.TAB_TV_SCHEDULE);
+        isFocusEventBlocked = false;
+	}
+	
+	private void showTourScheduleTab(){
+		repainteverything();
+		fieldInit(2);
+		isFocusEventBlocked = true;
+		add(logoPanel);
+        add(tabPanel);
+        add(tablePanel);
+        setSelectedTab(TabPanel.TAB_TOUR_SCHEDULE);
         isFocusEventBlocked = false;
 	}
     

@@ -23,36 +23,50 @@ public class TableListField extends CustomTableListField {
     }
     
     protected synchronized boolean navigationMovement(int dx, int dy, int status, int time) {
-    	if (dx > 0) {
-    		//move right
-    		System.out.println("right");
-    		
-    		if (page == 1) {
-    			page = 2;
-    		} else if (page ==2) {
-    			page = 3;
-    		}
-    		System.out.println(page);
-    		
-    	} else {
-    		System.out.println("left");
-    		if (page == 3) {
-    			page =2;
-    		} else if (page == 2) {
-    			page = 1;
-    		}
-    		System.out.println(page);
-    		//move left
-    	}
+    	System.out.println("dx: " + dx + " dy: " + dy );
     	
-    	if (dy != 0) {
-    		if (page == 1) {
-    			page = 1;
-    		} else if (page == 2) {
-    			page = 2;
-    		} else if (page == 3) {
-    			page = 3;
-    		}
+    	//2,2,3,1
+    	
+    	if ((table == 1)||(table ==2)) {
+    		if (dx > 0) {
+    			//move right
+	    		System.out.println("right");
+	    		
+	    		if (page == 1) {
+	    			page = 2;
+	    		}
+	    		System.out.println(page);
+	    		
+	    	} else if (dx < 0) {
+	    		System.out.println("left");
+	    		if (page == 2) {
+	    			page = 1;
+	    		}
+	    		System.out.println(page);
+	    		//move left
+	    	}
+    	} else if (table == 3) {
+    		if (dx > 0) {
+    			//move right
+	    		System.out.println("right");
+	    		
+	    		if (page == 1) {
+	    			page = 2;
+	    		} else if (page == 2) {
+	    			page = 3;
+	    		}
+	    		System.out.println(page);
+	    		
+	    	} else if (dx < 0) {
+	    		System.out.println("left");
+		    	if (page == 3) {
+		    		page = 2;
+		    	}else if (page == 2) {
+	    			page = 1;
+	    		}
+	    		System.out.println(page);
+	    		//move left
+	    	}
     	}
     	
 		System.out.println("BIIIIIGGGGGGGGERRRR ALERT: page : " + page);
