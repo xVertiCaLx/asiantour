@@ -2,6 +2,7 @@ package com.og.app.gui;
 
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
+import net.rim.device.api.system.EncodedImage;
 import net.rim.device.api.ui.Color;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Graphics;
@@ -144,8 +145,11 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
 //                Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(newsItem.image, 0, -1, 1);
 //                tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);         
 //                webImg = new BitmapField( tmpbitmap, Field.FIELD_HCENTER|Field.FOCUSABLE);    
-               
-            	webImg = new WebBitmapField(newsItem.imageurl);
+               if(newsItem.image==null || newsItem.image.length < 1){
+            	   webImg = new WebBitmapField(newsItem.imageurl, newsItem.guid);
+               }else{
+            	   webImg = new BitmapField(Bitmap.createBitmapFromBytes(newsItem.image, 0, newsItem.image.length, 1));
+               }
                 
             } catch (Exception e) {
                 System.out.println("aloy.NewsDetailScreen.exceptione: " +e);
