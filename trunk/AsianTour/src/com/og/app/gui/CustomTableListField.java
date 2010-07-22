@@ -118,7 +118,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
 
     public void drawListRow(ListField listField, Graphics g, int index, int y, int width) {
     	
-    	System.out.println("BIG ALERT!!!!!! aloy.drawList.index:"+ index);
+//    	//System.out.println("BIG ALERT!!!!!! aloy.drawList.index:"+ index);
         Font textFont = GuiConst.FONT_TABLE_HEADER;
         
         /* Table No:    
@@ -126,7 +126,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
         2 - Tour Schedule
         3 - Live Score
         4 - Order of Merit*/
-        System.out.println("SWITCH TABLE NUMBER IS WHAT NUMBER?: " + table);
+//        //System.out.println("SWITCH TABLE NUMBER IS WHAT NUMBER?: " + table);
         switch (table) {
             
             /*TV Schedule*/
@@ -136,7 +136,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                     if (index == 0) {
                     	
                     	setupBackground(g, index, y);
-                    	System.out.println("aloy.enter case 1 and row 0");
+//                    	//System.out.println("aloy.enter case 1 and row 0");
                         //if row is zero, it is a header row, set up Table Header
                         g.setColor(GuiConst.FONT_COLOR_WHITE);
                         g.setFont(textFont);
@@ -149,21 +149,21 @@ public class CustomTableListField extends ListField implements ListFieldCallback
 //                        	}
                             
                         	//text_y = y+2;
-                        	System.out.println(text_y + " "+ y);
+//                        	//System.out.println(text_y + " "+ y);
                             //prev_x += this_x; //+ padding;
                             
                             g.drawText(tvLabel[i], prev_x, text_y);
                             
                             prev_x += tvWidth[i]+ padding + header_separator.getWidth();//textFont.getAdvance(tvLabel[i]); + this_x;
                             
-                            System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
+//                            //System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
                             
                             //need to check page
 //                            if (i != 2) {
 //                                //if i equals tvLabel.length, it is already the last colomn, no need to have another separator
 //                                g.drawBitmap(prev_x, text_y, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
 //                                prev_x += header_separator.getWidth();//+ padding;
-//                                System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
+//                                //System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
 //                                //temp_x = tvWidth[i];//text_x;
 //                            } else {
 //                            	g.drawBitmap((GuiConst.SCREENWIDTH - next_icon.getWidth()), text_y-2, next_icon.getWidth(), next_icon.getHeight(), next_icon, 0,0);
@@ -192,7 +192,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                     	text_x = padding;
                     	temp_x = padding;
                     	
-                    	System.out.println("this is row index : " + index);
+//                    	//System.out.println("this is row index : " + index);
                         DataCentre item = (DataCentre)_elements.elementAt(index);
                         
                         String printText = item.tvName;
@@ -307,7 +307,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                 } else if (page == 2) {
                     if (index == 0) {
                     	setupBackground(g, index, y);
-                    	System.out.println("aloy.enter case 1 and row 0");
+//                    	//System.out.println("aloy.enter case 1 and row 0");
                         //if row is zero, it is a header row, set up Table Header
                         g.setColor(GuiConst.FONT_COLOR_WHITE);
                         g.setFont(textFont);
@@ -319,14 +319,14 @@ public class CustomTableListField extends ListField implements ListFieldCallback
 	                            
 	                            prev_x += tvWidth[i] + padding + header_separator.getWidth();
 	                            
-	                            System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
+//	                            //System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
 	                            
 	                            //need to check page
 //	                            if (i < tvLabel.length) {
 //	                                //if i equals tvLabel.length, it is already the last colomn, no need to have another separator
 //	                                g.drawBitmap(prev_x, text_y, header_separator.getWidth(), header_separator.getHeight(), header_separator, 0,0);
 //	                                prev_x += header_separator.getWidth();//+ padding;
-//	                                System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
+//	                                //System.out.println("aloy.CustomTableListField.drawList.switch1: text_x: "+text_x);
 //	                                //temp_x = tvWidth[i];//text_x;
 //	                            } else {
 //	                            	g.drawBitmap((GuiConst.SCREENWIDTH - next_icon.getWidth()), text_y-2, next_icon.getWidth(), next_icon.getHeight(), next_icon, 0,0);
@@ -352,7 +352,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                     	text_x = padding;
                     	temp_x = padding;
                     	
-                    	System.out.println("this is row index : " + index);
+                    	//System.out.println("this is row index : " + index);
                         DataCentre item = (DataCentre)_elements.elementAt(index);
                         
                         String printText = item.tvName;
@@ -470,7 +470,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
             /*Tour Schedule*/
             case 2: 
 
-                System.out.println("i'm printing second table");
+//                //System.out.println("i'm printing second table");
         		if (page == 1) {
                 	
                     if (index == 0) {
@@ -512,7 +512,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                     	text_x = padding;
                     	temp_x = padding;
                     	
-                    	System.out.println("this is row index : " + index);
+                    	//System.out.println("this is row index : " + index);
                         DataCentre item = (DataCentre)_elements.elementAt(index);
                         //"Tour Date", "Country", "Tour Name", "Golf Club", "Def Champion", "Prize Money"
                         String printText = item.tourDate;
@@ -627,7 +627,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                 } else if (page == 2) {
                     if (index == 0) {
                     	setupBackground(g, index, y);
-                    	System.out.println("aloy.enter case 1 and row 0");
+                    	//System.out.println("aloy.enter case 1 and row 0");
                         //if row is zero, it is a header row, set up Table Header
                         g.setColor(GuiConst.FONT_COLOR_WHITE);
                         g.setFont(textFont);
@@ -641,7 +641,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
 	                        	}
 	                            
 	                        	//text_y = y+2;
-	                        	System.out.println(text_y + " "+ y);
+	                        	//System.out.println(text_y + " "+ y);
 	                            prev_x += this_x; //+ padding;
 	                            
 	                            g.drawText(tvLabel[i], prev_x, text_y);
@@ -664,7 +664,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
                     	text_x = padding;
                     	temp_x = padding;
                     	
-                    	System.out.println("this is row index : " + index);
+                    	//System.out.println("this is row index : " + index);
                         DataCentre item = (DataCentre)_elements.elementAt(index);
                         
                         String printText = item.tvName;
@@ -799,30 +799,30 @@ public class CustomTableListField extends ListField implements ListFieldCallback
 //    	if (index == 0) {
 //            /* header */
 //            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
-//            System.out.println("1background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+//            //System.out.println("1background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
 //        } else if ((index != 0) && ((index % 2) == 0)) {
 //            /* even row */
 //            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), even_bg, 0,0);
-//            System.out.println("2background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+//            //System.out.println("2background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
 //        } else if ((index != 0) && ((index % 2) == 1)) {
 //            /* odd row */
 //            g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), odd_bg, 0,0);
-//            System.out.println("3background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
+//            //System.out.println("3background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y); 
 //        }
         
         if (index == 0) {
         	g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg.getHeight(), header_bg, 0,0);
-        	System.out.println("header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+//        	//System.out.println("header background = row"  + row + " height:" + header_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
         } else {
         	if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
         		g.drawBitmap(0, bg_y, this.getPreferredWidth(), odd_bg.getHeight(), odd_bg, 0,0);
-        		System.out.println("this is a selected row, so use ODD bg, header background = row"  + row + " height:" + odd_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+//        		//System.out.println("this is a selected row, so use ODD bg, header background = row"  + row + " height:" + odd_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
         		bg_y += odd_bg.getHeight();
             	g.drawBitmap(0, bg_y, this.getPreferredWidth(), border.getHeight(), border, 0,0);
         	} else {
         		
         		//g.drawBitmap(0, bg_y, this.getPreferredWidth(), even_bg.getHeight(), even_bg, 0,0);
-        		System.out.println("this is NOT a selected row, so use EVEN bg, header background = row"  + row + " height:" + even_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
+//        		//System.out.println("this is NOT a selected row, so use EVEN bg, header background = row"  + row + " height:" + even_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
         		bg_y += even_bg.getHeight();
             	g.drawBitmap(0, bg_y, this.getPreferredWidth(), border.getHeight(), border, 0,0);
         	}
@@ -863,14 +863,14 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     public synchronized void saveChanges(DataCentre ni, int index) {
         try {
             //to save news as loaded/read
-            System.out.println("saveeeededdd");
+//            //System.out.println("saveeeededdd");
         } catch (Exception e) {
-            System.out.println("aloy.CustomListField.exceptione.saveChanges(ni, index):"+e);
+//            //System.out.println("aloy.CustomListField.exceptione.saveChanges(ni, index):"+e);
         }
     }
     
     public boolean navigationClick(int status, int time) {
-        System.out.println("aloy.CustomListField.navigationClick: got enter or not?");
+//        //System.out.println("aloy.CustomListField.navigationClick: got enter or not?");
         
         
         return false;
