@@ -1,8 +1,11 @@
 <Properties ModelVersion="1.1.2">
-  <General Title="AsianTour" Version="1.0.0" Vendor="BlackBerry Developer" Description=""/>
+  <General Title="Asian Tour" Version="1.0.1" Vendor="Orange Gum Pte Ltd" Description=""/>
   <Application Type="BlackBerry Application" MainMIDletName="" MainArgs="" HomeScreenPosition="0" StartupTier="7" IsSystemModule="false" IsAutostartup="false"/>
   <Resources hasTitleResource="false" TitleResourceBundleName="" TitleResourceBundleRelativePath="" TitleResourceBundleClassName="" TitleResourceBundleKey="" DescriptionId="">
-    <Icons/>
+    <Icons>
+      <Icon CanonicalFileName="res/res/ico.png" IsFocus="false"/>
+      <Icon CanonicalFileName="res/res/ico_hover.png" IsFocus="true"/>
+    </Icons>
   </Resources>
   <Compile OutputCompilerMessages="false" ConvertImages="false" CreateWarningForNoExportedRoutine="true" CompressResources="false" AliasList="">
     <PreprocessorDefines/>
