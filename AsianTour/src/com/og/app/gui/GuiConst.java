@@ -129,8 +129,8 @@ public class GuiConst{
             FONT_BOLD = ff.getFont(Font.BOLD, font_size);
             FONT_BOLD_UNDERLINED = ff.getFont(Font.BOLD|Font.UNDERLINED, font_size);
             FONT_DATE = ff.getFont(Font.ITALIC, datefont_size);  
-            FONT_TABLE = ff.getFont(Font.PLAIN, 14);
-            FONT_TABLE_HEADER = ff.getFont(Font.BOLD, 17);
+            FONT_TABLE = FONT_PLAIN;//ff.getFont(Font.PLAIN, 14);
+            FONT_TABLE_HEADER = FONT_BOLD;//ff.getFont(Font.BOLD, 17);
             
             return;
         } catch (Exception e) {}
@@ -160,6 +160,8 @@ public class GuiConst{
         FONT_BOLD = defaultFont.getFontFamily().getFont( Font.BOLD, font_size);
         FONT_BOLD_UNDERLINED = defaultFont.getFontFamily().getFont(Font.BOLD|Font.UNDERLINED, font_size);
         FONT_DATE = defaultFont.getFontFamily().getFont(Font.PLAIN, datefont_size);  
+        FONT_TABLE = FONT_PLAIN;//ff.getFont(Font.PLAIN, 14);
+        FONT_TABLE_HEADER = FONT_BOLD;//ff.getFont(Font.BOLD, 17);
     }
     
     public final static int PHOTO_WIDTH=70;  

@@ -26,9 +26,9 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 	protected Bitmap news_thumbnail = null;
 	protected Bitmap news_border = null;
 
-	protected int thumbnail_leftRightSpacing = 2;
+	protected int thumbnail_leftRightSpacing = 4;
 	protected int dateTopSpacing = 1;
-	protected int rowTopSpacing = 2;
+	protected int rowTopSpacing = 4;
 	protected int rowBottomSpacing = 1;
 	protected int textSpacing = 1;
 	protected int previewHeight = -1;
@@ -131,29 +131,33 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 				y += news_bg_selected.getHeight();
 				g.drawBitmap(0, y, news_border.getWidth(), news_border.getHeight(), news_border, 0, 0);
 				g.setColor(GuiConst.FONT_COLOR_NEWSSELECTED);
+				y -= news_bg_selected.getHeight();
 			} else {
 				g.drawBitmap(0,y, news_bg_notSelected.getWidth(), news_bg_notSelected.getHeight(), news_bg_notSelected, 0, 0);
 				y += news_bg_selected.getHeight();
 				g.drawBitmap(0, y, news_border.getWidth(), news_border.getHeight(), news_border, 0, 0);
+				y -= news_bg_selected.getHeight();
 			}
+			
+			
 
 			ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(index);
 
 			//if no image to load {
-			int imgy = y + (rowHeight - previewHeight)+5;///2;
-			if ((rowHeight - previewHeight)/2 > rowTopSpacing) {
-				imgy = y + rowTopSpacing + 1;
-			}
+			int imgy = y + ((rowHeight-news_border.getHeight()) - previewHeight)/2;
+//			if ((rowHeight - previewHeight)/2 > rowTopSpacing) {
+//				imgy = y + rowTopSpacing + 1;
+//			}
 			//} else draw the thumbnail from rss {}
 			Bitmap thumbnailBitmap = null;
 			if(ni.thumbnail!=null && ni.thumbnail.length > 2){
 				thumbnailBitmap = Bitmap.createBitmapFromBytes(ni.thumbnail, 0, ni.thumbnail.length, 1);
 				thumbnailBitmap = Utility.resizeBitmap(thumbnailBitmap, previewWidth, previewHeight);
-				g.drawBitmap(3, imgy, previewWidth, previewHeight,thumbnailBitmap, 0, 0);
+				g.drawBitmap(thumbnail_leftRightSpacing, imgy, previewWidth, previewHeight,thumbnailBitmap, 0, 0);
 			}
 			else{
 				news_thumbnail = Utility.resizeBitmap(news_thumbnail, previewWidth, previewHeight);
-				g.drawBitmap(3, imgy, previewWidth, previewHeight, news_thumbnail, 0, 0);
+				g.drawBitmap(thumbnail_leftRightSpacing, imgy, previewWidth, previewHeight, news_thumbnail, 0, 0);
 			}
 
 			//getting output
@@ -169,7 +173,7 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 			int tmpx = thumbnail_leftRightSpacing + news_thumbnail.getWidth() + thumbnail_leftRightSpacing;
 
 			int defaulttmpx = tmpx;
-			int tmpy = y + rowTopSpacing - 2;
+			int tmpy = y + ((rowHeight-news_border.getHeight()) - previewHeight)/2;
 			int lineno = 1;
 			for (int i = 0; i < vText.size(); i++) {
 				if (lineno >2) {
