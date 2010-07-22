@@ -119,7 +119,7 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 				g.drawBitmap(0, y, news_bg_selected.getWidth(), news_bg_selected.getHeight(), news_bg_selected, 0,0);
 				g.setColor(GuiConst.FONT_COLOR_NEWSSELECTED);
 			} else {
-				//g.drawBitmap(0,y, news_bg_notSelected.getWidth(), news_bg_notSelected.getHeight(), news_bg_notSelected, 0, 0);
+				g.drawBitmap(0,y, news_bg_notSelected.getWidth(), news_bg_notSelected.getHeight(), news_bg_notSelected, 0, 0);
 			}
 
 			ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(index);
