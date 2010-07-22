@@ -63,7 +63,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
     static final int[] liveWidth = {constantColWidth*9,constantColWidth*3,constantColWidth*6, constantColWidth*3,constantColWidth*3,constantColWidth*3, constantColWidth*2,constantColWidth,constantColWidth,constantColWidth,constantColWidth,constantColWidth*3};
     
     static final String [] meritLabel = {"Player", "Pos", " Earnings"};
-    static final int[] meritWidth = {};
+    static final int[] meritWidth = {constantColWidth*8, constantColWidth*6, constantColWidth*6};
     
     //this is for live score
     public CustomTableListField (ListFieldListener listener, int table, int page) {
