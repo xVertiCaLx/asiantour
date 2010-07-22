@@ -13,7 +13,7 @@ import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.component.ListField;
 import net.rim.device.api.ui.component.ListFieldCallback;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.*;
 
 public class CustomListField extends ListField implements ListFieldCallback, Runnable {
