@@ -821,7 +821,7 @@ public class CustomTableListField extends ListField implements ListFieldCallback
             	g.drawBitmap(0, bg_y, this.getPreferredWidth(), border.getHeight(), border, 0,0);
         	} else {
         		
-        		g.drawBitmap(0, bg_y, this.getPreferredWidth(), even_bg.getHeight(), even_bg, 0,0);
+        		//g.drawBitmap(0, bg_y, this.getPreferredWidth(), even_bg.getHeight(), even_bg, 0,0);
         		System.out.println("this is NOT a selected row, so use EVEN bg, header background = row"  + row + " height:" + even_bg.getHeight() + " bg_y: " + bg_y + " and index: " + index);
         		bg_y += even_bg.getHeight();
             	g.drawBitmap(0, bg_y, this.getPreferredWidth(), border.getHeight(), border, 0,0);
