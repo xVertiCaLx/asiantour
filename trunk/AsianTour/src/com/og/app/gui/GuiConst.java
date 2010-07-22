@@ -128,9 +128,14 @@ public class GuiConst{
             FONT_LINK = ff.getFont(Font.UNDERLINED, font_size);
             FONT_BOLD = ff.getFont(Font.BOLD, font_size);
             FONT_BOLD_UNDERLINED = ff.getFont(Font.BOLD|Font.UNDERLINED, font_size);
-            FONT_DATE = ff.getFont(Font.ITALIC, datefont_size);  
-            FONT_TABLE = FONT_PLAIN;//ff.getFont(Font.PLAIN, 14);
-            FONT_TABLE_HEADER = FONT_BOLD;//ff.getFont(Font.BOLD, 17);
+            FONT_DATE = ff.getFont(Font.ITALIC, datefont_size);
+            if (SCREENWIDTH > 320) {
+            	FONT_TABLE = ff.getFont(Font.PLAIN, 14);
+            	FONT_TABLE_HEADER = ff.getFont(Font.BOLD, 17);
+            } else {
+            	FONT_TABLE = FONT_PLAIN;
+            	FONT_TABLE_HEADER = FONT_BOLD;
+            }
             
             return;
         } catch (Exception e) {}
