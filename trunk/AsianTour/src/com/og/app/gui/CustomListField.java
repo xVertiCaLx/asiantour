@@ -24,10 +24,11 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 	protected Bitmap news_bg_selected = null;
 	protected Bitmap news_bg_notSelected = null;
 	protected Bitmap news_thumbnail = null;
+	protected Bitmap news_border = null;
 
 	protected int thumbnail_leftRightSpacing = 2;
 	protected int dateTopSpacing = 1;
-	protected int rowTopSpacing = 1;
+	protected int rowTopSpacing = 2;
 	protected int rowBottomSpacing = 1;
 	protected int textSpacing = 1;
 	protected int previewHeight = -1;
@@ -43,43 +44,53 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 		this.listener = listener;
 		setEmptyString("", DrawStyle.HCENTER);
 		setCallback(this);
+		
+		news_bg_selected = Bitmap.getBitmapResource("res/news_list_selected.png");
+		news_bg_notSelected = Bitmap.getBitmapResource("res/news_list.png");
+		news_border = Bitmap.getBitmapResource("res/news_border.png");
+		
+//		if (GuiConst.SCREENWIDTH > 320) {
+//			news_bg_selected = Bitmap.getBitmapResource("res/news_list_selected_65.png");
+//			news_bg_notSelected = Bitmap.getBitmapResource("res/news_list_65.png"); 
+//			news_thumbnail = Bitmap.getBitmapResource("res/previewnews2.png");
+//			previewWidth = 65;
+//			previewHeight = 65;
+//			rowTopSpacing = 15;
+//		} else {
+//			previewWidth = 50;
+//			previewHeight = 50;
+//			news_bg_selected = Bitmap.getBitmapResource("res/news_list_selected_50.png");
+//			news_bg_notSelected = Bitmap.getBitmapResource("res/news_list_50.png"); 
+//			news_thumbnail = Bitmap.getBitmapResource("res/previewnews.png");
+//			rowTopSpacing = 5;
+//		}
+		
 		if (GuiConst.SCREENWIDTH > 320) {
-			news_bg_selected = Bitmap.getBitmapResource("res/news_list_selected_65.png");
-			news_bg_notSelected = Bitmap.getBitmapResource("res/news_list_65.png"); 
 			news_thumbnail = Bitmap.getBitmapResource("res/previewnews2.png");
 			previewWidth = 65;
 			previewHeight = 65;
-			rowTopSpacing = 15;
+			//rowTopSpacing = 2;
 		} else {
+			news_thumbnail = Bitmap.getBitmapResource("res/previewnews.png");
 			previewWidth = 50;
 			previewHeight = 50;
-			news_bg_selected = Bitmap.getBitmapResource("res/news_list_selected_50.png");
-			news_bg_notSelected = Bitmap.getBitmapResource("res/news_list_50.png"); 
-			news_thumbnail = Bitmap.getBitmapResource("res/previewnews.png");
-			rowTopSpacing = 5;
 		}
+		
 		setRowHeight();
 
 	}
 
 	protected void setRowHeight() {
-		setRowHeight(rowTopSpacing+GuiConst.FONT_BOLD.getHeight()*2+GuiConst.FONT_PLAIN.getHeight()*2+textSpacing*3+dateTopSpacing+GuiConst.FONT_DATE.getHeight());//+rowBottomSpacing);
+		setRowHeight(rowTopSpacing + (GuiConst.FONT_BOLD.getHeight() * 2) + (GuiConst.FONT_PLAIN.getHeight() * 2) + (textSpacing * 3) + dateTopSpacing + GuiConst.FONT_DATE.getHeight() + news_border.getHeight());//+rowBottomSpacing);
 		if (getRowHeight() < previewHeight) {
 			this.setRowHeight(previewHeight+3);
 			System.out.println("previewHeight: " + previewHeight);
 		}
 
 		if ((getRowHeight() != news_bg_selected.getHeight()) || (this.getPreferredWidth() != news_bg_selected.getWidth())) {
-
-			if ((getRowHeight() == 104) || (getRowHeight() == 103)) {
-				news_bg_selected = Bitmap.getBitmapResource("res/news_list_selected_104.png");
-				news_bg_notSelected = Bitmap.getBitmapResource("res/news_list_104.png");
-				news_bg_selected = Utility.resizeBitmap(news_bg_selected, this.getPreferredWidth(), getRowHeight());
-				news_bg_notSelected = Utility.resizeBitmap(news_bg_notSelected, this.getPreferredWidth(), getRowHeight());
-			} else {
-				news_bg_selected = Utility.resizeBitmap(news_bg_selected, this.getPreferredWidth(), getRowHeight());
-				news_bg_notSelected = Utility.resizeBitmap(news_bg_notSelected, this.getPreferredWidth(), getRowHeight());
-			}
+			news_bg_selected = Utility.resizeBitmap(news_bg_selected, this.getPreferredWidth(), (getRowHeight() - news_border.getHeight()));
+			news_bg_notSelected = Utility.resizeBitmap(news_bg_notSelected, this.getPreferredWidth(), (getRowHeight() - news_border.getHeight()));
+			news_border = Utility.resizeBitmap(news_border, this.getPreferredWidth(), news_border.getHeight());
 		}
 	}
 
@@ -117,9 +128,13 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 			if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
 				//since this field is being selected, draw the bg using news_bg_selected
 				g.drawBitmap(0, y, news_bg_selected.getWidth(), news_bg_selected.getHeight(), news_bg_selected, 0,0);
+				y += news_bg_selected.getHeight();
+				g.drawBitmap(0, y, news_border.getWidth(), news_border.getHeight(), news_border, 0, 0);
 				g.setColor(GuiConst.FONT_COLOR_NEWSSELECTED);
 			} else {
 				g.drawBitmap(0,y, news_bg_notSelected.getWidth(), news_bg_notSelected.getHeight(), news_bg_notSelected, 0, 0);
+				y += news_bg_selected.getHeight();
+				g.drawBitmap(0, y, news_border.getWidth(), news_border.getHeight(), news_border, 0, 0);
 			}
 
 			ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(index);
