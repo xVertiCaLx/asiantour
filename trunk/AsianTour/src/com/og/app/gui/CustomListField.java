@@ -150,8 +150,14 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 //			}
 			//} else draw the thumbnail from rss {}
 			Bitmap thumbnailBitmap = null;
+			refreshCacheReload:
 			if(ni.thumbnail!=null && ni.thumbnail.length > 2){
+				try{
 				thumbnailBitmap = Bitmap.createBitmapFromBytes(ni.thumbnail, 0, ni.thumbnail.length, 1);
+				}catch(Exception e){
+					ni.thumbnail = null;
+					break refreshCacheReload;
+				}
 				thumbnailBitmap = Utility.resizeBitmap(thumbnailBitmap, previewWidth, previewHeight);
 				g.drawBitmap(thumbnail_leftRightSpacing, imgy, previewWidth, previewHeight,thumbnailBitmap, 0, 0);
 			}
