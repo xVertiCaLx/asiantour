@@ -133,9 +133,11 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 			Bitmap thumbnailBitmap = null;
 			if(ni.thumbnail!=null && ni.thumbnail.length > 2){
 				thumbnailBitmap = Bitmap.createBitmapFromBytes(ni.thumbnail, 0, ni.thumbnail.length, 1);
+				thumbnailBitmap = Utility.resizeBitmap(thumbnailBitmap, previewWidth, previewHeight);
 				g.drawBitmap(3, imgy, previewWidth, previewHeight,thumbnailBitmap, 0, 0);
 			}
 			else{
+				news_thumbnail = Utility.resizeBitmap(news_thumbnail, previewWidth, previewHeight);
 				g.drawBitmap(3, imgy, previewWidth, previewHeight, news_thumbnail, 0, 0);
 			}
 
