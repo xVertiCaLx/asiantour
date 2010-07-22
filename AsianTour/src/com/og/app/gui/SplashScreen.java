@@ -35,7 +35,7 @@ public class SplashScreen extends MainScreen implements Runnable
             e.printStackTrace();
         }  
                                      
-        logoicon= Bitmap.getBitmapResource("res/slogo.png");
+        logoicon= Bitmap.getBitmapResource("res/ASIAN-TOUR-SPLASH.png");
     
         thread = new Thread(this);
         thread.start();
@@ -51,23 +51,23 @@ public class SplashScreen extends MainScreen implements Runnable
         int x = (scrwidth-logowidth)/2;
         int y = (scrheight-logoheight-GuiConst.FONT_VERSION.getHeight()*2)/2;
         //System.out.println("x:"+x+" , y:"+y);
-        graphics.drawBitmap(x, y, logowidth, logoheight, logoicon , 0, 0);
+        graphics.drawBitmap(x, y+20, logowidth, logoheight, logoicon , 0, 0);
         
-        int textwidth = GuiConst.FONT_VERSION.getAdvance(text);        
-        graphics.setFont(GuiConst.FONT_VERSION);
-        x = (scrwidth-textwidth)/2;
-        y=y+logoheight+10;
-        graphics.drawText(text, x, y);           
-        
-        textwidth = GuiConst.FONT_VERSION.getAdvance(text2);        
-        x = (scrwidth-textwidth)/2;
-        y=y+GuiConst.FONT_VERSION.getHeight()+2;
-        graphics.drawText(text2, x, y);                  
-
-        textwidth = GuiConst.FONT_VERSION.getAdvance(text3);        
-        x = (scrwidth-textwidth)/2;
-        y=y+GuiConst.FONT_VERSION.getHeight()+2;
-        graphics.drawText(text3, x, y);              
+//        int textwidth = GuiConst.FONT_VERSION.getAdvance(text);        
+//        graphics.setFont(GuiConst.FONT_VERSION);
+//        x = (scrwidth-textwidth)/2;
+//        y=y+logoheight+10;
+//        graphics.drawText(text, x, y);           
+//        
+//        textwidth = GuiConst.FONT_VERSION.getAdvance(text2);        
+//        x = (scrwidth-textwidth)/2;
+//        y=y+GuiConst.FONT_VERSION.getHeight()+2;
+//        graphics.drawText(text2, x, y);                  
+//
+//        textwidth = GuiConst.FONT_VERSION.getAdvance(text3);        
+//        x = (scrwidth-textwidth)/2;
+//        y=y+GuiConst.FONT_VERSION.getHeight()+2;
+//        graphics.drawText(text3, x, y);              
         
     }
     
