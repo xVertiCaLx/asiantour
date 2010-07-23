@@ -282,7 +282,7 @@ public class ConnectionMgr{
     
     private static String read(InputStream is) throws Exception{
         String result = "";
-        byte[] buffer = new byte[250];
+        byte[] buffer = new byte[10000];
         long cursor = 0;
         int offset = 0;
         
