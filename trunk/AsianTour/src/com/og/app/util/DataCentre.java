@@ -68,6 +68,16 @@ public class DataCentre implements net.rim.device.api.util.Persistable {
         this.ls_r4 = ls_r4;
         this.ls_total = ls_total;
     }
+    
+    public String merit_player = "";
+    public String merit_pos = "";
+    public String merit_prize = "";
+    
+    public DataCentre (String merit_player, String merit_pos, String merit_prize) {
+    	this.merit_player = merit_player;
+    	this.merit_pos = merit_pos;
+    	this.merit_prize = merit_prize;
+    }
 
     
 } 
