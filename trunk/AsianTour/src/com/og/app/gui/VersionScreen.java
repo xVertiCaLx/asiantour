@@ -22,15 +22,15 @@ public class VersionScreen extends MainScreen implements ImageButtonListener
     FieldChangeListener yeslistener = new FieldChangeListener() {
         
          public void fieldChanged(Field field, int context) {
-             ImageButtonField buttonField = (ImageButtonField) field;
+//             ImageButtonField buttonField = (ImageButtonField) field;
              //System.out.println("VersionScreen::yeslistener::"+buttonField.getLabel());
             //Browser.getDefaultSession().displayPage(Const.DOWNLOAD_URL);  
 
-            BrowserSession session = Browser.getDefaultSession();
-            session.displayPage(Const.DOWNLOAD_URL);
-            session.showBrowser();          
-                                                                
-            try{Thread.sleep(10000);}catch(Exception e){}
+//            BrowserSession session = Browser.getDefaultSession();
+//            session.displayPage(Const.DOWNLOAD_URL);
+//            session.showBrowser();          
+//                                                                
+//            try{Thread.sleep(10000);}catch(Exception e){}
             System.exit(0);
             return;          
          }
@@ -107,8 +107,8 @@ public class VersionScreen extends MainScreen implements ImageButtonListener
     
     public void imageButtonClicked(int id){    
             if ( btnyes.getIndex()==id ){
-                    Browser.getDefaultSession().displayPage(Const.DOWNLOAD_URL);          
-                    try{Thread.sleep(10000);}catch(Exception e){}
+//                    Browser.getDefaultSession().displayPage(Const.DOWNLOAD_URL);          
+//                    try{Thread.sleep(10000);}catch(Exception e){}
                     System.exit(0);
                     return;          
             }else if ( btnno.getIndex()==id ){
