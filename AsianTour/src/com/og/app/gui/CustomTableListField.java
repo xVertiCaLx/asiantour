@@ -59,8 +59,8 @@ public class CustomTableListField extends ListField implements
 			"Golf Club", "Def Champion", "Prize Money" };
 	// 1 1 1 /2 2 2 2
 	static final int[] tourWidth = { constantColWidth * 5,
-			constantColWidth * 5, constantColWidth * 9, constantColWidth * 3,
-			constantColWidth * 4, constantColWidth * 4 };
+			constantColWidth * 5, constantColWidth * 6, constantColWidth * 2,
+			constantColWidth * 5, constantColWidth * 6 };
 
 	// header for Live Score table
 	static final String[] liveLabel = { "Player", "Mark", "Country", "Pos",
@@ -838,6 +838,44 @@ public class CustomTableListField extends ListField implements
 									.getAdvance(tempString + " ");
 							if ((text_x + wordWidth >= tourWidth[4])
 									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[4] * 75) / 100)))) {
+								if (lineNo == 2) {
+									tempString = "...";
+								} else {
+									text_y += GuiConst.FONT_TABLE.getHeight()
+											+ padding;
+									text_x = temp_x;
+								}
+								lineNo++;
+							}
+
+							g.drawText(tempString + " ", text_x, text_y);
+							text_x += wordWidth;
+						}
+					}
+					
+					text_y = y + padding;
+					temp_x += tourWidth[4] + header_separator.getWidth()
+							+ padding;
+					text_x = temp_x;
+					lineNo = 1;
+
+					printText = item.tourPrize;
+					vText = Utility.breakIntoWords(printText);
+					if (textFont.getAdvance(printText) <= tourWidth[5]) {
+						text_y = y
+								+ ((getRowHeight() - textFont.getHeight()) / 2);
+						g.drawText(printText + " ", text_x, text_y);
+					} else {
+						for (int word = 0; word < vText.size(); word++) {
+							if (lineNo > 2) {
+								break;
+							}
+
+							String tempString = (String) vText.elementAt(word);
+							int wordWidth = GuiConst.FONT_TABLE
+									.getAdvance(tempString + " ");
+							if ((text_x + wordWidth >= tourWidth[5])
+									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[5] * 75) / 100)))) {
 								if (lineNo == 2) {
 									tempString = "...";
 								} else {
