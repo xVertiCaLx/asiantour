@@ -7,18 +7,23 @@ import net.rim.device.api.ui.container.HorizontalFieldManager;
 public class LogoPanel extends HorizontalFieldManager {
     private static LogoPanel logoPanel = null;
     private static Bitmap logoIcon = null;
+    private static int tabID = 1;
     
     public synchronized static LogoPanel getInstance() {
         if (logoPanel == null) {
             logoPanel = new LogoPanel();
-            if(GuiConst.SCREENWIDTH == 320) {
-        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W380/ASIAN-TOUR-TOPBAR.png");
-        	} else if (GuiConst.SCREENWIDTH == 360) {
-        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W360/ASIAN-TOUR-TOPBAR.png");
-        	} else if (GuiConst.SCREENWIDTH == 480) {
-        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W480/ASIAN-TOUR-TOPBAR.png");
-        	} else {
-        		logoIcon = Bitmap.getBitmapResource("res/titleBar/logo.png");
+//            if(GuiConst.SCREENWIDTH == 320) {
+//        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W380/default.png");
+//        	} else if (GuiConst.SCREENWIDTH == 360) {
+//        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W360/default.png.png");
+//        	} else if (GuiConst.SCREENWIDTH == 480) {
+//        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W480/default.png.png");
+//        	} 
+            
+            logoIcon = Bitmap.getBitmapResource("res/titleBar/W" + GuiConst.SCREENWIDTH + "/default.png");
+        } else {
+        	if (tabID == 1) {
+        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W" + GuiConst.SCREENWIDTH + "/default.png");
         	}
         }
         return logoPanel;
