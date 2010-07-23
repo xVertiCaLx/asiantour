@@ -18,6 +18,7 @@ public class WebBitmapField extends BitmapField implements WebDataCallback
 		try
 		{
 			Utility.getWebData(url, this);
+			System.out.println("Downloading image...");
 			this.guid = newsItemGuid;
 		}
 		catch (Exception e) {}
@@ -40,13 +41,13 @@ public class WebBitmapField extends BitmapField implements WebDataCallback
 		try
 		{
 			byte[] dataArray = data.getBytes();
+			System.out.println("Image downloaded");
 			bitmap = EncodedImage.createEncodedImage(dataArray, 0,
 					dataArray.length);
 //			if(bitmap.getBitmap().getWidth() > getScreen().getWidth()){
 //				int ht = bitmap.getBitmap().getWidth() / getScreen().getWidth() * bitmap.getBitmap().getHeight();
 //				bitmap = Utility.resizeBitmap(bitmap.getBitmap(), getScreen().getWidth(), ht);
 //			}
-			bitmap.setScale(5);
 			for(int i=0; i<MenuScreen.getInstance().newsCollection.size(); i++){
 				ANewsItemObj newsItem = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(i);
 				if(newsItem.guid.equals(guid)){

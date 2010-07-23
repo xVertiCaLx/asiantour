@@ -9,7 +9,6 @@ import java.util.Hashtable;
 import java.util.TimeZone;
 import java.util.Vector;
 
-import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 
 import net.rim.blackberry.api.mail.ServiceConfiguration;
@@ -465,32 +464,16 @@ public class Utility{
     }
     public static void getWebData(final String url, final WebDataCallback callback) throws IOException
     {
+    	
+    	System.out.println("Get Web Data: " + url);
     	Thread t = new Thread(new Runnable()
     	{
     		public void run()
     		{
-    			HttpConnection connection = null;
-    			InputStream inputStream = null;
-
     			try
     			{
-    				connection = (HttpConnection) Connector.open(url, Connector.READ, true);
-    				inputStream = connection.openInputStream();
-    				byte[] responseData = new byte[1000000];
-    				int length = 0;
-    				StringBuffer rawResponse = new StringBuffer();
-    				while (-1 != (length = inputStream.read(responseData)))
-    				{
-    					rawResponse.append(new String(responseData, 0, length));
-    				}
-    				int responseCode = connection.getResponseCode();
-    				if (responseCode != HttpConnection.HTTP_OK)
-    				{
-    					throw new IOException("HTTP response code: "
-    							+ responseCode);
-    				}
-
-    				final String result = rawResponse.toString();
+    				System.out.println("Get Web Data:Connection.open ");
+    				final String result = ConnectionMgr.wgetData(url);
     				UiApplication.getUiApplication().invokeLater(new Runnable()
     				{
     					public void run()
@@ -509,19 +492,9 @@ public class Utility{
     					}
     				});
     			}
-    			finally
-    			{
-    				try
-    				{
-    					inputStream.close();
-    					inputStream = null;
-    					connection.close();
-    					connection = null;
-    				}
-    				catch(Exception e){}
-    			}
     		}
     	});
+    	t.start();
 //    	retry:
 //    	if(Thread.activeCount() <= 10){
 //    		t.start();

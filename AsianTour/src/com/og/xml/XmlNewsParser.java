@@ -76,6 +76,7 @@ public class XmlNewsParser {
 				}else if(node.equals("author")){
 					xmlNewsItem.author = element;
 				}
+				xmlNewsItemCollection.addElement(xmlNewsItem);
 			}
 			xmlNewsItemCollection.addElement(xmlNewsItem);
 			

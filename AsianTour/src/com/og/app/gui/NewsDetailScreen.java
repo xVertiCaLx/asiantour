@@ -145,12 +145,12 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
 //                Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(newsItem.image, 0, -1, 1);
 //                tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);         
 //                webImg = new BitmapField( tmpbitmap, Field.FIELD_HCENTER|Field.FOCUSABLE);    
-               //if(newsItem.image==null || newsItem.image.length < 1){
+               if(newsItem.image==null || newsItem.image.length < 1){
             	   webImg = new WebBitmapField(newsItem.imageurl, newsItem.guid);
-//               }else{
-//            	   webImg = new BitmapField(Bitmap.createBitmapFromBytes(newsItem.image, 0, newsItem.image.length, 1));
-//               }
-//                
+               }else{
+            	   webImg = new BitmapField(Bitmap.createBitmapFromBytes(newsItem.image, 0, newsItem.image.length, 1));
+               }
+                
             } catch (Exception e) {
                 System.out.println("aloy.NewsDetailScreen.exceptione: " +e);
             }
