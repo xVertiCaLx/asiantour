@@ -1,6 +1,4 @@
 package com.og.app.gui;
-//import com.og.app.util.*;
-//import com.og.app.object.SettingObj;
 
 import com.og.app.*;
 
@@ -90,18 +88,9 @@ public class GuiConst{
     public static Font FONT_TABLE_HEADER = null;
     public static Font FONT_TABLE = null;
     
-    /*public static Font FONT_PLAIN = Font.getDefault().getFontFamily().getFont(Font.PLAIN, 10);
-    public static Font FONT_LINK= Font.getDefault().getFontFamily().getFont(Font.UNDERLINED, 10);
-    public static Font FONT_BOLD = Font.getDefault().getFontFamily().getFont(Font.BOLD, 10);
-    public static Font FONT_DATE = Font.getDefault().getFontFamily().getFont(Font.UNDERLINED, 5);
-    public static Font FONT_VERSION = Font.getDefault().getFontFamily().getFont(Font.UNDERLINED, 5);
-    public static Font FONT_BOLD_UNDERLINED = Font.getDefault().getFontFamily().getFont(Font.UNDERLINED|Font.BOLD, 10);
-    public static Font TABTYPEFONT_PLAIN = Font.getDefault().getFontFamily().getFont(Font.BOLD, 12);
-    public static Font TABTYPEFONT_UNDERLINED = Font.getDefault().getFontFamily().getFont(Font.UNDERLINED|Font.BOLD, 12);*/
-    
+   
     public static void reinitFont(){
-        //SettingObj settingobj = Utility.loadSetting();
-        int font_size = Const.DEFAULT_FONTSIZE;//12;//settingobj.fontsize;
+        int font_size = Const.DEFAULT_FONTSIZE;
         try {
             FontFamily ff = null;
             ff = FontFamily.forName(Const.DEFAULT_FONTNAME);
@@ -118,11 +107,6 @@ public class GuiConst{
             }while(true);
             
             int datefont_size = font_size-1;
-            /*do{
-                if ( ff.isHeightSupported(datefont_size))
-                    break;
-                datefont_size++;
-            }while(true);*/   
 
             FONT_PLAIN = ff.getFont(Font.PLAIN, font_size);
             FONT_LINK = ff.getFont(Font.UNDERLINED, font_size);
@@ -140,7 +124,6 @@ public class GuiConst{
             return;
         } catch (Exception e) {}
 
-        //font_size = settingobj.fontsize;
         Font defaultFont =Font.getDefault();
         do{
             if ( defaultFont.getFontFamily().isHeightSupported(font_size))
@@ -190,8 +173,6 @@ public class GuiConst{
     public static final int TABCOLOR_NORMAL = 0x00FFFFFF;
     public static final int TABCOLOR_FOCUS = 0x00FFFFFF;
     public static final int TABCOLOR_HIGHLIGHT= 0x00FFFFFF;
-    //public static final int TABCOLOR_FOCUS = 0x007c7c7c;
-    //public static final int TABCOLOR_HIGHLIGHT= 0x007c7c7c;    
     public static int LOGOPANEL_HEIGHT=0;
     public static int TABPANEL_HEIGHT=0;
     public static int NEWSPANEL_HEIGHT=0;
