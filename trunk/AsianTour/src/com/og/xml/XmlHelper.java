@@ -14,8 +14,8 @@ import com.og.rss.ANewsItemObj;
 
 public class XmlHelper {
 	
-	//private static final String url = "http://119.75.4.94/singtel/bpl/news.xml";
-	private static final String url = "http://10.11.1.106/news.xml";
+	private static final String url = "http://119.75.4.94/singtel/bpl/news.xml";
+//	private static final String url = "http://10.11.1.106/news.xml";
 	public static String newsXmlString = "";
 	
 	public static void downloadNews(){
