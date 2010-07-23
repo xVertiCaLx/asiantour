@@ -90,7 +90,7 @@ public class TableListField extends CustomTableListField {
             3 - Live Score*/
             if (tableNo == 1) {
                 
-                for (int i =0; i <10; i++) {
+                for (int i =0; i <30; i++) {
                     if (i == 0) {
                         item[i] = new DataCentre("Asian Tour Highlights", "TBC", "TBC", "Guangdong Golf Channel", "China");
                     } else if (i == 1) {
@@ -109,7 +109,7 @@ public class TableListField extends CustomTableListField {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
                     } else if (i == 8) {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
-                    } else if (i == 9) {
+                    } else {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
                     } 
                     add(item[i]);
