@@ -1036,7 +1036,7 @@ public class CustomTableListField extends ListField implements
 				}
 
 				text_y = y + padding;
-				temp_x += tourWidth[1] + header_separator.getWidth() + padding;
+				temp_x += meritWidth[1] + header_separator.getWidth() + padding;
 				text_x = temp_x;
 				lineNo = 1;
 
