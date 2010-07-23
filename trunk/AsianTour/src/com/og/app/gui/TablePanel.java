@@ -41,8 +41,6 @@ public class TablePanel extends VerticalFieldManager{
         add(childNewsPanel);
         loadNews(tableNo);
         
-        System.out.println("Table Number at Table Panel Class: " + tableNo);
-        
     }
     
     public synchronized static TablePanel getInstance(ListFieldListener listener, int fixHeight, int tableNo, int page) {
