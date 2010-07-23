@@ -12,11 +12,11 @@ public class LogoPanel extends HorizontalFieldManager {
         if (logoPanel == null) {
             logoPanel = new LogoPanel();
             if(GuiConst.SCREENWIDTH == 320) {
-        		logoIcon = Bitmap.getBitmapResource("res/titleBar/ASIAN-TOUR-TOPBAR.png");
+        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W380/ASIAN-TOUR-TOPBAR.png");
         	} else if (GuiConst.SCREENWIDTH == 360) {
-        		logoIcon = Bitmap.getBitmapResource("res/titleBar/ASIAN-TOUR-TOPBAR.png");
+        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W360/ASIAN-TOUR-TOPBAR.png");
         	} else if (GuiConst.SCREENWIDTH == 480) {
-        		logoIcon = Bitmap.getBitmapResource("res/titleBar/ASIAN-TOUR-TOPBAR.png");
+        		logoIcon = Bitmap.getBitmapResource("res/titleBar/W480/ASIAN-TOUR-TOPBAR.png");
         	} else {
         		logoIcon = Bitmap.getBitmapResource("res/titleBar/logo.png");
         	}
