@@ -697,7 +697,7 @@ public class CustomTableListField extends ListField implements
 
 					prev_x += prev_icon.getWidth() + padding;
 
-					for (int i = 0; i < tvLabel.length; i++) {
+					for (int i = 0; i < tourLabel.length; i++) {
 						if ((i == 2) || (i == 3) || (i == 4) || (i == 5)) {
 
 							g.drawText(tourLabel[i], prev_x, text_y);
@@ -778,7 +778,7 @@ public class CustomTableListField extends ListField implements
 					}
 
 					text_y = y + padding;
-					temp_x += tvWidth[2] + padding
+					temp_x += tourWidth[2] + padding
 							+ header_separator.getWidth() + padding;// +tvWidth[1];
 					text_x = temp_x;
 					lineNo = 1;
