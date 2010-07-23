@@ -77,6 +77,8 @@ public class XmlNewsParser {
 					xmlNewsItem.author = element;
 				}
 			}
+			xmlNewsItemCollection.addElement(xmlNewsItem);
+			
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
