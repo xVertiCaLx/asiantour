@@ -59,7 +59,7 @@ public class CustomTableListField extends ListField implements
 			"Golf Club", "Def Champion", "Prize Money" };
 	// 1 1 1 /2 2 2 2
 	static final int[] tourWidth = { constantColWidth * 5,
-			constantColWidth * 5, constantColWidth * 6, constantColWidth * 2,
+			constantColWidth * 4, constantColWidth * 6, constantColWidth * 3,
 			constantColWidth * 5, constantColWidth * 6 };
 
 	// header for Live Score table
