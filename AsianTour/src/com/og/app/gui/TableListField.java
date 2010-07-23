@@ -90,8 +90,10 @@ public class TableListField extends CustomTableListField {
             3 - Live Score*/
             if (tableNo == 1) {
                 
-                for (int i =0; i <50; i++) {
-                    /*if (i == 1) {
+                for (int i =0; i <10; i++) {
+                    if (i == 0) {
+                        item[i] = new DataCentre("Asian Tour Highlights", "TBC", "TBC", "Guangdong Golf Channel", "China");
+                    } else if (i == 1) {
                         item[i] = new DataCentre("Asian Tour Highlights", "TBC", "TBC", "Guangdong Golf Channel", "China");
                     } else if (i == 2) {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "PCCW, Golf Tour Channel #683", "Hong Kong");
@@ -99,26 +101,49 @@ public class TableListField extends CustomTableListField {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "SPORTCAST", "Taiwan");
                     } else if (i == 4) {
                         item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
-                    } else {
-                        item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "Sky Sports 3 Digital", "UK");
-                    }*/
-                	
-                	item[i] = new DataCentre(i+"i want WWW something that is super logn so that i can see the effects of the truncation "+ i, "date 1 of " + i, "time 1 of " + i, "broadcaster 1 of " + i, "region 1 of " + i );
-                	
+                    } else if (i == 5) {
+                        item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
+                    } else if (i == 6) {
+                        item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
+                    } else if (i == 7) {
+                        item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
+                    } else if (i == 8) {
+                        item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
+                    } else if (i == 9) {
+                        item[i] = new DataCentre("Asian Tour Golf Show", "24 June 2010", "2030 - 2100", "TrueVision", "Thailand");
+                    } 
                     add(item[i]);
                 }
                 
             } else if (tableNo == 2) {
                 for (int i =0; i <5; i++) {
-                    /*if (i == 1) {
+                    if (i == 0) {
                         item[i] = new DataCentre("January 6-9", "Thailand", "Qualifying School First Stage ", "Creek GR, Kaeng Krachan CCR & Rayong CC", "none", "$0");
+                    } else if (i == 1) {
+                        item[i] = new DataCentre("January 13-16", "Thailand", "Qualifying School Final Stage", "Creek GR, Kaeng Krachan CCR & Rayong CC", "Artemio MURAKAMI", "$0");
                     } else if (i == 2) {
                         item[i] = new DataCentre("January 13-16", "Thailand", "Qualifying School Final Stage", "Creek GR, Kaeng Krachan CCR & Rayong CC", "Artemio MURAKAMI", "$0");
-                    } else if ((i >= 3)||(i ==0)) {
+                    } else if (i == 3) {
                         item[i] = new DataCentre("February 4-7", "Thailand", "Asian Tour International", "Suwan Golf and Country Club", "Gaganjeet BHULLAR", "$300,000");
-                    }*/
+                    } else if (i == 4) {
+                        item[i] = new DataCentre("January 13-16", "Thailand", "Qualifying School Final Stage", "Creek GR, Kaeng Krachan CCR & Rayong CC", "Artemio MURAKAMI", "$0");
+                    }
                 	
-                	item[i] = new DataCentre("ab" + i, "bb", "cb"+1, "db", "eb"+i, "fb");
+                    add(item[i]);
+                }
+            } else if (tableNo == 4) {
+                for (int i =0; i <5; i++) {
+                    if (i == 0) {
+                        item[i] = new DataCentre("NOH Seung-yul (KOR)", "1", "$503,916.20");
+                    } else if (i == 1) {
+                        item[i] = new DataCentre("Marcus FRASER (AUS)", "2", "$496,970.25");
+                    } else if ((i == 2)) {
+                        item[i] = new DataCentre("Andrew DODT (AUS)", "3", "$382,199.50");
+                    } else if ((i == 3)) {
+                        item[i] = new DataCentre("K.J. CHOI (KOR)", "4", "$235,838.00");
+                    }else if ((i == 4)) {
+                        item[i] = new DataCentre("Tetsuji HIRATSUKA (JPN)", "5", "$212,463.86");
+                    }
                 	
                     add(item[i]);
                 }
