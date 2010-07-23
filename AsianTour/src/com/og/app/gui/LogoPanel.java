@@ -12,13 +12,13 @@ public class LogoPanel extends HorizontalFieldManager {
         if (logoPanel == null) {
             logoPanel = new LogoPanel();
             if(GuiConst.SCREENWIDTH == 320) {
-        		logoIcon = Bitmap.getBitmapResource("res/ASIAN-TOUR-TOPBAR.png");
+        		logoIcon = Bitmap.getBitmapResource("res/titleBar/ASIAN-TOUR-TOPBAR.png");
         	} else if (GuiConst.SCREENWIDTH == 360) {
-        		logoIcon = Bitmap.getBitmapResource("res/ASIAN-TOUR-TOPBAR.png");
+        		logoIcon = Bitmap.getBitmapResource("res/titleBar/ASIAN-TOUR-TOPBAR.png");
         	} else if (GuiConst.SCREENWIDTH == 480) {
-        		logoIcon = Bitmap.getBitmapResource("res/ASIAN-TOUR-TOPBAR.png");
+        		logoIcon = Bitmap.getBitmapResource("res/titleBar/ASIAN-TOUR-TOPBAR.png");
         	} else {
-        		logoIcon = Bitmap.getBitmapResource("res/logo.png");
+        		logoIcon = Bitmap.getBitmapResource("res/titleBar/logo.png");
         	}
         }
         return logoPanel;
@@ -30,16 +30,8 @@ public class LogoPanel extends HorizontalFieldManager {
     }
     
     protected void paint (Graphics g) {
-    	
-    	//(GuiConst.SCREENWIDTH - logoIcon.getWidth())/2
     	int x = 0;
         g.drawBitmap(x,0,logoIcon.getWidth(),logoIcon.getHeight(),logoIcon, 0,0);
-        //Font font = setFontSize(GuiConst.FONT_BOLD);//((logoIcon.getHeight()-7)/3));
-        g.setFont(GuiConst.FONT_BOLD);
-        g.setColor(GuiConst.FONT_COLOR_BLACK);
-        //int line1width = font.getAdvance("Asian Tour BlackBerry Application");
-        //String applicationTitle = "Asian Tour BlackBerry App";
-        //g.drawText(applicationTitle, ((GuiConst.SCREENWIDTH - GuiConst.FONT_BOLD.getAdvance(applicationTitle))/2), logoIcon.getHeight()/3);
     }
     
     //------------------------- Mandatory ------------------------------
