@@ -38,6 +38,7 @@ public class WebBitmapField extends BitmapField implements WebDataCallback
 			byte[] dataArray = data.getBytes();
 			bitmap = EncodedImage.createEncodedImage(dataArray, 0,
 					dataArray.length);
+			
 			for(int i=0; i<MenuScreen.getInstance().newsCollection.size(); i++){
 				ANewsItemObj newsItem = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(i);
 				if(newsItem.guid.equals(guid)){

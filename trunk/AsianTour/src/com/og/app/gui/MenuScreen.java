@@ -215,7 +215,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 					showNewsTab();
 					break;
 				case TabPanel.TAB_LIVE_SCORE:
-					setSelectedTab(currTabId);
+					showLiveScoreTab();
 					break;
 				case TabPanel.TAB_TV_SCHEDULE:
 					showTVScheduleTab();
@@ -238,7 +238,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 							return;
 						}
 					}
-					setSelectedTab(currTabId);
+					showOOMTab();
 					break;
 				}
 				selectedTab = f.getTabID();
@@ -259,6 +259,28 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		isFocusEventBlocked = false;
 	}
 
+	private void showLiveScoreTab(){
+		repainteverything();
+		fieldInit(3);
+		isFocusEventBlocked = true;
+		add(logoPanel);
+		add(tabPanel);
+		add(tablePanel);
+		setSelectedTab(TabPanel.TAB_LIVE_SCORE);
+		isFocusEventBlocked = false;
+	}
+	
+	private void showOOMTab(){
+		repainteverything();
+		fieldInit(4);
+		isFocusEventBlocked = true;
+		add(logoPanel);
+		add(tabPanel);
+		add(tablePanel);
+		setSelectedTab(TabPanel.TAB_ORDER_OF_MERIT);
+		isFocusEventBlocked = false;
+	}
+	
 	private void showTVScheduleTab(){
 
 		repainteverything();
