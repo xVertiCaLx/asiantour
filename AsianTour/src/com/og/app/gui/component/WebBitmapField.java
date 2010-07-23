@@ -32,8 +32,7 @@ public class WebBitmapField extends BitmapField implements WebDataCallback
 
 	public void callback(final String data)
 	{
-		if (data.startsWith("Exception")){ 
-			System.out.println(data);
+		if (data == null || data.startsWith("Exception")){ 
 			return;
 		
 		}

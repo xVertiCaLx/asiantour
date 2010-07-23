@@ -79,7 +79,9 @@ public class NewsListField extends CustomListField {
 					try {
 						Utility.getWebData(((ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(i)).thumbnailurl, new WebDataCallback() {
 							public void callback(String data) {
-								((ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(index)).thumbnail = data.getBytes();                                                                
+								if(data!=null){
+									((ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(index)).thumbnail = data.getBytes();                                                                
+								}
 							}
 						});
 					} catch (IOException e) {

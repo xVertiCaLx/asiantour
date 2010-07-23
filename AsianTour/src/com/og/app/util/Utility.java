@@ -478,6 +478,9 @@ public class Utility{
     				{
     					public void run()
     					{
+    						if(result==null){
+    							callback.callback("Exception ( Get Data Is NULL )");
+    						}
     						callback.callback(result);
     					}
     				});
