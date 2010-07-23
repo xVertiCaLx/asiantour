@@ -51,7 +51,9 @@ public class SplashScreen extends MainScreen implements Runnable
         int x = (scrwidth-logowidth)/2;
         int y = (scrheight-logoheight-GuiConst.FONT_VERSION.getHeight()*2)/2;
         //System.out.println("x:"+x+" , y:"+y);
-        graphics.drawBitmap(x, y+20, logowidth, logoheight, logoicon , 0, 0);
+        graphics.setColor(0);
+        graphics.fillRect(-10, -10, getWidth()+20, getHeight()+20);
+        graphics.drawBitmap(x, y+30, 300, 300, logoicon , 0, 0);
         
 //        int textwidth = GuiConst.FONT_VERSION.getAdvance(text);        
 //        graphics.setFont(GuiConst.FONT_VERSION);

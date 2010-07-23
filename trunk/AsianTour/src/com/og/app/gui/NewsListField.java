@@ -2,11 +2,15 @@ package com.og.app.gui;
 
 import java.io.IOException;
 
+import javax.wireless.messaging.BinaryMessage;
+
 import com.og.app.gui.listener.*;
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
 import com.og.rss.*;
 
+import net.rim.device.api.collection.Collection;
+import net.rim.device.api.collection.SortableCollection;
 import net.rim.device.api.system.*;
 import net.rim.device.api.ui.*;
 
@@ -66,8 +70,6 @@ public class NewsListField extends CustomListField {
 
 	public void loadNews(int newsID) {
 		setRowHeight();
-
-
 		synchronized(lock) {
 			this.newsID = newsID;
 			for(int i=0; i<MenuScreen.getInstance().newsCollection.size(); i++){
