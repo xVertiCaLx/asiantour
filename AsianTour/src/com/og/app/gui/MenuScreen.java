@@ -133,26 +133,14 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		//addMenuItems();
 
 		logoPanel.invalidate();
-		setSelectedTab(9);//this.selectedTab);
+		setSelectedTab(this.selectedTab); //9);//this.selectedTab);
 		tabPanel.reinitTab();      
 
-		if (this.selectedTab == 9) {
-			setSelectedTab(9);
-		} else if (this.selectedTab == 10) {
-			setSelectedTab(10);
-		}
-
-		//newsPanel.loadNews(selectedTab);          
-		/*        
-        if ( this.selectedTab==Const.ID_SETTING ){
-            delete(newscategorypanel);
-            newscategorypanel = new NewsCategoryPanel(rssdb, newspanel.getPreferredHeight(),this);
-            add(newscategorypanel);
-        }else if ( this.selectedTab==Const.ID_PHOTOGALLERY ){
-            setSelectedTab(Const.ID_PHOTOGALLERY );
-        }else
-            newsPanel.loadNews(selectedTab);
-		 */
+//		if (this.selectedTab == 9) {
+//			setSelectedTab(9);
+//		} else if (this.selectedTab == 10) {
+//			setSelectedTab(10);
+//		}
 	}
 
 	public void drawBottomPanel(){
