@@ -99,16 +99,14 @@ public class SplashScreen extends MainScreen implements Runnable
 					text = Lang.ERRORMSG_1stTIMENOCONN1;
 					text2 = Lang.ERRORMSG_1stTIMENOCONN2;
 					text3 = "[code= "+Const.ERRORCODE_1STTIMEUSERERROR+"."+ConnectionMgr.CONNECTIONTYPE+"]";                              
-					invalidate();
-					try{Thread.sleep(5000);}catch(Exception e){}   
-					System.exit(0);        
-					return;     
+					invalidate();        
+					//return;     
 				}   else{
 					text = Lang.ERRORMSG_NOCONN1;
 					text2 = Lang.ERRORMSG_NOCONN2;           
 					text3 = "[code= "+Const.ERRORCODE_NOCATEGORY+"."+ConnectionMgr.CONNECTIONTYPE+"]";   
-					invalidate();                 
-					try{Thread.sleep(5000);}catch(Exception e){}   
+					invalidate(); 
+					//return;
 				}         
 			}        
 
@@ -244,10 +242,16 @@ public class SplashScreen extends MainScreen implements Runnable
 				//                        loadMenuScreen(null);
 				//                        return;   
 				//                }         
-				System.exit(0);                                         
+				                                      
 			}
 		}finally{
-		
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				loadMenuScreen(null);
+				e.printStackTrace();
+			}
+			loadMenuScreen(null);
 		}
 	}
 
