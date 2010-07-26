@@ -68,6 +68,7 @@ public class XmlHelper {
 	public static String tvTimes_xml = "";
 	
 	public static void downloadTvTimes(){
+		System.out.println("enter downloadTvTimes");
 		try {
 			Utility.getWebData(tvTimes_url, new WebDataCallback() {
 				public void callback(String data) {
@@ -78,7 +79,7 @@ public class XmlHelper {
 						//String tvName, String tvDate, String tvBroadcastTime, String tvBroadcaster, String tvRegion
 						DataCentre itemObj = new DataCentre(xmlTvItem.programmeName, xmlTvItem.date, xmlTvItem.time, xmlTvItem.broadcaster, xmlTvItem.region);
 						//MenuScreen.getInstance().newsCollection.addElement(itemObj);
-						System.out.println("Added news : " + itemObj);
+						System.out.println("Added tv times : " + itemObj);
 						MenuScreen.getInstance().tvTimesCollection.addElement(itemObj);
 					}
 					//MenuScreen.getInstance().newsPanel.loadNews(0);
@@ -88,6 +89,7 @@ public class XmlHelper {
 			});
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.out.println("aloy.downloadedTvTimes.exceptione: " + e);
 			return;
 		}
 	}
@@ -96,6 +98,7 @@ public class XmlHelper {
 		Vector tvTimesCollection = null;
 		try{
 			data = data.substring(data.indexOf("<ArrayOfAnyType"));
+			System.out.println(data);
 		}catch (Exception e) {
 			return new Vector();
 		}
