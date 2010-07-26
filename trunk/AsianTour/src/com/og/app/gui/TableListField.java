@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
+import com.og.xml.XmlHelper;
 
 
 public class TableListField extends CustomTableListField {
@@ -84,6 +85,7 @@ public class TableListField extends CustomTableListField {
             2 - Tour Schedule
             3 - Live Score*/
             if (tableNo == 1) {
+            	
                 Vector tvTimes = MenuScreen.getInstance().tvTimesCollection;
                 for(int i=0; i<tvTimes.size(); i++){
                 	add((DataCentre)tvTimes.elementAt(i));
