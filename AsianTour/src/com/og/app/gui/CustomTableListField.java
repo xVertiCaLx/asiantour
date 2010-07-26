@@ -40,7 +40,7 @@ public class CustomTableListField extends ListField implements
 	public int text_x = padding;
 	public int page = 1;
 	public int temp_x = 0;
-	
+
 	public int arraySize = 50;
 
 	public int this_x = 0;
@@ -316,14 +316,11 @@ public class CustomTableListField extends ListField implements
 						}
 					}
 
-					// row ++;
-					// if (row > index) {
 					row = 0;
 					temp_x = padding;
 					text_x = padding;
 					prev_x = padding;
 					bg_y = y;
-					// }
 				}
 			} else if (page == 2) {
 				if (index == 0) {
@@ -851,7 +848,7 @@ public class CustomTableListField extends ListField implements
 							text_x += wordWidth;
 						}
 					}
-					
+
 					text_y = y + padding;
 					temp_x += tourWidth[4] + header_separator.getWidth()
 							+ padding;
