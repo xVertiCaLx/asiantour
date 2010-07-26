@@ -236,10 +236,10 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	private void showNewsTab(){
 		
-		if (getSelectedTab() == TabPanel.TAB_LIVE_SCORE) {
-			tabPanel.prevTab();
-		}
-		
+//		if (getSelectedTab() == TabPanel.TAB_LIVE_SCORE) {
+//			tabPanel.prevTab();
+//		}
+		logoPanel.repaintLogoPanel("default");
 		repainteverything();
 		fieldInit(1);
 		newsPanel.loadNews(0);
@@ -254,12 +254,12 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	private void showLiveScoreTab(){
 		
-		if (getSelectedTab() == TabPanel.TAB_NEWS) {
-			tabPanel.nextTab();
-		} else {
-			tabPanel.prevTab();
-		}
-		
+//		if (getSelectedTab() == TabPanel.TAB_NEWS) {
+//			tabPanel.nextTab();
+//		} else {
+//			tabPanel.prevTab();
+//		}
+		logoPanel.repaintLogoPanel("titlebar_livescore");
 		repainteverything();
 		fieldInit(3);
 		isFocusEventBlocked = true;
@@ -272,11 +272,13 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	
 	private void showOOMTab(){
 		
-		if (getSelectedTab() == TabPanel.TAB_TOUR_SCHEDULE) {
-			tabPanel.nextTab();
-		} else {
-			tabPanel.prevTab();
-		}
+//		if (getSelectedTab() == TabPanel.TAB_TOUR_SCHEDULE) {
+//			tabPanel.nextTab();
+//		} else {
+//			tabPanel.prevTab();
+//		}
+		
+		logoPanel.repaintLogoPanel("titlebar_orderofmerit");
 		
 		repainteverything();
 		fieldInit(4);
@@ -290,14 +292,15 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	
 	private void showTVScheduleTab(){
 
-		if (getSelectedTab() == TabPanel.TAB_LIVE_SCORE) {
-			tabPanel.nextTab();
-		} else {
-			tabPanel.prevTab();
-		}
-		
+//		if (getSelectedTab() == TabPanel.TAB_LIVE_SCORE) {
+//			tabPanel.nextTab();
+//		} else {
+//			tabPanel.prevTab();
+//		}
+		logoPanel.repaintLogoPanel("titlebar_tvschedule");
 		repainteverything();
 		fieldInit(1);
+		
 		isFocusEventBlocked = true;
 		add(logoPanel);
 		add(tabPanel);
@@ -308,12 +311,12 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	private void showTourScheduleTab(){
 		
-		if (getSelectedTab() == TabPanel.TAB_TV_SCHEDULE) {
-			tabPanel.nextTab();
-		} else {
-			tabPanel.prevTab();
-		}
-		
+//		if (getSelectedTab() == TabPanel.TAB_TV_SCHEDULE) {
+//			tabPanel.nextTab();
+//		} else {
+//			tabPanel.prevTab();
+//		}
+		logoPanel.repaintLogoPanel("titlebar_tourschedule");
 		repainteverything();
 		fieldInit(2);
 		isFocusEventBlocked = true;
