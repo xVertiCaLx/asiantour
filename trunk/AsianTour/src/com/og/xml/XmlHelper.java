@@ -79,6 +79,7 @@ public class XmlHelper {
 						DataCentre itemObj = new DataCentre(xmlTvItem.programmeName, xmlTvItem.date, xmlTvItem.time, xmlTvItem.broadcaster, xmlTvItem.region);
 						//MenuScreen.getInstance().newsCollection.addElement(itemObj);
 						System.out.println("Added news : " + itemObj);
+						MenuScreen.getInstance().tvTimesCollection.addElement(itemObj);
 					}
 					//MenuScreen.getInstance().newsPanel.loadNews(0);
 					
