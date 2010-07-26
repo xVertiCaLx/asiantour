@@ -56,7 +56,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		//setTitle(lblTitle);
 		newsCollection = RecordStoreHelper.getNewsCollection();
 		XmlHelper.downloadNews();
-		//XmlHelper.downloadTvTimes();
+		XmlHelper.downloadTvTimes();
 	}
 
 	public void fieldInit(int tableNo) {

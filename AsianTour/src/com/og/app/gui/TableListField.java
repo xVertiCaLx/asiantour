@@ -87,6 +87,7 @@ public class TableListField extends CustomTableListField {
                 Vector tvTimes = MenuScreen.getInstance().tvTimesCollection;
                 for(int i=0; i<tvTimes.size(); i++){
                 	add((DataCentre)tvTimes.elementAt(i));
+                	System.out.println(i);
                 }               
                 
             } else if (tableNo == 2) {
