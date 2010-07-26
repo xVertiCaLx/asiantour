@@ -72,11 +72,11 @@ public class XmlTvScheduleParser {
 				}else if(node.equals("From")){
 					System.out.println("aloy.XmlTvScheduleParser.parse node: " + node);
 					System.out.println("aloy.XmlTvScheduleParser.parse element: " + element);
-					xmlItem.time = element + "HRS - ";
+					xmlItem.time = element + " - ";
 				} else if (node.equals("To")) {
 					System.out.println("aloy.XmlTvScheduleParser.parse node: " + node);
 					System.out.println("aloy.XmlTvScheduleParser.parse element: " + element);
-					xmlItem.time += element + "HRS";
+					xmlItem.time += element + "hrs";
 				}
 				xmlTvItemCollection.addElement(xmlItem);
 			}
