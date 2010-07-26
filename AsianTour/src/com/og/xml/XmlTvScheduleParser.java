@@ -78,7 +78,7 @@ public class XmlTvScheduleParser {
 					System.out.println("aloy.XmlTvScheduleParser.parse element: " + element);
 					xmlItem.time += element + "hrs";
 				}
-				xmlTvItemCollection.addElement(xmlItem);
+				//xmlTvItemCollection.addElement(xmlItem);
 			}
 			xmlTvItemCollection.addElement(xmlItem);
 			
