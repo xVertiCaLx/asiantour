@@ -108,7 +108,7 @@ class TabPanel extends HorizontalFieldManager {
             if (horizontalScrollPos > 0 || listener.getSelectedTab() == Const.ID_SETTING) {
                 int tabPrevWidth = 0;
                 TabField tabField = (TabField)tabFields.elementAt(0);
-                if (listener.getSelectedTab() != tabField.getTabID()) {
+                if (listener.getSelectedTab() != tabField.getTabID()) {//If the first tab is not selected.
                     tabPrevWidth = tabPrev.getPreferredWidth();
                     add(tabPrev);
                 }
