@@ -114,8 +114,7 @@ class TabPanel extends HorizontalFieldManager {
                 }
                 
                 TabField lastTabField = (TabField)tabFields.elementAt(tabFields.size()-1);
-                
-                if (listener.getSelectedTab() != lastTabField.getTabID()) {                
+                if (listener.getSelectedTab() != lastTabField.getTabID()) {//If the last tab is not selected                
                     childTabPanel.updateLayout(GuiConst.SCREENWIDTH - tabNext.getPreferredWidth()-tabPrevWidth);
                     add(childTabPanel);
                     add(tabNext);
