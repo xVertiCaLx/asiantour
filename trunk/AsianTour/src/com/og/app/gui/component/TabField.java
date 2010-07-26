@@ -115,7 +115,9 @@ public class TabField extends Field {
 		if ( listener!=null ){
 			System.out.println("TabField:onFocus:"+text+", selectedTab=" + MenuScreen.getInstance().selectedTab);
 			listener.setTabOnFocus(true);
-			listener.setSelectedTab(MenuScreen.getInstance().selectedTab);
+			if(tabID!=MenuScreen.getInstance().selectedTab){
+				listener.setSelectedTab(MenuScreen.getInstance().selectedTab);
+			}
 		}            
 		invalidate();
 	} 
