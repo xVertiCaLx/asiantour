@@ -1,7 +1,8 @@
 package com.og.app.gui;
 
-import com.og.app.gui.listener.*;
-//import com.og.app.util.Utility;
+import java.util.Vector;
+
+import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
 
 
@@ -83,11 +84,10 @@ public class TableListField extends CustomTableListField {
             2 - Tour Schedule
             3 - Live Score*/
             if (tableNo == 1) {
-                
-                for (int i =0; i <30; i++) {
-                    
-                    add(item[i]);
-                }
+                Vector tvTimes = MenuScreen.getInstance().tvTimesCollection;
+                for(int i=0; i<tvTimes.size(); i++){
+                	add((DataCentre)tvTimes.elementAt(i));
+                }               
                 
             } else if (tableNo == 2) {
                 for (int i =0; i <5; i++) {
