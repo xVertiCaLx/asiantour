@@ -40,6 +40,8 @@ public class CustomTableListField extends ListField implements
 	public int text_x = padding;
 	public int page = 1;
 	public int temp_x = 0;
+	
+	public int arraySize = 50;
 
 	public int this_x = 0;
 	public int prev_x = padding;
@@ -50,14 +52,12 @@ public class CustomTableListField extends ListField implements
 	// header for TV Schedule table
 	static final String[] tvLabel = { "Tour Name", "Broadcast Date",
 			"Broadcast Time", "Broadcaster", "Region" };
-	// 1/2 1 1 2 2
 	static final int[] tvWidth = { constantColWidth * 7, constantColWidth * 6,
 			constantColWidth * 5, constantColWidth * 6, constantColWidth * 5 };
 
 	// header for Tour Schedule table
 	static final String[] tourLabel = { "Tour Date", "Country", "Tour Name",
 			"Golf Club", "Def Champion", "Prize Money" };
-	// 1 1 1 /2 2 2 2
 	static final int[] tourWidth = { constantColWidth * 5,
 			constantColWidth * 4, constantColWidth * 6, constantColWidth * 3,
 			constantColWidth * 5, constantColWidth * 6 };
@@ -65,7 +65,6 @@ public class CustomTableListField extends ListField implements
 	// header for Live Score table
 	static final String[] liveLabel = { "Player", "Mark", "Country", "Pos",
 			"To Par", "Hole", "Today", "R1", "R2", "R3", "R4", "Total" };
-	// 1/2/3 1 1 2 2 2 3 3 3 3 3 3
 	static final int[] liveWidth = { constantColWidth * 9,
 			constantColWidth * 3, constantColWidth * 6, constantColWidth * 3,
 			constantColWidth * 3, constantColWidth * 3, constantColWidth * 2,

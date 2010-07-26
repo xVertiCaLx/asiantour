@@ -16,8 +16,6 @@ import net.rim.device.api.ui.*;
 
 public class NewsListField extends CustomListField {
 	private NewsPanel newsPanel = null;
-	private String feedname = "";
-	private int newsID = 0;
 	ANewsItemObj[] item = new ANewsItemObj[5];
 
 	public NewsListField(NewsPanel newsPanel, ListFieldListener listener) {
