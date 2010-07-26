@@ -4,9 +4,7 @@ import java.util.Vector;
 
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
-import net.rim.device.api.ui.FocusChangeListener;
 import net.rim.device.api.ui.Manager;
-import net.rim.device.api.ui.component.BitmapField;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
 
 import com.og.app.Const;
@@ -19,17 +17,14 @@ class TabPanel extends HorizontalFieldManager {
     private static TabPanel tabPanel = null;
     private ChildTabPanel childTabPanel = null;
     private TabListener listener = null;
-    private FocusChangeListener focusChangeListener = null;
     private TabField tabNext= null;
     private TabField tabPrev = null;
     private EmptyTabField emptyTabField = null;
     
-    private Vector tabFields = new Vector();
+    public Vector tabFields = new Vector();
     private int fixHeight = 0;
     public final static int TABID_NEXT = -10;
     public final static int TABID_PREV = -11;
-    private Bitmap img_logo= null;
-    private BitmapField btn_logo= null;
     
     public static final int TAB_NEWS = 1;
     public static final int TAB_LIVE_SCORE = 2;
@@ -48,8 +43,8 @@ class TabPanel extends HorizontalFieldManager {
     
     private TabPanel(TabListener listener) {
         super();        
+        tabPanel = this;
         this.listener=listener;
-        this.focusChangeListener = (FocusChangeListener) listener;
         /*-- START -- for bold & gemini version-- */
         tabNext = new TabField(TABID_NEXT, "", Bitmap.getBitmapResource("res/tab_next.png"), GuiConst.FONT_PLAIN, GuiConst.FONT_PLAIN, Field.NON_FOCUSABLE);
         tabPrev = new TabField(TABID_PREV, "", Bitmap.getBitmapResource("res/tab_prev.png"), GuiConst.FONT_PLAIN, GuiConst.FONT_PLAIN, Field.NON_FOCUSABLE);
@@ -74,9 +69,7 @@ class TabPanel extends HorizontalFieldManager {
         childTabPanel.deleteAll();
         emptyTabField = null;                
         childTabPanel.reinit();
-        
         tabFields.removeAllElements();
-        
         addTabs("News");
         addTabs("Live Score");
         addTabs("TV Schedule");
@@ -88,13 +81,12 @@ class TabPanel extends HorizontalFieldManager {
         repaintTab();    
     }
     
-    public void addTabs(String text) {
+    private void addTabs(String text) {
         count++;
         try {
             TabField tabField = new TabField(count,text,null,GuiConst.FONT_BOLD,GuiConst.FONT_BOLD_UNDERLINED);//new TabField(count,text,null,GuiConst.FONT_BOLD,GuiConst.FONT_BOLD_UNDERLINED);
             System.out.println("Aloys's 4ID: " + count + ", Name: " + text);
             tabField.setTabListener(listener);
-            tabField.setFocusListener(focusChangeListener);
             tabFields.addElement(tabField);
             childTabPanel.add(tabField);    
             childTabPanel.addChildWidth(tabField.getPreferredWidth());
@@ -115,7 +107,6 @@ class TabPanel extends HorizontalFieldManager {
 
             if (horizontalScrollPos > 0 || listener.getSelectedTab() == Const.ID_SETTING) {
                 int tabPrevWidth = 0;
-                
                 TabField tabField = (TabField)tabFields.elementAt(0);
                 if (listener.getSelectedTab() != tabField.getTabID()) {
                     tabPrevWidth = tabPrev.getPreferredWidth();
@@ -144,7 +135,7 @@ class TabPanel extends HorizontalFieldManager {
             }
         } else {
             int tabPanelWidth = childTabPanel.getChildWidth();
-            int emptyTabWidth = GuiConst.SCREENWIDTH - childTabPanel.getChildWidth();
+            int emptyTabWidth = GuiConst.SCREENWIDTH - tabPanelWidth;
 
             if (emptyTabField == null){
                 emptyTabField = new  EmptyTabField(emptyTabWidth, false);
@@ -173,6 +164,7 @@ class TabPanel extends HorizontalFieldManager {
         if (tabFields.size() > index) {
             TabField tabField = (TabField)tabFields.elementAt(index);
             listener.setSelectedTab(tabField.getTabID());    
+            System.out.println("setTab("+index+")");
         }
     }
     
@@ -182,20 +174,11 @@ class TabPanel extends HorizontalFieldManager {
         }
         
         if (dy > 0){
-            if (listener.isSelectedTabHasNews() == false)
+            if (listener.isSelectedTabHasNews() == false){
                 return true;
+            }
             listener.setTabOnFocus(false);
             return super.navigationMovement(dx, dy, status, time);
-        }
-        
-        int tempIndex = 0;
-        int selectedTab = listener.getSelectedTab();
-        for (int i=0; i<tabFields.size(); i++) {
-            TabField tabField = (TabField)tabFields.elementAt(i);
-            if (selectedTab == tabField.getTabID()) {
-                tempIndex=i;
-                break;
-            }
         }
         
         if (dx > 0) {
@@ -210,6 +193,7 @@ class TabPanel extends HorizontalFieldManager {
     public void nextTab() {
         int tempIndex = 0;
         int selectedTab = listener.getSelectedTab();
+        
         for (int i=0; i<tabFields.size(); i++) {
             TabField tabField = (TabField)tabFields.elementAt(i);
             if (selectedTab == tabField.getTabID()) {
@@ -219,9 +203,11 @@ class TabPanel extends HorizontalFieldManager {
         }              
 
         tempIndex++;
-        if (tempIndex >= tabFields.size())
-            tempIndex = tabFields.size()-1;
+        if (tempIndex >= tabFields.size()){
+            return;
+        }
         TabField tabField = (TabField)tabFields.elementAt(tempIndex);
+        System.out.println("nextTab():setSelectedTab("+tabField.getTabID()+")");
         listener.setSelectedTab(tabField.getTabID());         
         tabField.setFocus();         
         repaintTab();     
@@ -240,16 +226,19 @@ class TabPanel extends HorizontalFieldManager {
         }              
 
         tempIndex--;
-        if ( tempIndex<0 )
-            tempIndex=0;
+        if ( tempIndex<0 ){
+        	return;
+        }
         TabField tabField = (TabField)tabFields.elementAt(tempIndex);
-        listener.setSelectedTab(tabField.getTabID());         
-        tabField.setFocus();         
-        repaintTab();     
+        listener.setSelectedTab(tabField.getTabID());
+        System.out.println("prevTab():setSelectedTab("+tabField.getTabID()+")");
+        tabField.setFocus();  
+        repaintTab();
         tabField.setFocus();    
     }
     
     public void setTabFocus(int id){
+    		System.out.println("TabPanel:setTabFocus("+id+")");
             for (int i=0; i<tabFields.size(); i++) {
                 TabField tabField = (TabField)tabFields.elementAt(i);
                 if ( tabField.getTabID() == id ) {
