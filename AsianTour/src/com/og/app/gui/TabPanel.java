@@ -118,6 +118,7 @@ class TabPanel extends HorizontalFieldManager {
                     childTabPanel.updateLayout(GuiConst.SCREENWIDTH - tabNext.getPreferredWidth()-tabPrevWidth);
                     add(childTabPanel);
                     add(tabNext);
+                   // childTabPanel.setHorizontalScroll(position)
                 } else {
                     childTabPanel.updateLayout(GuiConst.SCREENWIDTH - tabNext.getPreferredWidth());
                     add(childTabPanel);

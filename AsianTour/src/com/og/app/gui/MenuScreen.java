@@ -105,14 +105,14 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	public void setSelectedTab(int tabID) {
 		selectedTab = tabID;
-//		Vector tabFields = TabPanel.getInstance(this).tabFields;
-//		for (int i = 0; i < tabFields.size(); i++) {
-//			TabField tabField = (TabField)tabFields.elementAt(i);
-//			if(tabID==tabField.getTabID()){
-//				tabField.setFocus();
-//				System.out.println("MenuScreen:setSelectedTab("+tabID+")");
-//			}
-//		}
+		Vector tabFields = TabPanel.getInstance(this).tabFields;
+		for (int i = 0; i < tabFields.size(); i++) {
+			TabField tabField = (TabField)tabFields.elementAt(i);
+			if(tabID==tabField.getTabID()){
+				tabField.setFocus();
+				System.out.println("MenuScreen:setSelectedTab("+tabID+")");
+			}
+		}
 	}
 
 	public void setTabOnFocus(boolean isFocus){
@@ -169,6 +169,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		//tabPanel.setTabFocus(selectedTab);
 		isTabFocus=true;
 	}
+
 	public boolean isListFieldFocus(){
 		if ( isTabFocus )
 			return false;
