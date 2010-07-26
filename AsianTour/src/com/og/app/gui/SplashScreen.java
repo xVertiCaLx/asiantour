@@ -92,26 +92,7 @@ public class SplashScreen extends MainScreen implements Runnable
 				firsttimeuser = true;
 			} 
 
-			//StatusObj statusobj = FeedReader.loadStatus(Const.FEED_STATUS);
-			//                if ( statusobj!=null ){
-			//                    if ( statusobj.serverDateTime!=null && !statusobj.serverDateTime.equals("") ){
-			//                        long servertime = Utility.getTimeInMillis(statusobj.serverDateTime);
-			//                        Calendar cal = Calendar.getInstance();
-			//                        long currenttime = (cal.getTime()).getTime();
-			//                        long diff = servertime-currenttime;
-			//                        if ( diff<0 )
-			//                            diff=diff*-1;
-			//                        if ( diff>15*60*1000 )
-			//                            Const.TIMEDIFF=servertime-currenttime;
-			//                        
-			//                    }
-			//                } 
-			//System.out.println("Const.TIMEDIFF:"+Const.TIMEDIFF);
-
 			String lastBuildDate_index = "";
-			//                if ( statusobj!=null )
-			//                    lastBuildDate_index = statusobj.lastBuildDate_index;
-			//int indexfeedstatus = FeedReader.reloadIndexFeed(Const.FEED_INDEX, lastBuildDate_index);
 			ACategoryList list = FeedReader.loadCategoryList();
 			if ( list==null ){
 				if ( firsttimeuser==true){

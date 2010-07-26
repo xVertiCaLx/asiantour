@@ -13,19 +13,13 @@ public class TablePanel extends VerticalFieldManager{
     private TableListField tableList = null;
     private int fixHeight = 0;
     private ChildNewsPanel childNewsPanel = null;
-    //private Bitmap bg_scroll = Bitmap.getBitmapResource("res/background_scroll.png");
     
     Bitmap imgUp = null;
-    Bitmap imgDown = null;
-    
-    private static int tableNo = 1;
-    
-    
+    Bitmap imgDown = null;    
     
     private TablePanel (ListFieldListener listener, int fixHeight, int tableNo, int page) {
         super();
         this.fixHeight = fixHeight;
-        this.tableNo = tableNo;
         imgUp = Bitmap.getBitmapResource("res/up.png");
         imgDown = Bitmap.getBitmapResource("res/down.png");
         
@@ -57,7 +51,6 @@ public class TablePanel extends VerticalFieldManager{
     
     public void setFocus() {
        tableList.setFocus();
-    	//super.setFocus();
     }
     
     public synchronized void loadNews(int tableNo) {
@@ -69,7 +62,10 @@ public class TablePanel extends VerticalFieldManager{
         if (tableList.getSize() == 0) {
         
             childNewsPanel.deleteAll();
-            String txtNoNews = "There are no available content for this tab at the moment.";
+            String txtNoNews = "There are no available contents for this tab at the moment.";
+            if (tableNo == 3) {
+            	txtNoNews = "Live Score has no available content at the moment. To view, please try again when there is a match. Thank You.";
+            }
             LabelField displayLabel = new LabelField(txtNoNews, Field.FIELD_HCENTER) {
                 protected void paintBackground(net.rim.device.api.ui.Graphics g) {
                     g.clear();
@@ -79,17 +75,12 @@ public class TablePanel extends VerticalFieldManager{
             
             displayLabel.setFont(GuiConst.FONT_PLAIN);
             HorizontalFieldManager hfm = new HorizontalFieldManager();
-            //hfm.add(new SpaceField(3));
             hfm.add(displayLabel);
-            //hfm.add(new SpaceField(3));
             childNewsPanel.add(hfm);
             
         } else {
-        
-            //hasNews = true;
             if (field instanceof ListField) {
             } else {
-            
                 childNewsPanel.deleteAll();
                 childNewsPanel.add(tableList);
             
@@ -102,19 +93,13 @@ public class TablePanel extends VerticalFieldManager{
     protected void paint (Graphics g) {
 
     	super.paint(g);
-        //if (listener.isListFieldFocus()) {	
         
-        //g.drawBitmap(Display.getWidth()-imgUp.getWidth(), 0, 10, Display.getHeight(), bg_scroll,0,0);
-            if (childNewsPanel.getVerticalScroll() > 0) {
-            	 //g.clear(Display.getWidth()-imgDown.getWidth(), 0, imgDown.getWidth(), 400); 
-            	g.drawBitmap(Display.getWidth()-imgUp.getWidth(), 0, imgUp.getWidth(), imgUp.getHeight(), imgUp, 0,0);   
-            }
-            if ((childNewsPanel.getVerticalScroll() + fixHeight) < (childNewsPanel.getVirtualHeight())) {
-            	 //g.clear(Display.getWidth()-imgDown.getWidth(), 0, imgDown.getWidth(), 400); 
-            	g.drawBitmap(Display.getWidth()-imgDown.getWidth(), fixHeight-imgDown.getHeight(), imgDown.getWidth(), imgDown.getHeight(), imgDown, 0,0);
-            }
-           
-        //}
+       if (childNewsPanel.getVerticalScroll() > 0) {
+        	g.drawBitmap(Display.getWidth()-imgUp.getWidth(), 0, imgUp.getWidth(), imgUp.getHeight(), imgUp, 0,0);   
+        }
+        if ((childNewsPanel.getVerticalScroll() + fixHeight) < (childNewsPanel.getVirtualHeight())) {
+        	g.drawBitmap(Display.getWidth()-imgDown.getWidth(), fixHeight-imgDown.getHeight(), imgDown.getWidth(), imgDown.getHeight(), imgDown, 0,0);
+        }
     }
     
     public void reinitThisThing() {

@@ -18,6 +18,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	//Vector<ANewsItemObj>
 	public Vector newsCollection = new Vector();
+	public Vector tvTimesCollection = new Vector();
 
 	public static MenuScreen thisInstance = null;
 
@@ -46,7 +47,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		GuiConst.reinitFont();
 		fieldInit(1);
 		System.out.println("-----------------------------------------------------");
-		System.out.println("Display height is: " + Display.getHeight() + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
+		System.out.println("Display height is: " + GuiConst.SCREENHEIGHT + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
 		System.out.println("-----------------------------------------------------");
 		add(logoPanel);
 		add(tabPanel);
@@ -55,6 +56,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		//setTitle(lblTitle);
 		newsCollection = RecordStoreHelper.getNewsCollection();
 		XmlHelper.downloadNews();
+		//XmlHelper.downloadTvTimes();
 	}
 
 	public void fieldInit(int tableNo) {
