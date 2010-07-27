@@ -12,7 +12,7 @@ import com.og.app.gui.listener.TabListener;
 import com.og.xml.XmlHelper;
 
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener {
-//
+
 	//Vector<ANewsItemObj>
 	public Vector newsCollection = new Vector();
 	
@@ -26,9 +26,10 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	private LogoPanel logoPanel = null;
 	private TabPanel tabPanel = null;
-
-	public NewsPanel newsPanel = null;
 	private TablePanel tablePanel = null;
+	
+	public NewsPanel newsPanel = null;
+	
 	//--------------------------- Single Turn Control --------------------------------
 	public synchronized static MenuScreen getInstance() {
 		if (thisInstance == null) { 
@@ -51,12 +52,11 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		add(logoPanel);
 		add(tabPanel);
 		add(newsPanel);
-		//LabelField lblTitle = new LabelField("Asian Tour", LabelField.ELLIPSIS | LabelField.USE_ALL_WIDTH);
-		//setTitle(lblTitle);
-		newsCollection = RecordStoreHelper.getNewsCollection();
-		XmlHelper.downloadNews();
+
 		XmlHelper.downloadTvTimes();
 		
+		newsCollection = RecordStoreHelper.getNewsCollection();
+		XmlHelper.downloadNews();
 	}
 
 	public void fieldInit(int tableNo) {
@@ -87,7 +87,6 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		logoPanel = null;
 		newsPanel = null;
 		tablePanel = null;
-
 	}
 
 	public void repainteverything() {
