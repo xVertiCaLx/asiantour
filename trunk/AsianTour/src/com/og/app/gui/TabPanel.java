@@ -104,7 +104,7 @@ class TabPanel extends HorizontalFieldManager {
                 childTabPanel.delete(emptyTabField);
                 emptyTabField=null;
             }
-
+            System.out.println("aloy.TabPanel.navigationMovement getSelectedTab() ============" + listener.getSelectedTab());
             if (horizontalScrollPos > 0 || listener.getSelectedTab() == Const.ID_SETTING) {
                 int tabPrevWidth = 0;
                 TabField tabField = (TabField)tabFields.elementAt(0);
