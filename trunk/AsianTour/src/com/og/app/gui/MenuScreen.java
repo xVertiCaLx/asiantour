@@ -179,6 +179,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 
 	private void showNewsTab(){
+		logoPanel.repaintLogoPanel("default");
 		repainteverything();
 		fieldInit(0);
 		newsPanel.loadNews(0);
@@ -189,6 +190,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	}
 
 	private void showLiveScoreTab(){
+		logoPanel.repaintLogoPanel("titlebar_livescore");
 		repainteverything();
 		fieldInit(3);
 		add(logoPanel);
@@ -197,6 +199,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	}
 	
 	private void showOOMTab(){
+		logoPanel.repaintLogoPanel("titlebar_orderofmerit");
 		repainteverything();
 		fieldInit(4);
 		add(logoPanel);
@@ -205,7 +208,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	}
 	
 	private void showTVScheduleTab(){
-
+		logoPanel.repaintLogoPanel("titlebar_tvschedule");
 		repainteverything();
 		fieldInit(1);
 		add(logoPanel);
@@ -215,6 +218,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	private void showTourScheduleTab(){
 		repainteverything();
+		logoPanel.repaintLogoPanel("titlebar_tourschedule");
 		fieldInit(2);
 		add(logoPanel);
 		add(tabPanel);
