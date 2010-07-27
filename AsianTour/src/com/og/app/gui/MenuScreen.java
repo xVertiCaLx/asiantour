@@ -12,7 +12,7 @@ import com.og.app.gui.listener.TabListener;
 import com.og.xml.XmlHelper;
 
 public class MenuScreen extends MainScreen implements TabListener, ListFieldListener {
-
+//
 	//Vector<ANewsItemObj>
 	public Vector newsCollection = new Vector();
 	
