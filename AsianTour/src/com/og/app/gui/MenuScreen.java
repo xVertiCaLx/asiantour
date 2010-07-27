@@ -2,7 +2,6 @@ package com.og.app.gui;
 
 import java.util.Vector;
 
-import net.rim.device.api.system.Display;
 import net.rim.device.api.ui.component.Dialog;
 import net.rim.device.api.ui.container.MainScreen;
 
@@ -43,10 +42,12 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		selectedTab = 1;
 		thisInstance = this;
 		GuiConst.reinitFont();
-		fieldInit(1);
+		fieldInit(0);
+		
 		System.out.println("-----------------------------------------------------");
 		System.out.println("Display height is: " + GuiConst.SCREENHEIGHT + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
 		System.out.println("-----------------------------------------------------");
+		
 		add(logoPanel);
 		add(tabPanel);
 		add(newsPanel);
@@ -65,8 +66,8 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		GuiConst.LOGOPANEL_HEIGHT=logoPanel.getPreferredHeight();
 		GuiConst.TABPANEL_HEIGHT=tabPanel.getPreferredHeight();
 
-		newsPanel = NewsPanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
-		tablePanel = TablePanel.getInstance(this, Display.getHeight()-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, tableNo,1);
+		newsPanel = NewsPanel.getInstance(this, GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
+		tablePanel = TablePanel.getInstance(this, GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, tableNo,1);
 
 	}
 
@@ -82,7 +83,6 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	}
 
 	public void clearResource() { 
-
 		tabPanel = null;        
 		logoPanel = null;
 		newsPanel = null;
@@ -181,7 +181,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	private void showNewsTab(){
 		repainteverything();
-		fieldInit(1);
+		fieldInit(0);
 		newsPanel.loadNews(0);
 		NewsPanel.newsPanel.newsList.setSize(newsCollection.size());
 		add(logoPanel);
@@ -224,7 +224,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 
 	/*--------------------------- Example of making a Horizontal Field Manager ----------------
 
-        //--------------------------- Panel Manager Initialization ----------------------------
+        //--------------------------- Panel Manager Initialisation ----------------------------
         HorizontalFieldManager tabPanel = new HorizontalFieldManager();
 
         //--------------------------- Adding it to the screen ---------------------------------
