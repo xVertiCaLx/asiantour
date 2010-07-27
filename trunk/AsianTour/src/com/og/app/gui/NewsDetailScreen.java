@@ -41,11 +41,6 @@ public class NewsDetailScreen extends MainScreen implements Runnable {//implemen
     
     private ArticlePanel vFM = null;
     private ImagePanel childPanel = null;
-    //private ImagePanel bannerPanel = null;
-    
-    private String feedName = "";
-    private String bannerURL = "";
-    private String bannerTitle = "";
     
     private BitmapField webImg = null;
     private BitmapField newsImg = null;

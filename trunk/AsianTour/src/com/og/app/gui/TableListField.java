@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
-import com.og.xml.XmlHelper;
 
 //
 public class TableListField extends CustomTableListField {
@@ -64,11 +63,7 @@ public class TableListField extends CustomTableListField {
 	    		//move left
 	    	}
     	}
-    	
-		System.out.println("BIIIIIGGGGGGGGERRRR ALERT: page : " + page);
-    	//listener.onListFieldUnfocus();
     	tablePanel.invalidate();
-        System.out.println("this");
         return false;
     }
     
