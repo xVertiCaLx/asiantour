@@ -9,21 +9,11 @@ import java.util.Hashtable;
 import java.util.TimeZone;
 import java.util.Vector;
 
-import javax.microedition.io.HttpConnection;
-
-import net.rim.blackberry.api.mail.ServiceConfiguration;
-import net.rim.blackberry.api.mail.Session;
-import net.rim.blackberry.api.mail.Store;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.DeviceInfo;
 import net.rim.device.api.ui.UiApplication;
 
 import com.og.app.Const;
-import com.og.app.asiantour.ACategoryList;
-import com.og.app.asiantour.ADeleteList;
-import com.og.app.asiantour.ADeleteObj;
-import com.og.app.asiantour.FeedReader;
-import com.og.app.gui.GuiConst;
 import com.og.app.gui.Lang;
 import com.og.app.object.Settings;
 import com.og.rss.ANewsFeed;
@@ -47,87 +37,7 @@ public class Utility{
         MONTHARR.put("Dec","11");                                                                                   
     }
 
-    public static String getRegisteredEmailAddress(){
-        try{
-            Session session = Session.getDefaultInstance();
-            Store store  = session.getStore();
-            ServiceConfiguration serviceConfig = store.getServiceConfiguration();
-            String emailAddress = serviceConfig.getEmailAddress();
-            return emailAddress;            
-        }catch(Exception e){}
-        return null;
-    }
-    
-    public static void runDeleteFeed(){
-        try{
-            Settings settingobj=Utility.loadSetting();
-            ANewsFeed[] newsfeeds = settingobj.rssfeeds;
-                            
-            for ( int j=0; j<newsfeeds.length; j++ ){
-                    runDeleteFeed(newsfeeds[j].id);
-                    break;
-            }                     
-        }catch(Exception e){}
-    }
-    
-    public static void runDeleteFeed(int feedid){
-        try{
-            ADeleteList list = FeedReader.loadDeleteList();
-            if ( list !=null && list.deletelist!=null ){
-                ARssDB rssdb = ARssDB.getInstance();
-                //System.out.println(list.deletelist.length);
-                for ( int i=0; i<list.deletelist.length; i++ ){
-                    //if ( rssdb.removeObjectPool(feedid, list.deletelist[i].guid)==true )
-                        //continue;
-                    try{rssdb.removeObjectPool(feedid, list.deletelist[i].guid);}catch(Exception e){}
-                }
-            }
-        }catch(Exception e){}
-    }
-    
-    public static void addDeleteObj(String guid, String pubDate){
 
-        ADeleteList list = FeedReader.loadDeleteList();
-        boolean isexists=false;
-        
-        if ( list==null ){
-            list = new ADeleteList();
-            list.lastbuilddate="";
-            list.deletelist = null;
-        }
-            
-         if ( list.deletelist==null ){    
-            ADeleteObj newobj = new ADeleteObj();
-            newobj.guid=guid;
-            newobj.publishdate=pubDate;
-            newobj.longpublishdate=Utility.getTimeInMillis(pubDate);         
-            list.deletelist=new ADeleteObj[1];
-            list.deletelist[0]=newobj;
-            FeedReader.saveDeleteList(list);               
-        }else{
-            for ( int i=0; i<list.deletelist.length; i++ ){
-                if ( list.deletelist[i].guid.equals(guid) ){
-                    isexists=true;
-                    break;
-                }
-            }
-            if ( isexists==false){
-                ADeleteObj[] newlist = new ADeleteObj[list.deletelist.length+1];
-                for ( int i=0; i<list.deletelist.length; i++ )
-                    newlist[i]=list.deletelist[i];
-                    
-                ADeleteObj newobj = new ADeleteObj();
-                newobj.guid=guid;
-                newobj.publishdate=pubDate;
-                newobj.longpublishdate=Utility.getTimeInMillis(pubDate);
-                                
-                newlist[list.deletelist.length]=newobj;
-                list.deletelist=newlist;
-                FeedReader.saveDeleteList(list);
-            }
-        }
-    }
-    
     public static long getCurrentDateInMillis(){
         try{
             Calendar rightnow = Calendar.getInstance(TimeZone.getTimeZone("GMT+8"));
@@ -187,33 +97,6 @@ public class Utility{
         return Integer.toHexString(DeviceInfo.getDeviceId());
     }
 
-    public synchronized static Settings initAppSettingObj(){    
-        Settings obj = new Settings();
-        ACategoryList list = FeedReader.loadCategoryList();
-        if ( list!=null ){
-            obj.rssfeeds = new ANewsFeed[list.categorylist.length+2];
-            int i=0;
-            for ( i=0; i<list.categorylist.length; i++ ){
-                obj.rssfeeds[i] = new ANewsFeed (list.categorylist[i].id,
-                    list.categorylist[i].title,
-                    list.categorylist[i].link, 
-                    list.categorylist[i].icon, 
-                    "");
-            }
-            //obj.rssfeeds[i] = getDefaultPhotoGalleryFeed();        
-            obj.rssfeeds[i+1] = getDefaultBookmarkFeed();                    
-        }else
-            obj.rssfeeds = null;
-        obj.xdayscache = Const.DEFAULT_XDAYSCACHE;
-        obj.xdaysbookmark = Const.DEFAULT_XDAYSBOOKMARK;
-        obj.imgautoload = GuiConst.DEFAULT_SHOWTHUMBNAIL;        
-        obj.fontname = Const.DEFAULT_FONTNAME;
-        obj.newsimgpercentage = Const.DEFAULT_NEWSIMGPERCENTAGE;
-        obj.fontsize=Const.DEFAULT_FONTSIZE;  
-
-        return obj;
-    }    
-    
     public static ANewsFeed getDefaultBookmarkFeed(){
         return new ANewsFeed (Const.ID_SAVED,
                     Lang.TAB_SAVED,
@@ -277,25 +160,7 @@ public class Utility{
         }
         return;
     }        
-    public synchronized static Settings loadSetting(){
-        Settings settingobj = null;
-        try{
-            ARssDB rssdb=ARssDB.getInstance();
-            Object obj = rssdb.getObjectPool(Const.ID_SETTING);
-            if ( obj==null ){
-                settingobj = Utility.initAppSettingObj();
-                //save setting into database
-                rssdb.setObjectPool(Const.ID_SETTING, settingobj);
-            }else{
-                settingobj = (Settings)obj;
-            }
-        }catch(Exception e){
-            settingobj = Utility.initAppSettingObj(); 
-            e.printStackTrace();
-        }
-        return settingobj;
-    }
-    
+
     private static int[] rescaleArray(int[] ini, int x, int y, int x2, int y2)
     {
             int out[] = new int[x2*y2];
@@ -446,22 +311,7 @@ public class Utility{
         return str;
     }
     
-    public static StringBuffer readFile(String filename){
-        StringBuffer buffer = new StringBuffer();
-        
-        try{
-            Class aclass = Class.forName("com.og.app.Utility");
-            InputStream is = aclass.getResourceAsStream(filename);
-            InputStreamReader isr = new InputStreamReader(is);
-        
-            
-            char c;
-            while ((c = (char)isr.read()) != -1) {
-                buffer.append(c);
-            }
-        }catch(Exception e){}
-        return buffer;
-    }
+    
     public static void getWebData(final String url, final WebDataCallback callback) throws IOException
     {
     	
