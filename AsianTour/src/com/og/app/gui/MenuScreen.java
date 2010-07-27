@@ -166,7 +166,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 	//START -- method for ListFieldListener
 	public void onListFieldUnfocus(){
 		//System.out.println("onListFieldUnfocus:tabSelected:"+selectedTab);
-		//tabPanel.setTabFocus(selectedTab);
+		tabPanel.setTabFocus(selectedTab);
 		isTabFocus=true;
 	}
 

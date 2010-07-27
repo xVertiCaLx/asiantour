@@ -142,13 +142,8 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 			
 
 			ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(index);
-
-			//if no image to load {
 			int imgy = y + ((rowHeight-news_border.getHeight()) - previewHeight)/2;
-//			if ((rowHeight - previewHeight)/2 > rowTopSpacing) {
-//				imgy = y + rowTopSpacing + 1;
-//			}
-			//} else draw the thumbnail from rss {}
+
 			Bitmap thumbnailBitmap = null;
 			refreshCacheReload:
 			if(ni.thumbnail!=null && ni.thumbnail.length > 2){
