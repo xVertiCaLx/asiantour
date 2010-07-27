@@ -1,20 +1,23 @@
 package com.og.app.gui;
 
-import com.og.rss.*;
-import com.og.app.util.Utility;
-import com.og.app.util.WebDataCallback;
-import com.og.app.gui.GuiConst;
-import com.og.app.gui.listener.*;
-import net.rim.device.api.ui.*;
-import net.rim.device.api.system.*;
-import net.rim.device.api.ui.Manager;
-import net.rim.device.api.ui.Graphics;
+import java.util.Vector;
+
+import net.rim.device.api.system.Application;
+import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
+import net.rim.device.api.system.Display;
+import net.rim.device.api.ui.DrawStyle;
+import net.rim.device.api.ui.Font;
+import net.rim.device.api.ui.Graphics;
+import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.Screen;
+import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.ListField;
 import net.rim.device.api.ui.component.ListFieldCallback;
 
-//import java.io.IOException;
-import java.util.*;
+import com.og.app.gui.listener.ListFieldListener;
+import com.og.app.util.Utility;
+import com.og.rss.ANewsItemObj;
 
 public class CustomListField extends ListField implements ListFieldCallback, Runnable {
 	protected Vector _pelements = new Vector();

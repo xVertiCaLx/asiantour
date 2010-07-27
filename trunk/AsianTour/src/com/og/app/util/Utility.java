@@ -1,8 +1,6 @@
 package com.og.app.util;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
@@ -15,9 +13,7 @@ import net.rim.device.api.ui.UiApplication;
 
 import com.og.app.Const;
 import com.og.app.gui.Lang;
-import com.og.app.object.Settings;
 import com.og.rss.ANewsFeed;
-import com.og.rss.ARssDB;
 
 public class Utility{
     static Hashtable MONTHARR= new Hashtable();
@@ -151,15 +147,6 @@ public class Utility{
         return v;
     }
     
-    public synchronized static void saveAppSetting(Settings obj){
-       try{
-            ARssDB rssdb = ARssDB.getInstance();
-            rssdb.setObjectPool(Const.ID_SETTING, obj);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return;
-    }        
 
     private static int[] rescaleArray(int[] ini, int x, int y, int x2, int y2)
     {
