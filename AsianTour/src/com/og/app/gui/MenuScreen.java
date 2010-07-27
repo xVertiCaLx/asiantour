@@ -2,16 +2,17 @@ package com.og.app.gui;
 
 import java.util.Vector;
 
+import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.component.Dialog;
-import net.rim.device.api.ui.container.MainScreen;
 
 import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.component.TabField;
+import com.og.app.gui.component.TransitionableMainScreen;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.gui.listener.TabListener;
 import com.og.xml.XmlHelper;
 
-public class MenuScreen extends MainScreen implements TabListener, ListFieldListener {
+public class MenuScreen extends TransitionableMainScreen implements TabListener, ListFieldListener {
 
 	//Vector<ANewsItemObj>
 	public Vector newsCollection = new Vector();
@@ -44,7 +45,7 @@ public class MenuScreen extends MainScreen implements TabListener, ListFieldList
 		thisInstance = this;
 		GuiConst.reinitFont();
 		fieldInit(0);
-		
+		fadeToAndRun(Graphics.BLACK /* color to fade to */, 800 /* fade duration */);
 		System.out.println("-----------------------------------------------------");
 		System.out.println("Display height is: " + GuiConst.SCREENHEIGHT + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
 		System.out.println("-----------------------------------------------------");
