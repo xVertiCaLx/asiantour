@@ -66,7 +66,7 @@ public class TableListField extends CustomTableListField {
     	}
     	
 		System.out.println("BIIIIIGGGGGGGGERRRR ALERT: page : " + page);
-    	
+    	//listener.onListFieldUnfocus();
     	tablePanel.invalidate();
         System.out.println("this");
         return false;
