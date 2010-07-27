@@ -9,8 +9,8 @@ import com.og.rss.ANewsItemObj;
 
 public class RecordStoreHelper {
 	
-	//Hash of "com.og.app.datastore"
-	public static final long DATASTORE_KEY = 0x8d0ed7fadc56615cL;
+	//Hash of "com.og.app.datastore_test1"
+	public static final long DATASTORE_KEY = 0x3a8759a83845f2fbL;//0x8d0ed7fadc56615cL;
 
 	private static PersistentObject getRecordStore(){
 		return PersistentStore.getPersistentObject(DATASTORE_KEY);
