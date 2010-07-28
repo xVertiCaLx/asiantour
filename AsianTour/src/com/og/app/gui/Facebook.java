@@ -80,6 +80,12 @@ public class Facebook extends UiApplication implements ActionListener {
 			fbLogin(settings, cookieManager, this);
 		} else {
 			//session found, so user is logged in. post in wall
+			try {
+				FacebookContext.getInstance().getLoggedInUser().setStatus(URL_TO_SHARE);
+				Dialog.inform("News has been shared on " + FacebookContext.getInstance().getLoggedInUser().getFirstName() + "\'s wall.");
+			} catch (Exception e) {
+				System.out.println( e.getMessage());
+			}
 		}
 	}
 	
@@ -130,7 +136,14 @@ public class Facebook extends UiApplication implements ActionListener {
 					
 					//pushScreen(homeScreen);
 					//instead of pushing, post news
-					Dialog.inform("Hello " + FacebookContext.getInstance().getLoggedInUser().getFirstName() + "!");
+					try {
+						FacebookContext.getInstance().getLoggedInUser().setStatus(URL_TO_SHARE);
+						Dialog.inform("News has been shared on " + FacebookContext.getInstance().getLoggedInUser().getFirstName() + "\'s wall.");
+					} catch (Exception e) {
+						System.out.println( e.getMessage());
+					}
+					
+					
 				} catch (Exception e) {
 					Dialog.alert("Error: " + e.getMessage());
 				}
