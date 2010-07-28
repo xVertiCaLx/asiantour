@@ -181,7 +181,7 @@ public class ConnectionMgr{
         {
                 // connect to feed's URL
                  String feedurl = ConnectionMgr.getFinalHttpURL(url);
-                 //System.out.println(System.currentTimeMillis()+">>open connection:"+feedurl);                 
+                 System.out.println(System.currentTimeMillis()+">>open connection:"+feedurl);                 
                 httpConnection = (HttpConnection)Connector.open(feedurl);
                 httpConnection.setRequestMethod(HttpConnection.GET);
                 is = httpConnection.openInputStream();
