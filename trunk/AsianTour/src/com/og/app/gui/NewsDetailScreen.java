@@ -26,11 +26,6 @@ import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
 import com.og.rss.ANewsItemObj;
 
-import blackberry.facebook.ApplicationSettings;
-import blackberry.net.CookieManager;
-import com.og.app.facebook.ui.*;
-import blackberry.action.*;
-
 public class NewsDetailScreen extends MainScreen implements Runnable {// implements
 	// ImageButtonListener,
 	// Runnable
@@ -191,7 +186,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		ButtonField fbButtonField = new ButtonField("Share", ButtonField.CONSUME_CLICK);
 		fbButtonField.setChangeListener(new FieldChangeListener() {
 			public void fieldChanged(Field field, int context) {
-				new Facebook("http://www.asiantour.com/news.aspx?sid=" + newsItem.guid);
+				//new Facebook("http://www.asiantour.com/news.aspx?sid=" + newsItem.guid);
 			}
 		});
 		//hfmNewsLine.add(button);
