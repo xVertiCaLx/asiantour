@@ -183,13 +183,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		// adds the author name(s), published date and other information.
 		HorizontalFieldManager hfmNewsLine = new HorizontalFieldManager();
 		hfmNewsLine.add(lblNewsInfo);
-		ButtonField fbButtonField = new ButtonField("Share", ButtonField.CONSUME_CLICK);
-		fbButtonField.setChangeListener(new FieldChangeListener() {
-			public void fieldChanged(Field field, int context) {
-				//new Facebook("http://www.asiantour.com/news.aspx?sid=" + newsItem.guid);
-			}
-		});
-		//hfmNewsLine.add(button);
+		hfmNewsLine.add(button);
 		vFM.add(hfmNewsLine);
 		
 		vFM.add(new LineField(5));
@@ -235,7 +229,6 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		mainFM.add(bottomFM);
 
 		add(mainFM);
-		add(fbButtonField);
 
 	}
 
