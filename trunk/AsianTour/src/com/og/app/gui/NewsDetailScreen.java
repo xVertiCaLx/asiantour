@@ -19,6 +19,7 @@ import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.gui.component.AnimatedImageField;
+import com.og.app.gui.component.FacebookButtonField;
 import com.og.app.gui.component.LineField;
 import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
@@ -57,6 +58,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 	private SpaceField spaceField = null;
 	private CustomListField listField = null;
 	private AnimatedImageField animatedImg = null;
+	private FacebookButtonField button = null;
 
 	// private ClickableImageField bannerField = null;
 
@@ -72,6 +74,8 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 			// listField.saveChanges(newsItem, myIndex);
 		}
 
+		button = new FacebookButtonField(ButtonField.CONSUME_CLICK);
+		
 		Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		lblTitle = new TitleField("Full Article", settingIcon);
 		headLineHeight = lblTitle.getPreferredHeight();
@@ -190,8 +194,9 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 				new Facebook("http://www.asiantour.com/news.aspx?sid=" + newsItem.guid);
 			}
 		});
-		hfmNewsLine.add(fbButtonField);
+		//hfmNewsLine.add(button);
 		vFM.add(hfmNewsLine);
+		
 		vFM.add(new LineField(5));
 		if (webImg != null) {
 			vFM.add(webImg);
@@ -230,10 +235,12 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		bottomFM.add(spaceField);
 
 		mainFM.add(new NullField(Field.FOCUSABLE));
+		
 		mainFM.add(lblTitle);
 		mainFM.add(bottomFM);
 
 		add(mainFM);
+		add(fbButtonField);
 
 	}
 
