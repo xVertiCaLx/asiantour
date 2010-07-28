@@ -191,6 +191,7 @@ public class ConnectionMgr{
         }
         catch (Exception e)
         {
+        	e.printStackTrace();
         }
          is=null;
         httpConnection=null;
@@ -282,7 +283,7 @@ public class ConnectionMgr{
     
     private static String read(InputStream is) throws Exception{
         String result = "";
-        byte[] buffer = new byte[10000];
+        byte[] buffer = new byte[100];
         long cursor = 0;
         int offset = 0;
         

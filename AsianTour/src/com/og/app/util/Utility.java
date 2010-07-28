@@ -311,6 +311,7 @@ public class Utility{
     			{
     				System.out.println("Get Web Data:Connection.open ");
     				final String result = ConnectionMgr.wgetData(url);
+    				System.out.println("Get Web Data:beforeInvokeLater , isNull:" + (result==null ? true : false));
     				UiApplication.getUiApplication().invokeLater(new Runnable()
     				{
     					public void run()
@@ -340,8 +341,9 @@ public class Utility{
     	}else{
     		try {
 				Thread.sleep(1000);
+				System.out.println("Thread retry...");
 			} catch (InterruptedException e) {
-				
+				e.printStackTrace();
 			}
 			break retry;
     	}
