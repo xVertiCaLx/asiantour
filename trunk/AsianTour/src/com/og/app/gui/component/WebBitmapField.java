@@ -21,7 +21,7 @@ public class WebBitmapField extends BitmapField implements WebDataCallback
 			System.out.println("Downloading image...");
 			this.guid = newsItemGuid;
 		}
-		catch (Exception e) {}
+		catch (Exception e) {e.printStackTrace();}
 	}
 
 	public Bitmap getBitmap()
@@ -33,6 +33,7 @@ public class WebBitmapField extends BitmapField implements WebDataCallback
 	public void callback(final String data)
 	{
 		if (data == null || data.startsWith("Exception")){ 
+			System.out.println(data);
 			return;
 		
 		}
