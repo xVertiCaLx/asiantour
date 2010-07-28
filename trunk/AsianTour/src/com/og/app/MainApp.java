@@ -1,10 +1,8 @@
 package com.og.app;
 
-import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.UiApplication;
 
 import com.og.app.gui.GuiConst;
-import com.og.app.gui.MenuScreen;
 import com.og.app.gui.SplashScreen;
 
 
