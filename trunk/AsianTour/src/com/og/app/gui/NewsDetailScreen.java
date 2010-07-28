@@ -4,11 +4,13 @@ import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.Color;
 import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.FieldChangeListener;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.BitmapField;
+import net.rim.device.api.ui.component.ButtonField;
 import net.rim.device.api.ui.component.LabelField;
 import net.rim.device.api.ui.component.NullField;
 import net.rim.device.api.ui.component.RichTextField;
@@ -58,7 +60,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 
 	// private ClickableImageField bannerField = null;
 
-	public NewsDetailScreen(CustomListField listField, ANewsItemObj newsItem) {
+	public NewsDetailScreen(CustomListField listField, final ANewsItemObj newsItem) {
 		super();
 		imgUp = Bitmap.getBitmapResource("res/up.png");
 		imgDown = Bitmap.getBitmapResource("res/down.png");
@@ -180,7 +182,16 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		// adds a <hr>
 		vFM.add(new LineField(2, GuiConst.LINE_COLOR_BYLINE));
 		// adds the author name(s), published date and other information.
-		vFM.add(lblNewsInfo);
+		HorizontalFieldManager hfmNewsLine = new HorizontalFieldManager();
+		hfmNewsLine.add(lblNewsInfo);
+		ButtonField fbButtonField = new ButtonField("Share", ButtonField.CONSUME_CLICK);
+		fbButtonField.setChangeListener(new FieldChangeListener() {
+			public void fieldChanged(Field field, int context) {
+				new Facebook("http://www.asiantour.com/news.aspx?sid=" + newsItem.guid);
+			}
+		});
+		hfmNewsLine.add(fbButtonField);
+		vFM.add(hfmNewsLine);
 		vFM.add(new LineField(5));
 		if (webImg != null) {
 			vFM.add(webImg);
