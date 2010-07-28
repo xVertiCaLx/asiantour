@@ -23,10 +23,15 @@ import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
 import com.og.rss.ANewsItemObj;
 
+import blackberry.facebook.ApplicationSettings;
+import blackberry.net.CookieManager;
+import com.og.app.facebook.ui.*;
+import blackberry.action.*;
+
 public class NewsDetailScreen extends MainScreen implements Runnable {// implements
-																		// ImageButtonListener,
-																		// Runnable
-																		// {
+	// ImageButtonListener,
+	// Runnable
+	// {
 
 	private VerticalFieldManager mainFM = null;
 	private HorizontalFieldManager bottomFM = new HorizontalFieldManager(
@@ -309,6 +314,21 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		}
 	}
 
+	// ---------------------- FACEBOOK --------------------------
+	/*
+	 * loginScreen = new LoginScreen(settings, cookieManager);
+	 * loginScreen.addActionListener(this);
+	 * 
+	 * permissionScreen = new PermissionScreen(settings, cookieManager);
+	 * permissionScreen.addActionListener(this);
+	 * 
+	 * loginScreen.login(); pushScreen(loginScreen);
+	 */
+	
+	
+	
+	// ---------------------- END OF FACEBOOK -------------------
+
 	class ImagePanel extends VerticalFieldManager {
 		int fixheight = 0;
 
@@ -330,5 +350,6 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 			super.sublayout(width, fixheight);
 			setExtent(width, fixheight);
 		}
+
 	}
 }
