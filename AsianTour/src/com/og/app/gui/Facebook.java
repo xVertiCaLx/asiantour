@@ -31,14 +31,14 @@ public class Facebook extends UiApplication implements ActionListener {
 	private static PersistentObject store;
 	private static ApplicationSettings settings;
 	
-	private static String URL_TO_SHARE = "";
+	private String URL_TO_SHARE = "";
 	
 	private static Facebook fb = null;
 	
 	public synchronized static Facebook getInstance(String URL_TO_SHARE) {
 		if (fb == null) {
 			fb = new Facebook(URL_TO_SHARE);
-			ConnectionFactory.getInstance().setConnectionType(ConnectionType.BES);
+			ConnectionFactory.getInstance().setConnectionType(ConnectionType.DIRECT_TCP);
 		}
 		return fb;
 	}
@@ -64,6 +64,7 @@ public class Facebook extends UiApplication implements ActionListener {
 	
 	public Facebook (String URL_TO_SHARE) {
 		super();
+		fb = this;
 		this.URL_TO_SHARE = URL_TO_SHARE;
 		log.debug("====== START =======");
 		try {
