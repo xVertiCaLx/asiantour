@@ -21,11 +21,11 @@ public class ShareButtonField extends Field {
 	private int fieldHeight;
 	private int padding = 2;
 
-	private ImageButtonListener listener = null;
+	private static ImageButtonListener listener = null;
 
 	public ShareButtonField(String buttonName) {
 		super(Field.FOCUSABLE | ButtonField.CONSUME_CLICK);
-
+		//addImageButtonListener(listener);
 		this.buttonName = buttonName;
 		if (buttonName == "fb") {
 			shareButton = Bitmap.getBitmapResource("res/fb_share.png");
@@ -41,7 +41,8 @@ public class ShareButtonField extends Field {
 	}
 
 	public void addImageButtonListener(ImageButtonListener listener) {
-		this.listener = listener;
+		
+		ShareButtonField.listener = listener;
 	}
 
 	public void setUnfocus() {
@@ -55,6 +56,7 @@ public class ShareButtonField extends Field {
 	}
 
 	protected void onFocus(int direction) {
+		System.out.println("focusing this");
 		focusstatus = 1;
 		invalidate();
 		if (listener != null)
@@ -62,6 +64,7 @@ public class ShareButtonField extends Field {
 	}
 
 	protected void onUnfocus() {
+		System.out.println("unfocusing this");
 		focusstatus = 0;
 		invalidate();
 		if (listener != null)
@@ -86,14 +89,14 @@ public class ShareButtonField extends Field {
 	}
 
 	protected boolean navigationClick(int status, int time) {
-		System.out.println("navigationClick::" + status + "::");
+		System.out.println("aloy.ShareButtonField.navigationClick::" + status + "::");
 		focusstatus = 1;
 		invalidate();
 		fieldChangeNotify(1);
 
 		if (buttonName == "fb") {
 			Dialog.alert("FACEBOOK!");
-		} else {
+		} else if (buttonName == "tw") {
 			Dialog.alert("Twitter!");
 		}
 

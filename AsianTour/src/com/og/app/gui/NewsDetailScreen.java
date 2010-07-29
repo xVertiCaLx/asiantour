@@ -4,13 +4,11 @@ import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.Color;
 import net.rim.device.api.ui.Field;
-import net.rim.device.api.ui.FieldChangeListener;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.BitmapField;
-import net.rim.device.api.ui.component.ButtonField;
 import net.rim.device.api.ui.component.LabelField;
 import net.rim.device.api.ui.component.NullField;
 import net.rim.device.api.ui.component.RichTextField;
@@ -19,18 +17,16 @@ import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.gui.component.AnimatedImageField;
-import com.og.app.gui.component.ShareButtonField;
-import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.gui.component.LineField;
+import com.og.app.gui.component.ShareButtonField;
 import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
+import com.og.app.gui.listener.ImageButtonListener;
 import com.og.rss.ANewsItemObj;
 
-public class NewsDetailScreen extends MainScreen implements Runnable {// implements
-	// ImageButtonListener,
-	// Runnable
-	// {
+public class NewsDetailScreen extends MainScreen implements Runnable,
+		ImageButtonListener {
 
 	private VerticalFieldManager mainFM = null;
 	private HorizontalFieldManager bottomFM = new HorizontalFieldManager(
@@ -58,7 +54,8 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 
 	// private ClickableImageField bannerField = null;
 
-	public NewsDetailScreen(CustomListField listField, final ANewsItemObj newsItem) {
+	public NewsDetailScreen(CustomListField listField,
+			final ANewsItemObj newsItem) {
 		super();
 		imgUp = Bitmap.getBitmapResource("res/up.png");
 		imgDown = Bitmap.getBitmapResource("res/down.png");
@@ -71,7 +68,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		}
 
 		button = new ShareButtonField("fb");
-		
+
 		Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		lblTitle = new TitleField("Full Article", settingIcon);
 		headLineHeight = lblTitle.getPreferredHeight();
@@ -170,13 +167,17 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		// adds a <hr>
 		vFM.add(new LineField(2, GuiConst.LINE_COLOR_BYLINE));
 		// adds the author name(s), published date and other information.
-		//vFM.add(lblNewsInfo);
-		//vFM.add(new LineField(1));
-		HorizontalFieldManager hfmNewsLine = new HorizontalFieldManager(Field.USE_ALL_WIDTH | Field.FOCUSABLE | Manager.HORIZONTAL_SCROLL);
-		hfmNewsLine.add(lblNewsInfo);
-		hfmNewsLine.add(new ShareButtonField("fb"));
-		hfmNewsLine.add(new ShareButtonField("tw"));
-		vFM.add(hfmNewsLine);
+
+		vFM.add(lblNewsInfo);
+		vFM.add(new LineField(1));
+		ButtonPanel buttonPanel = new ButtonPanel();
+		buttonPanel.add(new ShareButtonField("fb"));
+		buttonPanel.add(new ShareButtonField("tw"));
+
+		HorizontalFieldManager hFM = new HorizontalFieldManager();
+		hFM.add(buttonPanel);
+
+		vFM.add(hFM);
 		vFM.add(new LineField(2));
 		if (webImg != null) {
 			vFM.add(webImg);
@@ -215,7 +216,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		bottomFM.add(spaceField);
 
 		mainFM.add(new NullField(Field.FOCUSABLE));
-		
+
 		mainFM.add(lblTitle);
 		mainFM.add(bottomFM);
 
@@ -255,6 +256,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 	}
 
 	protected boolean navigationMovement(int dx, int dy, int status, int time) {
+		System.out.println("i moved " + dx + " " + dy);
 		return false;
 		// return super.navigationMovement(dx, dy, status, time);
 	}
@@ -311,6 +313,26 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		}
 	}
 
+	class ButtonPanel extends HorizontalFieldManager {
+		int fixHeight = new ShareButtonField("fb").getPreferredHeight();
+
+		public ButtonPanel() {
+			super(Manager.USE_ALL_WIDTH | Manager.HORIZONTAL_SCROLL
+					| Manager.HORIZONTAL_SCROLLBAR);
+		}
+
+		public void updateLayout(int height) {
+			this.fixHeight = new ShareButtonField("fb").getPreferredHeight();
+			super.updateLayout();
+		}
+
+		public void sublayout(int width, int height) {
+			super.sublayout(width, fixHeight);
+			setExtent(width, fixHeight);
+		}
+
+	}
+
 	class ImagePanel extends VerticalFieldManager {
 		int fixheight = 0;
 
@@ -332,6 +354,21 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 			super.sublayout(width, fixheight);
 			setExtent(width, fixheight);
 		}
+
+	}
+
+	public void imageButtonClicked(int id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void imageButtonOnFocus(int id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void imageButtonOnUnfocus(int id) {
+		// TODO Auto-generated method stub
 
 	}
 }
