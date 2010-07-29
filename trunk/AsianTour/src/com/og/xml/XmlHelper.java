@@ -12,11 +12,10 @@ import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
 import com.og.rss.ANewsItemObj;
 import com.og.app.util.DataCentre;
-import com.og.app.gui.TableListField;
 
 public class XmlHelper {
 
-	// download news
+	// Download news
 	private static final String url = "http://119.75.4.94/singtel/bpl/news.xml";
 	public static String newsXmlString = "";
 
