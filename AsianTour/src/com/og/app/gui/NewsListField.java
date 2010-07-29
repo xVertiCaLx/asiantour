@@ -54,7 +54,7 @@ public class NewsListField extends CustomListField {
 			try{
 				synchronized(Application.getEventLock() ){
 					ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(getSelectedIndex());
-					Screen s = UiApplication.getUiApplication().getActiveScreen();
+					//Screen s = UiApplication.getUiApplication().getActiveScreen();
 					ni.index=getSelectedIndex();
 					UiApplication.getUiApplication().pushScreen(new NewsDetailScreen(this, ni));
 				}
