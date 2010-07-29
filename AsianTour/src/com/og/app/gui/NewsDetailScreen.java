@@ -20,6 +20,7 @@ import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.gui.component.AnimatedImageField;
 import com.og.app.gui.component.ShareButtonField;
+import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.gui.component.LineField;
 import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
@@ -149,12 +150,6 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 			}
 		} else {
 			try {
-				// Bitmap tmpbitmap =
-				// Bitmap.createBitmapFromBytes(newsItem.image, 0, -1, 1);
-				// tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth,
-				// finalHeight);
-				// webImg = new BitmapField( tmpbitmap,
-				// Field.FIELD_HCENTER|Field.FOCUSABLE);
 				if (newsItem.image == null || newsItem.image.length < 1) {
 					webImg = new WebBitmapField(newsItem.imageurl,
 							newsItem.guid);
@@ -170,22 +165,16 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 		// define the vertical field manager's screen details
 		vFM = new ArticlePanel(GuiConst.SCREENHEIGHT
 				- lblTitle.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
-		// adds a line to space the top, so that the "twitter/fb" banner will
-		// show 10 pixel lower
-		// vFM.add(newLineField(10));
-
-		// add in twitter/fb banner, but not today
 		// adds a headline
-		//vFM.add(new LineField(5)); /* to remove when twitter banner up */
 		vFM.add(lblHeadlineField);
 		// adds a <hr>
 		vFM.add(new LineField(2, GuiConst.LINE_COLOR_BYLINE));
 		// adds the author name(s), published date and other information.
-		vFM.add(lblNewsInfo);
-		vFM.add(new LineField(1));
-		HorizontalFieldManager hfmNewsLine = new HorizontalFieldManager(Field.USE_ALL_WIDTH | Manager.HORIZONTAL_SCROLL);
+		//vFM.add(lblNewsInfo);
+		//vFM.add(new LineField(1));
+		HorizontalFieldManager hfmNewsLine = new HorizontalFieldManager(Field.USE_ALL_WIDTH | Field.FOCUSABLE | Manager.HORIZONTAL_SCROLL);
+		hfmNewsLine.add(lblNewsInfo);
 		hfmNewsLine.add(new ShareButtonField("fb"));
-		//button = new ShareButtonField("tw");
 		hfmNewsLine.add(new ShareButtonField("tw"));
 		vFM.add(hfmNewsLine);
 		vFM.add(new LineField(2));
@@ -321,21 +310,6 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 			setExtent(fixwidth, fixheight);
 		}
 	}
-
-	// ---------------------- FACEBOOK --------------------------
-	/*
-	 * loginScreen = new LoginScreen(settings, cookieManager);
-	 * loginScreen.addActionListener(this);
-	 * 
-	 * permissionScreen = new PermissionScreen(settings, cookieManager);
-	 * permissionScreen.addActionListener(this);
-	 * 
-	 * loginScreen.login(); pushScreen(loginScreen);
-	 */
-	
-	
-	
-	// ---------------------- END OF FACEBOOK -------------------
 
 	class ImagePanel extends VerticalFieldManager {
 		int fixheight = 0;
