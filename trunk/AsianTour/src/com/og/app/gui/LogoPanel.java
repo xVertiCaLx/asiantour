@@ -14,7 +14,7 @@ public class LogoPanel extends HorizontalFieldManager {
         if (logoPanel == null) {
             logoPanel = new LogoPanel();            
             System.out.println("--------------------------\nres/titleBar/W" + GuiConst.SCREENWIDTH + "/" + imgName);
-            logoIcon = Bitmap.getBitmapResource("res/titleBar/W" + GuiConst.SCREENWIDTH + "/" + imgName);
+            logoIcon = /*Bitmap.getBitmapResource("res/titleBar/W480/titlebar.jpg");*/Bitmap.getBitmapResource("res/titleBar/W" + GuiConst.SCREENWIDTH + "/" + imgName);
         }
         return logoPanel;
     }
