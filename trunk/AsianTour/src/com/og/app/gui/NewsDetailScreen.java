@@ -19,7 +19,7 @@ import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.gui.component.AnimatedImageField;
-import com.og.app.gui.component.FacebookButtonField;
+import com.og.app.gui.component.ShareButtonField;
 import com.og.app.gui.component.LineField;
 import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
@@ -53,7 +53,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 	private SpaceField spaceField = null;
 	private CustomListField listField = null;
 	private AnimatedImageField animatedImg = null;
-	private FacebookButtonField button = null;
+	private ShareButtonField button = null;
 
 	// private ClickableImageField bannerField = null;
 
@@ -69,7 +69,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 			// listField.saveChanges(newsItem, myIndex);
 		}
 
-		button = new FacebookButtonField(ButtonField.CONSUME_CLICK);
+		button = new ShareButtonField("fb");
 		
 		Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		lblTitle = new TitleField("Full Article", settingIcon);
@@ -176,17 +176,19 @@ public class NewsDetailScreen extends MainScreen implements Runnable {// impleme
 
 		// add in twitter/fb banner, but not today
 		// adds a headline
-		vFM.add(new LineField(5)); /* to remove when twitter banner up */
+		//vFM.add(new LineField(5)); /* to remove when twitter banner up */
 		vFM.add(lblHeadlineField);
 		// adds a <hr>
 		vFM.add(new LineField(2, GuiConst.LINE_COLOR_BYLINE));
 		// adds the author name(s), published date and other information.
-		HorizontalFieldManager hfmNewsLine = new HorizontalFieldManager();
-		hfmNewsLine.add(lblNewsInfo);
-		hfmNewsLine.add(button);
+		vFM.add(lblNewsInfo);
+		vFM.add(new LineField(1));
+		HorizontalFieldManager hfmNewsLine = new HorizontalFieldManager(Field.USE_ALL_WIDTH | Manager.HORIZONTAL_SCROLL);
+		hfmNewsLine.add(new ShareButtonField("fb"));
+		//button = new ShareButtonField("tw");
+		hfmNewsLine.add(new ShareButtonField("tw"));
 		vFM.add(hfmNewsLine);
-		
-		vFM.add(new LineField(5));
+		vFM.add(new LineField(2));
 		if (webImg != null) {
 			vFM.add(webImg);
 		}

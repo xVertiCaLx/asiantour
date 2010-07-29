@@ -16,6 +16,8 @@ import net.rim.device.api.ui.*;
 
 public class NewsListField extends CustomListField {
 	private NewsPanel newsPanel = null;
+	private String feedname = "";
+	private int newsID = 0;
 	ANewsItemObj[] item = new ANewsItemObj[5];
 
 	public NewsListField(NewsPanel newsPanel, ListFieldListener listener) {
@@ -54,7 +56,7 @@ public class NewsListField extends CustomListField {
 			try{
 				synchronized(Application.getEventLock() ){
 					ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(getSelectedIndex());
-					//Screen s = UiApplication.getUiApplication().getActiveScreen();
+					Screen s = UiApplication.getUiApplication().getActiveScreen();
 					ni.index=getSelectedIndex();
 					UiApplication.getUiApplication().pushScreen(new NewsDetailScreen(this, ni));
 				}

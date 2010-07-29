@@ -1,35 +1,43 @@
 package com.og.app.gui.component;
 
-import com.og.app.gui.listener.ImageButtonListener;
+import net.rim.device.api.system.Bitmap;
+import net.rim.device.api.system.Characters;
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.Graphics;
+import net.rim.device.api.ui.component.ButtonField;
+import net.rim.device.api.ui.component.Dialog;
+
 import com.og.app.gui.GuiConst;
+import com.og.app.gui.listener.ImageButtonListener;
 
-import net.rim.device.api.ui.*;
-import net.rim.device.api.ui.component.*;
-import net.rim.device.api.system.*;
+public class ShareButtonField extends Field {
 
-public class FacebookButtonField extends Field {
-
-	Bitmap button = Bitmap.getBitmapResource("res/fb_share.png");
-	//final Bitmap tw = Bitmap.getBitmapResource("res/tw_share.png");
+	Bitmap shareButton = null;
+	String buttonName;
 
 	private short focusstatus = 0;
 
 	private int fieldWidth;
 	private int fieldHeight;
 	private int padding = 2;
-	private int sharing = 0;
 
 	private ImageButtonListener listener = null;
 
-	public FacebookButtonField(long style) {
-		super(style);
-		fieldWidth = GuiConst.SCREENWIDTH;
-//		if (fb.getHeight() > tw.getHeight()) {
-//			fieldHeight = fb.getHeight() + (padding * 2);
-//		} else {
-//			fieldHeight = tw.getHeight() + (padding * 2);
-//		}
-		fieldHeight = button.getHeight();
+	public ShareButtonField(String buttonName) {
+		super(Field.FOCUSABLE | ButtonField.CONSUME_CLICK);
+
+		this.buttonName = buttonName;
+		if (buttonName == "fb") {
+			shareButton = Bitmap.getBitmapResource("res/fb_share.png");
+		} else if (buttonName == "tw") {
+			shareButton = Bitmap.getBitmapResource("res/tw_share.png");
+		} else {
+			Dialog
+					.alert("An error has occurred. Unable to draw social networking buttons.");
+		}
+
+		fieldHeight = shareButton.getHeight();
+		fieldWidth = shareButton.getWidth() + padding;// GuiConst.SCREENWIDTH;
 	}
 
 	public void addImageButtonListener(ImageButtonListener listener) {
@@ -72,23 +80,23 @@ public class FacebookButtonField extends Field {
 		setExtent(getPreferredWidth(), getPreferredHeight());
 	}
 
-	protected void paint(Graphics graphics) {
-		
-		if (sharing == 0) {
-			graphics.drawBitmap(0, 0, button.getWidth(), button.getHeight(), button, 0, 0);
-			sharing ++;
-		} else {
-			button = Bitmap.getBitmapResource("res/tw_share.png");
-			graphics.drawBitmap(0, 0, button.getWidth(), button.getHeight(), button, 0, 0);
-		}
-		
+	protected void paint(Graphics g) {
+		g.drawBitmap(padding, 0, shareButton.getWidth(), shareButton
+				.getHeight(), shareButton, 0, 0);
 	}
 
 	protected boolean navigationClick(int status, int time) {
 		System.out.println("navigationClick::" + status + "::");
-		
+		focusstatus = 1;
 		invalidate();
 		fieldChangeNotify(1);
+
+		if (buttonName == "fb") {
+			Dialog.alert("FACEBOOK!");
+		} else {
+			Dialog.alert("Twitter!");
+		}
+
 		return true;
 	}
 
