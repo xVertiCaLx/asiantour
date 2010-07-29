@@ -24,7 +24,7 @@ public class XmlHelper {
 			Utility.getWebData(url, new WebDataCallback() {
 				public void callback(String data) {
 					newsXmlString = data;
-					Vector xmlNewsItemCollection = parseDownloadedNews(data);
+					Vector xmlNewsItemCollection = parse(data, "News");
 					for (int i = 0; i < xmlNewsItemCollection.size(); i++) {
 						XmlNewsItem xmlNewsItem = (XmlNewsItem) xmlNewsItemCollection
 								.elementAt(i);
@@ -66,16 +66,16 @@ public class XmlHelper {
 	}
 
 	// Vector<XmlNewsItem>
-	private static Vector parseDownloadedNews(String data) {
-		Vector newsCollection = null;
-		try {
-			data = data.substring(data.indexOf("<news>"));
-		} catch (Exception e) {
-			return new Vector();
-		}
-		newsCollection = XmlNewsParser.parse(data);
-		return newsCollection;
-	}
+//	private static Vector parseDownloadedNews(String data) {
+//		Vector newsCollection = null;
+//		try {
+//			data = data.substring(data.indexOf("<news>"));
+//		} catch (Exception e) {
+//			return new Vector();
+//		}
+//		newsCollection = XmlNewsParser.parse(data);
+//		return newsCollection;
+//	}
 
 	// download data for TV Schedule data
 	private static final String tvTimes_url = "http://203.116.81.61:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimes";
@@ -87,7 +87,7 @@ public class XmlHelper {
 			Utility.getWebData(tvTimes_url, new WebDataCallback() {
 				public void callback(String data) {
 					tvTimes_xml = data;
-					Vector xmlTvTimes = parseDownloadedTvTimes(data);
+					Vector xmlTvTimes = parse(data, "TV");
 					for (int i = 0; i < xmlTvTimes.size(); i++) {
 						XmlTvTimesItem xmlTvItem = (XmlTvTimesItem) xmlTvTimes
 								.elementAt(i);
@@ -108,16 +108,25 @@ public class XmlHelper {
 		}
 	}
 
-	private static Vector parseDownloadedTvTimes(String data) {
-		Vector tvTimesCollection = null;
-		try {
-			data = data.substring(data.indexOf("<ArrayOfAnyType"));
-			System.out.println(data);
-		} catch (Exception e) {
-			return new Vector();
+	private static Vector parse(String data, String parseType) {
+		Vector collection = null;
+		if (parseType == "TV") {
+			try {
+				data = data.substring(data.indexOf("<ArrayOfAnyType"));
+				System.out.println(data);
+			} catch (Exception e) {
+				return new Vector();
+			}
+			collection = XmlTvScheduleParser.parse(data);	
+		} else if (parseType == "News") {
+			try {
+				data = data.substring(data.indexOf("<news>"));
+			} catch (Exception e) {
+				return new Vector();
+			}
+			collection = XmlNewsParser.parse(data);
 		}
-		tvTimesCollection = XmlTvScheduleParser.parse(data);
-		return tvTimesCollection;
+		return collection;
 	}
 
 }
