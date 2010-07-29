@@ -318,7 +318,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 
 		public ButtonPanel() {
 			super(Manager.USE_ALL_WIDTH | Manager.HORIZONTAL_SCROLL
-					| Manager.HORIZONTAL_SCROLLBAR);
+					| Manager.HORIZONTAL_SCROLLBAR | Field.FOCUSABLE);
 		}
 
 		public void updateLayout(int height) {
@@ -326,7 +326,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 			super.updateLayout();
 		}
 
-		public void sublayout(int width, int height) {
+		public void sublayout(int width, int height) { 
 			super.sublayout(width, fixHeight);
 			setExtent(width, fixHeight);
 		}

@@ -7,7 +7,6 @@ import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.component.ButtonField;
 import net.rim.device.api.ui.component.Dialog;
 
-import com.og.app.gui.GuiConst;
 import com.og.app.gui.listener.ImageButtonListener;
 
 public class ShareButtonField extends Field {
