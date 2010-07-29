@@ -8,11 +8,12 @@ import net.rim.device.api.ui.component.Dialog;
 import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.component.TabField;
 import com.og.app.gui.component.TransitionableMainScreen;
+import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.gui.listener.TabListener;
 import com.og.xml.XmlHelper;
 
-public class MenuScreen extends TransitionableMainScreen implements TabListener, ListFieldListener {
+public class MenuScreen extends TransitionableMainScreen implements TabListener, ListFieldListener, ImageButtonListener {
 
 	//Vector<ANewsItemObj>
 	public Vector newsCollection = new Vector();
@@ -229,6 +230,21 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 		add(logoPanel);
 		add(tabPanel);
 		add(tablePanel);
+	}
+
+	public void imageButtonClicked(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void imageButtonOnFocus(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void imageButtonOnUnfocus(int id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/*--------------------------- Example of making a Horizontal Field Manager ----------------
