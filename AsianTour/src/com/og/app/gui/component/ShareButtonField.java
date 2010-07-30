@@ -1,5 +1,6 @@
 package com.og.app.gui.component;
 
+import net.oauth.j2me.OAuthServiceProviderException;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.Field;
@@ -7,7 +8,10 @@ import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.component.ButtonField;
 import net.rim.device.api.ui.component.Dialog;
 
+import com.og.app.Const;
 import com.og.app.gui.listener.ImageButtonListener;
+import com.og.app.social.TwitterHelper;
+import com.og.rss.ANewsItemObj;
 
 public class ShareButtonField extends Field {
 
@@ -19,11 +23,12 @@ public class ShareButtonField extends Field {
 	private int fieldWidth;
 	private int fieldHeight;
 	private int padding = 2;
-
+	private ANewsItemObj newsItem = null;
 	private static ImageButtonListener listener = null;
 
-	public ShareButtonField(String buttonName) {
+	public ShareButtonField(String buttonName, ANewsItemObj newsItem) {
 		super(Field.FOCUSABLE | ButtonField.CONSUME_CLICK);
+		this.newsItem = newsItem;
 		//addImageButtonListener(listener);
 		this.buttonName = buttonName;
 		if (buttonName == "fb") {
@@ -96,7 +101,12 @@ public class ShareButtonField extends Field {
 		if (buttonName == "fb") {
 			Dialog.alert("FACEBOOK!");
 		} else if (buttonName == "tw") {
-			Dialog.alert("Twitter!");
+			try {
+				TwitterHelper.UpdateStatus(Const.NEWS_SHARE_BASE_URL + newsItem.guid);
+				Dialog.alert("Shared news on twitter!");
+			} catch (OAuthServiceProviderException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return true;
