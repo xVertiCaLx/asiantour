@@ -11,37 +11,40 @@ import net.oauth.j2me.token.AccessToken;
 import net.oauth.j2me.token.RequestToken;
 import net.rim.device.api.system.PersistentObject;
 import net.rim.device.api.system.PersistentStore;
+import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
 
 import com.og.app.gui.TwitterOAuthScreen;
 
 public class TwitterHelper {
-	private static final String REQUEST_URL = "http://twitter.com/oauth/request_token";
-	private static final String ACCESS_URL = "http://twitter.com/oauth/access_token";
-	private static final String AUTHORIZE_URL = "http://twitter.com/oauth/authorize?oauth_token=";
+	private static final String REQUEST_URL = "http://api.twitter.com/oauth/request_token";
+	private static final String ACCESS_URL = "http://api.twitter.com/oauth/access_token";
+	private static final String AUTHORIZE_URL = "http://api.twitter.com/oauth/authorize?oauth_token=";
 	private static final String CONSUMER_KEY = "qnBc5vuVeTfsSklSUm7ymQ";
 	private static final String CONSUMER_SECRET = "RGdOTxmHEG7VV9oEjU5aLHyCUbgfp0xzMZS8S3lpxus";
 	private static final String SIGNATURE_METHOD = "HMAC-SHA1";
-	public static final long DATASTORE_KEY = 0x358c8f7e3e76d79eL;
+	private static final long DATASTORE_KEY = 0x358c8f7e3e76d79eL;
+	private static final String STATUS_UPDATE_URL = "http://api.twitter.com/statuses/update.xml";
 	
-	public static void UpdateStatus(UiApplication mainApp, String contentToPost) throws OAuthServiceProviderException{
+	public static void UpdateStatus(String contentToPost) throws OAuthServiceProviderException{
 		AccessToken accessToken = GetAccessToken();
 		if(accessToken==null){
-			SetupAuthorizationRequest(mainApp, contentToPost);
+			SetupAuthorizationRequest(contentToPost);
 		}else{
 			Consumer c = new Consumer(CONSUMER_KEY, CONSUMER_SECRET);
 			c.setSignatureMethod(SIGNATURE_METHOD);
 			Hashtable params =  new Hashtable(1);
 			params.put("status", "AsianTour: " + contentToPost);
 			try {
-				c.accessProtectedResource("http://api.twitter.com/1/statuses/update.json", accessToken, params, OAuthMessage.METHOD_POST);
+				c.accessProtectedResource2(STATUS_UPDATE_URL, accessToken, params, OAuthMessage.METHOD_POST);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	private static void SetupAuthorizationRequest(UiApplication mainApp, String contentToPost){
+	private static void SetupAuthorizationRequest(String contentToPost){
+		UiApplication mainApp = UiApplication.getUiApplication();
 		Consumer c = new Consumer(CONSUMER_KEY, CONSUMER_SECRET);
 		c.setSignatureMethod(SIGNATURE_METHOD);
 		RequestToken requestToken = null;
@@ -62,6 +65,15 @@ public class TwitterHelper {
 		c.setSignatureMethod(SIGNATURE_METHOD);
 		AccessToken accessToken = c.getAccessToken(ACCESS_URL, requestToken, verifier);
 		SetAccessToken(accessToken);
+		Screen s = UiApplication.getUiApplication().getActiveScreen();
+		UiApplication.getUiApplication().popScreen(s);
+		Hashtable params =  new Hashtable(1);
+		params.put("status", "AsianTour: " + contentToPost);
+		try {
+			c.accessProtectedResource2(STATUS_UPDATE_URL, accessToken, params, OAuthMessage.METHOD_POST);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private static AccessToken GetAccessToken(){

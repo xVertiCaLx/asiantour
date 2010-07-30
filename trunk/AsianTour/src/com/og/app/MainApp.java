@@ -19,7 +19,7 @@ public class MainApp extends UiApplication {
                 GuiConst.FONTSIZE_ARR = GuiConst.FONTSIZE_ARR2;
         pushScreen(MenuScreen.getInstance());
 //        try {
-//			TwitterHelper.UpdateStatus(this, "Test post from my BB App.");
+//			TwitterHelper.UpdateStatus("test 2 this better work");
 //		} catch (OAuthServiceProviderException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
