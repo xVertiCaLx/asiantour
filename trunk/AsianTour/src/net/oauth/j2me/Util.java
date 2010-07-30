@@ -246,7 +246,7 @@ public class Util {
          String respBody = new String(""); // return empty string on bad things
          // TODO -- better way to handle unexpected responses
          try {
-             System.out.println("UTIL HTTPS-- posting to "+urlPieces[0]);
+             System.out.println("UTIL HTTP-- posting to "+urlPieces[0]);
              c = (HttpConnection)Connector.open(urlPieces[0], Connector.READ_WRITE); // hack for emulator?
              
              // Set the request method and headers
@@ -258,7 +258,7 @@ public class Util {
              
              // Getting the output stream may flush the headers
              os = c.openOutputStream();
-             System.out.println("UTIL HTTPS-- writing POST data: "+urlPieces[1]);
+             System.out.println("UTIL HTTP- writing POST data: "+urlPieces[1]);
              os.write(urlPieces[1].getBytes());
              //os.flush();           // Optional, getResponseCode will flush
              

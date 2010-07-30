@@ -339,12 +339,12 @@ public class Utility{
     	if(Thread.activeCount() <= 20){
     		t.start();
     	}else{
-    		try {
-				Thread.sleep(1000);
-				System.out.println("Thread retry...");
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//    		try {
+//				Thread.sleep(1000);
+//				System.out.println("Thread retry...");
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			break retry;
     	}
     }	

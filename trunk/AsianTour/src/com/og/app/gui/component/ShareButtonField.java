@@ -37,7 +37,7 @@ public class ShareButtonField extends Field {
 			shareButton = Bitmap.getBitmapResource("res/tw_share.png");
 		} else {
 			Dialog
-					.alert("An error has occurred. Unable to draw social networking buttons.");
+			.alert("An error has occurred. Unable to draw social networking buttons.");
 		}
 
 		fieldHeight = shareButton.getHeight();
@@ -45,7 +45,7 @@ public class ShareButtonField extends Field {
 	}
 
 	public void addImageButtonListener(ImageButtonListener listener) {
-		
+
 		ShareButtonField.listener = listener;
 	}
 
@@ -101,12 +101,19 @@ public class ShareButtonField extends Field {
 		if (buttonName == "fb") {
 			Dialog.alert("FACEBOOK!");
 		} else if (buttonName == "tw") {
-			try {
-				TwitterHelper.UpdateStatus(Const.NEWS_SHARE_BASE_URL + newsItem.guid);
-				Dialog.alert("Shared news on twitter!");
-			} catch (OAuthServiceProviderException e) {
-				e.printStackTrace();
-			}
+
+			Runnable r = new Runnable() {
+
+				public void run() {
+					try {
+						TwitterHelper.UpdateStatus(Const.NEWS_SHARE_BASE_URL + newsItem.guid);
+					} catch (OAuthServiceProviderException e) {
+						e.printStackTrace();
+					}
+				}
+			};
+			new Thread(r).start();
+			Dialog.alert("Posting news on twitter!");
 		}
 
 		return true;

@@ -192,9 +192,26 @@ public class ConnectionMgr{
         catch (Exception e)
         {
         	e.printStackTrace();
+        }finally{
+        	if(httpConnection!=null){
+        		try {
+					httpConnection.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+        	}
+        	if(is!=null){
+        		try {
+					is.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+        	}
+        	data = null;
+        	is=null;
+            httpConnection=null;
         }
-         is=null;
-        httpConnection=null;
+         
        return data;
     }    
         
