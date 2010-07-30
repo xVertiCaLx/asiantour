@@ -9,13 +9,14 @@
 
 package net.oauth.j2me;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.InputStream;
 import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
+
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.io.HttpsConnection;
@@ -196,7 +197,7 @@ public class Util {
         String respBody = new String(""); // return empty string on bad things
         // TODO -- better way to handle unexpected responses
         try {
-            System.out.println("UTIL -- posting to "+urlPieces[0]);
+            System.out.println("UTIL HTTPS-- posting to "+urlPieces[0]);
             c = (HttpsConnection)Connector.open(urlPieces[0], Connector.READ_WRITE); // hack for emulator?
             
             // Set the request method and headers
@@ -208,7 +209,7 @@ public class Util {
             
             // Getting the output stream may flush the headers
             os = c.openOutputStream();
-            System.out.println("UTIL -- writing POST data: "+urlPieces[1]);
+            System.out.println("UTIL HTTPS-- writing POST data: "+urlPieces[1]);
             os.write(urlPieces[1].getBytes());
             //os.flush();           // Optional, getResponseCode will flush
             
@@ -235,6 +236,55 @@ public class Util {
             throw new OAuthServiceProviderException("HTTP response code: " + rc, rc, respBody);
         }
         return respBody;
+    }
+    
+    public static final String postViaHttpConnection(String fullUrl) throws IOException, OAuthServiceProviderException {
+    	 String[] urlPieces=split(fullUrl, "?");
+         HttpConnection c = null;
+         OutputStream os = null;
+         int rc;
+         String respBody = new String(""); // return empty string on bad things
+         // TODO -- better way to handle unexpected responses
+         try {
+             System.out.println("UTIL HTTPS-- posting to "+urlPieces[0]);
+             c = (HttpConnection)Connector.open(urlPieces[0], Connector.READ_WRITE); // hack for emulator?
+             
+             // Set the request method and headers
+             c.setRequestMethod(HttpConnection.POST);
+             c.setRequestProperty("User-Agent", "Profile/MIDP-2.0 Configuration/CLDC-1.0");
+             c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+             c.setRequestProperty("Content-Length", ""+urlPieces[1].length());
+             // TODO -- add'l headers for t-mobile?
+             
+             // Getting the output stream may flush the headers
+             os = c.openOutputStream();
+             System.out.println("UTIL HTTPS-- writing POST data: "+urlPieces[1]);
+             os.write(urlPieces[1].getBytes());
+             //os.flush();           // Optional, getResponseCode will flush
+             
+             // Getting the response code will open the connection,
+             // send the request, and read the HTTP response headers.
+             // The headers are stored until requested.
+             rc = c.getResponseCode();
+             
+             int len = c.getHeaderFieldInt("Content-Length", 0);
+             //int len = (int)c.getLength();
+             System.out.println("content-length="+len);
+             
+             byte[] data = Util.readFromHTTPConnection(c);
+             respBody=new String(data);
+         } catch (ClassCastException e) {
+             throw new IllegalArgumentException("Not an HTTP URL");
+         } finally {
+             if (os != null)
+                 os.close();
+             if (c != null)
+                 c.close();
+         }
+         if (rc != HttpConnection.HTTP_OK) {
+             throw new OAuthServiceProviderException("HTTP response code: " + rc, rc, respBody);
+         }
+         return respBody;
     }
     
     public static final String getViaHttpsConnection(String url) throws IOException, OAuthServiceProviderException {

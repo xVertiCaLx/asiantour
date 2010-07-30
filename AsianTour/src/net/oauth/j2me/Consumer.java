@@ -186,7 +186,37 @@ public class Consumer {
             
         if (OAuthMessage.METHOD_POST.equals(httpMethod))
         {
-            responseString=Util.postViaHttpsConnection(url);
+        	responseString=Util.postViaHttpsConnection(url);
+        } else {
+            responseString=Util.getViaHttpsConnection(url);
+        }
+        System.out.println("Consumer got responseString " + responseString);
+        
+        return responseString;
+         
+    }    
+    
+    public String accessProtectedResource2(String endpoint, AccessToken accessToken, Hashtable queryParams, String httpMethod) throws OAuthServiceProviderException, IOException {
+        String responseString=null;
+        OAuthMessage requestMessage = new OAuthMessage();
+        requestMessage.setRequestMethod(httpMethod);
+        requestMessage.setRequestURL(endpoint);
+        requestMessage.setConsumerKey(config.getKey());
+        requestMessage.setToken(accessToken.getToken());
+        requestMessage.setTokenSecret(accessToken.getSecret());
+        if (queryParams==null) {
+            requestMessage.setAttitionalProperties(new Hashtable());
+        } else {
+            requestMessage.setAttitionalProperties(queryParams);
+        }
+        requestMessage.createSignature(signatureMethod, config.getSecret());
+        
+        String url=endpoint + "?" + requestMessage.convertToUrlParameters();
+        System.out.println("Attempting to access "+url);
+            
+        if (OAuthMessage.METHOD_POST.equals(httpMethod))
+        {
+        	responseString=Util.postViaHttpConnection(url);
         } else {
             responseString=Util.getViaHttpsConnection(url);
         }
