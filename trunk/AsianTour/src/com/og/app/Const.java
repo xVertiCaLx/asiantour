@@ -57,6 +57,6 @@ public class Const{
 //    public final static String DOWNLOAD_URL= "http://mobile.mediacorp.sg/Today/app/bb.php";
         
      public final static String PAGETRACKER_NAME ="Photo";
-
+     public final static String NEWS_SHARE_BASE_URL = "http://www.asiantour.com/news.aspx?sid=";
     
 }

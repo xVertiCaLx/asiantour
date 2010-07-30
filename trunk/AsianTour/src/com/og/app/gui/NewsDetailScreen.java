@@ -51,12 +51,13 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 	private CustomListField listField = null;
 	private AnimatedImageField animatedImg = null;
 	private ShareButtonField button = null;
-
+	private ANewsItemObj newsItem = null;
 	// private ClickableImageField bannerField = null;
 
 	public NewsDetailScreen(CustomListField listField,
 			final ANewsItemObj newsItem) {
 		super();
+		this.newsItem = newsItem;
 		imgUp = Bitmap.getBitmapResource("res/up.png");
 		imgDown = Bitmap.getBitmapResource("res/down.png");
 		this.myIndex = newsItem.index;
@@ -67,7 +68,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 			// listField.saveChanges(newsItem, myIndex);
 		}
 
-		button = new ShareButtonField("fb");
+		button = new ShareButtonField("fb", newsItem);
 
 		Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		lblTitle = new TitleField("Full Article", settingIcon);
@@ -171,8 +172,8 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		vFM.add(lblNewsInfo);
 		vFM.add(new LineField(1));
 		ButtonPanel buttonPanel = new ButtonPanel();
-		buttonPanel.add(new ShareButtonField("fb"));
-		buttonPanel.add(new ShareButtonField("tw"));
+		buttonPanel.add(new ShareButtonField("fb", newsItem));
+		buttonPanel.add(new ShareButtonField("tw", newsItem));
 
 		HorizontalFieldManager hFM = new HorizontalFieldManager();
 		hFM.add(buttonPanel);
@@ -314,7 +315,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 	}
 
 	class ButtonPanel extends HorizontalFieldManager {
-		int fixHeight = new ShareButtonField("fb").getPreferredHeight();
+		int fixHeight = new ShareButtonField("fb", newsItem).getPreferredHeight();
 
 		public ButtonPanel() {
 			super(Manager.USE_ALL_WIDTH | Manager.HORIZONTAL_SCROLL
@@ -322,7 +323,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		}
 
 		public void updateLayout(int height) {
-			this.fixHeight = new ShareButtonField("fb").getPreferredHeight();
+			this.fixHeight = new ShareButtonField("fb", newsItem).getPreferredHeight();
 			super.updateLayout();
 		}
 
