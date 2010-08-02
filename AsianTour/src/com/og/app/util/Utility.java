@@ -341,19 +341,18 @@ public class Utility{
     			
     		}
     	});
-    	t.start();
-//    	retry:
-//    	if(connCount < 1){
-//    		
-//    	}else{
-//    		try {
-//				Thread.sleep(1000);
-//				System.out.println("Thread retry...");
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//			break retry;
-//    	}
+    	retry:
+    	if(connCount < 2){
+    		t.start();
+    	}else{
+    		try {
+				Thread.sleep(1000);
+				System.out.println("Thread retry...");
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			break retry;
+    	}
     }	
     
     public static void getWebDataStr(final String url, final WebDataCallbackStr callback) throws IOException
