@@ -67,16 +67,16 @@ public class XmlHelper {
 	}
 
 	// Vector<XmlNewsItem>
-//	private static Vector parseDownloadedNews(String data) {
-//		Vector newsCollection = null;
-//		try {
-//			data = data.substring(data.indexOf("<news>"));
-//		} catch (Exception e) {
-//			return new Vector();
-//		}
-//		newsCollection = XmlNewsParser.parse(data);
-//		return newsCollection;
-//	}
+	// private static Vector parseDownloadedNews(String data) {
+	// Vector newsCollection = null;
+	// try {
+	// data = data.substring(data.indexOf("<news>"));
+	// } catch (Exception e) {
+	// return new Vector();
+	// }
+	// newsCollection = XmlNewsParser.parse(data);
+	// return newsCollection;
+	// }
 
 	// download data for TV Schedule data
 	private static final String tvTimes_url = "http://203.116.81.61:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimes";
@@ -92,7 +92,7 @@ public class XmlHelper {
 					for (int i = 0; i < xmlTvTimes.size(); i++) {
 						XmlTvTimesItem xmlTvItem = (XmlTvTimesItem) xmlTvTimes
 								.elementAt(i);
-						DataCentre itemObj = new DataCentre(
+						DataCentre itemObj = new DataCentre(xmlTvItem.index,
 								xmlTvItem.programmeName, xmlTvItem.date,
 								xmlTvItem.time, xmlTvItem.broadcaster,
 								xmlTvItem.region);
@@ -108,7 +108,7 @@ public class XmlHelper {
 			return;
 		}
 	}
-	
+
 	// download data for TV Schedule data
 	private static final String tour_url = "http://203.116.81.61:9191/BlackBerry/BlackBerryWebService.asmx/ListSeasonCurrentSchedule";
 	public static String tour_xml = "";
@@ -123,8 +123,10 @@ public class XmlHelper {
 					for (int i = 0; i < xmlTourSchedule.size(); i++) {
 						XmlTourScheduleItem xmlTourItem = (XmlTourScheduleItem) xmlTourSchedule
 								.elementAt(i);
-						DataCentre itemObj = new DataCentre(
-								xmlTourItem.date, xmlTourItem.country, xmlTourItem.tourName, xmlTourItem.golfClub, xmlTourItem.defChamp, xmlTourItem.prizeMoney);
+						DataCentre itemObj = new DataCentre(xmlTourItem.index,
+								xmlTourItem.date, xmlTourItem.country,
+								xmlTourItem.tourName, xmlTourItem.golfClub,
+								xmlTourItem.defChamp, xmlTourItem.prizeMoney);
 						System.out.println("Added tour schedules : " + itemObj);
 						MenuScreen.getInstance().tourScheduleCollection
 								.addElement(itemObj);
@@ -147,7 +149,7 @@ public class XmlHelper {
 			} catch (Exception e) {
 				return new Vector();
 			}
-			collection = XmlParser.parse(data, parseType);	
+			collection = XmlParser.parse(data, parseType);
 		} else if (parseType == "News") {
 			try {
 				data = data.substring(data.indexOf("<news>"));
