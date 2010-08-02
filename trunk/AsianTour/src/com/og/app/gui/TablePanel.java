@@ -2,6 +2,7 @@ package com.og.app.gui;
 
 import com.og.app.gui.listener.*;
 import com.og.app.gui.component.*;
+import com.og.xml.XmlHelper;
 
 import net.rim.device.api.ui.*;
 import net.rim.device.api.system.*;
@@ -54,7 +55,6 @@ public class TablePanel extends VerticalFieldManager{
     }
     
     public synchronized void loadNews(int tableNo) {
-    
         tableList.loadNews(tableNo);
         
         Field field = childNewsPanel.getField(0);
