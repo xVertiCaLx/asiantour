@@ -13,13 +13,13 @@ public class RecordStoreHelper {
 	public static final long DATASTORE_KEY = 0x9fe7c2eeb62519b6L;//0x8d0ed7fadc56615cL;
 
 	private static PersistentObject getRecordStore(){
-		try{
-		PersistentStore.destroyPersistentObject(0xe62c9c2775dc9fc5L);
-		PersistentStore.destroyPersistentObject(0x3a8759a83845f2fbL);
-		PersistentStore.destroyPersistentObject(0x50b5c5546870f428L);
-		}catch(Exception e){
-			
-		}
+//		try{
+//		PersistentStore.destroyPersistentObject(0xe62c9c2775dc9fc5L);
+//		PersistentStore.destroyPersistentObject(0x3a8759a83845f2fbL);
+//		PersistentStore.destroyPersistentObject(0x50b5c5546870f428L);
+//		}catch(Exception e){
+//			
+//		}
 		return PersistentStore.getPersistentObject(DATASTORE_KEY);
 	}
 

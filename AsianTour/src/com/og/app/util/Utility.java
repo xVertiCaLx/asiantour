@@ -16,6 +16,9 @@ import com.og.app.gui.Lang;
 import com.og.rss.ANewsFeed;
 
 public class Utility{
+	
+	public static int connCount = 0;
+	
     static Hashtable MONTHARR= new Hashtable();
 
     static{
@@ -307,19 +310,21 @@ public class Utility{
     	{
     		public void run()
     		{
+    			connCount++;
     			try
     			{
     				System.out.println("Get Web Data:Connection.open ");
-    				final String result = ConnectionMgr.wgetData(url);
-    				System.out.println("Get Web Data:beforeInvokeLater , isNull:" + (result==null ? true : false));
+    				final byte[] result = ConnectionMgr.loadImage(url);
     				UiApplication.getUiApplication().invokeLater(new Runnable()
     				{
     					public void run()
     					{
     						if(result==null){
-    							callback.callback("Exception ( Get Data Is NULL )");
+    							callback.callback(new byte[]{});
+    						}else{
+    							callback.callback(result);
     						}
-    						callback.callback(result);
+    						
     					}
     				});
     			}
@@ -329,23 +334,25 @@ public class Utility{
     				{
     					public void run()
     					{
-    						callback.callback("Exception (" + ex.getClass() + "): " + ex.getMessage());
+    						callback.callback(new byte[]{});
     					}
     				});
     			}
+    			
     		}
     	});
-    	retry:
-    	if(Thread.activeCount() <= 20){
-    		t.start();
-    	}else{
+    	t.start();
+//    	retry:
+//    	if(connCount < 1){
+//    		
+//    	}else{
 //    		try {
 //				Thread.sleep(1000);
 //				System.out.println("Thread retry...");
 //			} catch (InterruptedException e) {
 //				e.printStackTrace();
 //			}
-			break retry;
-    	}
+//			break retry;
+//    	}
     }	
 }

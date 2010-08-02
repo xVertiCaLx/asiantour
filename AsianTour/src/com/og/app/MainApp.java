@@ -8,7 +8,7 @@ import com.og.app.gui.SplashScreen;
 
 
 public class MainApp extends UiApplication {
-
+	
 	public static void main (String [] args) {
 		MainApp ms = new MainApp();
 		ms.enterEventDispatcher();
