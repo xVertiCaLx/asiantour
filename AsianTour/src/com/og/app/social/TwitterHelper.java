@@ -59,6 +59,7 @@ public class TwitterHelper {
 		String authorizeUrl = AUTHORIZE_URL + token;
 		System.out.println(authorizeUrl);
 		TwitterOAuthScreen twitterOAuthScreen = new TwitterOAuthScreen(authorizeUrl, requestToken, contentToPost);
+		mainApp.
 		mainApp.pushScreen(twitterOAuthScreen);
 	}
 	
