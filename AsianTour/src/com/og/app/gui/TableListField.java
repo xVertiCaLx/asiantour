@@ -78,31 +78,22 @@ public class TableListField extends CustomTableListField {
             /* Table No:    
             1 - TV Schedule
             2 - Tour Schedule
-            3 - Live Score*/
+            3 - Live Score
+            4 - Order of Merit */
             if (tableNo == 1) {
             	
                 Vector tvTimes = MenuScreen.getInstance().tvTimesCollection;
                 for(int i=0; i<tvTimes.size(); i++){
                 	add((DataCentre)tvTimes.elementAt(i));
-                	System.out.println(i);
                 }               
                 
             } else if (tableNo == 2) {
-                for (int i =0; i <5; i++) {
-                    if (i == 0) {
-                        item[i] = new DataCentre("January 6-9", "Thailand", "Qualifying School First Stage ", "Creek GR, Kaeng Krachan CCR & Rayong CC", "none", "$0");
-                    } else if (i == 1) {
-                        item[i] = new DataCentre("January 13-16", "Thailand", "Qualifying School Final Stage", "Creek GR, Kaeng Krachan CCR & Rayong CC", "Artemio MURAKAMI", "$0");
-                    } else if (i == 2) {
-                        item[i] = new DataCentre("January 13-16", "Thailand", "Qualifying School Final Stage", "Creek GR, Kaeng Krachan CCR & Rayong CC", "Artemio MURAKAMI", "$0");
-                    } else if (i == 3) {
-                        item[i] = new DataCentre("February 4-7", "Thailand", "Asian Tour International", "Suwan Golf and Country Club", "Gaganjeet BHULLAR", "$300,000");
-                    } else if (i == 4) {
-                        item[i] = new DataCentre("January 13-16", "Thailand", "Qualifying School Final Stage", "Creek GR, Kaeng Krachan CCR & Rayong CC", "Artemio MURAKAMI", "$0");
-                    }
-                	
-                    add(item[i]);
-                }
+            	
+            	Vector tourSchedule = MenuScreen.getInstance().tourScheduleCollection;
+                for(int i=0; i<tourSchedule.size(); i++){
+                	add((DataCentre)tourSchedule.elementAt(i));
+                } 
+                
             } else if (tableNo == 4) {
                 for (int i =0; i <5; i++) {
                     if (i == 0) {
