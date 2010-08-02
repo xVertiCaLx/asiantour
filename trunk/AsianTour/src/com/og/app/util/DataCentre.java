@@ -6,14 +6,16 @@ public class DataCentre implements net.rim.device.api.util.Persistable {
     }
     
     //for TV Schedule
+    public int tvIndex = 0;
     public String tvName = "";
     public String tvDate = "";
     public String tvBroadcastTime = "";
     public String tvBroadcaster = "";
     public String tvRegion = "";
     
-    public DataCentre(String tvName, String tvDate, String tvBroadcastTime, String tvBroadcaster, String tvRegion) {
-        this.tvName = tvName;
+    public DataCentre(int tvIndex, String tvName, String tvDate, String tvBroadcastTime, String tvBroadcaster, String tvRegion) {
+        this.tvIndex = tvIndex;
+    	this.tvName = tvName;
         this.tvDate = tvDate;
         this.tvBroadcastTime = tvBroadcastTime;
         this.tvBroadcaster = tvBroadcaster;
@@ -21,6 +23,7 @@ public class DataCentre implements net.rim.device.api.util.Persistable {
     }
     
     //for Tour Schedule
+    public int tourIndex = 0;
     public String tourDate = "";
     public String tourCountry = "";
     public String tourName = "";
@@ -28,8 +31,9 @@ public class DataCentre implements net.rim.device.api.util.Persistable {
     public String tourDefChampion = "";
     public String tourPrize = "";
     
-    public DataCentre(String tourDate, String tourCountry, String tourName, String tourGClub, String tourDefChampion, String tourPrize) {
-        this.tourDate = tourDate;
+    public DataCentre(int tourIndex, String tourDate, String tourCountry, String tourName, String tourGClub, String tourDefChampion, String tourPrize) {
+        this.tourIndex = tourIndex;
+    	this.tourDate = tourDate;
         this.tourCountry = tourCountry;
         this.tourName = tourName;
         this.tourGClub = tourGClub;
@@ -39,6 +43,7 @@ public class DataCentre implements net.rim.device.api.util.Persistable {
     
     //for Live Score
     //mark, country, pos, player, to par, hole, today, 1,2,3,4,total
+    public int ls_index = 0;
     public String ls_mark = "";
     public String ls_country = "";
     public String ls_pos = "";
@@ -53,8 +58,9 @@ public class DataCentre implements net.rim.device.api.util.Persistable {
     public String ls_r4 = "";
     public String ls_total = "";
     
-    public DataCentre (String ls_mark, String ls_country, String ls_pos, String ls_playerFirstName, String ls_playerLastName, String ls_toPar, String ls_hole, String ls_today, String ls_r1, String ls_r2, String ls_r3, String ls_r4, String ls_total) {
-        this.ls_mark = ls_mark;
+    public DataCentre (int ls_index, String ls_mark, String ls_country, String ls_pos, String ls_playerFirstName, String ls_playerLastName, String ls_toPar, String ls_hole, String ls_today, String ls_r1, String ls_r2, String ls_r3, String ls_r4, String ls_total) {
+        this.ls_index = ls_index;
+    	this.ls_mark = ls_mark;
         this.ls_country = ls_country;
         this.ls_pos = ls_pos;
         this.ls_playerFirstName = ls_playerFirstName;
@@ -69,11 +75,13 @@ public class DataCentre implements net.rim.device.api.util.Persistable {
         this.ls_total = ls_total;
     }
     
+    public int merit_index = 0;
     public String merit_player = "";
     public String merit_pos = "";
     public String merit_prize = "";
     
-    public DataCentre (String merit_player, String merit_pos, String merit_prize) {
+    public DataCentre (int merit_index, String merit_player, String merit_pos, String merit_prize) {
+    	this.merit_index = merit_index;
     	this.merit_player = merit_player;
     	this.merit_pos = merit_pos;
     	this.merit_prize = merit_prize;

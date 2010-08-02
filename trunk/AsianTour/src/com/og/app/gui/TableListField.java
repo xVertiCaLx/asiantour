@@ -2,8 +2,13 @@ package com.og.app.gui;
 
 import java.util.Vector;
 
+import net.rim.device.api.system.Application;
+import net.rim.device.api.ui.Screen;
+import net.rim.device.api.ui.UiApplication;
+
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
+import com.og.rss.ANewsItemObj;
 
 //
 public class TableListField extends CustomTableListField {
@@ -68,8 +73,30 @@ public class TableListField extends CustomTableListField {
     }
     
     public boolean navigationClick(int status, int time) {
-        System.out.println("print");
-        return false;
+    	/* Table No:    
+        1 - TV Schedule
+        2 - Tour Schedule
+        3 - Live Score
+        4 - Order of Merit */
+    	if (table == 1) {
+    		System.out.println("Selected row number " + getSelectedIndex() + "of TV Schedule table");
+    		if(MenuScreen.getInstance().tvTimesCollection.size() > 0)
+    		{
+    			try{
+    				synchronized(Application.getEventLock() ){
+    					DataCentre item = (DataCentre)MenuScreen.getInstance().tvTimesCollection.elementAt(getSelectedIndex());
+    					Screen s = UiApplication.getUiApplication().getActiveScreen();
+    					item.tvIndex=getSelectedIndex();
+    					UiApplication.getUiApplication().pushScreen(new TableDetailsScreen(table, item));
+    				}
+    				return true;
+    			}catch(Exception e){
+    				System.out.println(e);
+    			}              
+    		}
+    		
+    	}
+		return false;
     }
     
     public void loadNews(int tableNo) {
@@ -97,15 +124,15 @@ public class TableListField extends CustomTableListField {
             } else if (tableNo == 4) {
                 for (int i =0; i <5; i++) {
                     if (i == 0) {
-                        item[i] = new DataCentre("NOH Seung-yul (KOR)", "1", "$503,916.20");
+                        item[i] = new DataCentre(0, "NOH Seung-yul (KOR)", "1", "$503,916.20");
                     } else if (i == 1) {
-                        item[i] = new DataCentre("Marcus FRASER (AUS)", "2", "$496,970.25");
+                        item[i] = new DataCentre(1, "Marcus FRASER (AUS)", "2", "$496,970.25");
                     } else if ((i == 2)) {
-                        item[i] = new DataCentre("Andrew DODT (AUS)", "3", "$382,199.50");
+                        item[i] = new DataCentre(2, "Andrew DODT (AUS)", "3", "$382,199.50");
                     } else if ((i == 3)) {
-                        item[i] = new DataCentre("K.J. CHOI (KOR)", "4", "$235,838.00");
+                        item[i] = new DataCentre(3, "K.J. CHOI (KOR)", "4", "$235,838.00");
                     }else if ((i == 4)) {
-                        item[i] = new DataCentre("Tetsuji HIRATSUKA (JPN)", "5", "$212,463.86");
+                        item[i] = new DataCentre(4, "Tetsuji HIRATSUKA (JPN)", "5", "$212,463.86");
                     }
                 	
                     add(item[i]);
