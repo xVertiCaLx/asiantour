@@ -5,6 +5,7 @@ import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Graphics;
+import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.ButtonField;
 import net.rim.device.api.ui.component.Dialog;
 
@@ -112,7 +113,7 @@ public class ShareButtonField extends Field {
 					}
 				}
 			};
-			new Thread(r).start();
+			UiApplication.getUiApplication().invokeLater(r);
 			Dialog.alert("Checking authorization for twitter...");
 		}
 
