@@ -36,6 +36,9 @@ public class XmlNewsParser {
 			
 			for(int i=0; i<list.getLength(); i++){
 				Node value = list.item(i).getChildNodes().item(0);
+				if(value==null){
+					continue;
+				}
 				node = list.item(i).getNodeName();
 				element = value.getNodeValue();
 			
