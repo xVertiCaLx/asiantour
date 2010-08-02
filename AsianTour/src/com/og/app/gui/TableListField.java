@@ -95,6 +95,30 @@ public class TableListField extends CustomTableListField {
     			}              
     		}
     		
+    	} else if (table == 2) {
+    		System.out.println("Selected row number " + getSelectedIndex() + "of Tour Schedule table");
+    		//here change V
+    		if(MenuScreen.getInstance().tourScheduleCollection.size() > 0)
+    		{
+    			try{
+    				synchronized(Application.getEventLock() ){
+    					//here change V
+    					DataCentre item = (DataCentre)MenuScreen.getInstance().tourScheduleCollection.elementAt(getSelectedIndex());
+    					Screen s = UiApplication.getUiApplication().getActiveScreen();
+    					//here change V
+    					item.tourIndex=getSelectedIndex();
+    					UiApplication.getUiApplication().pushScreen(new TableDetailsScreen(table, item));
+    				}
+    				return true;
+    			}catch(Exception e){
+    				System.out.println(e);
+    			}              
+    		}
+    		
+    	} else if (table == 3) {
+    		
+    	} else if (table == 4) {
+    		
     	}
 		return false;
     }
