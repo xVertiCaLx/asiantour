@@ -113,7 +113,7 @@ public class ShareButtonField extends Field {
 				}
 			};
 			new Thread(r).start();
-			Dialog.alert("Posting news on twitter!");
+			Dialog.alert("Checking authorization for twitter...");
 		}
 
 		return true;

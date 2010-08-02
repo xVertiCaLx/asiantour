@@ -13,6 +13,7 @@ import net.rim.device.api.system.PersistentObject;
 import net.rim.device.api.system.PersistentStore;
 import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
+import net.rim.device.api.ui.component.Dialog;
 
 import com.og.app.gui.TwitterOAuthScreen;
 
@@ -35,6 +36,7 @@ public class TwitterHelper {
 			c.setSignatureMethod(SIGNATURE_METHOD);
 			Hashtable params =  new Hashtable(1);
 			params.put("status", "AsianTour: " + contentToPost);
+			Dialog.alert("Posting news on twitter!");
 			try {
 				c.accessProtectedResource2(STATUS_UPDATE_URL, accessToken, params, OAuthMessage.METHOD_POST);
 			} catch (IOException e) {
@@ -74,6 +76,7 @@ public class TwitterHelper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Dialog.alert("Posting news on twitter!");
 	}
 	
 	private static AccessToken GetAccessToken(){
