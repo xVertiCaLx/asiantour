@@ -80,7 +80,54 @@ public class XmlParser {
 				e.printStackTrace();
 			}
 		} else if (parseType == "Tour") {
-			
+			// Vector<XmlTourScheduleItem>
+			try {
+				DocumentBuilder docBuilder = docBuilderFactory
+						.newDocumentBuilder();
+				Document doc = docBuilder.parse(xmlStream);
+				doc.getDocumentElement().normalize();
+				NodeList list = doc.getElementsByTagName("*");
+				String node = "";
+				String element = "";
+
+				XmlTourScheduleItem xmlItem = new XmlTourScheduleItem();
+				for (int i = 0; i < list.getLength(); i++) {
+					System.out.println(i);
+					Node value = list.item(i).getChildNodes().item(0);
+					node = list.item(i).getNodeName();
+
+					if (value != null)
+						element = value.getNodeValue();
+
+					if (node.equals("anyType") && i != 1) {
+						xmlItemCollection.addElement(xmlItem);
+						xmlItem = new XmlTourScheduleItem();
+					} else if (node.equals("Name")) {
+						xmlItem.tourName = element;
+					} else if (node.equals("DisplayDate")) {
+						xmlItem.date = element;
+					} else if (node.equals("PrizeMoney")) {
+						xmlItem.prizeMoney = element;
+					} else if (node.equals("Venue")) {
+						xmlItem.golfClub = element;
+					} else if (node.equals("Country")) {
+						xmlItem.country = element;
+					} else if (node.equals("Winner")) {
+						xmlItem.defChamp = element;
+					} 
+				}
+				xmlItemCollection.addElement(xmlItem);
+
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return xmlItemCollection;
 	}
