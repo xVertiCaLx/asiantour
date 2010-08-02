@@ -53,7 +53,7 @@ public class TableDetailsScreen extends MainScreen {
 		
 		
 	}
-	
+	//
 	private void tvSchedule() {
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		title = new TitleField("TV Schedule - " + item.tvName, titleBarIcon);
