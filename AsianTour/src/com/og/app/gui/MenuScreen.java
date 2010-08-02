@@ -60,7 +60,7 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 
 		newsCollection = RecordStoreHelper.getNewsCollection();
 		
-		//XmlHelper.downloadNews();
+		XmlHelper.downloadNews();
 		XmlHelper.downloadTvTimes();
     	XmlHelper.downloadTourSchedule();
 
