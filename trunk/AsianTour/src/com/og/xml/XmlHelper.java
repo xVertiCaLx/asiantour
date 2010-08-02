@@ -116,9 +116,9 @@ public class XmlHelper {
 		System.out.println("enter downloadTourSchedule");
 		try {
 			Utility.getWebData(tour_url, new WebDataCallback() {
-				public void callback(String data) {
-					tour_xml = data;
-					Vector xmlTourSchedule = parse(data, "Tour");
+				public void callback(byte[] data) {
+					tour_xml = new String(data);
+					Vector xmlTourSchedule = parse(tour_xml, "Tour");
 					for (int i = 0; i < xmlTourSchedule.size(); i++) {
 						XmlTourScheduleItem xmlTourItem = (XmlTourScheduleItem) xmlTourSchedule
 								.elementAt(i);
