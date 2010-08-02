@@ -161,6 +161,7 @@ public class ConnectionMgr{
 		}catch (Exception e){
 			System.out.println(System.currentTimeMillis()+">>loadImage."+e);             
 		}finally {
+			
 			if(baos != null){
 				try {
 					baos.close();
@@ -183,8 +184,9 @@ public class ConnectionMgr{
 					e.printStackTrace();
 				}	
 			}
+			Utility.connCount--;
 		}
-		Utility.connCount--;
+		
 		return byarr;
 	}
 
