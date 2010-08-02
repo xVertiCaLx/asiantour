@@ -38,7 +38,7 @@ public class XmlParser {
 					System.out.println(i);
 					Node value = list.item(i).getChildNodes().item(0);
 					node = list.item(i).getNodeName();
-
+					
 					if (value != null)
 						element = value.getNodeValue();
 
@@ -46,6 +46,7 @@ public class XmlParser {
 						xmlItemCollection.addElement(xmlItem);
 						xmlItem = new XmlTvTimesItem();
 					} else if (node.equals("Country")) {
+						xmlItem.index = i;
 						xmlItem.region = element;
 					} else if (node.equals("Region")) {
 						xmlItem.region += " (" + element + ")";
@@ -63,7 +64,7 @@ public class XmlParser {
 						else
 							xmlItem.time = element;
 					} else if (node.equals("To")) {
-						if (!xmlItem.equals("TBC"))
+						if (!xmlItem.time.equals("TBC"))
 							xmlItem.time += element + "hrs";
 					}
 				}
@@ -103,6 +104,7 @@ public class XmlParser {
 						xmlItemCollection.addElement(xmlItem);
 						xmlItem = new XmlTourScheduleItem();
 					} else if (node.equals("Name")) {
+						xmlItem.index = i;
 						xmlItem.tourName = element;
 					} else if (node.equals("DisplayDate")) {
 						xmlItem.date = element;
