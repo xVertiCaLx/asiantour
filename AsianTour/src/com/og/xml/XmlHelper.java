@@ -8,10 +8,11 @@ import net.rim.device.api.i18n.DateFormat;
 import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.MenuScreen;
 import com.og.app.gui.NewsPanel;
+import com.og.app.util.DataCentre;
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
+import com.og.app.util.WebDataCallbackStr;
 import com.og.rss.ANewsItemObj;
-import com.og.app.util.DataCentre;
 
 public class XmlHelper {
 
@@ -21,9 +22,9 @@ public class XmlHelper {
 
 	public static void downloadNews() {
 		try {
-			Utility.getWebData(url, new WebDataCallback() {
-				public void callback(byte[] data) {
-					newsXmlString = new String(data);
+			Utility.getWebDataStr(url, new WebDataCallbackStr() {
+				public void callback(String data) {
+					newsXmlString = data;
 					Vector xmlNewsItemCollection = parse(newsXmlString, "News");
 					for (int i = 0; i < xmlNewsItemCollection.size(); i++) {
 						XmlNewsItem xmlNewsItem = (XmlNewsItem) xmlNewsItemCollection
@@ -115,9 +116,9 @@ public class XmlHelper {
 	public static void downloadTourSchedule() {
 		System.out.println("enter downloadTourSchedule");
 		try {
-			Utility.getWebData(tour_url, new WebDataCallback() {
-				public void callback(byte[] data) {
-					tour_xml = new String(data);
+			Utility.getWebDataStr(tour_url, new WebDataCallbackStr() {
+				public void callback(String data) {
+					tour_xml = data;
 					Vector xmlTourSchedule = parse(tour_xml, "Tour");
 					for (int i = 0; i < xmlTourSchedule.size(); i++) {
 						XmlTourScheduleItem xmlTourItem = (XmlTourScheduleItem) xmlTourSchedule
