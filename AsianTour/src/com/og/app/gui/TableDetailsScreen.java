@@ -8,6 +8,7 @@ import com.og.app.gui.component.TitleField;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.component.RichTextField;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
@@ -18,7 +19,7 @@ public class TableDetailsScreen extends MainScreen {
 	private HorizontalFieldManager bottomFM = new HorizontalFieldManager(
 			Field.USE_ALL_WIDTH);
 	private ArticlePanel vFM = null;
-	
+
 	private TitleField title = null;
 	private SpaceField spaceField = null;
 
@@ -34,13 +35,15 @@ public class TableDetailsScreen extends MainScreen {
 
 		imgUp = Bitmap.getBitmapResource("res/up.png");
 		imgDown = Bitmap.getBitmapResource("res/down.png");
-		
-		/* Table No:    
-        1 - TV Schedule
-        2 - Tour Schedule
-        3 - Live Score
-        4 - Order of Merit */
-		
+
+		mainFM = new VerticalFieldManager(Manager.VERTICAL_SCROLL
+				| Manager.VERTICAL_SCROLLBAR);
+
+		/*
+		 * Table No: 1 - TV Schedule 2 - Tour Schedule 3 - Live Score 4 - Order
+		 * of Merit
+		 */
+
 		if (table == 1) {
 			tvSchedule();
 		} else if (table == 2) {
@@ -50,30 +53,38 @@ public class TableDetailsScreen extends MainScreen {
 		} else if (table == 4) {
 			orderOfMerit();
 		}
-		
-		
+
 	}
+
 	//
 	private void tvSchedule() {
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		title = new TitleField("TV Schedule - " + item.tvName, titleBarIcon);
+		RichTextField lblTitle = new RichTextField(item.tvName);
+		lblTitle.select(false);
+		lblTitle.setFont(GuiConst.FONT_BOLD);
 	}
-	
+
 	private void tourSchedule() {
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		title = new TitleField("Tour Schedule - " + item.tourName, titleBarIcon);
+		RichTextField lblTitle = new RichTextField(item.tourName);
+		lblTitle.select(false);
+		lblTitle.setFont(GuiConst.FONT_BOLD);
 	}
-	
+
 	private void liveScore() {
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
-		title = new TitleField("Live Score of " + item.ls_playerFirstName + " " + item.ls_playerLastName, titleBarIcon);
+		title = new TitleField("Live Score of " + item.ls_playerFirstName + " "
+				+ item.ls_playerLastName, titleBarIcon);
 	}
-	
+
 	private void orderOfMerit() {
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
-		title = new TitleField("Order of Merit - " + item.merit_player, titleBarIcon);
+		title = new TitleField("Order of Merit - " + item.merit_player,
+				titleBarIcon);
 	}
-	
+
 	class ArticlePanel extends VerticalFieldManager {
 		int fixheight = 0;
 		int fixwidth = 0;
