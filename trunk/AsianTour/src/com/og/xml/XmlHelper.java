@@ -22,6 +22,7 @@ public class XmlHelper {
 
 	public static void downloadNews() {
 		try {
+			System.out.println("Downloading news");
 			Utility.getWebDataStr(url, new WebDataCallbackStr() {
 				public void callback(String data) {
 					newsXmlString = data;
