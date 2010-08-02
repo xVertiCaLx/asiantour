@@ -24,17 +24,11 @@ public class TablePanel extends VerticalFieldManager{
         imgUp = Bitmap.getBitmapResource("res/up.png");
         imgDown = Bitmap.getBitmapResource("res/down.png");
         
-        /*newsList = new NewsListField(this, listener);
-        childNewsPanel = new ChildNewsPanel(fixHeight);
-        childNewsPanel.add(newsList);
-        add(childNewsPanel);
-        loadNews(0);*/
-        
         tableList = new TableListField(this, listener, tableNo, page);
         childNewsPanel = new ChildNewsPanel(fixHeight);
         childNewsPanel.add(tableList);
         add(childNewsPanel);
-        loadNews(tableNo);
+        loadRows(tableNo);
         
     }
     
@@ -54,7 +48,7 @@ public class TablePanel extends VerticalFieldManager{
        tableList.setFocus();
     }
     
-    public synchronized void loadNews(int tableNo) {
+    public synchronized void loadRows(int tableNo) {
         tableList.loadNews(tableNo);
         
         Field field = childNewsPanel.getField(0);
