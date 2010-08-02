@@ -30,20 +30,17 @@ public class WebBitmapField extends BitmapField implements WebDataCallback
 		return bitmap.getBitmap();
 	}
 
-	public void callback(final String data)
+	public void callback(final byte[] data)
 	{
-		if (data == null || data.startsWith("Exception")){ 
-			System.out.println(data);
+		if (data == null || data.length < 1){ 
 			return;
-		
 		}
 
 		try
 		{
-			byte[] dataArray = data.getBytes();
 			System.out.println("Image downloaded");
-			bitmap = EncodedImage.createEncodedImage(dataArray, 0,
-					dataArray.length);
+			bitmap = EncodedImage.createEncodedImage(data, 0,
+					data.length);
 //			if(bitmap.getBitmap().getWidth() > getScreen().getWidth()){
 //				int ht = bitmap.getBitmap().getWidth() / getScreen().getWidth() * bitmap.getBitmap().getHeight();
 //				bitmap = Utility.resizeBitmap(bitmap.getBitmap(), getScreen().getWidth(), ht);
@@ -51,7 +48,7 @@ public class WebBitmapField extends BitmapField implements WebDataCallback
 			for(int i=0; i<MenuScreen.getInstance().newsCollection.size(); i++){
 				ANewsItemObj newsItem = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(i);
 				if(newsItem.guid.equals(guid)){
-					newsItem.image = dataArray;
+					newsItem.image = data;
 					break;
 				}
 			}

@@ -172,7 +172,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		vFM.add(lblNewsInfo);
 		vFM.add(new LineField(1));
 		ButtonPanel buttonPanel = new ButtonPanel();
-		buttonPanel.add(new ShareButtonField("fb", newsItem));
+		//buttonPanel.add(new ShareButtonField("fb", newsItem));
 		buttonPanel.add(new ShareButtonField("tw", newsItem));
 
 		HorizontalFieldManager hFM = new HorizontalFieldManager();

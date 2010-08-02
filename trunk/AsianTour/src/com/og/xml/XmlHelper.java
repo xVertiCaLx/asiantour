@@ -22,9 +22,9 @@ public class XmlHelper {
 	public static void downloadNews() {
 		try {
 			Utility.getWebData(url, new WebDataCallback() {
-				public void callback(String data) {
-					newsXmlString = data;
-					Vector xmlNewsItemCollection = parse(data, "News");
+				public void callback(byte[] data) {
+					newsXmlString = new String(data);
+					Vector xmlNewsItemCollection = parse(newsXmlString, "News");
 					for (int i = 0; i < xmlNewsItemCollection.size(); i++) {
 						XmlNewsItem xmlNewsItem = (XmlNewsItem) xmlNewsItemCollection
 								.elementAt(i);
@@ -85,9 +85,9 @@ public class XmlHelper {
 		System.out.println("enter downloadTvTimes");
 		try {
 			Utility.getWebData(tvTimes_url, new WebDataCallback() {
-				public void callback(String data) {
-					tvTimes_xml = data;
-					Vector xmlTvTimes = parse(data, "TV");
+				public void callback(byte[] data) {
+					tvTimes_xml = new String(data);
+					Vector xmlTvTimes = parse(tvTimes_xml, "TV");
 					for (int i = 0; i < xmlTvTimes.size(); i++) {
 						XmlTvTimesItem xmlTvItem = (XmlTvTimesItem) xmlTvTimes
 								.elementAt(i);
