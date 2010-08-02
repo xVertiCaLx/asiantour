@@ -20,6 +20,9 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 	
 	//Vector<DataCentre>
 	public Vector tvTimesCollection = new Vector();
+	
+	//Vector<DataCentre>
+	public Vector tourScheduleCollection = new Vector();
 
 	public static MenuScreen thisInstance = null;
 

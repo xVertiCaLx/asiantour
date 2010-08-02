@@ -107,6 +107,35 @@ public class XmlHelper {
 			return;
 		}
 	}
+	
+	// download data for TV Schedule data
+	private static final String tour_url = "http://203.116.81.61:9191/BlackBerry/BlackBerryWebService.asmx/ListSeasonCurrentSchedule";
+	public static String tour_xml = "";
+
+	public static void downloadTourSchedule() {
+		System.out.println("enter downloadTourSchedule");
+		try {
+			Utility.getWebData(tour_url, new WebDataCallback() {
+				public void callback(String data) {
+					tour_xml = data;
+					Vector xmlTourSchedule = parse(data, "Tour");
+					for (int i = 0; i < xmlTourSchedule.size(); i++) {
+						XmlTourScheduleItem xmlTourItem = (XmlTourScheduleItem) xmlTourSchedule
+								.elementAt(i);
+						DataCentre itemObj = new DataCentre(
+								xmlTourItem.date, xmlTourItem.country, xmlTourItem.tourName, xmlTourItem.golfClub, xmlTourItem.defChamp, xmlTourItem.prizeMoney);
+						System.out.println("Added tour schedules : " + itemObj);
+						MenuScreen.getInstance().tourScheduleCollection
+								.addElement(itemObj);
+					}
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("aloy.downloadedTvTimes.exceptione: " + e);
+			return;
+		}
+	}
 
 	private static Vector parse(String data, String parseType) {
 		Vector collection = null;
@@ -117,7 +146,7 @@ public class XmlHelper {
 			} catch (Exception e) {
 				return new Vector();
 			}
-			collection = XmlTvScheduleParser.parse(data);	
+			collection = XmlParser.parse(data, parseType);	
 		} else if (parseType == "News") {
 			try {
 				data = data.substring(data.indexOf("<news>"));
@@ -125,6 +154,14 @@ public class XmlHelper {
 				return new Vector();
 			}
 			collection = XmlNewsParser.parse(data);
+		} else if (parseType == "Tour") {
+			try {
+				data = data.substring(data.indexOf("<ArrayOfAnyType"));
+				System.out.println(data);
+			} catch (Exception e) {
+				return new Vector();
+			}
+			collection = XmlParser.parse(data, parseType);
 		}
 		return collection;
 	}
