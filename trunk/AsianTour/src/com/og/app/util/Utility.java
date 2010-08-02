@@ -355,4 +355,58 @@ public class Utility{
 //			break retry;
 //    	}
     }	
+    
+    public static void getWebDataStr(final String url, final WebDataCallbackStr callback) throws IOException
+    {
+    	
+    	System.out.println("Get Web Data: " + url);
+    	Thread t = new Thread(new Runnable()
+    	{
+    		public void run()
+    		{
+    			connCount++;
+    			try
+    			{
+    				System.out.println("Get Web Data:Connection.open ");
+    				final String result = ConnectionMgr.wgetData(url);
+    				UiApplication.getUiApplication().invokeLater(new Runnable()
+    				{
+    					public void run()
+    					{
+    						if(result==null){
+    							callback.callback("");
+    						}else{
+    							callback.callback(result);
+    						}
+    						
+    					}
+    				});
+    			}
+    			catch (final Exception ex)
+    			{
+    				UiApplication.getUiApplication().invokeLater(new Runnable()
+    				{
+    					public void run()
+    					{
+    						callback.callback("");
+    					}
+    				});
+    			}
+    			
+    		}
+    	});
+    	t.start();
+//    	retry:
+//    	if(connCount < 1){
+//    		
+//    	}else{
+//    		try {
+//				Thread.sleep(1000);
+//				System.out.println("Thread retry...");
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//			break retry;
+//    	}
+    }	
 }
