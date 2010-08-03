@@ -95,7 +95,6 @@ public class XmlHelper {
 								xmlTvItem.programmeName, xmlTvItem.date,
 								xmlTvItem.time, xmlTvItem.broadcaster,
 								xmlTvItem.region);
-						System.out.println("Added tv times : " + itemObj);
 						MenuScreen.getInstance().tvTimesCollection
 								.addElement(itemObj);
 					}
