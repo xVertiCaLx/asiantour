@@ -90,7 +90,7 @@ public class ConnectionMgr{
 
 		if (net.rim.device.api.system.DeviceInfo.isSimulator()){
 			CONNECTIONTYPE=0;
-			CONNECTIONSTR=";deviceside=false";
+			CONNECTIONSTR=";deviceSide=true";
 			return;
 		}
 
@@ -102,12 +102,12 @@ public class ConnectionMgr{
 		}              
 		if ( isBISBCoverage()==true && srBISB!=null ){
 			CONNECTIONTYPE=1;
-			CONNECTIONSTR=";deviceside=false;ConnectionType=mds-public";            
+			CONNECTIONSTR=";deviceSide=false;ConnectionType=mds-public";            
 			return;
 		}           
 		if ( isDIRECTCoverage()==true  && srWAP2!=null){
 			CONNECTIONTYPE=4;
-			CONNECTIONSTR=";deviceside=true" + ";ConnectionUID=" + srWAP2.getUid();
+			CONNECTIONSTR=";deviceSide=true" + ";ConnectionUID=" + srWAP2.getUid();
 			return;
 		}                   
 		if ( isDIRECTCoverage()==true && srWAP!=null ){
@@ -115,25 +115,25 @@ public class ConnectionMgr{
 			{
 			case STARHUB:
 				CONNECTIONTYPE=5;
-				CONNECTIONSTR=";deviceside=true;apn=shwap";
+				CONNECTIONSTR=";deviceSide=true;apn=shwap";
 				return;
 			case SINGTEL:
 				CONNECTIONTYPE=6;
-				CONNECTIONSTR=";deviceside=true;apn=e-ideas";
+				CONNECTIONSTR=";deviceSide=true;apn=e-ideas";
 				return;
 			case M1:
 				CONNECTIONTYPE=7;
-				CONNECTIONSTR=";deviceside=true;apn=sunsurf";
+				CONNECTIONSTR=";deviceSide=true;apn=sunsurf";
 				return;
 			}
 		}                  
 		if ( isBESCoverage()==true && srBES!=null ){
 			CONNECTIONTYPE=3;
-			CONNECTIONSTR=";deviceside=false";   
+			CONNECTIONSTR=";deviceSide=false";   
 			return;
 		}               
 		CONNECTIONTYPE=8; 
-		CONNECTIONSTR=";deviceside=true"; 
+		CONNECTIONSTR=";deviceSide=true"; 
 	}
 
 	public static byte[] loadImage(String imgurl){
@@ -185,6 +185,7 @@ public class ConnectionMgr{
 				}	
 			}
 			Utility.connCount--;
+			System.out.println("connection count is: " + Utility.connCount);
 		}
 		
 		return byarr;
