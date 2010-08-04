@@ -96,9 +96,13 @@ public class ShareButtonField extends Field {
 
 	protected void paint(Graphics g) {
 		if (isFocus()) {
-			g.drawBitmap(padding, 0, shareButton.getWidth(), shareButton
-					.getHeight(), shareButton, 0, 0);
+			shareButton = Bitmap.getBitmapResource("res/tw_share_hover.png");
+
+		} else {
+			shareButton = Bitmap.getBitmapResource("res/tw_share.png");
 		}
+		g.drawBitmap(padding, 0, shareButton.getWidth(), shareButton
+				.getHeight(), shareButton, 0, 0);
 	}
 
 	protected boolean navigationClick(int status, int time) {
