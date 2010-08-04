@@ -13,11 +13,13 @@ import com.og.app.Const;
 import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.social.TwitterHelper;
 import com.og.rss.ANewsItemObj;
+import com.og.app.util.DataCentre;
 
 public class ShareButtonField extends Field {
 
 	Bitmap shareButton = null;
 	String buttonName;
+	String shareType;
 
 	private short focusstatus = 0;
 
@@ -25,12 +27,16 @@ public class ShareButtonField extends Field {
 	private int fieldHeight;
 	private int padding = 2;
 	private ANewsItemObj newsItem = null;
+	private DataCentre obj = null;
 	private static ImageButtonListener listener = null;
 
-	public ShareButtonField(String buttonName, ANewsItemObj newsItem) {
+	public ShareButtonField(String buttonName, String shareType,
+			DataCentre obj, ANewsItemObj newsItem) {
 		super(Field.FOCUSABLE | ButtonField.CONSUME_CLICK);
 		this.newsItem = newsItem;
-		//addImageButtonListener(listener);
+		this.shareType = shareType;
+		this.obj = obj;
+		// addImageButtonListener(listener);
 		this.buttonName = buttonName;
 		if (buttonName == "fb") {
 			shareButton = Bitmap.getBitmapResource("res/fb_share.png");
@@ -38,7 +44,7 @@ public class ShareButtonField extends Field {
 			shareButton = Bitmap.getBitmapResource("res/tw_share.png");
 		} else {
 			Dialog
-			.alert("An error has occurred. Unable to draw social networking buttons.");
+					.alert("An error has occurred. Unable to draw social networking buttons.");
 		}
 
 		fieldHeight = shareButton.getHeight();
@@ -89,12 +95,15 @@ public class ShareButtonField extends Field {
 	}
 
 	protected void paint(Graphics g) {
-		g.drawBitmap(padding, 0, shareButton.getWidth(), shareButton
-				.getHeight(), shareButton, 0, 0);
+		if (isFocus()) {
+			g.drawBitmap(padding, 0, shareButton.getWidth(), shareButton
+					.getHeight(), shareButton, 0, 0);
+		}
 	}
 
 	protected boolean navigationClick(int status, int time) {
-		System.out.println("aloy.ShareButtonField.navigationClick::" + status + "::");
+		System.out.println("aloy.ShareButtonField.navigationClick::" + status
+				+ "::");
 		focusstatus = 1;
 		invalidate();
 		fieldChangeNotify(1);
@@ -103,18 +112,39 @@ public class ShareButtonField extends Field {
 			Dialog.alert("FACEBOOK!");
 		} else if (buttonName == "tw") {
 
-			Runnable r = new Runnable() {
+			if (shareType == "News") {
+				Runnable r = new Runnable() {
 
-				public void run() {
-					try {
-						TwitterHelper.UpdateStatus(Const.NEWS_SHARE_BASE_URL + newsItem.guid);
-					} catch (OAuthServiceProviderException e) {
-						e.printStackTrace();
+					public void run() {
+						try {
+							TwitterHelper
+									.UpdateStatus(Const.NEWS_SHARE_BASE_URL
+											+ newsItem.guid);
+						} catch (OAuthServiceProviderException e) {
+							e.printStackTrace();
+						}
 					}
-				}
-			};
-			UiApplication.getUiApplication().invokeLater(r);
-			Dialog.alert("Checking authorization for twitter...");
+				};
+				UiApplication.getUiApplication().invokeLater(r);
+				Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+			} else if (shareType == "TV") {
+				Runnable r = new Runnable() {
+
+					public void run() {
+						try {
+							TwitterHelper.UpdateStatus("Catch <<" + obj.tvName
+									+ ">>, channel " + obj.tvBroadcaster
+									+ " on " + obj.tvDate + ",  "
+									+ obj.tvBroadcastTime);
+						} catch (OAuthServiceProviderException e) {
+							e.printStackTrace();
+						}
+					}
+				};
+				UiApplication.getUiApplication().invokeLater(r);
+				Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+			}
+
 		}
 
 		return true;

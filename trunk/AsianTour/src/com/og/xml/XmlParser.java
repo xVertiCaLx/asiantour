@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 public class XmlParser {
 	
 	public static Vector parse(String strToParse, String parseType) {
+		int count = 1;
 		Vector xmlItemCollection = new Vector();
 		byte[] xmlByteArray = strToParse.getBytes();
 		ByteArrayInputStream xmlStream = new ByteArrayInputStream(xmlByteArray);
@@ -43,10 +44,12 @@ public class XmlParser {
 						element = value.getNodeValue();
 
 					if (node.equals("anyType") && i != 1) {
+						System.out.println("count: " + count);
+						xmlItem.index = count;
 						xmlItemCollection.addElement(xmlItem);
 						xmlItem = new XmlTvTimesItem();
+						count ++;
 					} else if (node.equals("Country")) {
-						xmlItem.index = i;
 						xmlItem.region = element;
 					} else if (node.equals("Region")) {
 						xmlItem.region += " (" + element + ")";
@@ -68,7 +71,9 @@ public class XmlParser {
 							xmlItem.time += element + "hrs";
 					}
 				}
+				xmlItem.index = count;
 				xmlItemCollection.addElement(xmlItem);
+				count = 1;
 
 			} catch (ParserConfigurationException e) {
 				// TODO Auto-generated catch block
@@ -101,10 +106,12 @@ public class XmlParser {
 						element = value.getNodeValue();
 
 					if (node.equals("anyType") && i != 1) {
+						xmlItem.index = count;
 						xmlItemCollection.addElement(xmlItem);
 						xmlItem = new XmlTourScheduleItem();
+						count ++;
 					} else if (node.equals("Name")) {
-						xmlItem.index = i;
+						
 						xmlItem.tourName = element;
 					} else if (node.equals("DisplayDate")) {
 						xmlItem.date = element;
@@ -118,6 +125,7 @@ public class XmlParser {
 						xmlItem.defChamp = element;
 					} 
 				}
+				xmlItem.index = count;
 				xmlItemCollection.addElement(xmlItem);
 
 			} catch (ParserConfigurationException e) {

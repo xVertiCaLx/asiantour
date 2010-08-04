@@ -91,7 +91,7 @@ public class TableListField extends CustomTableListField {
     				}
     				return true;
     			}catch(Exception e){
-    				System.out.println(e);
+    				System.out.println("this is an error:" + e);
     			}              
     		}
     		
