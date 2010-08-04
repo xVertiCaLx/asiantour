@@ -1,13 +1,16 @@
 package com.og.app.gui;
 
-import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.util.DataCentre;
+import com.og.app.gui.component.LineField;
 import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
+import com.og.app.gui.component.ShareButtonField;
 
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.component.NullField;
 import net.rim.device.api.ui.component.RichTextField;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
@@ -21,6 +24,9 @@ public class TableDetailsScreen extends MainScreen {
 	private ArticlePanel vFM = null;
 
 	private TitleField title = null;
+	private LineField horizontalBreak = new LineField(2,
+			GuiConst.LINE_COLOR_BYLINE);
+	private LineField paraPadding = new LineField(1);
 	private SpaceField spaceField = null;
 
 	private DataCentre item = null;
@@ -54,15 +60,60 @@ public class TableDetailsScreen extends MainScreen {
 			orderOfMerit();
 		}
 
+		add(mainFM);
 	}
 
-	//
 	private void tvSchedule() {
+		String dateTime = "";
+		String tourName = item.tvName;
+
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
-		title = new TitleField("TV Schedule - " + item.tvName, titleBarIcon);
-		RichTextField lblTitle = new RichTextField(item.tvName);
+		title = new TitleField("TV Schedule - " + tourName, titleBarIcon);
+		RichTextField lblTitle = new RichTextField("Tour Name: " + tourName);
 		lblTitle.select(false);
 		lblTitle.setFont(GuiConst.FONT_BOLD);
+
+		vFM = new ArticlePanel(GuiConst.SCREENHEIGHT
+				- title.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
+
+		if ((item.tvDate == "TBC") || (item.tvBroadcastTime.startsWith("TBC"))) {
+			dateTime = "To be confirmed";
+		} else {
+			dateTime = item.tvDate + " (" + item.tvBroadcastTime + ")";
+		}
+
+		RichTextField lblCountry = new RichTextField("Available in: "
+				+ item.tvRegion);
+		lblCountry.select(false);
+		lblCountry.setFont(GuiConst.FONT_PLAIN);
+
+		RichTextField lblDate = new RichTextField("Broadcast Date: " + dateTime);
+		lblDate.select(false);
+		lblDate.setFont(GuiConst.FONT_PLAIN);
+
+		RichTextField lblChannel = new RichTextField("Official Broadcaster: "
+				+ item.tvBroadcaster);
+		lblChannel.select(false);
+		lblChannel.setFont(GuiConst.FONT_PLAIN);
+
+		// Content Segment; Content Field
+		vFM.add(new LineField(1));
+		vFM.add(lblTitle);
+		vFM.add(horizontalBreak);
+		vFM.add(paraPadding);
+		vFM.add(new ShareButtonField("tw", "TV", item, null));
+		vFM.add(lblCountry);
+		vFM.add(lblDate);
+		vFM.add(lblChannel);
+
+		buildLayout(title.getHeight());
+
+		System.out.println("Tour Name: " + item.tvName);
+		System.out.println("Tour tvBroadcaster: " + item.tvBroadcaster);
+		System.out.println("Tour tvBroadcastTime: " + item.tvBroadcastTime);
+		System.out.println("Tour tvDate: " + item.tvDate);
+		System.out.println("Tour tvRegion: " + item.tvRegion);
+		System.out.println("Tour tvIndex: " + item.tvIndex);
 	}
 
 	private void tourSchedule() {
@@ -71,18 +122,56 @@ public class TableDetailsScreen extends MainScreen {
 		RichTextField lblTitle = new RichTextField(item.tourName);
 		lblTitle.select(false);
 		lblTitle.setFont(GuiConst.FONT_BOLD);
+
+		buildLayout(title.getHeight());
 	}
 
 	private void liveScore() {
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		title = new TitleField("Live Score of " + item.ls_playerFirstName + " "
 				+ item.ls_playerLastName, titleBarIcon);
+
+		buildLayout(title.getHeight());
 	}
 
 	private void orderOfMerit() {
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		title = new TitleField("Order of Merit - " + item.merit_player,
 				titleBarIcon);
+
+		buildLayout(title.getHeight());
+	}
+
+	private void buildLayout(final int titleHeight) {
+		// Middle Segment; Content Field Manager
+		spaceField = new SpaceField(10, GuiConst.SCREENHEIGHT - titleHeight) {
+			protected void paint(Graphics g) {
+				if (vFM.getVerticalScroll() > 0) {
+					g
+							.drawBitmap(this.getPreferredWidth()
+									- imgUp.getWidth(), 0, imgUp.getWidth(),
+									imgUp.getHeight(), imgUp, 0, 0);
+				}
+
+				if (vFM.getVerticalScroll() + vFM.getPreferredHeight() < vFM
+						.getVirtualHeight()) {
+					g.drawBitmap(this.getPreferredWidth() - imgDown.getWidth(),
+							(GuiConst.SCREENHEIGHT - titleHeight)
+									- imgDown.getHeight(), imgDown.getWidth(),
+							imgDown.getHeight(), imgDown, 0, 0);
+				}
+			}
+		};
+
+		bottomFM.add(new SpaceField(10, vFM.getPreferredHeight()));
+		bottomFM.add(vFM);
+		bottomFM.add(spaceField);
+
+		mainFM.add(new NullField(Field.FOCUSABLE));
+
+		// Overall Segment; Main Field Manager
+		mainFM.add(title);
+		mainFM.add(bottomFM);
 	}
 
 	class ArticlePanel extends VerticalFieldManager {

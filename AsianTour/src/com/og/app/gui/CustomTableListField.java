@@ -54,14 +54,14 @@ public class CustomTableListField extends ListField implements
 	static final int constantColWidth = (GuiConst.SCREENWIDTH / 20);
 
 	// header for TV Schedule table
-	static final String[] tvLabel = { "Tour Name", "Broadcast Date",
-			"Broadcast Time", "Broadcaster", "Region" };
+	static final String[] tvLabel = { "Tour Name", "Date",
+			"Time", "Broadcaster", "Region" };
 	static final int[] tvWidth = { constantColWidth * 7, constantColWidth * 6,
 			constantColWidth * 5, constantColWidth * 6, constantColWidth * 5 };
 
 	// header for Tour Schedule table
 	static final String[] tourLabel = { "Tour Date", "Country", "Tour Name",
-			"Golf Club", "Def Champion", "Prize Money" };
+			"Venue", "Def Champion", "Prize Money" };
 	static final int[] tourWidth = { constantColWidth * 5,
 			constantColWidth * 4, constantColWidth * 6, constantColWidth * 3,
 			constantColWidth * 5, constantColWidth * 6 };
