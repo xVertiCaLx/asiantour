@@ -323,7 +323,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		}
 
 		public void updateLayout(int height) {
-			this.fixHeight = new ShareButtonField("fb","News", null,newsItem).getPreferredHeight();
+			this.fixHeight = new ShareButtonField("tw","News", null,newsItem).getPreferredHeight();
 			super.updateLayout();
 		}
 
