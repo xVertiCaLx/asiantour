@@ -316,7 +316,6 @@ public class Util {
             int len = c.getHeaderFieldInt("Content-Length", 0);
 
             System.out.println("content-length="+len);
-            
             byte[] data = Util.readFromHTTPConnection(c);
             respBody=new String(data);
         } catch (ClassCastException e) {
