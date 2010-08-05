@@ -35,7 +35,7 @@ public class TwitterHelper {
 			Consumer c = new Consumer(CONSUMER_KEY, CONSUMER_SECRET);
 			c.setSignatureMethod(SIGNATURE_METHOD);
 			Hashtable params =  new Hashtable(1);
-			params.put("status", "AsianTour: " + contentToPost);
+			params.put("status",contentToPost);
 			Dialog.alert("Article posted on Twitter.");
 			try {
 				c.accessProtectedResource2(STATUS_UPDATE_URL, accessToken, params, OAuthMessage.METHOD_POST);
@@ -70,7 +70,7 @@ public class TwitterHelper {
 		Screen s = UiApplication.getUiApplication().getActiveScreen();
 		UiApplication.getUiApplication().popScreen(s);
 		Hashtable params =  new Hashtable(1);
-		params.put("status", "AsianTour: " + contentToPost);
+		params.put("status",contentToPost);
 		try {
 			c.accessProtectedResource2(STATUS_UPDATE_URL, accessToken, params, OAuthMessage.METHOD_POST);
 		} catch (IOException e) {

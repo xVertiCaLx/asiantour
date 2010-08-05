@@ -122,7 +122,7 @@ public class ShareButtonField extends Field {
 					public void run() {
 						try {
 							TwitterHelper
-									.UpdateStatus(Const.NEWS_SHARE_BASE_URL
+									.UpdateStatus("Check this out: " + Const.NEWS_SHARE_BASE_URL
 											+ newsItem.guid);
 						} catch (OAuthServiceProviderException e) {
 							e.printStackTrace();
@@ -139,7 +139,7 @@ public class ShareButtonField extends Field {
 
 					public void run() {
 						try {
-							TwitterHelper.UpdateStatus("Catch <<" + obj.tvName
+							TwitterHelper.UpdateStatus("Catch [" + obj.tvName
 									+ ">>, channel " + obj.tvBroadcaster
 									+ " on " + obj.tvDate + ",  "
 									+ obj.tvBroadcastTime);
