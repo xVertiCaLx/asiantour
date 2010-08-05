@@ -142,7 +142,7 @@ public class ShareButtonField extends Field {
 						try {
 							TwitterHelper.UpdateStatus(obj.tvName + " on "
 									+ obj.tvBroadcaster
-									+ " [ " + obj.tvDate + ", " + obj.tvBroadcastTime + " ] "
+									+ " [ " + obj.tvDate + ", " + obj.tvBroadcastTime + " GMT +8] "
 									);
 						} catch (OAuthServiceProviderException e) {
 							e.printStackTrace();
