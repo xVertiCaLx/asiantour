@@ -130,7 +130,10 @@ public class ShareButtonField extends Field {
 					}
 				};
 				UiApplication.getUiApplication().invokeLater(r);
-				Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+				if(TwitterHelper.GetAccessToken()==null){
+					Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+				}
+				
 			} else if (shareType == "TV") {
 				Runnable r = new Runnable() {
 
@@ -146,7 +149,9 @@ public class ShareButtonField extends Field {
 					}
 				};
 				UiApplication.getUiApplication().invokeLater(r);
-				Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+				if(TwitterHelper.GetAccessToken()==null){
+					Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+				}
 			}
 
 		}
