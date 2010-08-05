@@ -95,20 +95,23 @@ public class TableDetailsScreen extends MainScreen {
 				+ item.tvBroadcaster);
 		lblChannel.select(false);
 		lblChannel.setFont(GuiConst.FONT_PLAIN);
+		
+		RichTextField lblSharing = new RichTextField("Share this article!");
+		lblSharing.select(false);
+		lblSharing.setFont(GuiConst.FONT_DATE);
 
 		// Content Segment; Content Field
 		vFM.add(new LineField(1));
 		vFM.add(lblTitle);
 		vFM.add(horizontalBreak);
 		vFM.add(paraPadding);
+		vFM.add(lblSharing);
 		vFM.add(new ShareButtonField("tw", "TV", item, null));
 		vFM.add(lblCountry);
 		vFM.add(new LineField(1));
 		vFM.add(lblDate);
 		vFM.add(new LineField(1));
 		vFM.add(lblChannel);
-		vFM.add(new LineField(2));
-		vFM.add(new ShareButtonField("tw", "TV", item, null));
 		
 		buildLayout(title.getPreferredHeight());
 

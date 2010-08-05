@@ -30,7 +30,7 @@ public class ShareButtonField extends Field {
 	private ANewsItemObj newsItem = null;
 	private DataCentre obj = null;
 	private static ImageButtonListener listener = null;
-
+		
 	public ShareButtonField(String buttonName, String shareType,
 			DataCentre obj, ANewsItemObj newsItem) {
 		super(Field.FOCUSABLE | ButtonField.CONSUME_CLICK);
