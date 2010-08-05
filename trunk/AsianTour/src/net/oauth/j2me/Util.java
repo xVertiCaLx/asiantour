@@ -21,6 +21,9 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 import javax.microedition.io.HttpsConnection;
 
+import com.og.app.util.ConnectionMgr;
+import com.og.app.util.Utility;
+
 /**
  *
  * @author Administrator
@@ -198,7 +201,7 @@ public class Util {
         // TODO -- better way to handle unexpected responses
         try {
             System.out.println("UTIL HTTPS-- posting to "+urlPieces[0]);
-            c = (HttpsConnection)Connector.open(urlPieces[0], Connector.READ_WRITE); // hack for emulator?
+            c = (HttpsConnection)Connector.open(ConnectionMgr.getFinalHttpURL(urlPieces[0]), Connector.READ_WRITE); // hack for emulator?
             
             // Set the request method and headers
             c.setRequestMethod(HttpConnection.POST);
@@ -247,7 +250,7 @@ public class Util {
          // TODO -- better way to handle unexpected responses
          try {
              System.out.println("UTIL HTTP-- posting to "+urlPieces[0]);
-             c = (HttpConnection)Connector.open(urlPieces[0], Connector.READ_WRITE); // hack for emulator?
+             c = (HttpConnection)Connector.open(ConnectionMgr.getFinalHttpURL(urlPieces[0]), Connector.READ_WRITE); // hack for emulator?
              
              // Set the request method and headers
              c.setRequestMethod(HttpConnection.POST);
@@ -295,7 +298,8 @@ public class Util {
         
         try {
             System.out.println("UTIL -- opening connection");
-            c= (HttpConnection) Connector.open(url, Connector.READ);
+            
+            c= (HttpConnection) Connector.open(ConnectionMgr.getFinalHttpURL(url), Connector.READ_WRITE);
             c.setRequestMethod(HttpConnection.GET);
             c.setRequestProperty("User-Agent", "Profile/MIDP-2.0 Configuration/CLDC-1.0");
             c.setRequestProperty("Cache-Control", "no-store");
