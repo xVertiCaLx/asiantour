@@ -67,7 +67,7 @@ public class TableDetailsScreen extends MainScreen {
 		String dateTime = "";
 		String tourName = item.tvName;
 
-		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
+		titleBarIcon = Bitmap.getBitmapResource("res/icon_about.png");
 		title = new TitleField("TV Schedule - " + tourName, titleBarIcon);
 		RichTextField lblTitle = new RichTextField(tourName);
 		lblTitle.select(false);
@@ -95,7 +95,7 @@ public class TableDetailsScreen extends MainScreen {
 				+ item.tvBroadcaster);
 		lblChannel.select(false);
 		lblChannel.setFont(GuiConst.FONT_PLAIN);
-		
+
 		RichTextField lblSharing = new RichTextField("Share this article!");
 		lblSharing.select(false);
 		lblSharing.setFont(GuiConst.FONT_DATE);
@@ -105,14 +105,14 @@ public class TableDetailsScreen extends MainScreen {
 		vFM.add(lblTitle);
 		vFM.add(horizontalBreak);
 		vFM.add(paraPadding);
-		vFM.add(lblSharing);
 		vFM.add(new ShareButtonField("tw", "TV", item, null));
+		vFM.add(new LineField(1));
 		vFM.add(lblCountry);
 		vFM.add(new LineField(1));
 		vFM.add(lblDate);
 		vFM.add(new LineField(1));
 		vFM.add(lblChannel);
-		
+
 		buildLayout(title.getPreferredHeight());
 
 		System.out.println("Tour Name: " + item.tvName);
@@ -124,27 +124,81 @@ public class TableDetailsScreen extends MainScreen {
 	}
 
 	private void tourSchedule() {
-		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
+		String dateTime = "";
+
+		titleBarIcon = Bitmap.getBitmapResource("res/icon_about.png");
 		title = new TitleField("Tour Schedule - " + item.tourName, titleBarIcon);
+		vFM = new ArticlePanel(GuiConst.SCREENHEIGHT
+				- title.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
+
 		RichTextField lblTitle = new RichTextField(item.tourName);
 		lblTitle.select(false);
 		lblTitle.setFont(GuiConst.FONT_BOLD);
+
+		RichTextField lblCountry = new RichTextField("Hosted in: "
+				+ item.tourCountry);
+		lblCountry.select(false);
+		lblCountry.setFont(GuiConst.FONT_PLAIN);
+
+		if (item.tourDate == "TBC") {
+			dateTime = "To be confirmed";
+		} else {
+			dateTime = item.tourDate;
+		}
+
+		RichTextField lblDate = new RichTextField("Tour Date: " + dateTime);
+		lblDate.select(false);
+		lblDate.setFont(GuiConst.FONT_PLAIN);
+
+		RichTextField lblDefC = new RichTextField("Defending Champion: "
+				+ item.tourDefChampion);
+		lblDefC.select(false);
+		lblDefC.setFont(GuiConst.FONT_PLAIN);
+
+		RichTextField lblVenue = new RichTextField("Golf Club: "
+				+ item.tourGClub);
+		lblVenue.select(false);
+		lblVenue.setFont(GuiConst.FONT_PLAIN);
+
+		RichTextField lblPrize = new RichTextField("Prize Money: " + item.tourPrize);
+		lblPrize.select(false);
+		lblPrize.setFont(GuiConst.FONT_PLAIN);
+
+		vFM.add(new LineField(1));
+		vFM.add(lblTitle);
+		vFM.add(horizontalBreak);
+		vFM.add(new LineField(1));
+		vFM.add(new ShareButtonField("tw", "Tour", item, null));
+		vFM.add(new LineField(1));
+		vFM.add(lblDate);
+		vFM.add(new LineField(1));
+		vFM.add(lblVenue);
+		vFM.add(new LineField(1));
+		vFM.add(lblCountry);
+		vFM.add(new LineField(1));
+		vFM.add(lblDefC);
+		vFM.add(new LineField(1));
+		vFM.add(lblPrize);
 
 		buildLayout(title.getPreferredHeight());
 	}
 
 	private void liveScore() {
-		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
+		titleBarIcon = Bitmap.getBitmapResource("res/icon_cache.png");
 		title = new TitleField("Live Score of " + item.ls_playerFirstName + " "
 				+ item.ls_playerLastName, titleBarIcon);
+		vFM = new ArticlePanel(GuiConst.SCREENHEIGHT
+				- title.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
 
 		buildLayout(title.getPreferredHeight());
 	}
 
 	private void orderOfMerit() {
-		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
+		titleBarIcon = Bitmap.getBitmapResource("res/icon_cache.png");
 		title = new TitleField("Order of Merit - " + item.merit_player,
 				titleBarIcon);
+		vFM = new ArticlePanel(GuiConst.SCREENHEIGHT
+				- title.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
 
 		buildLayout(title.getPreferredHeight());
 	}

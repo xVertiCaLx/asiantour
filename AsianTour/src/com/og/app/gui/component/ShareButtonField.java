@@ -153,6 +153,21 @@ public class ShareButtonField extends Field {
 				if(TwitterHelper.GetAccessToken()==null){
 					Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
 				}
+			} else if (shareType == "Tour") {
+				Runnable r = new Runnable() {
+
+					public void run() {
+						try {
+							TwitterHelper.UpdateStatus("Check out the " + obj.tourName + " details at http://www.asiantour.com !");
+						} catch (OAuthServiceProviderException e) {
+							e.printStackTrace();
+						}
+					}
+				};
+				UiApplication.getUiApplication().invokeLater(r);
+				if(TwitterHelper.GetAccessToken()==null){
+					Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+				}
 			}
 
 		}
