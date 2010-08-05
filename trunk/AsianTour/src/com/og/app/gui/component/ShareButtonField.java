@@ -14,6 +14,7 @@ import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.social.TwitterHelper;
 import com.og.rss.ANewsItemObj;
 import com.og.app.util.DataCentre;
+import com.og.app.util.Utility;
 
 public class ShareButtonField extends Field {
 
@@ -139,6 +140,8 @@ public class ShareButtonField extends Field {
 
 					public void run() {
 						try {
+							String encodedTvName = Utility.replaceAll(obj.tvName, "(", "%28");
+							encodedTvName = Utility.replaceAll(obj.tvName, ")", "%29");
 							TwitterHelper.UpdateStatus(obj.tvName + " on "
 									+ obj.tvBroadcaster
 									+ " [ " + obj.tvDate + ", " + obj.tvBroadcastTime + " ] "

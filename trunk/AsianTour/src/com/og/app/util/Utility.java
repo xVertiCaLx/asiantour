@@ -235,6 +235,27 @@ public class Utility{
         }        
         return str;
     }     
+    
+    public static String replaceAll(String source, String pattern,
+            String replacement) {
+        if (source == null) {
+            return "";
+        }
+       
+        StringBuffer sb = new StringBuffer();
+        int idx = -1;
+        int patIdx = 0;
+
+        while ((idx = source.indexOf(pattern, patIdx)) != -1) {
+            sb.append(source.substring(patIdx, idx));
+            sb.append(replacement);
+            patIdx = idx + pattern.length();
+        }
+        sb.append(source.substring(patIdx));
+        return sb.toString();
+
+    }
+    
     public static String turnOffHtmlTag(String str){
         String[][] HTMLARR = new String[][]{
             {"<p></p>","\n"},
