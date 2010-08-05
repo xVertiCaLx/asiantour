@@ -69,7 +69,7 @@ public class TableDetailsScreen extends MainScreen {
 
 		titleBarIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		title = new TitleField("TV Schedule - " + tourName, titleBarIcon);
-		RichTextField lblTitle = new RichTextField("Tour Name: " + tourName);
+		RichTextField lblTitle = new RichTextField(tourName);
 		lblTitle.select(false);
 		lblTitle.setFont(GuiConst.FONT_BOLD);
 
@@ -103,10 +103,14 @@ public class TableDetailsScreen extends MainScreen {
 		vFM.add(paraPadding);
 		vFM.add(new ShareButtonField("tw", "TV", item, null));
 		vFM.add(lblCountry);
+		vFM.add(new LineField(1));
 		vFM.add(lblDate);
+		vFM.add(new LineField(1));
 		vFM.add(lblChannel);
-
-		buildLayout(title.getHeight());
+		vFM.add(new LineField(2));
+		vFM.add(new ShareButtonField("tw", "TV", item, null));
+		
+		buildLayout(title.getPreferredHeight());
 
 		System.out.println("Tour Name: " + item.tvName);
 		System.out.println("Tour tvBroadcaster: " + item.tvBroadcaster);
@@ -123,7 +127,7 @@ public class TableDetailsScreen extends MainScreen {
 		lblTitle.select(false);
 		lblTitle.setFont(GuiConst.FONT_BOLD);
 
-		buildLayout(title.getHeight());
+		buildLayout(title.getPreferredHeight());
 	}
 
 	private void liveScore() {
@@ -131,7 +135,7 @@ public class TableDetailsScreen extends MainScreen {
 		title = new TitleField("Live Score of " + item.ls_playerFirstName + " "
 				+ item.ls_playerLastName, titleBarIcon);
 
-		buildLayout(title.getHeight());
+		buildLayout(title.getPreferredHeight());
 	}
 
 	private void orderOfMerit() {
@@ -139,7 +143,7 @@ public class TableDetailsScreen extends MainScreen {
 		title = new TitleField("Order of Merit - " + item.merit_player,
 				titleBarIcon);
 
-		buildLayout(title.getHeight());
+		buildLayout(title.getPreferredHeight());
 	}
 
 	private void buildLayout(final int titleHeight) {

@@ -315,7 +315,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 	}
 
 	class ButtonPanel extends HorizontalFieldManager {
-		int fixHeight = new ShareButtonField("fb", "News", null, newsItem).getPreferredHeight();
+		int fixHeight = new ShareButtonField("fb", "News", null, newsItem).getPreferredHeight() + 4;
 
 		public ButtonPanel() {
 			super(Manager.USE_ALL_WIDTH | Manager.HORIZONTAL_SCROLL
@@ -323,7 +323,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		}
 
 		public void updateLayout(int height) {
-			this.fixHeight = new ShareButtonField("tw","News", null,newsItem).getPreferredHeight();
+			this.fixHeight = new ShareButtonField("tw","News", null,newsItem).getPreferredHeight() + 4;
 			super.updateLayout();
 		}
 
