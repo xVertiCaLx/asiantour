@@ -36,7 +36,7 @@ public class TwitterHelper {
 			c.setSignatureMethod(SIGNATURE_METHOD);
 			Hashtable params =  new Hashtable(1);
 			params.put("status", "AsianTour: " + contentToPost);
-			Dialog.alert("Posting news on twitter!");
+			Dialog.alert("Article posted on Twitter.");
 			try {
 				c.accessProtectedResource2(STATUS_UPDATE_URL, accessToken, params, OAuthMessage.METHOD_POST);
 			} catch (IOException e) {
@@ -79,7 +79,7 @@ public class TwitterHelper {
 		Dialog.alert("Posting news on twitter!");
 	}
 	
-	private static AccessToken GetAccessToken(){
+	public static AccessToken GetAccessToken(){
 		PersistentObject pObj = PersistentStore.getPersistentObject(DATASTORE_KEY);
 		Object obj = pObj.getContents();
 		if(obj==null){
