@@ -12,6 +12,7 @@ import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.gui.listener.TabListener;
 import com.og.xml.XmlHelper;
+import com.og.app.gui.component.CustomDialog;
 
 public class MenuScreen extends TransitionableMainScreen implements TabListener, ListFieldListener {
 
@@ -212,6 +213,8 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 	}
 	
 	private void showOOMTab(){
+		CustomDialog dialog = new CustomDialog("Hello");
+		dialog.show();
 		logoPanel.repaintLogoPanel("titlebar_orderofmerit");
 		repainteverything();
 		logoPanel.repaintLogoPanel("titlebar_orderofmerit");
