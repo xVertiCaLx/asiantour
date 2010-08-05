@@ -141,7 +141,7 @@ public class ShareButtonField extends Field {
 					public void run() {
 						try {
 							String encodedTvName = Utility.replaceAll(obj.tvName, "(", "%28");
-							encodedTvName = Utility.replaceAll(obj.tvName, ")", "%29");
+							encodedTvName = Utility.replaceAll(encodedTvName, ")", "%29");
 							TwitterHelper.UpdateStatus(encodedTvName + " on "
 									+ obj.tvBroadcaster
 									+ " [ " + obj.tvDate + ", " + obj.tvBroadcastTime + " ] "
