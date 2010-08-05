@@ -151,7 +151,14 @@ public class ShareButtonField extends Field {
 				};
 				UiApplication.getUiApplication().invokeLater(r);
 				if(TwitterHelper.GetAccessToken()==null){
-					Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+					UiApplication.getUiApplication().invokeLater(new Runnable() {
+						
+						public void run() {
+							Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+							
+						}
+					});
+					
 				}
 			} else if (shareType == "Tour") {
 				Runnable r = new Runnable() {
@@ -165,8 +172,16 @@ public class ShareButtonField extends Field {
 					}
 				};
 				UiApplication.getUiApplication().invokeLater(r);
+				
 				if(TwitterHelper.GetAccessToken()==null){
-					Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+					UiApplication.getUiApplication().invokeLater(new Runnable() {
+						
+						public void run() {
+							Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+							
+						}
+					});
+					
 				}
 			}
 

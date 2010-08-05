@@ -46,7 +46,6 @@ public class TwitterHelper {
 	}
 	
 	private static void SetupAuthorizationRequest(String contentToPost){
-		UiApplication mainApp = UiApplication.getUiApplication();
 		Consumer c = new Consumer(CONSUMER_KEY, CONSUMER_SECRET);
 		c.setSignatureMethod(SIGNATURE_METHOD);
 		RequestToken requestToken = null;
@@ -58,8 +57,14 @@ public class TwitterHelper {
 		String token = requestToken.getToken();
 		String authorizeUrl = AUTHORIZE_URL + token;
 		System.out.println(authorizeUrl);
-		TwitterOAuthScreen twitterOAuthScreen = new TwitterOAuthScreen(authorizeUrl, requestToken, contentToPost);
-		mainApp.pushScreen(twitterOAuthScreen);
+		final TwitterOAuthScreen twitterOAuthScreen = new TwitterOAuthScreen(authorizeUrl, requestToken, contentToPost);
+		UiApplication.getUiApplication().invokeLater(new Runnable() {
+			public void run() {
+				UiApplication.getUiApplication().pushScreen(twitterOAuthScreen);
+				
+			}
+		});
+		
 	}
 	
 	public static void FinishAuthRequest(RequestToken requestToken, String verifier, String contentToPost) throws OAuthServiceProviderException, BadTokenStateException{
@@ -76,7 +81,14 @@ public class TwitterHelper {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Dialog.alert("Posting news on twitter!");
+		UiApplication.getUiApplication().invokeLater(new Runnable() {
+			
+			public void run() {
+				Dialog.alert("Article posted on Twitter.");
+				
+			}
+		});
+		
 	}
 	
 	public static AccessToken GetAccessToken(){
