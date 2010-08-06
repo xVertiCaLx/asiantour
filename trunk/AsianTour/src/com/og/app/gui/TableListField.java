@@ -8,7 +8,6 @@ import net.rim.device.api.ui.UiApplication;
 
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
-import com.og.rss.ANewsItemObj;
 
 //
 public class TableListField extends CustomTableListField {
@@ -145,12 +144,14 @@ public class TableListField extends CustomTableListField {
                 	add((DataCentre)tourSchedule.elementAt(i));
                 } 
                 
-            } else if (tableNo == 3) {
+            } //else if (tableNo == 3) {
 //                for (int i =0; i <10; i++) {
 //                    item[i] = new DataCentre(i, "mark of " + i, "country", "pos", "first name", "last name", "toPar", "hole", "today", "1", "-", "-", "-", "total");                	
 //                    add(item[i]);
 //                }
-            } else if (tableNo == 4) {
+        //    }
+        
+        else if (tableNo == 4) {
                 for (int i =0; i <5; i++) {
                     if (i == 0) {
                         item[i] = new DataCentre(0, "NOH Seung-yul (KOR)", "1", "$503,916.20");
