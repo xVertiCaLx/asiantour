@@ -26,7 +26,7 @@ public class TwitterHelper {
 	private static final String SIGNATURE_METHOD = "HMAC-SHA1";
 	private static final long DATASTORE_KEY = 0x358c8f7e3e76d79eL;
 	private static final String STATUS_UPDATE_URL = "http://api.twitter.com/statuses/update.xml";
-	
+
 	public static void UpdateStatus(String contentToPost) throws OAuthServiceProviderException{
 		AccessToken accessToken = GetAccessToken();
 		if(accessToken==null){
@@ -36,7 +36,12 @@ public class TwitterHelper {
 			c.setSignatureMethod(SIGNATURE_METHOD);
 			Hashtable params =  new Hashtable(1);
 			params.put("status",contentToPost);
-			Dialog.alert("Article posted on Twitter.");
+			UiApplication.getUiApplication().invokeLater(new Runnable() {
+				public void run() {
+					Dialog.alert("Article posted on Twitter.");
+				}
+			});
+
 			try {
 				c.accessProtectedResource2(STATUS_UPDATE_URL, accessToken, params, OAuthMessage.METHOD_POST);
 			} catch (IOException e) {
@@ -44,7 +49,7 @@ public class TwitterHelper {
 			}
 		}
 	}
-	
+
 	private static void SetupAuthorizationRequest(String contentToPost){
 		Consumer c = new Consumer(CONSUMER_KEY, CONSUMER_SECRET);
 		c.setSignatureMethod(SIGNATURE_METHOD);
@@ -61,12 +66,11 @@ public class TwitterHelper {
 		UiApplication.getUiApplication().invokeLater(new Runnable() {
 			public void run() {
 				UiApplication.getUiApplication().pushScreen(twitterOAuthScreen);
-				
 			}
 		});
-		
+
 	}
-	
+
 	public static void FinishAuthRequest(RequestToken requestToken, String verifier, String contentToPost) throws OAuthServiceProviderException, BadTokenStateException{
 		Consumer c = new Consumer(CONSUMER_KEY, CONSUMER_SECRET);
 		c.setSignatureMethod(SIGNATURE_METHOD);
@@ -82,15 +86,15 @@ public class TwitterHelper {
 			e.printStackTrace();
 		}
 		UiApplication.getUiApplication().invokeLater(new Runnable() {
-			
+
 			public void run() {
 				Dialog.alert("Article posted on Twitter.");
-				
+
 			}
 		});
-		
+
 	}
-	
+
 	public static AccessToken GetAccessToken(){
 		PersistentObject pObj = PersistentStore.getPersistentObject(DATASTORE_KEY);
 		Object obj = pObj.getContents();
@@ -99,12 +103,12 @@ public class TwitterHelper {
 		}
 		return (AccessToken)obj;
 	}
-	
-	private static void SetAccessToken(AccessToken accessToken){
+
+	public static void SetAccessToken(AccessToken accessToken){
 		PersistentObject pObj = PersistentStore.getPersistentObject(DATASTORE_KEY);
 		pObj.setContents(accessToken);
 		pObj.commit();
 	}
-	
-	
+
+
 }
