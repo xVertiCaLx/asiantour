@@ -146,10 +146,10 @@ public class TableListField extends CustomTableListField {
                 } 
                 
             } else if (tableNo == 3) {
-                for (int i =0; i <10; i++) {
-                    item[i] = new DataCentre(i, "mark of " + i, "country", "pos", "first name", "last name", "toPar", "hole", "today", "1", "-", "-", "-", "total");                	
-                    add(item[i]);
-                }
+//                for (int i =0; i <10; i++) {
+//                    item[i] = new DataCentre(i, "mark of " + i, "country", "pos", "first name", "last name", "toPar", "hole", "today", "1", "-", "-", "-", "total");                	
+//                    add(item[i]);
+//                }
             } else if (tableNo == 4) {
                 for (int i =0; i <5; i++) {
                     if (i == 0) {
