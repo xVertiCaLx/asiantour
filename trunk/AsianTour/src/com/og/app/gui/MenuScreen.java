@@ -190,12 +190,12 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 
 
 	private void showNewsTab(){
-		logoPanel.repaintLogoPanel("default");
+		//logoPanel.repaintLogoPanel("default");
 		repainteverything();
 		fieldInit(0);
 		newsPanel.loadNews(0);
 		NewsPanel.newsPanel.newsList.setSize(newsCollection.size());
-		logoPanel.repaintLogoPanel("default");
+		//logoPanel.repaintLogoPanel("default");
 		add(logoPanel);
 		add(tabPanel);
 		add(newsPanel);
@@ -203,21 +203,21 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 	}
 
 	private void showLiveScoreTab(){
-		logoPanel.repaintLogoPanel("titlebar_livescore");
+		//logoPanel.repaintLogoPanel("titlebar_livescore");
 		repainteverything();
 		fieldInit(3);
-		logoPanel.repaintLogoPanel("titlebar_livescore");
+		//logoPanel.repaintLogoPanel("titlebar_livescore");
 		add(logoPanel);
 		add(tabPanel);
 		add(tablePanel);
 	}
 	
 	private void showOOMTab(){
-		CustomDialog dialog = new CustomDialog("Hello");
-		dialog.show();
-		logoPanel.repaintLogoPanel("titlebar_orderofmerit");
+		//CustomDialog dialog = new CustomDialog("Hello");
+		//dialog.show();
+		//logoPanel.repaintLogoPanel("titlebar_orderofmerit");
 		repainteverything();
-		logoPanel.repaintLogoPanel("titlebar_orderofmerit");
+		//logoPanel.repaintLogoPanel("titlebar_orderofmerit");
 		fieldInit(4);
 		add(logoPanel);
 		add(tabPanel);
@@ -225,9 +225,9 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 	}
 	
 	private void showTVScheduleTab(){
-		logoPanel.repaintLogoPanel("titlebar_tvschedule");
+		//logoPanel.repaintLogoPanel("titlebar_tvschedule");
 		repainteverything();
-		logoPanel.repaintLogoPanel("titlebar_tvschedule");
+		//logoPanel.repaintLogoPanel("titlebar_tvschedule");
 		fieldInit(1);
 		add(logoPanel);
 		add(tabPanel);
@@ -236,7 +236,7 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 
 	private void showTourScheduleTab(){
 		repainteverything();
-		logoPanel.repaintLogoPanel("titlebar_tourschedule");
+		//logoPanel.repaintLogoPanel("titlebar_tourschedule");
 		fieldInit(2);
 		add(logoPanel);
 		add(tabPanel);

@@ -9,6 +9,8 @@ public final class Lang{
         public final static String ERRORMSG_1stTIMENOCONN2 = "to start the application. ";
         public final static String ERRORMSG_NOCONN1 = "Please enable your Internet connection";
         public final static String ERRORMSG_NOCONN2 = "to get the latest news updates.";
+        
+        public final static String TABLE_HEADER_SCROLLRIGHT = "Please scroll right for more columns or click any row for details";
 
         public final static String APP_TITLE = applicationName+" News Reader";
         

@@ -191,6 +191,7 @@ public class CustomListField extends ListField implements ListFieldCallback, Run
 						strtemp = "...";
 					} else {
 						tmpy = tmpy + GuiConst.FONT_BOLD.getHeight()+textSpacing;
+						tmpx = defaulttmpx;
 					}
 					lineno++;
 				}
