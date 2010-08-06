@@ -118,7 +118,7 @@ public class TableListField extends CustomTableListField {
     	} else if (table == 3) {
     		
     	} else if (table == 4) {
-    		
+    		//do nothing.. unless got other stats
     	}
 		return false;
     }
@@ -145,6 +145,11 @@ public class TableListField extends CustomTableListField {
                 	add((DataCentre)tourSchedule.elementAt(i));
                 } 
                 
+            } else if (tableNo == 3) {
+                for (int i =0; i <10; i++) {
+                    item[i] = new DataCentre(i, "mark of " + i, "country", "pos", "first name", "last name", "toPar", "hole", "today", "1", "-", "-", "-", "total");                	
+                    add(item[i]);
+                }
             } else if (tableNo == 4) {
                 for (int i =0; i <5; i++) {
                     if (i == 0) {
