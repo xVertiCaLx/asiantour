@@ -42,7 +42,7 @@ public class OAuthParameterEncoder {
                 String t = String.valueOf(s.charAt(i));
 
                // try {
-                    sb.append(Util.urlEncode(t));
+                    sb.append(Util.urlEncode(t, false));
                     //byte[] charBytes = t.getBytes("UTF-8");
                 //} catch (java.io.UnsupportedEncodingException e) {
                 //    ;

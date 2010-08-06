@@ -112,7 +112,7 @@ public class Util {
 	}
 
 	// this is an OAuth-friendly url encode -- should work fine for ordniary encoding also
-	public static final String urlEncode(String s) {
+	public static final String urlEncode(String s, boolean isPost) {
 		if (s == null)
 			return s;
 		StringBuffer sb = new StringBuffer(s.length() * 3);
@@ -125,7 +125,7 @@ public class Util {
 					sb.append("%26");
 					//} else if (c == ' ') {
 					//    sb.append('+'); // maybe don't do this either
-				} else if (
+				} else if ((
 						// safe characters
 						c == '-'
 							|| c == '_'
@@ -133,10 +133,25 @@ public class Util {
 									|| c == '!'
 										|| c == '~'
 											|| c == '*'
-												|| c == '\''
+//												|| c == '\''
+//												|| c == '('
+													|| c == ')'
 													|| (c >= 'A' && c <= 'Z')
-													|| (c >= 'a' && c <= 'z') ) {
+													|| (c >= 'a' && c <= 'z') )) {
+														if(isPost==false){
 					sb.append(c);
+														}else{
+															if(c == '(' || c == ')'){
+																sb.append('%');
+																if (c > 15) { // is it a non-control char, ie. >x0F so 2 chars
+																	sb.append(Integer.toHexString((int)c).toUpperCase()); // just add % and the string
+																} else {
+																	sb.append("0" + Integer.toHexString((int)c).toUpperCase());
+																	// otherwise need to add a leading 0
+																}
+															}
+														
+														}
 				} else {
 					sb.append('%');
 					if (c > 15) { // is it a non-control char, ie. >x0F so 2 chars
