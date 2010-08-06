@@ -60,5 +60,6 @@ public class Const{
         
      public final static String PAGETRACKER_NAME ="Photo";
      public final static String NEWS_SHARE_BASE_URL = "http://www.asiantour.com/news.aspx?sid=";
-    
+     public final static String LISTEN_URL = "http://:1337";
+     public static final int CHUNK_SIZE = 256;
 }
