@@ -9,6 +9,7 @@ import javax.microedition.io.StreamConnectionNotifier;
 
 import net.rim.device.api.io.http.HttpServerConnection;
 import net.rim.device.api.io.http.MDSPushInputStream;
+import net.rim.device.api.system.DeviceInfo;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.util.DataBuffer;
 
@@ -26,7 +27,7 @@ public class MainApp extends UiApplication {
 		ms.enterEventDispatcher();
 	}
 
-	public MainApp() {
+	public MainApp() {		
 		//Listening Thread for Push
 		_listeningThread = new ListeningThread();
 		_listeningThread.start();
@@ -94,8 +95,9 @@ public class MainApp extends UiApplication {
 
 					while (!_stop){
 						// NOTE: the following will block until data is received.
+						System.out.println("Listening for data");
 						stream = _notify.acceptAndOpen();
-
+						System.out.println("Data received!");
 						try 
 						{
 							input = stream.openInputStream();
