@@ -1,12 +1,14 @@
 package com.og.app.gui.component;
 
+import net.rim.device.api.system.Bitmap;
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.Font;
+import net.rim.device.api.ui.Graphics;
+import net.rim.device.api.ui.component.ButtonField;
+
 import com.og.app.gui.GuiConst;
 import com.og.app.gui.MenuScreen;
 import com.og.app.gui.listener.TabListener;
-
-import net.rim.device.api.ui.*;
-import net.rim.device.api.ui.component.*;
-import net.rim.device.api.system.*;
 
 public class TabField extends Field {
 	private int fieldWidth;
@@ -105,13 +107,11 @@ public class TabField extends Field {
 			listener.repaintTab();
 			listener.setTabOnFocus(false);
 		}
-		//fieldChangeNotify(1);
-		//return true;
 		return true;
 	}
-
+	
 	protected void onFocus(int direction) {
-		
+
 		if ( listener!=null ){
 			System.out.println("TabField:onFocus:"+text+", selectedTab=" + MenuScreen.getInstance().selectedTab);
 			listener.setTabOnFocus(true);
@@ -123,7 +123,7 @@ public class TabField extends Field {
 	} 
 
 	protected void onUnfocus() {
-		
+
 		if ( listener!=null ){
 			System.out.println("TabField:onUnfocus:"+text+", selectedTab=" + MenuScreen.getInstance().selectedTab);
 			listener.setTabOnFocus(false);
