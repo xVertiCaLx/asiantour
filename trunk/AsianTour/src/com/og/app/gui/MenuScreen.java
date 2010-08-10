@@ -3,16 +3,15 @@ package com.og.app.gui;
 import java.util.Vector;
 
 import net.rim.device.api.ui.Graphics;
+import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.Dialog;
 
 import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.component.TabField;
 import com.og.app.gui.component.TransitionableMainScreen;
-import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.gui.listener.TabListener;
 import com.og.xml.XmlHelper;
-import com.og.app.gui.component.CustomDialog;
 
 public class MenuScreen extends TransitionableMainScreen implements TabListener, ListFieldListener {
 
@@ -87,8 +86,9 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 		{
 			System.out.println("aloy.endapp");
 			RecordStoreHelper.setNewsCollection(newsCollection);
-			clearResource();
-			System.exit(0);
+//			clearResource();
+			UiApplication.getUiApplication().requestBackground(); 
+			//System.exit(0);
 		}
 		return true;
 	}

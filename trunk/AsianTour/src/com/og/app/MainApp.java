@@ -192,19 +192,19 @@ public class MainApp extends UiApplication {
 
 	}
 
-	protected void onExit()
-	{
-		// Kill the listening thread.
-		_listeningThread.stop();
-
-		try 
-		{
-			_listeningThread.join();
-		} 
-		catch (InterruptedException e) 
-		{
-			System.err.println(e.toString());
-		}
-	}
+//	protected void onExit()
+//	{
+//		// Kill the listening thread.
+//		_listeningThread.stop();
+//
+//		try 
+//		{
+//			_listeningThread.join();
+//		} 
+//		catch (InterruptedException e) 
+//		{
+//			System.err.println(e.toString());
+//		}
+//	}
 }
 
