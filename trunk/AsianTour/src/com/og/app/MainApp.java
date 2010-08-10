@@ -17,6 +17,7 @@ import net.rim.device.api.util.DataBuffer;
 import com.og.app.gui.GuiConst;
 import com.og.app.gui.MenuScreen;
 import com.og.app.gui.SplashScreen;
+import com.og.xml.XmlHelper;
 
 
 public class MainApp extends UiApplication {
@@ -189,6 +190,11 @@ public class MainApp extends UiApplication {
 			{
 				//Do Something
 				System.out.println("Update Message: " + new String(data));
+				if((new String(data).indexOf(("news update!"))>=0)){
+					System.out.println("Downloading News Update!");
+					XmlHelper.downloadNews();
+					//TODO CHANGE ICON
+				}
 			}
 		});
 
