@@ -40,7 +40,7 @@ public class RecordStoreHelper {
 	public static void setNewsCollection(Vector aNewsItemObj){
 		//Ensures only latest 20 news is stored.
 		while(aNewsItemObj.size() > 20){
-			aNewsItemObj.removeElementAt(0);
+			aNewsItemObj.removeElementAt(aNewsItemObj.size()-1);
 		}
 		PersistentObject recordStore = getRecordStore();
 		recordStore.setContents(aNewsItemObj);
