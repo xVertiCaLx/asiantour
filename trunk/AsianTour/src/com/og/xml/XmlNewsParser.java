@@ -76,9 +76,8 @@ public class XmlNewsParser {
 					calendar.set(Calendar.MINUTE, Integer.parseInt(dateWords[5]));
 					calendar.set(Calendar.SECOND, Integer.parseInt(dateWords[6]));
 					xmlNewsItem.pubDate = calendar;
-				}else if(node.equals("author")){
-					xmlNewsItem.author = element;
 				}
+					
 //				xmlNewsItemCollection.addElement(xmlNewsItem);
 			}
 			xmlNewsItemCollection.addElement(xmlNewsItem);
