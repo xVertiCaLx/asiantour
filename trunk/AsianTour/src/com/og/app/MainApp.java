@@ -7,9 +7,10 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 import javax.microedition.io.StreamConnectionNotifier;
 
+import net.rim.blackberry.api.homescreen.HomeScreen;
 import net.rim.device.api.io.http.HttpServerConnection;
 import net.rim.device.api.io.http.MDSPushInputStream;
-import net.rim.device.api.system.DeviceInfo;
+import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.util.DataBuffer;
 
@@ -23,6 +24,7 @@ public class MainApp extends UiApplication {
 	private ListeningThread _listeningThread;
 
 	public static void main (String [] args) {
+		HomeScreen.setRolloverIcon(Bitmap.getBitmapResource("res/ico_hover.png"));
 		MainApp ms = new MainApp();
 		ms.enterEventDispatcher();
 	}
