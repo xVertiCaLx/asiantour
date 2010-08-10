@@ -45,8 +45,7 @@ public class XmlHelper {
 									xmlNewsItem.thumbnailURL,
 									xmlNewsItem.imageURL, xmlNewsItem.author,
 									longdate, shortdate);
-							MenuScreen.getInstance().newsCollection
-									.addElement(aNewsItemObj);
+							MenuScreen.getInstance().newsCollection.insertElementAt(aNewsItemObj, 0);
 							System.out.println("Added news : "
 									+ aNewsItemObj.guid);
 						} else {
