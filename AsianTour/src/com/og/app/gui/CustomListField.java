@@ -17,7 +17,7 @@ import net.rim.device.api.ui.component.ListFieldCallback;
 
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.Utility;
-import com.og.rss.ANewsItemObj;
+import com.og.xml.ANewsItemObj;
 
 public class CustomListField extends ListField implements ListFieldCallback, Runnable {
 	protected Vector _pelements = new Vector();

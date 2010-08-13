@@ -25,7 +25,7 @@ public class MainApp extends UiApplication {
 	private ListeningThread _listeningThread;
 
 	public static void main (String [] args) {
-		HomeScreen.setRolloverIcon(Bitmap.getBitmapResource("res/ico_hover.png"));
+		//HomeScreen.setRolloverIcon(Bitmap.getBitmapResource("res/ico_hover.png"));
 		MainApp ms = new MainApp();
 		ms.enterEventDispatcher();
 	}

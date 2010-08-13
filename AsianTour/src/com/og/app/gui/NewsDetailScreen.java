@@ -23,7 +23,7 @@ import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
 import com.og.app.gui.listener.ImageButtonListener;
-import com.og.rss.ANewsItemObj;
+import com.og.xml.ANewsItemObj;
 
 public class NewsDetailScreen extends MainScreen implements Runnable,
 		ImageButtonListener {

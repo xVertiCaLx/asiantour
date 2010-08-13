@@ -1,4 +1,4 @@
-package com.og.rss;
+package com.og.xml;
 
 //import net.rim.device.api.system.Bitmap;
 

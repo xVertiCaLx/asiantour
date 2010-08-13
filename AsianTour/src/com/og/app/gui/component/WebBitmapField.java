@@ -7,7 +7,7 @@ import net.rim.device.api.ui.component.BitmapField;
 import com.og.app.gui.MenuScreen;
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
-import com.og.rss.ANewsItemObj;
+import com.og.xml.ANewsItemObj;
 
 public class WebBitmapField extends BitmapField implements WebDataCallback
 {

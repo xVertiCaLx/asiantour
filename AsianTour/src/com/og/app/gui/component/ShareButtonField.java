@@ -12,7 +12,7 @@ import net.rim.device.api.ui.component.Dialog;
 import com.og.app.Const;
 import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.social.TwitterHelper;
-import com.og.rss.ANewsItemObj;
+import com.og.xml.ANewsItemObj;
 import com.og.app.util.DataCentre;
 import com.og.app.util.Utility;
 
