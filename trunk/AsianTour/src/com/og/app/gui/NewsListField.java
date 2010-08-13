@@ -7,7 +7,6 @@ import javax.wireless.messaging.BinaryMessage;
 import com.og.app.gui.listener.*;
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
-import com.og.rss.*;
 import com.og.xml.ANewsItemObj;
 
 import net.rim.device.api.collection.Collection;
