@@ -2,13 +2,8 @@ package com.og.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.TimeZone;
 import java.util.Vector;
 
-import javax.microedition.lcdui.Image;
-
-import net.rim.device.api.util.StringUtilities;
 import net.rim.device.api.xml.parsers.DocumentBuilder;
 import net.rim.device.api.xml.parsers.DocumentBuilderFactory;
 import net.rim.device.api.xml.parsers.ParserConfigurationException;
@@ -42,21 +37,23 @@ public class XmlNewsParser {
 				node = list.item(i).getNodeName();
 				element = value.getNodeValue();
 			
-				if(node.equals("item") && i!=1){
+				if(node.equals("anyType") && i!=1){
 					xmlNewsItemCollection.addElement(xmlNewsItem);
 					xmlNewsItem = new XmlNewsItem();
-				}else if(node.equals("link")){
-					String id = element.substring("http://www.asiantour.com/news.aspx?sid=".length());
+				}else if(node.equals("")){
+					String id = element;//element.substring("http://www.asiantour.com/news.aspx?sid=".length());
 					xmlNewsItem.id = id;
-				}else if(node.equals("title")){
+				}else if(node.equals("Headline")){
+					String id = element;
+					xmlNewsItem.id = id;
 					xmlNewsItem.title = element;
-				}else if(node.equals("description")){
+				}else if(node.equals("Content")){
 					xmlNewsItem.description = element;
-				}else if(node.equals("thumbnail")){
-					xmlNewsItem.thumbnailURL = element;
-				}else if(node.equals("image")){
-					xmlNewsItem.imageURL = element;
-				}else if(node.equals("pubDate")){
+				}else if(node.equals("ContentPhoto")){
+					xmlNewsItem.imageURL = "http://www.asiantour.com/" + element;
+				}else if(node.equals("PrecisPhoto")){
+					xmlNewsItem.thumbnailURL = "http://www.asiantour.com/" + element;
+				}/*else if(node.equals("pubDate")){
 					String dateString = element;
 					String gmt = "GMT" + dateString.substring(dateString.indexOf(" +"));
 					Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone(gmt));
@@ -76,7 +73,7 @@ public class XmlNewsParser {
 					calendar.set(Calendar.MINUTE, Integer.parseInt(dateWords[5]));
 					calendar.set(Calendar.SECOND, Integer.parseInt(dateWords[6]));
 					xmlNewsItem.pubDate = calendar;
-				}
+				}*/
 					
 //				xmlNewsItemCollection.addElement(xmlNewsItem);
 			}
