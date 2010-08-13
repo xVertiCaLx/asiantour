@@ -41,6 +41,7 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 			thisInstance = new MenuScreen();
 		}
 		return thisInstance;
+		
 	}   
 
 	public MenuScreen() {
@@ -59,7 +60,7 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 		add(newsPanel);
 
 		newsCollection = RecordStoreHelper.getNewsCollection();
-		
+		System.out.println(GuiConst.SCREENWIDTH);
 		XmlHelper.downloadNews();
 		XmlHelper.downloadTvTimes();
     	XmlHelper.downloadTourSchedule();

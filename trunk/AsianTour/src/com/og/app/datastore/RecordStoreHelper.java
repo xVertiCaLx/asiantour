@@ -5,7 +5,7 @@ import java.util.Vector;
 import net.rim.device.api.system.PersistentObject;
 import net.rim.device.api.system.PersistentStore;
 
-import com.og.rss.ANewsItemObj;
+import com.og.xml.ANewsItemObj;
 
 public class RecordStoreHelper {
 	

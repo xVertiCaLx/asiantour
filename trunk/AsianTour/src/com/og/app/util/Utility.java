@@ -13,7 +13,6 @@ import net.rim.device.api.ui.UiApplication;
 
 import com.og.app.Const;
 import com.og.app.gui.Lang;
-import com.og.rss.ANewsFeed;
 
 public class Utility{
 	
@@ -96,13 +95,6 @@ public class Utility{
         return Integer.toHexString(DeviceInfo.getDeviceId());
     }
 
-    public static ANewsFeed getDefaultBookmarkFeed(){
-        return new ANewsFeed (Const.ID_SAVED,
-                    Lang.TAB_SAVED,
-                    "", 
-                    "res/tab_saved.png", 
-                    "", ANewsFeed.FEEDTYPE_NEWS);         
-    }
         
    /* public static ANewsFeed getDefaultPhotoGalleryFeed(){
         return new ANewsFeed (Const.ID_PHOTOGALLERY,

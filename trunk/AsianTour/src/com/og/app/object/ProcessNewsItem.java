@@ -5,7 +5,7 @@ import com.og.app.util.*;
 public class ProcessNewsItem {
    private String displaydate = "";
    
-   public ProcessNewsItem(com.og.rss.ANewsItemObj ni){
+   public ProcessNewsItem(com.og.xml.ANewsItemObj ni){
        String tempdate = ni.pubDate;
        if ( tempdate==null || tempdate.equals("") || tempdate.length()<25 ){
             displaydate="-";

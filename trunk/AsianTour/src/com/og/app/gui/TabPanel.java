@@ -5,6 +5,7 @@ import java.util.Vector;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.TouchEvent;
 //IF TOUCH_SCREEN REMOVE COMMENTS
 //import net.rim.device.api.ui.TouchEvent;
 import net.rim.device.api.ui.XYPoint;

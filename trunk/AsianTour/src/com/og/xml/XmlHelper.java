@@ -10,7 +10,6 @@ import com.og.app.gui.MenuScreen;
 import com.og.app.gui.NewsPanel;
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
-import com.og.rss.ANewsItemObj;
 import com.og.app.util.DataCentre;
 
 public class XmlHelper {
@@ -77,7 +76,7 @@ public class XmlHelper {
 	// }
 
 	// download data for TV Schedule data
-	private static final String tvTimes_url = "http://203.116.81.61:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimes";
+	private static final String tvTimes_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimes";
 	public static String tvTimes_xml = "";
 
 	public static void downloadTvTimes() {
@@ -107,7 +106,7 @@ public class XmlHelper {
 	}
 
 	// download data for TV Schedule data
-	private static final String tour_url = "http://203.116.81.61:9191/BlackBerry/BlackBerryWebService.asmx/ListSeasonCurrentSchedule";
+	private static final String tour_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListSeasonCurrentSchedule";
 	public static String tour_xml = "";
 
 	public static void downloadTourSchedule() {
@@ -139,7 +138,7 @@ public class XmlHelper {
 
 	private static Vector parse(String data, String parseType) {
 		Vector collection = null;
-		if (parseType == "TV") {
+		if ((parseType == "TV") || (parseType == "Tour")) {
 			try {
 				data = data.substring(data.indexOf("<ArrayOfAnyType"));
 				System.out.println(data);
@@ -154,14 +153,6 @@ public class XmlHelper {
 				return new Vector();
 			}
 			collection = XmlNewsParser.parse(data);
-		} else if (parseType == "Tour") {
-			try {
-				data = data.substring(data.indexOf("<ArrayOfAnyType"));
-				System.out.println(data);
-			} catch (Exception e) {
-				return new Vector();
-			}
-			collection = XmlParser.parse(data, parseType);
 		}
 		return collection;
 	}
