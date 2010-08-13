@@ -78,12 +78,12 @@ public class TableListField extends CustomTableListField {
         3 - Live Score
         4 - Order of Merit */
     	if (table == 1) {
-    		System.out.println("Selected row number " + getSelectedIndex() + "of TV Schedule table");
+    		System.out.println("Selected row number " + (getSelectedIndex() - 1) + "of TV Schedule table");
     		if(MenuScreen.getInstance().tvTimesCollection.size() > 0)
     		{
     			try{
     				synchronized(Application.getEventLock() ){
-    					DataCentre item = (DataCentre)MenuScreen.getInstance().tvTimesCollection.elementAt(getSelectedIndex());
+    					DataCentre item = (DataCentre)MenuScreen.getInstance().tvTimesCollection.elementAt(getSelectedIndex()-1);
     					Screen s = UiApplication.getUiApplication().getActiveScreen();
     					item.tvIndex=getSelectedIndex();
     					UiApplication.getUiApplication().pushScreen(new TableDetailsScreen(table, item));

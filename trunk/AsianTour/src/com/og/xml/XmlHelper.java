@@ -15,7 +15,7 @@ import com.og.app.util.DataCentre;
 public class XmlHelper {
 
 	// Download news
-	private static final String url = "http://119.75.4.94/singtel/bpl/news.xml";
+	private static final String url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListNews";
 	public static String newsXmlString = "";
 
 	public static void downloadNews() {
@@ -148,7 +148,7 @@ public class XmlHelper {
 			collection = XmlParser.parse(data, parseType);
 		} else if (parseType == "News") {
 			try {
-				data = data.substring(data.indexOf("<news>"));
+				data = data.substring(data.indexOf("<ArrayOfAnyType"));
 			} catch (Exception e) {
 				return new Vector();
 			}

@@ -159,6 +159,7 @@ public class CustomTableListField extends ListField implements
 		case 1:
 			if (page == 1) {
 				if (index == 0) {
+					textFont = GuiConst.FONT_TABLE_HEADER;
 					setupBackground(g, index, y);
 					// if row is zero, it is a header row, set up Table Header
 					g.setColor(GuiConst.FONT_COLOR_WHITE);
@@ -220,6 +221,7 @@ public class CustomTableListField extends ListField implements
 				}
 			} else if (page == 2) {
 				if (index == 0) {
+					textFont = GuiConst.FONT_TABLE_HEADER;
 					setupBackground(g, index, y);
 					// if row is zero, it is a header row, set up Table Header
 					g.setColor(GuiConst.FONT_COLOR_WHITE);
@@ -241,7 +243,7 @@ public class CustomTableListField extends ListField implements
 							// + this_x;
 
 							if (i != 4) {
-								g.drawBitmap(prev_x, text_y, header_separator
+								g.drawBitmap(prev_x, 2, header_separator
 										.getWidth(), header_separator
 										.getHeight(), header_separator, 0, 0);
 							}
@@ -259,7 +261,7 @@ public class CustomTableListField extends ListField implements
 					prev_x = padding;
 					row++;
 				} else {
-
+					
 					setupBackground(g, index, y);
 
 					// get content in array and draw list
@@ -294,6 +296,7 @@ public class CustomTableListField extends ListField implements
 			
 			if (page == 1) {
 				if (index == 0) {
+					textFont = GuiConst.FONT_TABLE_HEADER;
 					setupBackground(g, index, y);
 					// if row is zero, it is a header row, set up Table Header
 					g.setColor(GuiConst.FONT_COLOR_WHITE);
@@ -313,7 +316,7 @@ public class CustomTableListField extends ListField implements
 									.getWidth(), next_icon.getHeight(),
 									next_icon, 0, 0);
 						} else {
-							g.drawBitmap(prev_x, text_y, header_separator
+							g.drawBitmap(prev_x, 2, header_separator
 									.getWidth(), header_separator.getHeight(),
 									header_separator, 0, 0);
 						}
@@ -481,6 +484,7 @@ public class CustomTableListField extends ListField implements
 				}
 			} else if (page == 2) {
 				if (index == 0) {
+					textFont = GuiConst.FONT_TABLE_HEADER;
 					setupBackground(g, index, y);
 					// if row is zero, it is a header row, set up Table Header
 					g.setColor(GuiConst.FONT_COLOR_WHITE);
@@ -502,7 +506,7 @@ public class CustomTableListField extends ListField implements
 							// + this_x;
 
 							if (i != 5) {
-								g.drawBitmap(prev_x, text_y, header_separator
+								g.drawBitmap(prev_x, 2, header_separator
 										.getWidth(), header_separator
 										.getHeight(), header_separator, 0, 0);
 							}
@@ -723,6 +727,7 @@ public class CustomTableListField extends ListField implements
 		case 3:
 			if (page == 1) {
 				if (index == 0) {
+					textFont = GuiConst.FONT_TABLE_HEADER;
 					setupBackground(g, index, y);
 					// if row is zero, it is a header row, set up Table Header
 					g.setColor(GuiConst.FONT_COLOR_WHITE);
@@ -740,7 +745,7 @@ public class CustomTableListField extends ListField implements
 									.getWidth(), next_icon.getHeight(),
 									next_icon, 0, 0);
 						} else {
-							g.drawBitmap(prev_x, text_y, header_separator
+							g.drawBitmap(prev_x, 2, header_separator
 									.getWidth(), header_separator.getHeight(),
 									header_separator, 0, 0);
 						}
@@ -787,7 +792,7 @@ public class CustomTableListField extends ListField implements
 		case 4:
 
 			if (index == 0) {
-
+				textFont = GuiConst.FONT_TABLE_HEADER;
 				setupBackground(g, index, y);
 				// if row is zero, it is a header row, set up Table Header
 				g.setColor(GuiConst.FONT_COLOR_WHITE);
@@ -802,7 +807,7 @@ public class CustomTableListField extends ListField implements
 					// + this_x;
 
 					if (i != (meritLabel.length - 1)) {
-						g.drawBitmap(prev_x, text_y, header_separator
+						g.drawBitmap(prev_x, 2, header_separator
 								.getWidth(), header_separator.getHeight(),
 								header_separator, 0, 0);
 					}

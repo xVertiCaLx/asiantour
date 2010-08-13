@@ -26,6 +26,7 @@ public class TwitterOAuthScreen extends MainScreen implements FieldChangeListene
 		this.contentToPost = contentToPost;
 		this.requestToken = token;
 		ButtonField authorizeButtonField = new ButtonField("Get My Twitter OAuth Pin!" , ButtonField.FIELD_HCENTER | ButtonField.CONSUME_CLICK);
+		authorizeButtonField.setFont(GuiConst.FONT_PLAIN);
 		authorizeButtonField.setChangeListener(new FieldChangeListener() {
 			public void fieldChanged(Field field, int context) {
 				Browser.getDefaultSession().displayPage(authUrl);				
