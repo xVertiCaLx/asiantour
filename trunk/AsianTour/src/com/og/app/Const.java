@@ -1,6 +1,7 @@
 package com.og.app;
 
 import com.og.app.gui.GuiConst;
+//hi
 //hello
 public class Const {
 	public static int ERRORCODE_1STTIMEUSERERROR = 1;
@@ -9,7 +10,7 @@ public class Const {
 	public static int ERRORCODE_EXECEPTION = 4;
 
 	public static long TIMEDIFF = 0;
-
+//something
 	public static int DEFAULT_FONTSIZE = GuiConst.FONTSIZE_ARR[1];
 	static {
 		if (GuiConst.SCREENWIDTH > 320)
