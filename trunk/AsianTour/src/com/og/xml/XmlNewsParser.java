@@ -41,10 +41,11 @@ public class XmlNewsParser {
 					xmlNewsItemCollection.addElement(xmlNewsItem);
 					xmlNewsItem = new XmlNewsItem();
 				}else if(node.equals("")){
+					//uncomment here
 					//String id = element;//element.substring("http://www.asiantour.com/news.aspx?sid=".length());
 					//xmlNewsItem.id = id;
 				}else if(node.equals("Headline")){
-					String id = element;
+				/*Delete This*/	String id = element;
 					xmlNewsItem.id = id;
 					xmlNewsItem.title = element;
 				}else if(node.equals("Content")){
