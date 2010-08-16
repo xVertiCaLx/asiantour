@@ -8,9 +8,9 @@ import net.rim.device.api.i18n.DateFormat;
 import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.MenuScreen;
 import com.og.app.gui.NewsPanel;
+import com.og.app.util.DataCentre;
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
-import com.og.app.util.DataCentre;
 
 public class XmlHelper {
 
@@ -18,13 +18,21 @@ public class XmlHelper {
 	private static final String url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListNews";
 	public static String newsXmlString = "";
 
+	long now = System.currentTimeMillis();
+	
+	
 	public static void downloadNews() {
 		try {
 			Utility.getWebData(url, new WebDataCallback() {
 				public void callback(byte[] data) {
 					newsXmlString = new String(data);
+					
 					Vector xmlNewsItemCollection = parse(newsXmlString, "News");
 					for (int i = 0; i < xmlNewsItemCollection.size(); i++) {
+						System.out.println("----------------------------------------------------==");
+						//System.out.println("this year: " + year);
+						System.out.println("----------------------------------------------------==");
+						
 						XmlNewsItem xmlNewsItem = (XmlNewsItem) xmlNewsItemCollection
 								.elementAt(i);
 						boolean isNewsExistInRecordStore = RecordStoreHelper
