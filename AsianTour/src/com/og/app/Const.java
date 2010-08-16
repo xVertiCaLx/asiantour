@@ -37,42 +37,6 @@ public class Const {
 
 	public final static int ID_UNKNOWN = -99;
 
-	// DEV
-	/*
-	 * public final static String FEED_WEATHER=
-	 * "http://mobile.mediacorp.com.sg/Today/weather_dev.xml"; public final
-	 * static String FEED_ADS=
-	 * "http://mobile.mediacorp.com.sg/Today/ads_bb_dev.xml"; public final
-	 * static String FEED_INDEX =
-	 * "http://mobile.mediacorp.com.sg/Today/index_dev.xml"; public final static
-	 * String FEED_PHOTO= "http://mobile.mediacorp.com.sg/Today/Photos_dev.xml";
-	 * public final static String FEED_STATUS=
-	 * "http://mobile.mediacorp.com.sg/Today/status_dev.xml"; public final
-	 * static String API_PAGETRACK=
-	 * "http://mobile.mediacorp.com.sg/Today/page_track_dev.php";
-	 */
-
-	// LIVE
-	// public final static String FEED_WEATHER=
-	// "http://mobile.mediacorp.com.sg/Today/weather.xml";
-	// public final static String FEED_ADS=
-	// "http://mobile.mediacorp.com.sg/Today/ads_bb.xml";
-	// public final static String FEED_INDEX =
-	// "http://mobile.mediacorp.com.sg/Today/index.xml";
-	// public final static String FEED_PHOTO=
-	// "http://mobile.mediacorp.com.sg/Today/Photos.xml";
-	// public final static String FEED_STATUS=
-	// "http://mobile.mediacorp.com.sg/Today/status.xml";
-	// public final static String API_PAGETRACK=
-	// "http://mobile.mediacorp.com.sg/Today/page_track.php";
-	//    
-	// public final static String FEED_DELETE=
-	// "http://mobile.mediacorp.com.sg/Today/delete.xml";
-	// public final static String API_VERSION =
-	// "http://mobile.mediacorp.com.sg/Today/app/version.php";
-	// public final static String DOWNLOAD_URL=
-	// "http://mobile.mediacorp.sg/Today/app/bb.php";
-
 	public final static String PAGETRACKER_NAME = "Photo";
 	public final static String NEWS_SHARE_BASE_URL = "http://www.asiantour.com/news.aspx?sid=";
 	public final static String LISTEN_URL = "http://:1337";
