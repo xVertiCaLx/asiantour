@@ -1,7 +1,7 @@
 package com.og.app;
 
 import com.og.app.gui.GuiConst;
-
+//hello
 public class Const {
 	public static int ERRORCODE_1STTIMEUSERERROR = 1;
 	public static int ERRORCODE_LOADIMAGE = 2;
