@@ -41,8 +41,8 @@ public class XmlNewsParser {
 					xmlNewsItemCollection.addElement(xmlNewsItem);
 					xmlNewsItem = new XmlNewsItem();
 				}else if(node.equals("")){
-					String id = element;//element.substring("http://www.asiantour.com/news.aspx?sid=".length());
-					xmlNewsItem.id = id;
+					//String id = element;//element.substring("http://www.asiantour.com/news.aspx?sid=".length());
+					//xmlNewsItem.id = id;
 				}else if(node.equals("Headline")){
 					String id = element;
 					xmlNewsItem.id = id;
