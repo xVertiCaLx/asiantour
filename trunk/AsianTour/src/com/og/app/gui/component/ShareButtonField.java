@@ -10,11 +10,11 @@ import net.rim.device.api.ui.component.ButtonField;
 import net.rim.device.api.ui.component.Dialog;
 
 import com.og.app.Const;
+import com.og.app.gui.Lang;
 import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.social.TwitterHelper;
-import com.og.xml.ANewsItemObj;
 import com.og.app.util.DataCentre;
-import com.og.app.util.Utility;
+import com.og.xml.ANewsItemObj;
 
 public class ShareButtonField extends Field {
 
@@ -132,7 +132,7 @@ public class ShareButtonField extends Field {
 				};
 				UiApplication.getUiApplication().invokeLater(r);
 				if(TwitterHelper.GetAccessToken()==null){
-					Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+					Dialog.inform(Lang.TWITTER_CONNECT_ALERT);
 				}
 				
 			} else if (shareType == "TV") {
@@ -154,7 +154,7 @@ public class ShareButtonField extends Field {
 					UiApplication.getUiApplication().invokeLater(new Runnable() {
 						
 						public void run() {
-							Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+							Dialog.inform(Lang.TWITTER_CONNECT_ALERT);
 							
 						}
 					});
@@ -177,7 +177,7 @@ public class ShareButtonField extends Field {
 					UiApplication.getUiApplication().invokeLater(new Runnable() {
 						
 						public void run() {
-							Dialog.inform(Const.DEFAULT_TWITTER_CONNECT_MSG);
+							Dialog.inform(Lang.TWITTER_CONNECT_ALERT);
 							
 						}
 					});

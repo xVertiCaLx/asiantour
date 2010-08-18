@@ -26,7 +26,7 @@ public class Const {
 	public final static int DEFAULT_XDAYSCACHE = GuiConst.CACHE_ARR[GuiConst.CACHE_ARR.length - 1];
 	public final static String DEFAULT_FONTNAME = GuiConst.FONTNAME_ARR[0];// "BBAlpha Sans";
 	public final static int DEFAULT_NEWSIMGPERCENTAGE = GuiConst.PREVIEWIMAGE_PERCENTAGE[1]; // 50%
-	public final static String DEFAULT_TWITTER_CONNECT_MSG = "We are now checking authorization for Twitter.";
+
 
 	public final static int ID_SETTING = -1;
 	public final static int ID_SAVED = -2;
@@ -38,7 +38,6 @@ public class Const {
 
 	public final static int ID_UNKNOWN = -99;
 
-	public final static String PAGETRACKER_NAME = "Photo";
 	public final static String NEWS_SHARE_BASE_URL = "http://www.asiantour.com/news.aspx?sid=";
 	public final static String LISTEN_URL = "http://:1337";
 	public static final int CHUNK_SIZE = 256;
