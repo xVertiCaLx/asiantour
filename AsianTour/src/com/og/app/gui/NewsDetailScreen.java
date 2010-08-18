@@ -52,6 +52,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 	private AnimatedImageField animatedImg = null;
 	private ShareButtonField button = null;
 	private ANewsItemObj newsItem = null;
+
 	// private ClickableImageField bannerField = null;
 
 	public NewsDetailScreen(CustomListField listField,
@@ -68,7 +69,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 			// listField.saveChanges(newsItem, myIndex);
 		}
 
-		//button = new ShareButtonField("fb", newsItem);
+		// button = new ShareButtonField("fb", newsItem);
 
 		Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_news.png");
 		lblTitle = new TitleField("Full Article", settingIcon);
@@ -152,12 +153,19 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 					webImg = new WebBitmapField(newsItem.imageurl,
 							newsItem.guid);
 				} else {
-					webImg = new BitmapField(Bitmap.createBitmapFromBytes(
-							newsItem.image, 0, newsItem.image.length, 1));
+//					webImg = new BitmapField(Bitmap.createBitmapFromBytes(
+//							newsItem.image, 0, newsItem.image.length, 1));
+
+//					webImg = new BitmapField(Bitmap.createBitmapFromBytes(
+//							newsItem.thumbnail, 0, newsItem.thumbnail.length, 1));
+
+					Bitmap bmp = getScaledBitmapImage(Bitmap.createBitmapFromBytes(
+							newsItem.image, 0, newsItem.image.length, 1), GuiConst.SCREENWIDTH);
+					webImg = new BitmapField(bmp);
 				}
 
 			} catch (Exception e) {
-				System.out.println("aloy.NewsDetailScreen.exceptione: " + e);
+				System.out.println("aloy.NewsDetailScreen.whiledrawing.exceptione: " + e);
 			}
 		}
 		// define the vertical field manager's screen details
@@ -172,7 +180,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		vFM.add(lblNewsInfo);
 		vFM.add(new LineField(1));
 		ButtonPanel buttonPanel = new ButtonPanel();
-		//buttonPanel.add(new ShareButtonField("fb", newsItem));
+		// buttonPanel.add(new ShareButtonField("fb", newsItem));
 		buttonPanel.add(new ShareButtonField("tw", "News", null, newsItem));
 
 		HorizontalFieldManager hFM = new HorizontalFieldManager();
@@ -181,7 +189,13 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		vFM.add(hFM);
 		vFM.add(new LineField(2));
 		if (webImg != null) {
-			vFM.add(webImg);
+			//noted,ver:comment
+			//vFM.add(webImg);
+
+			//noted,ver:add these instead
+			HorizontalFieldManager hfm = new HorizontalFieldManager(Field.FIELD_HCENTER | Field.FIELD_VCENTER);
+			hfm.add(webImg);
+			vFM.add(hfm);
 		}
 		if (childPanel != null) {
 			System.out.println("i believe this is for the thumbnail");
@@ -290,6 +304,54 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		animatedImg = null;
 	}
 
+	//noted,ver:added these three following methods for scaling bitmap image
+	private Bitmap getScaledBitmapImage(Bitmap imgOrigin, int targetWidth)
+    {
+		//get the image origin size
+        int w = imgOrigin.getWidth();
+        int h = imgOrigin.getHeight();
+        
+		//compute desired image size to fit the screen
+		int desiredWidth = targetWidth;
+		int desiredHeight = (targetWidth * h) / w;
+		
+        return resizeBitmap(imgOrigin, desiredWidth, desiredHeight);
+    }	
+	public static Bitmap resizeBitmap(Bitmap image, int width, int height)
+	{
+        int w = image.getWidth();
+        int h = image.getHeight();
+
+        //Need an array (for RGB, with the size of original image)
+		int rgb[] = new int[w*h];
+
+		//Get the RGB array of image into "rgb"
+		image.getARGB(rgb, 0, w, 0, 0, w, h);
+
+		//Call to our function and obtain RGB2
+		int rgb2[] = rescaleArray(rgb, w, h, width, height);
+
+		//Create an image with that RGB array
+		Bitmap imgScaled = new Bitmap(width, height);
+		imgScaled.setARGB(rgb2, 0, width, 0, 0, width, height);
+        
+        return imgScaled;
+	}
+	private static int[] rescaleArray(int[] ini, int x, int y, int x2, int y2)
+	{
+		int out[] = new int[x2*y2];
+		for (int yy = 0; yy < y2; yy++)
+		{
+			int dy = yy * y / y2;
+			for (int xx = 0; xx < x2; xx++)
+			{
+				int dx = xx * x / x2;
+				out[(x2 * yy) + xx] = ini[(x * dy) + dx];
+			}
+		}
+		return out;
+	}
+	
 	class ArticlePanel extends VerticalFieldManager {
 		int fixheight = 0;
 		int fixwidth = 0;
@@ -315,7 +377,8 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 	}
 
 	class ButtonPanel extends HorizontalFieldManager {
-		int fixHeight = new ShareButtonField("fb", "News", null, newsItem).getPreferredHeight() + 4;
+		int fixHeight = new ShareButtonField("fb", "News", null, newsItem)
+				.getPreferredHeight() + 4;
 
 		public ButtonPanel() {
 			super(Manager.USE_ALL_WIDTH | Manager.HORIZONTAL_SCROLL
@@ -323,11 +386,12 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		}
 
 		public void updateLayout(int height) {
-			this.fixHeight = new ShareButtonField("tw","News", null,newsItem).getPreferredHeight() + 4;
+			this.fixHeight = new ShareButtonField("tw", "News", null, newsItem)
+					.getPreferredHeight() + 4;
 			super.updateLayout();
 		}
 
-		public void sublayout(int width, int height) { 
+		public void sublayout(int width, int height) {
 			super.sublayout(width, fixHeight);
 			setExtent(width, fixHeight);
 		}
