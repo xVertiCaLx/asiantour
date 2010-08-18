@@ -14,21 +14,27 @@ import com.og.app.util.WebDataCallback;
 
 public class XmlHelper {
 
+	final static long now = System.currentTimeMillis();
+	// date formatter
+	final static DateFormat dateFormat = DateFormat
+			.getInstance(DateFormat.DATETIME_DEFAULT);// .DATETIME_DEFAULT);
+	// format date as a string
+	final static String formattedDate = dateFormat.formatLocal(now).substring(
+			7, 11);
+
 	// Download news
 	private static final String url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListNews";
 	public static String newsXmlString = "";
 
-	
-	
 	public static void downloadNews() {
 		try {
 			Utility.getWebData(url, new WebDataCallback() {
 				public void callback(byte[] data) {
 					newsXmlString = new String(data);
-					
+
 					Vector xmlNewsItemCollection = parse(newsXmlString, "News");
 					for (int i = 0; i < xmlNewsItemCollection.size(); i++) {
-						
+
 						XmlNewsItem xmlNewsItem = (XmlNewsItem) xmlNewsItemCollection
 								.elementAt(i);
 						boolean isNewsExistInRecordStore = RecordStoreHelper
@@ -48,7 +54,8 @@ public class XmlHelper {
 									xmlNewsItem.thumbnailURL,
 									xmlNewsItem.imageURL, xmlNewsItem.author,
 									longdate, shortdate);
-							MenuScreen.getInstance().newsCollection.insertElementAt(aNewsItemObj, 0);
+							MenuScreen.getInstance().newsCollection
+									.insertElementAt(aNewsItemObj, 0);
 							System.out.println("Added news : "
 									+ aNewsItemObj.guid);
 						} else {
@@ -127,7 +134,8 @@ public class XmlHelper {
 								xmlTourItem.date, xmlTourItem.country,
 								xmlTourItem.tourName, xmlTourItem.golfClub,
 								xmlTourItem.defChamp, xmlTourItem.prizeMoney);
-						//System.out.println("Added tour schedules : " + itemObj);
+						// System.out.println("Added tour schedules : " +
+						// itemObj);
 						MenuScreen.getInstance().tourScheduleCollection
 								.addElement(itemObj);
 					}
@@ -140,12 +148,48 @@ public class XmlHelper {
 		}
 	}
 
+	private static final String oom_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListOOM?Year=" + formattedDate;
+	public static String oom_xml = "";
+
+	public static void downloadOOM() {
+		System.out.println("enter downloadOOM");
+		System.out
+				.println("----------------------------------------------------==");
+		System.out.println("this year: full?" + formattedDate);
+		System.out
+				.println("----------------------------------------------------==");
+		try {
+			Utility.getWebData(oom_url, new WebDataCallback() {
+				public void callback(byte[] data) {
+					oom_xml = new String(data);
+					Vector xmlOOM = parse(oom_xml, "Merit");
+					for (int i = 0; i < xmlOOM.size(); i++) {
+						XmlMeritItem xmlMeritItem = (XmlMeritItem) xmlOOM
+								.elementAt(i);
+						DataCentre itemObj = new DataCentre(xmlMeritItem.index,
+								xmlMeritItem.playerName, xmlMeritItem.pos,
+								xmlMeritItem.earnings);
+						// System.out.println("Added tour schedules : " +
+						// itemObj);
+						MenuScreen.getInstance().meritCollection
+								.addElement(itemObj);
+					}
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("aloy.downloadedOOM.exceptione: " + e);
+			return;
+		}
+	}
+
 	private static Vector parse(String data, String parseType) {
 		Vector collection = null;
-		if ((parseType == "TV") || (parseType == "Tour")) {
+		if ((parseType == "TV") || (parseType == "Tour")
+				|| (parseType == "Merit")) {
 			try {
 				data = data.substring(data.indexOf("<ArrayOfAnyType"));
-				//System.out.println(data);
+				// System.out.println(data);
 			} catch (Exception e) {
 				return new Vector();
 			}
