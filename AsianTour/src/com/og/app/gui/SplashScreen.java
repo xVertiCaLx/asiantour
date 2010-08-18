@@ -15,9 +15,6 @@ public class SplashScreen extends MainScreen implements Runnable
 {
 	private Thread thread = null;
 	private Bitmap logoicon= null;
-	String text = "Version "+Const.VERSION;
-	String text2 = "";//"Type:"+ConnectionMgr.CONNECTIONTYPE;
-	String text3 = "";    
 	boolean showopeningads = false;
 	//public NewsStore ns = new NewsStore;
 	public SplashScreen() {

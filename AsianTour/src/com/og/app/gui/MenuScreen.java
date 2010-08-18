@@ -89,9 +89,9 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 		{
 			System.out.println("aloy.endapp");
 			RecordStoreHelper.setNewsCollection(newsCollection);
-//			clearResource();
+			clearResource();
 			UiApplication.getUiApplication().requestBackground(); 
-			//System.exit(0);
+			System.exit(0);
 		}
 		return true;
 	}
