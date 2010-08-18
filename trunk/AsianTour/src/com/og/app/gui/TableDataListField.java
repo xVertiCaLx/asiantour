@@ -10,12 +10,12 @@ import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
 
 //
-public class MeritListField extends MeritTableListField {
+public class TableDataListField extends TableListField {
 
 	private TablePanel tablePanel = null;
 	DataCentre[] item = new DataCentre[arraySize];
 
-	public MeritListField(TablePanel tablePanel, ListFieldListener listener,
+	public TableDataListField(TablePanel tablePanel, ListFieldListener listener,
 			int tableNo, int page) {
 		super(listener, tableNo, page);
 		this.tablePanel = tablePanel;
