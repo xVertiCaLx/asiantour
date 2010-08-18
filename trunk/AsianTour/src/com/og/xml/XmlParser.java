@@ -139,6 +139,53 @@ public class XmlParser {
 				e.printStackTrace();
 			}
 		}
+		else if (parseType == "Merit") {
+			// Vector<XmlMeritItem>
+			try {
+				DocumentBuilder docBuilder = docBuilderFactory
+						.newDocumentBuilder();
+				Document doc = docBuilder.parse(xmlStream);
+				doc.getDocumentElement().normalize();
+				NodeList list = doc.getElementsByTagName("*");
+				String node = "";
+				String element = "";
+
+				XmlMeritItem xmlItem = new XmlMeritItem();
+				for (int i = 0; i < list.getLength(); i++) {
+					//System.out.println(i);
+					Node value = list.item(i).getChildNodes().item(0);
+					node = list.item(i).getNodeName();
+
+					if (value != null)
+						element = value.getNodeValue();
+
+					if (node.equals("anyType") && i != 1) {
+						xmlItem.index = count;
+						xmlItemCollection.addElement(xmlItem);
+						xmlItem = new XmlMeritItem();
+						count ++;
+					} else if (node.equals("Position")) {
+						xmlItem.pos = element;
+					} else if (node.equals("Player")) {
+						xmlItem.playerName = element;
+					} else if (node.equals("Earning")) {
+						xmlItem.earnings = element;
+					}
+				}
+				xmlItem.index = count;
+				xmlItemCollection.addElement(xmlItem);
+
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return xmlItemCollection;
 	}
 }

@@ -145,9 +145,6 @@ public class CustomTableListField extends ListField implements
 
 	public void drawListRow(ListField listField, Graphics g, int index, int y,
 			int width) {
-
-		
-
 		/*
 		 * Table No: 1 - TV Schedule 2 - Tour Schedule 3 - Live Score 4 - Order
 		 * of Merit
@@ -170,9 +167,7 @@ public class CustomTableListField extends ListField implements
 						text_y = (header_bg.getHeight() - textFont.getHeight()) / 2;
 						g.drawText(tvLabel[i], prev_x, text_y);
 
-						prev_x += tvWidth[i] + padding; // +
-						// header_separator.getWidth();//textFont.getAdvance(tvLabel[i]);
-						// + this_x;
+						prev_x += tvWidth[i] + padding;
 
 						if (i == 2) {
 							g.drawBitmap((GuiConst.SCREENWIDTH - next_icon
@@ -180,7 +175,6 @@ public class CustomTableListField extends ListField implements
 									.getWidth(), next_icon.getHeight(),
 									next_icon, 0, 0);
 						} else {
-							//text_y = ((header_bg.getHeight() - header_separator.getHeight())/2);
 							g.drawBitmap(prev_x, 2, header_separator
 									.getWidth(), header_separator.getHeight(),
 									header_separator, 0, 0);
@@ -193,6 +187,7 @@ public class CustomTableListField extends ListField implements
 					if ((getRowHeight() == header_bg.getHeight()) && (index == 0)) {
 						setRowHeight(odd_bg.getHeight() + border.getHeight());
 					}
+					
 					text_x = padding;
 					temp_x = 0;
 					prev_x = padding;
@@ -306,9 +301,7 @@ public class CustomTableListField extends ListField implements
 
 						g.drawText(tourLabel[i], prev_x, text_y);
 
-						prev_x += tourWidth[i] + padding; // +
-						// header_separator.getWidth();//textFont.getAdvance(tvLabel[i]);
-						// + this_x;
+						prev_x += tourWidth[i] + padding;
 
 						if (i == 2) {
 							g.drawBitmap((GuiConst.SCREENWIDTH - next_icon
@@ -342,136 +335,11 @@ public class CustomTableListField extends ListField implements
 					temp_x = padding;
 
 					// //System.out.println("this is row index : " + index);
-					DataCentre item = (DataCentre) _elements.elementAt(index);
+					DataCentre item = (DataCentre) _elements.elementAt(index-1);
 
-					String printText = item.tourDate;
-					Vector vText = Utility.breakIntoWords(printText);
-					int lineNo = 1;
-
-					textFont = GuiConst.FONT_TABLE;
-					g.setFont(textFont);
-					g.setColor(GuiConst.FONT_COLOR_BLACK);
-
-					if (textFont.getAdvance(printText) <= tourWidth[0]) {
-						text_y = y
-								+ ((getRowHeight() - textFont.getHeight()) / 2);
-						g.drawText(printText + " ", text_x, text_y);
-					} else {
-						for (int word = 0; word < vText.size(); word++) {
-							if (lineNo > 2) {
-								break;
-							}
-
-							String tempString = (String) vText.elementAt(word);
-							int wordWidth = GuiConst.FONT_TABLE
-									.getAdvance(tempString + " ");
-							if ((text_x + wordWidth >= tourWidth[0])
-									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[0] * 75) / 100)))) {
-								if (lineNo == 2) {
-									tempString = "...";
-								} else {
-									if (word != 0) {
-										text_y += GuiConst.FONT_TABLE.getHeight()
-												+ padding;
-										text_x = temp_x;
-									} else {
-										text_y = y
-										+ ((getRowHeight() - textFont.getHeight()) / 2);
-									}
-								}
-								lineNo++;
-							}
-
-							g.drawText(tempString + " ", text_x, text_y);
-							text_x += wordWidth;
-						}
-					}
-
-					text_y = y + padding;
-					temp_x += tourWidth[0] + padding
-							+ header_separator.getWidth() + padding;// +tvWidth[1];
-					text_x = temp_x;
-					lineNo = 1;
-
-					printText = item.tourCountry;
-					vText = Utility.breakIntoWords(printText);
-					if (textFont.getAdvance(printText) <= tourWidth[1]) {
-						text_y = y
-								+ ((getRowHeight() - textFont.getHeight()) / 2);
-						g.drawText(printText + " ", text_x, text_y);
-					} else {
-						for (int word = 0; word < vText.size(); word++) {
-							if (lineNo > 2) {
-								break;
-							}
-
-							String tempString = (String) vText.elementAt(word);
-							int wordWidth = GuiConst.FONT_TABLE
-									.getAdvance(tempString + " ");
-							if ((text_x + wordWidth >= tourWidth[1])
-									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[1] * 75) / 100)))) {
-								if (lineNo == 2) {
-									tempString = "...";
-								} else {
-									if (word != 0) {
-										text_y += GuiConst.FONT_TABLE.getHeight()
-												+ padding;
-										text_x = temp_x;
-									} else {
-										text_y = y
-										+ ((getRowHeight() - textFont.getHeight()) / 2);
-									}
-								}
-								lineNo++;
-							}
-
-							g.drawText(tempString + " ", text_x, text_y);
-							text_x += wordWidth;
-						}
-					}
-
-					text_y = y + padding;
-					temp_x += tourWidth[1] + header_separator.getWidth()
-							+ padding;
-					text_x = temp_x;
-					lineNo = 1;
-
-					printText = item.tourName;
-					vText = Utility.breakIntoWords(printText);
-					if (textFont.getAdvance(printText) <= tourWidth[2]) {
-						text_y = y
-								+ ((getRowHeight() - textFont.getHeight()) / 2);
-						g.drawText(printText + " ", text_x, text_y);
-					} else {
-						for (int word = 0; word < vText.size(); word++) {
-							if (lineNo > 2) {
-								break;
-							}
-
-							String tempString = (String) vText.elementAt(word);
-							int wordWidth = GuiConst.FONT_TABLE
-									.getAdvance(tempString + " ");
-							if ((text_x + wordWidth >= tourWidth[2])
-									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[2] * 75) / 100)))) {
-								if (lineNo == 2) {
-									tempString = "...";
-								} else {
-									if (word != 0) {
-										text_y += GuiConst.FONT_TABLE.getHeight()
-												+ padding;
-										text_x = temp_x;
-									} else {
-										text_y = y
-										+ ((getRowHeight() - textFont.getHeight()) / 2);
-									}
-								}
-								lineNo++;
-							}
-
-							g.drawText(tempString + " ", text_x, text_y);
-							text_x += wordWidth;
-						}
-					}
+					setupCell(g,item.tourDate, y, tourWidth[0]);
+					setupCell(g, item.tourCountry, y, tourWidth[1]);
+					setupCell(g, item.tourName, y, tourWidth[2]);
 
 					// row ++;
 					// if (row > index) {
@@ -833,117 +701,11 @@ public class CustomTableListField extends ListField implements
 				temp_x = padding;
 
 				// //System.out.println("this is row index : " + index);
-				DataCentre item = (DataCentre) _elements.elementAt(index);
-
-				String printText = item.merit_player;
-				Vector vText = Utility.breakIntoWords(printText);
-				int lineNo = 1;
-
-				textFont = GuiConst.FONT_TABLE;
-				g.setFont(textFont);
-				g.setColor(GuiConst.FONT_COLOR_BLACK);
-
-				if (textFont.getAdvance(printText) <= meritWidth[0]) {
-					text_y = y + ((getRowHeight() - textFont.getHeight()) / 2);
-					g.drawText(printText + " ", text_x, text_y);
-				} else {
-					for (int word = 0; word < vText.size(); word++) {
-						if (lineNo > 2) {
-							break;
-						}
-
-						String tempString = (String) vText.elementAt(word);
-						int wordWidth = GuiConst.FONT_TABLE
-								.getAdvance(tempString + " ");
-						if ((text_x + wordWidth >= meritWidth[0])
-								|| ((lineNo == 2) && (text_x + wordWidth >= ((meritWidth[0] * 75) / 100)))) {
-							if (lineNo == 2) {
-								tempString = "...";
-							} else {
-								text_y += GuiConst.FONT_TABLE.getHeight()
-										+ padding;
-								text_x = temp_x;
-							}
-							lineNo++;
-						}
-
-						g.drawText(tempString + " ", text_x, text_y);
-						text_x += wordWidth;
-					}
-				}
-
-				text_y = y + padding;
-				temp_x += meritWidth[0] + padding + header_separator.getWidth()
-						+ padding;// +tvWidth[1];
-				text_x = temp_x;
-				lineNo = 1;
-
-				printText = item.merit_pos;
-				vText = Utility.breakIntoWords(printText);
-				if (textFont.getAdvance(printText) <= meritWidth[1]) {
-					text_y = y + ((getRowHeight() - textFont.getHeight()) / 2);
-					g.drawText(printText + " ", text_x, text_y);
-				} else {
-					for (int word = 0; word < vText.size(); word++) {
-						if (lineNo > 2) {
-							break;
-						}
-
-						String tempString = (String) vText.elementAt(word);
-						int wordWidth = GuiConst.FONT_TABLE
-								.getAdvance(tempString + " ");
-						if ((text_x + wordWidth >= meritWidth[1])
-								|| ((lineNo == 2) && (text_x + wordWidth >= ((meritWidth[1] * 75) / 100)))) {
-							if (lineNo == 2) {
-								tempString = "...";
-							} else {
-								text_y += GuiConst.FONT_TABLE.getHeight()
-										+ padding;
-								text_x = temp_x;
-							}
-							lineNo++;
-						}
-
-						g.drawText(tempString + " ", text_x, text_y);
-						text_x += wordWidth;
-					}
-				}
-
-				text_y = y + padding;
-				temp_x += meritWidth[1] + header_separator.getWidth() + padding;
-				text_x = temp_x;
-				lineNo = 1;
-
-				printText = item.merit_prize;
-				vText = Utility.breakIntoWords(printText);
-				if (textFont.getAdvance(printText) <= meritWidth[2]) {
-					text_y = y + ((getRowHeight() - textFont.getHeight()) / 2);
-					g.drawText(printText + " ", text_x, text_y);
-				} else {
-					for (int word = 0; word < vText.size(); word++) {
-						if (lineNo > 2) {
-							break;
-						}
-
-						String tempString = (String) vText.elementAt(word);
-						int wordWidth = GuiConst.FONT_TABLE
-								.getAdvance(tempString + " ");
-						if ((text_x + wordWidth >= meritWidth[2])
-								|| ((lineNo == 2) && (text_x + wordWidth >= ((meritWidth[2] * 75) / 100)))) {
-							if (lineNo == 2) {
-								tempString = "...";
-							} else {
-								text_y += GuiConst.FONT_TABLE.getHeight()
-										+ padding;
-								text_x = temp_x;
-							}
-							lineNo++;
-						}
-
-						g.drawText(tempString + " ", text_x, text_y);
-						text_x += wordWidth;
-					}
-				}
+				DataCentre item = (DataCentre) _elements.elementAt(index-1);
+				
+				setupCell(g, item.merit_player, y, meritWidth[0]);
+				setupCell(g, item.merit_pos, y, meritWidth[1]);
+				setupCell(g, item.merit_prize, y, meritWidth[2]);
 
 				// row ++;
 				// if (row > index) {

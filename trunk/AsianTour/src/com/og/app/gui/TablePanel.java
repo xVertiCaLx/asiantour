@@ -49,7 +49,7 @@ public class TablePanel extends VerticalFieldManager{
     }
     
     public synchronized void loadRows(int tableNo) {
-        tableList.loadNews(tableNo);
+        tableList.loadTableData(tableNo);
         
         Field field = childNewsPanel.getField(0);
         
