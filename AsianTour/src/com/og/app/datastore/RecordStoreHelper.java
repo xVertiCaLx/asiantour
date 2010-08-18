@@ -9,9 +9,9 @@ import com.og.xml.ANewsItemObj;
 
 public class RecordStoreHelper {
 	
-	//Hash of "com.og.app.datastore_test3"0x9fe7c2eeb62519b6L;
+	//Hash of "com.og.app.datastore_test4"= 0xffbc7e3eb7a8b4d1L// 3 = 0x9fe7c2eeb62519b6L;
 	//hash of "com.og.aloy.test" = 
-	public static final long DATASTORE_KEY = 0x1e726fd5eeb438b9L; //0x9fe7c2eeb62519b6L;//0x8d0ed7fadc56615cL;
+	public static final long DATASTORE_KEY = 0xffbc7e3eb7a8b4d1L; //0x9fe7c2eeb62519b6L;//0x8d0ed7fadc56615cL;
 
 	private static PersistentObject getRecordStore(){
 //		try{

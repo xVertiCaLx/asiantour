@@ -148,7 +148,7 @@ public class XmlHelper {
 		}
 	}
 
-	private static final String oom_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListOOM?Year=" + formattedDate;
+	private static final String oom_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListOOM?Year=2010";// + formattedDate;
 	public static String oom_xml = "";
 
 	public static void downloadOOM() {
@@ -185,8 +185,23 @@ public class XmlHelper {
 
 	private static Vector parse(String data, String parseType) {
 		Vector collection = null;
-		if ((parseType == "TV") || (parseType == "Tour")
-				|| (parseType == "Merit")) {
+		if (parseType == "TV") {
+			try {
+				data = data.substring(data.indexOf("<ArrayOfAnyType"));
+				// System.out.println(data);
+			} catch (Exception e) {
+				return new Vector();
+			}
+			collection = XmlParser.parse(data, parseType);
+		} else if (parseType == "Tour") {
+			try {
+				data = data.substring(data.indexOf("<ArrayOfAnyType"));
+				// System.out.println(data);
+			} catch (Exception e) {
+				return new Vector();
+			}
+			collection = XmlParser.parse(data, parseType);
+		} else if (parseType == "Merit") {
 			try {
 				data = data.substring(data.indexOf("<ArrayOfAnyType"));
 				// System.out.println(data);
