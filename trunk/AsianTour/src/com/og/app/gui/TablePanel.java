@@ -11,7 +11,7 @@ import net.rim.device.api.ui.component.*;
 
 public class TablePanel extends VerticalFieldManager{
     private static TablePanel tablePanel = null;
-    private TableListField tableList = null;
+    private MeritListField tableList = null;
     private int fixHeight = 0;
     private ChildNewsPanel childNewsPanel = null;
     
@@ -24,7 +24,7 @@ public class TablePanel extends VerticalFieldManager{
         imgUp = Bitmap.getBitmapResource("res/up.png");
         imgDown = Bitmap.getBitmapResource("res/down.png");
         
-        tableList = new TableListField(this, listener, tableNo, page);
+        tableList = new MeritListField(this, listener, tableNo, page);
         childNewsPanel = new ChildNewsPanel(fixHeight);
         childNewsPanel.add(tableList);
         add(childNewsPanel);
