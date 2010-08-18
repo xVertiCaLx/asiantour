@@ -16,7 +16,7 @@ import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
 import com.og.app.util.Utility;
 
-public class CustomTableListField extends ListField implements
+public class MeritTableListField extends ListField implements
 		ListFieldCallback, Runnable {
 
 	// screen sizes: 320, 360, 480
@@ -82,7 +82,7 @@ public class CustomTableListField extends ListField implements
 			constantColWidth * 6, constantColWidth * 6 };
 
 	// this is for live score
-	public CustomTableListField(ListFieldListener listener, int table, int page) {
+	public MeritTableListField(ListFieldListener listener, int table, int page) {
 		super();
 		this.listener = listener;
 		this.table = table;
