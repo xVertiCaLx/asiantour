@@ -44,7 +44,7 @@ public class TwitterOAuthScreen extends MainScreen implements FieldChangeListene
 	
 	public TwitterOAuthScreen(final String authUrl, RequestToken token, String contentToPost){
 	
-		Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_news.png");
+		Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_setting.png");
 		titleBar = new TitleField("Login to Twitter", settingIcon);
 		headLineHeight = titleBar.getPreferredHeight();
 		imgUp = Bitmap.getBitmapResource("res/up.png");

@@ -9,8 +9,6 @@ import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.container.MainScreen;
 
-import com.og.app.Const;
-
 public class SplashScreen extends MainScreen implements Runnable
 {
 	private Thread thread = null;
@@ -29,6 +27,7 @@ public class SplashScreen extends MainScreen implements Runnable
 
 		thread = new Thread(this);
 		thread.start();
+		
 	}
 
 	protected void paint(Graphics graphics) {

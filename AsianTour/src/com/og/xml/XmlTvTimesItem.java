@@ -8,4 +8,5 @@ public class XmlTvTimesItem {
 	public String broadcaster = "";
 	public String date = "";
 	public String time = "";
+	
 }

@@ -37,7 +37,7 @@ public class MainApp extends UiApplication {
 		if ( net.rim.device.api.system.Display.getWidth()>320 ){
 			GuiConst.FONTSIZE_ARR = GuiConst.FONTSIZE_ARR2;
 		}
-		pushScreen(MenuScreen.getInstance());
+		//pushScreen(MenuScreen.getInstance());
 		//        try {
 		//			TwitterHelper.UpdateStatus("test 2 this better work");
 		//		} catch (OAuthServiceProviderException e) {

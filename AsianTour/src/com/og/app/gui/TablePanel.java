@@ -12,7 +12,7 @@ import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.gui.listener.ListFieldListener;
 
-public class TablePanel extends VerticalFieldManager{
+public class TablePanel extends VerticalFieldManager {
     private static TablePanel tablePanel = null;
     private TableDataListField tableList = null;
     private int fixHeight = 0;
@@ -59,9 +59,9 @@ public class TablePanel extends VerticalFieldManager{
         if (tableList.getSize() == 0) {
         
             childNewsPanel.deleteAll();
-            String txtNoNews = "There are no available contents for this tab at the moment.";
+            String txtNoNews = Lang.DEFAULT_NO_NEWS;
             if (tableNo == 3) {
-            	txtNoNews = "Live Score has no available content at the moment. To view, please try again when there is a match. Thank You.";
+            	txtNoNews = Lang.LIVESCORE_NO_NEWS;
             }
             LabelField displayLabel = new LabelField(txtNoNews, Field.FIELD_HCENTER) {
                 protected void paintBackground(net.rim.device.api.ui.Graphics g) {
