@@ -12,6 +12,8 @@ public class GuiConst{
 
     public final static int MAX_PHOTO_PERCAT= 40;
     public final static int MAX_ARTICLE_PERCAT= 500;
+    
+    public final static int HEADER_ROW_HEIGHT = 22;
       
     public final static int VERSION_TYPE_B= 0;//bold
     public final static int VERSION_TYPE_G= 1;//gemini/curve

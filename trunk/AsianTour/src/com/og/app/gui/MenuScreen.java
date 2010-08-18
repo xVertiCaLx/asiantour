@@ -2,7 +2,6 @@ package com.og.app.gui;
 
 import java.util.Vector;
 
-import net.rim.device.api.i18n.DateFormat;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.Dialog;
@@ -12,7 +11,9 @@ import com.og.app.gui.component.TabField;
 import com.og.app.gui.component.TransitionableMainScreen;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.gui.listener.TabListener;
+import com.og.app.gui.schedule.DataPanel;
 import com.og.xml.XmlHelper;
+
 
 public class MenuScreen extends TransitionableMainScreen implements TabListener, ListFieldListener {
 
@@ -26,6 +27,9 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 	public Vector tourScheduleCollection = new Vector();
 	
 	//Vector<DataCentre>
+	public Vector countryCollection = new Vector();
+	
+	//Vector<DataCentre>
 	public Vector meritCollection = new Vector();
 
 	public static MenuScreen thisInstance = null;
@@ -36,6 +40,7 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 	private LogoPanel logoPanel = null;
 	private TabPanel tabPanel = null;
 	private TablePanel tablePanel = null;
+	private DataPanel dataPanel = null;
 	
 	public NewsPanel newsPanel = null;
 	
@@ -53,7 +58,7 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 		selectedTab = 1;
 		thisInstance = this;
 		GuiConst.reinitFont();
-		fieldInit(0);
+		initTablePkg(0);
 		fadeToAndRun(Graphics.BLACK /* color to fade to */, 800 /* fade duration */);
 		System.out.println("-----------------------------------------------------");
 		System.out.println("Display height is: " + GuiConst.SCREENHEIGHT + "TABPANEL: " + GuiConst.TABPANEL_HEIGHT + "LOGOPANEL: " + GuiConst.LOGOPANEL_HEIGHT); 
@@ -65,14 +70,15 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 
 		newsCollection = RecordStoreHelper.getNewsCollection();
 		System.out.println(GuiConst.SCREENWIDTH);
+		
+		XmlHelper.downloadCountry();
 		XmlHelper.downloadNews();
 		XmlHelper.downloadTvTimes();
     	XmlHelper.downloadTourSchedule();
     	XmlHelper.downloadOOM();
-		
 	}
 
-	public void fieldInit(int tableNo) {
+	public void initTablePkg(int tableNo) {
 		logoPanel = LogoPanel.getInstance();
 		tabPanel = TabPanel.getInstance(this);
 
@@ -82,6 +88,24 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 		newsPanel = NewsPanel.getInstance(this, GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
 		tablePanel = TablePanel.getInstance(this, GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, tableNo,1);
 
+	}
+	
+	public void initSchedulePkg(int tableNo) {
+		logoPanel = LogoPanel.getInstance();
+		tabPanel = TabPanel.getInstance(this);
+
+		GuiConst.LOGOPANEL_HEIGHT=logoPanel.getPreferredHeight();
+		GuiConst.TABPANEL_HEIGHT=tabPanel.getPreferredHeight();
+
+		//newsPanel = NewsPanel.getInstance(this, GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
+		//tablePanel = TablePanel.getInstance(this, GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, tableNo,1);
+		dataPanel = DataPanel.getInstance(this, GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT, tableNo);
+	}
+	
+	public void addPanels() {
+		add(logoPanel);
+		add(tabPanel);
+		add(dataPanel);
 	}
 
 	public boolean onClose() {
@@ -106,6 +130,8 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 	public void repainteverything() {
 		this.deleteAll();
 		tablePanel.reinitThisThing();
+		if (dataPanel != null)
+			dataPanel.reinitThisThing();
 	}
 
 	public void repaintTab(){
@@ -192,10 +218,10 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 
 
 
-	private void showNewsTab(){
+	public void showNewsTab(){
 		//logoPanel.repaintLogoPanel("default");
 		repainteverything();
-		fieldInit(0);
+		initTablePkg(0);
 		newsPanel.loadNews(0);
 		NewsPanel.newsPanel.newsList.setSize(newsCollection.size());
 		//logoPanel.repaintLogoPanel("default");
@@ -205,45 +231,47 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 		
 	}
 
-	private void showLiveScoreTab(){
+	public void showLiveScoreTab(){
 		//logoPanel.repaintLogoPanel("titlebar_livescore");
 		repainteverything();
-		fieldInit(3);
+		initTablePkg(3);
 		//logoPanel.repaintLogoPanel("titlebar_livescore");
 		add(logoPanel);
 		add(tabPanel);
 		add(tablePanel);
 	}
 	
-	private void showOOMTab(){
+	public void showOOMTab(){
 		//CustomDialog dialog = new CustomDialog("Hello");
 		//dialog.show();
 		//logoPanel.repaintLogoPanel("titlebar_orderofmerit");
 		repainteverything();
 		//logoPanel.repaintLogoPanel("titlebar_orderofmerit");
-		fieldInit(4);
+		initTablePkg(4);
 		add(logoPanel);
 		add(tabPanel);
 		add(tablePanel);
 	}
 	
-	private void showTVScheduleTab(){
+	public void showTVScheduleTab(){
 		//logoPanel.repaintLogoPanel("titlebar_tvschedule");
 		repainteverything();
 		//logoPanel.repaintLogoPanel("titlebar_tvschedule");
-		fieldInit(1);
+		//fieldInit(1);
+		initSchedulePkg(1);
 		add(logoPanel);
 		add(tabPanel);
-		add(tablePanel);
+		add(dataPanel);
 	}
 
-	private void showTourScheduleTab(){
+	public void showTourScheduleTab(){
 		repainteverything();
 		//logoPanel.repaintLogoPanel("titlebar_tourschedule");
-		fieldInit(2);
+		//fieldInit(2);
+		initSchedulePkg(3);
 		add(logoPanel);
 		add(tabPanel);
-		add(tablePanel);
+		add(dataPanel);
 	}
 
 	/*--------------------------- Example of making a Horizontal Field Manager ----------------

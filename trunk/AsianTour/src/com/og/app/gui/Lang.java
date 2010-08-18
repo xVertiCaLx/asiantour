@@ -13,5 +13,11 @@ public final class Lang {
 			+ "\n Step 3: Scroll down and retrieve the authorization code"
 			+ "\n Step 4: Enter the authorization code in the text box below"
 			+ "\n Step 5: Click on the \"Authorize this App\" button";
+	
+	public final static String SELECT_COUNTRY_INSTRUCTION = "Please select a country to view";
+	public final static String SELECT_ROW_INSTRUCTION = "Please select a Tour Name for more details";
 
+	public final static String DEFAULT_NO_NEWS = "There are no available contents for this tab at the moment.";
+	public final static String LIVESCORE_NO_NEWS = "Live Score has no available content at the moment. To view, please try again when there is a match. Thank You.";
+	
 }

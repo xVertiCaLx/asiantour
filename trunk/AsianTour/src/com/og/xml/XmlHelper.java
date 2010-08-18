@@ -20,7 +20,7 @@ public class XmlHelper {
 			.getInstance(DateFormat.DATETIME_DEFAULT);// .DATETIME_DEFAULT);
 	// format date as a string
 	final static String formattedDate = dateFormat.formatLocal(now).substring(
-			7, 11);
+			8, 12);
 
 	// Download news
 	private static final String url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListNews";
@@ -86,6 +86,34 @@ public class XmlHelper {
 	// return newsCollection;
 	// }
 
+	private static final String country_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimesCountries";
+	public static String country_xml = "";
+
+	public static void downloadCountry() {
+		System.out.println("enter downloadTourSchedule");
+		try {
+			Utility.getWebData(country_url, new WebDataCallback() {
+				public void callback(byte[] data) {
+					country_xml = new String(data);
+					Vector xmlCountry = parse(country_xml, "Country");
+					for (int i = 0; i < xmlCountry.size(); i++) {
+						XmlCountryItem xmlCountryItem = (XmlCountryItem) xmlCountry
+								.elementAt(i);
+						DataCentre itemObj = new DataCentre(xmlCountryItem.country);
+						// System.out.println("Added tour schedules : " +
+						// itemObj);
+						MenuScreen.getInstance().countryCollection
+								.addElement(itemObj);
+					}
+				}
+			});
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("aloy.downloadedTvTimes.exceptione: " + e);
+			return;
+		}
+	}
+	
 	// download data for TV Schedule data
 	private static final String tvTimes_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimes";
 	public static String tvTimes_xml = "";
@@ -216,6 +244,14 @@ public class XmlHelper {
 				return new Vector();
 			}
 			collection = XmlNewsParser.parse(data);
+		} else if (parseType == "Country") {
+			try {
+				data = data.substring(data.indexOf("<ArrayOfAnyType"));
+				// System.out.println(data);
+			} catch (Exception e) {
+				return new Vector();
+			}
+			collection = XmlParser.parse(data, parseType);
 		}
 		return collection;
 	}

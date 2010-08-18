@@ -17,7 +17,7 @@ import com.og.app.util.DataCentre;
 import com.og.app.util.Utility;
 
 public class TableListField extends ListField implements
-		ListFieldCallback, Runnable {
+		ListFieldCallback/*, Runnable*/ {
 
 	// screen sizes: 320, 360, 480
 
@@ -94,7 +94,7 @@ public class TableListField extends ListField implements
 
 		header_bg = Utility.resizeBitmap(Bitmap
 				.getBitmapResource("res/table_header_bg.png"), this
-				.getPreferredWidth(), 22);// Bitmap.getBitmapResource("res/table_header_bg.png");
+				.getPreferredWidth(), GuiConst.HEADER_ROW_HEIGHT);// Bitmap.getBitmapResource("res/table_header_bg.png");
 		even_bg = Utility.resizeBitmap(Bitmap
 				.getBitmapResource("res/table_even_bg.png"), this
 				.getPreferredWidth(), 34);
@@ -140,8 +140,8 @@ public class TableListField extends ListField implements
 		}
 	}
 
-	public void run() {
-	}
+//	public void run() {
+//	}
 
 	public void drawListRow(ListField listField, Graphics g, int index, int y,
 			int width) {
