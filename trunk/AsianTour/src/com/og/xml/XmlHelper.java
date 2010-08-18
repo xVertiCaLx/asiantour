@@ -18,7 +18,6 @@ public class XmlHelper {
 	private static final String url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListNews";
 	public static String newsXmlString = "";
 
-	long now = System.currentTimeMillis();
 	
 	
 	public static void downloadNews() {
@@ -29,9 +28,6 @@ public class XmlHelper {
 					
 					Vector xmlNewsItemCollection = parse(newsXmlString, "News");
 					for (int i = 0; i < xmlNewsItemCollection.size(); i++) {
-						System.out.println("----------------------------------------------------==");
-						//System.out.println("this year: " + year);
-						System.out.println("----------------------------------------------------==");
 						
 						XmlNewsItem xmlNewsItem = (XmlNewsItem) xmlNewsItemCollection
 								.elementAt(i);
@@ -131,7 +127,7 @@ public class XmlHelper {
 								xmlTourItem.date, xmlTourItem.country,
 								xmlTourItem.tourName, xmlTourItem.golfClub,
 								xmlTourItem.defChamp, xmlTourItem.prizeMoney);
-						System.out.println("Added tour schedules : " + itemObj);
+						//System.out.println("Added tour schedules : " + itemObj);
 						MenuScreen.getInstance().tourScheduleCollection
 								.addElement(itemObj);
 					}
@@ -149,7 +145,7 @@ public class XmlHelper {
 		if ((parseType == "TV") || (parseType == "Tour")) {
 			try {
 				data = data.substring(data.indexOf("<ArrayOfAnyType"));
-				System.out.println(data);
+				//System.out.println(data);
 			} catch (Exception e) {
 				return new Vector();
 			}

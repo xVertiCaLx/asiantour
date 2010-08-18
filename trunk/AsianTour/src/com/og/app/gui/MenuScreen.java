@@ -2,6 +2,7 @@ package com.og.app.gui;
 
 import java.util.Vector;
 
+import net.rim.device.api.i18n.DateFormat;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.Dialog;
@@ -65,6 +66,16 @@ public class MenuScreen extends TransitionableMainScreen implements TabListener,
 		XmlHelper.downloadTvTimes();
     	XmlHelper.downloadTourSchedule();
 
+    	final long now = System.currentTimeMillis();
+    	//date formatter
+    	final DateFormat dateFormat = DateFormat.getInstance(DateFormat.DATETIME_DEFAULT);//.DATETIME_DEFAULT);
+    	//format date as a string
+    	final String formattedDate = dateFormat.formatLocal(now).substring(7, 11);
+    	System.out.println("----------------------------------------------------==");
+    	System.out.println("this year: full?" + formattedDate);
+    	System.out.println("----------------------------------------------------==");
+    	
+    	
 		
 		
 		

@@ -36,7 +36,7 @@ public class XmlParser {
 
 				XmlTvTimesItem xmlItem = new XmlTvTimesItem();
 				for (int i = 0; i < list.getLength(); i++) {
-					System.out.println(i);
+					//System.out.println(i);
 					Node value = list.item(i).getChildNodes().item(0);
 					node = list.item(i).getNodeName();
 					
@@ -44,7 +44,7 @@ public class XmlParser {
 						element = value.getNodeValue();
 
 					if (node.equals("anyType") && i != 1) {
-						System.out.println("count: " + count);
+						//System.out.println("count: " + count);
 						xmlItem.index = count;
 						xmlItemCollection.addElement(xmlItem);
 						xmlItem = new XmlTvTimesItem();
@@ -98,7 +98,7 @@ public class XmlParser {
 
 				XmlTourScheduleItem xmlItem = new XmlTourScheduleItem();
 				for (int i = 0; i < list.getLength(); i++) {
-					System.out.println(i);
+					//System.out.println(i);
 					Node value = list.item(i).getChildNodes().item(0);
 					node = list.item(i).getNodeName();
 
