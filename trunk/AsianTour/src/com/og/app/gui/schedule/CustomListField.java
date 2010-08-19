@@ -148,22 +148,21 @@ public class CustomListField extends ListField implements ListFieldCallback {
 					setRowHeight(fixRowHeight);
 				}
 			} else {
+
+				background(g, index, y);
 				item = (DataCentre) _elements.elementAt(index - 1);
-				if (item.tvRegion == selected_country) {
-					background(g, index, y);
+				insertData(g, item.tvName, y);
 
-					insertData(g, item.tvName, y);
+				textFont = GuiConst.FONT_DATE;
+				g.setFont(textFont);
+				g.drawText(item.tvDate, text_x, text_y);
 
-					textFont = GuiConst.FONT_DATE;
-					g.setFont(textFont);
-					g.drawText(item.tvDate, text_x, text_y);
+				more_details_y = y
+						+ (getRowHeight() - more_details.getHeight()) / 2;
+				g.drawBitmap(writable_width + padding, more_details_y,
+						more_details.getWidth(), more_details.getHeight(),
+						more_details, 0, 0);
 
-					more_details_y = y
-							+ (getRowHeight() - more_details.getHeight()) / 2;
-					g.drawBitmap(writable_width + padding, more_details_y,
-							more_details.getWidth(), more_details.getHeight(),
-							more_details, 0, 0);
-				}
 			}
 			break;
 		case 3:
@@ -259,7 +258,8 @@ public class CustomListField extends ListField implements ListFieldCallback {
 						tempString = "...";
 					} else {
 						if (word != 0) {
-							text_y += GuiConst.FONT_TABLE_HEADER.getHeight() + padding;
+							text_y += GuiConst.FONT_TABLE_HEADER.getHeight()
+									+ padding;
 							text_x = padding;
 						} else {
 							text_y = y
@@ -268,10 +268,10 @@ public class CustomListField extends ListField implements ListFieldCallback {
 					}
 					lineNo++;
 				}
-				
+
 				g.drawText(tempString + " ", text_x, text_y);
 				text_x += wordWidth;
-				
+
 			}
 			text_y += textFont.getHeight() + padding;
 		}
