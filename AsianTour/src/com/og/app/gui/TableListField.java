@@ -16,8 +16,10 @@ import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
 import com.og.app.util.Utility;
 
-public class TableListField extends ListField implements
-		ListFieldCallback/*, Runnable*/ {
+public class TableListField extends ListField implements ListFieldCallback/*
+																		 * ,
+																		 * Runnable
+																		 */{
 
 	// screen sizes: 320, 360, 480
 
@@ -35,7 +37,7 @@ public class TableListField extends ListField implements
 
 	protected Object lock = new Object();
 	protected ListFieldListener listener = null;
-	
+
 	Font textFont = GuiConst.FONT_TABLE_HEADER;
 
 	public int table = 1;
@@ -54,19 +56,6 @@ public class TableListField extends ListField implements
 	public int total_x = 0;
 
 	static final int constantColWidth = (GuiConst.SCREENWIDTH / 20);
-
-	// header for TV Schedule table
-	static final String[] tvLabel = { "Tour Name", "Date",
-			"Time", "Broadcaster", "Region" };
-	static final int[] tvWidth = { constantColWidth * 7, constantColWidth * 6,
-			constantColWidth * 5, constantColWidth * 6, constantColWidth * 5 };
-
-	// header for Tour Schedule table
-	static final String[] tourLabel = { "Tour Date", "Country", "Tour Name",
-			"Venue", "Def Champion", "Prize Money" };
-	static final int[] tourWidth = { constantColWidth * 5,
-			constantColWidth * 4, constantColWidth * 6, constantColWidth * 3,
-			constantColWidth * 5, constantColWidth * 6 };
 
 	// header for Live Score table
 	static final String[] liveLabel = { "Player", "Mark", "Country", "Pos",
@@ -121,16 +110,8 @@ public class TableListField extends ListField implements
 		super.onUnfocus();
 	}
 
-	public Vector getAllElements() {
-		return _elements;
-	}
-
 	public int getSize() {
 		return _elements.size();
-	}
-
-	public void addElements(DataCentre element) {
-		add(element);
 	}
 
 	protected void add(DataCentre element) {
@@ -140,9 +121,6 @@ public class TableListField extends ListField implements
 		}
 	}
 
-//	public void run() {
-//	}
-
 	public void drawListRow(ListField listField, Graphics g, int index, int y,
 			int width) {
 		/*
@@ -150,449 +128,7 @@ public class TableListField extends ListField implements
 		 * of Merit
 		 */
 
-		switch (table) {
-
-		/* TV Schedule */
-		case 1:
-			if (page == 1) {
-				if (index == 0) {
-					textFont = GuiConst.FONT_TABLE_HEADER;
-					setupBackground(g, index, y);
-					// if row is zero, it is a header row, set up Table Header
-					g.setColor(GuiConst.FONT_COLOR_WHITE);
-					g.setFont(textFont);
-					
-					
-					for (int i = 0; i < 3; i++) {
-						text_y = (header_bg.getHeight() - textFont.getHeight()) / 2;
-						g.drawText(tvLabel[i], prev_x, text_y);
-
-						prev_x += tvWidth[i] + padding;
-
-						if (i == 2) {
-							g.drawBitmap((GuiConst.SCREENWIDTH - next_icon
-									.getWidth()), text_y - 2, next_icon
-									.getWidth(), next_icon.getHeight(),
-									next_icon, 0, 0);
-						} else {
-							g.drawBitmap(prev_x, 2, header_separator
-									.getWidth(), header_separator.getHeight(),
-									header_separator, 0, 0);
-						}
-
-						prev_x += header_separator.getWidth() + padding;
-
-					}
-					// next row
-					if ((getRowHeight() == header_bg.getHeight()) && (index == 0)) {
-						setRowHeight(odd_bg.getHeight() + border.getHeight());
-					}
-					
-					text_x = padding;
-					temp_x = 0;
-					prev_x = padding;
-					row++;
-				} else {
-
-					setupBackground(g, index, y);
-
-					// get content in array and draw list
-					text_y = y + padding;
-					text_x = padding;
-					temp_x = padding;
-
-					// //System.out.println("this is row index : " + index);
-					DataCentre item = (DataCentre) _elements.elementAt(index-1);
-
-					setupCell(g, item.tvName, y, tvWidth[0]);
-					setupCell(g, item.tvDate, y, tvWidth[1]);
-					setupCell(g, item.tvBroadcastTime, y, tvWidth[2]);
-
-					row = 0;
-					temp_x = padding;
-					text_x = padding;
-					prev_x = padding;
-					bg_y = y;
-				}
-			} else if (page == 2) {
-				if (index == 0) {
-					textFont = GuiConst.FONT_TABLE_HEADER;
-					setupBackground(g, index, y);
-					// if row is zero, it is a header row, set up Table Header
-					g.setColor(GuiConst.FONT_COLOR_WHITE);
-					g.setFont(textFont);
-					text_y = (header_bg.getHeight() - textFont.getHeight()) / 2;
-
-					g.drawBitmap(padding, text_y, prev_icon.getWidth(),
-							prev_icon.getHeight(), prev_icon, 0, 0);
-
-					prev_x += prev_icon.getWidth() + padding;
-
-					for (int i = 0; i < tvLabel.length; i++) {
-						if ((i == 0) || (i == 3) || (i == 4)) {
-
-							g.drawText(tvLabel[i], prev_x, text_y);
-
-							prev_x += tvWidth[i] + padding; // +
-							// header_separator.getWidth();//textFont.getAdvance(tvLabel[i]);
-							// + this_x;
-
-							if (i != 4) {
-								g.drawBitmap(prev_x, 2, header_separator
-										.getWidth(), header_separator
-										.getHeight(), header_separator, 0, 0);
-							}
-
-							prev_x += header_separator.getWidth() + padding;
-						}
-					}
-					// next row
-					// text_y += header_separator.getHeight();
-					if (getRowHeight() == header_bg.getHeight()) {
-						setRowHeight(odd_bg.getHeight() + border.getHeight());
-					}
-					text_x = padding;
-					temp_x = 0;
-					prev_x = padding;
-					row++;
-				} else {
-					
-					setupBackground(g, index, y);
-
-					// get content in array and draw list
-					// setupBackground(g);
-					text_y = y + padding;
-					text_x = padding + prev_icon.getWidth() + padding;
-					temp_x = text_x;
-
-					// text_x += +padding;
-
-					// System.out.println("this is row index : " + index);
-					DataCentre item = (DataCentre) _elements.elementAt(index-1);
-
-					setupCell(g, item.tvName, y, tvWidth[0]);
-					setupCell(g, item.tvBroadcaster, y, tvWidth[3]);
-					setupCell(g, item.tvRegion, y, tvWidth[4]);
-					
-					row++;
-					if (row > index) {
-						row = 0;
-						temp_x = padding;
-						text_x = padding;
-						prev_x = padding;
-						bg_y = y;
-					}
-				}
-			}
-			break;
-
-		/* Tour Schedule */
-		case 2:
-			
-			if (page == 1) {
-				if (index == 0) {
-					textFont = GuiConst.FONT_TABLE_HEADER;
-					setupBackground(g, index, y);
-					// if row is zero, it is a header row, set up Table Header
-					g.setColor(GuiConst.FONT_COLOR_WHITE);
-					g.setFont(textFont);
-					text_y = (header_bg.getHeight() - textFont.getHeight()) / 2;
-					for (int i = 0; i < 3; i++) {
-
-						g.drawText(tourLabel[i], prev_x, text_y);
-
-						prev_x += tourWidth[i] + padding;
-
-						if (i == 2) {
-							g.drawBitmap((GuiConst.SCREENWIDTH - next_icon
-									.getWidth()), text_y - 2, next_icon
-									.getWidth(), next_icon.getHeight(),
-									next_icon, 0, 0);
-						} else {
-							g.drawBitmap(prev_x, 2, header_separator
-									.getWidth(), header_separator.getHeight(),
-									header_separator, 0, 0);
-						}
-
-						prev_x += header_separator.getWidth() + padding;
-
-					}
-					// next row
-					if (getRowHeight() == header_bg.getHeight()) {
-						setRowHeight(odd_bg.getHeight() + border.getHeight());
-					}
-					text_x = padding;
-					temp_x = 0;
-					prev_x = padding;
-					row++;
-				} else {
-
-					setupBackground(g, index, y);
-
-					// get content in array and draw list
-					text_y = y + padding;
-					text_x = padding;
-					temp_x = padding;
-
-					// //System.out.println("this is row index : " + index);
-					DataCentre item = (DataCentre) _elements.elementAt(index-1);
-
-					setupCell(g,item.tourDate, y, tourWidth[0]);
-					setupCell(g, item.tourCountry, y, tourWidth[1]);
-					setupCell(g, item.tourName, y, tourWidth[2]);
-
-					// row ++;
-					// if (row > index) {
-					row = 0;
-					temp_x = padding;
-					text_x = padding;
-					prev_x = padding;
-					bg_y = y;
-					// }
-				}
-			} else if (page == 2) {
-				if (index == 0) {
-					textFont = GuiConst.FONT_TABLE_HEADER;
-					setupBackground(g, index, y);
-					// if row is zero, it is a header row, set up Table Header
-					g.setColor(GuiConst.FONT_COLOR_WHITE);
-					g.setFont(textFont);
-					text_y = (header_bg.getHeight() - textFont.getHeight()) / 2;
-
-					g.drawBitmap(padding, text_y, prev_icon.getWidth(),
-							prev_icon.getHeight(), prev_icon, 0, 0);
-
-					prev_x += prev_icon.getWidth() + padding;
-
-					for (int i = 0; i < tourLabel.length; i++) {
-						if ((i == 2) || (i == 3) || (i == 4) || (i == 5)) {
-
-							g.drawText(tourLabel[i], prev_x, text_y);
-
-							prev_x += tourWidth[i] + padding; // +
-							// header_separator.getWidth();//textFont.getAdvance(tvLabel[i]);
-							// + this_x;
-
-							if (i != 5) {
-								g.drawBitmap(prev_x, 2, header_separator
-										.getWidth(), header_separator
-										.getHeight(), header_separator, 0, 0);
-							}
-
-							prev_x += header_separator.getWidth() + padding;
-						}
-					}
-					// next row
-					// text_y += header_separator.getHeight();
-					if (getRowHeight() == header_bg.getHeight()) {
-						setRowHeight(odd_bg.getHeight() + border.getHeight());
-					}
-					text_x = padding;
-					temp_x = 0;
-					prev_x = padding;
-					row++;
-				} else {
-
-					setupBackground(g, index, y);
-
-					// get content in array and draw list
-					// setupBackground(g);
-					text_y = y + padding;
-					text_x = padding + prev_icon.getWidth() + padding;
-					temp_x = text_x;
-
-					// text_x += +padding;
-
-					// System.out.println("this is row index : " + index);
-					DataCentre item = (DataCentre) _elements.elementAt(index);
-
-					String printText = item.tourName;
-					Vector vText = Utility.breakIntoWords(printText);
-					int lineNo = 1;
-
-					textFont = GuiConst.FONT_TABLE;
-					g.setFont(textFont);
-					g.setColor(GuiConst.FONT_COLOR_BLACK);
-
-					if (textFont.getAdvance(printText) <= tourWidth[2]) {
-						text_y = y
-								+ ((getRowHeight() - textFont.getHeight()) / 2);
-						g.drawText(printText + " ", text_x, text_y);
-					} else {
-						for (int word = 0; word < vText.size(); word++) {
-							if (lineNo > 2) {
-								break;
-							}
-
-							String tempString = (String) vText.elementAt(word);
-							int wordWidth = GuiConst.FONT_TABLE
-									.getAdvance(tempString + " ");
-							if ((text_x + wordWidth >= tourWidth[2])
-									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[2] * 75) / 100)))) {
-								if (lineNo == 2) {
-									tempString = "...";
-								} else {
-									if (word != 0) {
-										text_y += GuiConst.FONT_TABLE.getHeight()
-												+ padding;
-										text_x = temp_x;
-									} else {
-										text_y = y
-										+ ((getRowHeight() - textFont.getHeight()) / 2);
-									}
-								}
-								lineNo++;
-							}
-
-							g.drawText(tempString + " ", text_x, text_y);
-							text_x += wordWidth;
-						}
-					}
-
-					text_y = y + padding;
-					temp_x += tourWidth[2] + padding
-							+ header_separator.getWidth() + padding;// +tvWidth[1];
-					text_x = temp_x;
-					lineNo = 1;
-
-					printText = item.tourGClub;
-					vText = Utility.breakIntoWords(printText);
-					if (textFont.getAdvance(printText) <= tourWidth[3]) {
-						text_y = y
-								+ ((getRowHeight() - textFont.getHeight()) / 2);
-						g.drawText(printText + " ", text_x, text_y);
-					} else {
-						for (int word = 0; word < vText.size(); word++) {
-							if (lineNo > 2) {
-								break;
-							}
-
-							String tempString = (String) vText.elementAt(word);
-							int wordWidth = GuiConst.FONT_TABLE
-									.getAdvance(tempString + " ");
-							if ((text_x + wordWidth >= tourWidth[3])
-									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[3] * 75) / 100)))) {
-								if (lineNo == 2) {
-									tempString = "...";
-								} else {
-									if (word != 0) {
-										text_y += GuiConst.FONT_TABLE.getHeight()
-												+ padding;
-										text_x = temp_x;
-									} else {
-										text_y = y
-										+ ((getRowHeight() - textFont.getHeight()) / 2);
-									}
-								}
-								lineNo++;
-							}
-
-							g.drawText(tempString + " ", text_x, text_y);
-							text_x += wordWidth;
-						}
-					}
-
-					text_y = y + padding;
-					temp_x += tourWidth[3] + header_separator.getWidth()
-							+ padding;
-					text_x = temp_x;
-					lineNo = 1;
-
-					printText = item.tourDefChampion;
-					vText = Utility.breakIntoWords(printText);
-					if (textFont.getAdvance(printText) <= tourWidth[4]) {
-						text_y = y
-								+ ((getRowHeight() - textFont.getHeight()) / 2);
-						g.drawText(printText + " ", text_x, text_y);
-					} else {
-						for (int word = 0; word < vText.size(); word++) {
-							if (lineNo > 2) {
-								break;
-							}
-
-							String tempString = (String) vText.elementAt(word);
-							int wordWidth = GuiConst.FONT_TABLE
-									.getAdvance(tempString + " ");
-							if ((text_x + wordWidth >= tourWidth[4])
-									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[4] * 75) / 100)))) {
-								if (lineNo == 2) {
-									tempString = "...";
-								} else {
-									if (word != 0) {
-										text_y += GuiConst.FONT_TABLE.getHeight()
-												+ padding;
-										text_x = temp_x;
-									} else {
-										text_y = y
-										+ ((getRowHeight() - textFont.getHeight()) / 2);
-									}
-								}
-								lineNo++;
-							}
-
-							g.drawText(tempString + " ", text_x, text_y);
-							text_x += wordWidth;
-						}
-					}
-
-					text_y = y + padding;
-					temp_x += tourWidth[4] + header_separator.getWidth()
-							+ padding;
-					text_x = temp_x;
-					lineNo = 1;
-
-					printText = item.tourPrize;
-					vText = Utility.breakIntoWords(printText);
-					if (textFont.getAdvance(printText) <= tourWidth[5]) {
-						text_y = y
-								+ ((getRowHeight() - textFont.getHeight()) / 2);
-						g.drawText(printText + " ", text_x, text_y);
-					} else {
-						for (int word = 0; word < vText.size(); word++) {
-							if (lineNo > 2) {
-								break;
-							}
-
-							String tempString = (String) vText.elementAt(word);
-							int wordWidth = GuiConst.FONT_TABLE
-									.getAdvance(tempString + " ");
-							if ((text_x + wordWidth >= tourWidth[5])
-									|| ((lineNo == 2) && (text_x + wordWidth >= ((tourWidth[5] * 75) / 100)))) {
-								if (lineNo == 2) {
-									tempString = "...";
-								} else {
-									if (word != 0) {
-										text_y += GuiConst.FONT_TABLE.getHeight()
-												+ padding;
-										text_x = temp_x;
-									} else {
-										text_y = y
-										+ ((getRowHeight() - textFont.getHeight()) / 2);
-									}
-								}
-								lineNo++;
-							}
-
-							g.drawText(tempString + " ", text_x, text_y);
-							text_x += wordWidth;
-						}
-					}
-
-					row++;
-					if (row > index) {
-						row = 0;
-						temp_x = padding;
-						text_x = padding;
-						prev_x = padding;
-						bg_y = y;
-					}
-				}
-			}
-
-			break;
-
-		/* Live Score */
-		case 3:
+		if (table == 3) {
 			if (page == 1) {
 				if (index == 0) {
 					textFont = GuiConst.FONT_TABLE_HEADER;
@@ -613,8 +149,9 @@ public class TableListField extends ListField implements
 									.getWidth(), next_icon.getHeight(),
 									next_icon, 0, 0);
 						} else {
-							g.drawBitmap(prev_x, 2, header_separator
-									.getWidth(), header_separator.getHeight(),
+							g.drawBitmap(prev_x, 2,
+									header_separator.getWidth(),
+									header_separator.getHeight(),
 									header_separator, 0, 0);
 						}
 
@@ -639,10 +176,11 @@ public class TableListField extends ListField implements
 					temp_x = padding;
 
 					// //System.out.println("this is row index : " + index);
-					DataCentre item = (DataCentre) _elements.elementAt(index-1);
+					DataCentre item = (DataCentre) _elements
+							.elementAt(index - 1);
 
-					
-					setupCell(g, item.ls_playerFirstName + " " + item.ls_playerLastName, y, liveWidth[0]);
+					setupCell(g, item.ls_playerFirstName + " "
+							+ item.ls_playerLastName, y, liveWidth[0]);
 
 					setupCell(g, item.ls_mark, y, liveWidth[1]);
 
@@ -654,11 +192,7 @@ public class TableListField extends ListField implements
 					bg_y = y;
 				}
 			}
-			break;
-
-		/* Order of Merit */
-		case 4:
-
+		} else if (table == 4) {
 			if (index == 0) {
 				textFont = GuiConst.FONT_TABLE_HEADER;
 				setupBackground(g, index, y);
@@ -670,14 +204,12 @@ public class TableListField extends ListField implements
 
 					g.drawText(meritLabel[i], prev_x, text_y);
 
-					prev_x += meritWidth[i] + padding; // +
-					// header_separator.getWidth();//textFont.getAdvance(tvLabel[i]);
-					// + this_x;
+					prev_x += meritWidth[i] + padding;
 
 					if (i != (meritLabel.length - 1)) {
-						g.drawBitmap(prev_x, 2, header_separator
-								.getWidth(), header_separator.getHeight(),
-								header_separator, 0, 0);
+						g.drawBitmap(prev_x, 2, header_separator.getWidth(),
+								header_separator.getHeight(), header_separator,
+								0, 0);
 					}
 
 					prev_x += header_separator.getWidth() + padding;
@@ -700,28 +232,22 @@ public class TableListField extends ListField implements
 				text_x = padding;
 				temp_x = padding;
 
-				// //System.out.println("this is row index : " + index);
-				DataCentre item = (DataCentre) _elements.elementAt(index-1);
-				
+				DataCentre item = (DataCentre) _elements.elementAt(index - 1);
+
 				setupCell(g, item.merit_player, y, meritWidth[0]);
 				setupCell(g, item.merit_pos, y, meritWidth[1]);
 				setupCell(g, item.merit_prize, y, meritWidth[2]);
 
-				// row ++;
-				// if (row > index) {
 				row = 0;
 				temp_x = padding;
 				text_x = padding;
 				prev_x = padding;
 				bg_y = y;
-				// }
 			}
-
-			break;
 		}
 		// 192.168.1.48 HPJET 3030
 	}
-	
+
 	private void setupCell(Graphics g, String printText, int y, int compareWidth) {
 		Vector vText = Utility.breakIntoWords(printText);
 		int lineNo = 1;
@@ -729,10 +255,9 @@ public class TableListField extends ListField implements
 		textFont = GuiConst.FONT_TABLE;
 		g.setFont(textFont);
 		g.setColor(GuiConst.FONT_COLOR_BLACK);
-                                              
+
 		if (textFont.getAdvance(printText) <= compareWidth) {
-			text_y = y
-					+ ((getRowHeight() - textFont.getHeight()) / 2);
+			text_y = y + ((getRowHeight() - textFont.getHeight()) / 2);
 			g.drawText(printText + " ", text_x, text_y);
 		} else {
 			for (int word = 0; word < vText.size(); word++) {
@@ -749,12 +274,11 @@ public class TableListField extends ListField implements
 						tempString = "...";
 					} else {
 						if (word != 0) {
-							text_y += GuiConst.FONT_TABLE.getHeight()
-									+ padding;
+							text_y += GuiConst.FONT_TABLE.getHeight() + padding;
 							text_x = temp_x;
 						} else {
 							text_y = y
-							+ ((getRowHeight() - textFont.getHeight()) / 2);
+									+ ((getRowHeight() - textFont.getHeight()) / 2);
 						}
 					}
 					lineNo++;
@@ -765,7 +289,8 @@ public class TableListField extends ListField implements
 			}
 		}
 		text_y = y + padding;
-		temp_x += compareWidth + padding + header_separator.getWidth() + padding;
+		temp_x += compareWidth + padding + header_separator.getWidth()
+				+ padding;
 		text_x = temp_x;
 	}
 
@@ -818,35 +343,19 @@ public class TableListField extends ListField implements
 		return super.keyChar(key, status, time);
 	}
 
-	public synchronized void saveChanges(DataCentre ni, int index) {
-		try {
-			// to save news as loaded/read
-			// System.out.println("saveeeededdd");
-		} catch (Exception e) {
-			// System.out.println("aloy.CustomListField.exceptione.saveChanges(ni, index):"+e);
-		}
-	}
+	// public synchronized void saveChanges(DataCentre ni, int index) {
+	// try {
+	// // to save news as loaded/read
+	// // System.out.println("saveeeededdd");
+	// } catch (Exception e) {
+	// //
+	// System.out.println("aloy.CustomListField.exceptione.saveChanges(ni, index):"+e);
+	// }
+	// }
 
 	public boolean navigationClick(int status, int time) {
 		// System.out.println("aloy.CustomListField.navigationClick: got enter or not?");
 
 		return false;
-	}
-
-	public void remove(int index) {
-		synchronized (lock) {
-			_elements.removeElementAt(index);
-			setSize(getSize());
-		}
-		invalidate();
-
-	}
-
-	protected void removeAll() {
-		synchronized (lock) {
-			_elements.removeAllElements();
-			setSize(0);
-		}
-		invalidate();
 	}
 }

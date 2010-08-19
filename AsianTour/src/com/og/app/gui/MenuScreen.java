@@ -95,8 +95,6 @@ public class MenuScreen extends TransitionableMainScreen implements
 		tablePanel = TablePanel.getInstance(this, GuiConst.SCREENHEIGHT
 				- GuiConst.TABPANEL_HEIGHT - GuiConst.LOGOPANEL_HEIGHT,
 				tableNo, 1);
-		// dataPanel = DataPanel.getInstance(this, GuiConst.SCREENHEIGHT
-		// - GuiConst.TABPANEL_HEIGHT - GuiConst.LOGOPANEL_HEIGHT, 1);
 	}
 
 	public void initSchedulePkg(int tableNo) {
@@ -190,8 +188,6 @@ public class MenuScreen extends TransitionableMainScreen implements
 	}
 
 	public void repaintScreen() {
-		// this.removeAllMenuItems();
-		// addMenuItems();
 		logoPanel.invalidate();
 	}
 
@@ -216,11 +212,6 @@ public class MenuScreen extends TransitionableMainScreen implements
 	}
 
 	public boolean isSelectedTabHasNews() {
-		/*
-		 * if ( selectedTab==Const.ID_SETTING){ return true; }else if (
-		 * selectedTab==Const.ID_PHOTOGALLERY){ return photopanel.hasPhoto(); }
-		 * return newspanel.hasNews();
-		 */
 		return true;
 	}
 
@@ -257,18 +248,14 @@ public class MenuScreen extends TransitionableMainScreen implements
 		// logoPanel.repaintLogoPanel("titlebar_livescore");
 		repainteverything();
 		initTablePkg(3);
-		// logoPanel.repaintLogoPanel("titlebar_livescore");
 		add(logoPanel);
 		add(tabPanel);
 		add(tablePanel);
 	}
 
 	public void showOOMTab() {
-		// CustomDialog dialog = new CustomDialog("Hello");
-		// dialog.show();
 		// logoPanel.repaintLogoPanel("titlebar_orderofmerit");
 		repainteverything();
-		// logoPanel.repaintLogoPanel("titlebar_orderofmerit");
 		initTablePkg(4);
 		add(logoPanel);
 		add(tabPanel);
@@ -278,7 +265,6 @@ public class MenuScreen extends TransitionableMainScreen implements
 	public void showTVScheduleTab() {
 		// logoPanel.repaintLogoPanel("titlebar_tvschedule");
 		repainteverything();
-		// logoPanel.repaintLogoPanel("titlebar_tvschedule");
 		// fieldInit(1);
 		initSchedulePkg(1);
 		add(logoPanel);

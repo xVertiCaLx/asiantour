@@ -137,7 +137,9 @@ public class XmlHelper {
 					}
 				}
 			});
-			
+			MenuScreen.getInstance().repainteverything();
+			MenuScreen.getInstance().initSchedulePkg(2);
+			MenuScreen.getInstance().addPanels("loaded");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("aloy.downloadedTvTimes.exceptione: " + e);
@@ -147,7 +149,7 @@ public class XmlHelper {
 		
 	}
 
-	// download data for TV Schedule data
+	// download data for Tour Schedule data
 	private static final String tour_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListSeasonCurrentSchedule";
 	public static String tour_xml = "";
 
@@ -224,9 +226,7 @@ public class XmlHelper {
 				return new Vector();
 			}
 			collection = XmlParser.parse(data, parseType);
-			MenuScreen.getInstance().repainteverything();
-			MenuScreen.getInstance().initSchedulePkg(2);
-			MenuScreen.getInstance().addPanels("loaded");
+			
 		} else if (parseType == "Tour") {
 			try {
 				data = data.substring(data.indexOf("<ArrayOfAnyType"));

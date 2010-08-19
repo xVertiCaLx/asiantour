@@ -1,12 +1,17 @@
 package com.og.app.gui;
 
-import com.og.app.gui.listener.*;
-import com.og.app.gui.component.*;
+import net.rim.device.api.system.Bitmap;
+import net.rim.device.api.system.Display;
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.Graphics;
+import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.component.LabelField;
+import net.rim.device.api.ui.component.ListField;
+import net.rim.device.api.ui.container.HorizontalFieldManager;
+import net.rim.device.api.ui.container.VerticalFieldManager;
 
-import net.rim.device.api.ui.*;
-import net.rim.device.api.system.*;
-import net.rim.device.api.ui.container.*;
-import net.rim.device.api.ui.component.*;
+import com.og.app.gui.component.SpaceField;
+import com.og.app.gui.listener.ListFieldListener;
 
 public class NewsPanel extends VerticalFieldManager {
     
