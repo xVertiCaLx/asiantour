@@ -1,6 +1,8 @@
 package com.og.app.gui;
 
 //import com.og.app.fakeRecordStore.*;
+import com.og.xml.XmlHelper;
+
 import net.rim.device.api.system.Application;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
@@ -27,6 +29,11 @@ public class SplashScreen extends MainScreen implements Runnable
 
 		thread = new Thread(this);
 		thread.start();
+		
+		XmlHelper.downloadCountry();
+		XmlHelper.downloadTvTimes();
+		XmlHelper.downloadTourSchedule();
+		XmlHelper.downloadOOM();
 		
 	}
 

@@ -45,6 +45,14 @@ public class NewsListField extends CustomListField {
 				return true;         
 			}
 		}     
+		
+		if (dx < 0) {
+			//left
+		} else if (dx > 0) {
+			//right
+			MenuScreen.getInstance().showLiveScoreTab();
+			MenuScreen.getInstance().setSelectedTab(2);
+		}
 		newsPanel.invalidate();
 		return false;
 	}
