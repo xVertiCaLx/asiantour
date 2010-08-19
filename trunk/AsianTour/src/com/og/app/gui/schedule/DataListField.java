@@ -39,7 +39,7 @@ public class DataListField extends CustomListField {
 				MenuScreen.getInstance().showTVScheduleTab();
 			}
 		}
-		
+		dataPanel.invalidate();
 		return false;
 	}
 	
@@ -78,7 +78,7 @@ public class DataListField extends CustomListField {
 						// here change V
 						item.tvIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(
-								new TableDetailsScreen(tableNo, item));
+								new TableDetailsScreen(1, item));
 					}
 					return true;
 				} catch (Exception e) {
@@ -100,7 +100,7 @@ public class DataListField extends CustomListField {
 						// here change V
 						item.tourIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(
-								new TableDetailsScreen(tableNo, item));
+								new TableDetailsScreen(2, item));
 					}
 					return true;
 				} catch (Exception e) {
@@ -109,6 +109,7 @@ public class DataListField extends CustomListField {
 			}
 
 		}
+		dataPanel.invalidate();
 		return false;
 	}
 	

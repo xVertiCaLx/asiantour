@@ -44,33 +44,38 @@ public class CustomListField extends ListField implements ListFieldCallback {
 	protected int tableNo = 1;
 	protected int x;
 	protected int text_y = padding;
+	protected int more_details_y;
 	protected int text_x = padding;
 	protected int temp_x = 0;
 	protected int writable_width;
 	protected int fixRowHeight;
-	protected int instrHeight = GuiConst.HEADER_ROW_HEIGHT + border.getHeight();
+	protected int instrHeight;
 
 	public CustomListField(ListFieldListener listener, int tableNo) {
 		super();
 		this.listener = listener;
 		this.tableNo = tableNo;
 		border = Utility.resizeBitmap(Bitmap
-				.getBitmapResource("res/news_border.png"), GuiConst.SCREENWIDTH, 2);
-		
+				.getBitmapResource("res/news_border.png"),
+				GuiConst.SCREENWIDTH, 2);
+		instrHeight = GuiConst.HEADER_ROW_HEIGHT + border.getHeight();
 		if (tableNo == 1) {
 			fixRowHeight = GuiConst.HEADER_ROW_HEIGHT + border.getHeight();
 		} else {
-			fixRowHeight = (GuiConst.FONT_BOLD.getHeight() *2) + (padding * 2) + GuiConst.FONT_DATE.getHeight() + border.getHeight();
+			fixRowHeight = (GuiConst.FONT_BOLD.getHeight() * 2) + (padding * 2)
+					+ GuiConst.FONT_DATE.getHeight() + border.getHeight();
 		}
-		
+
 		setEmptyString("", DrawStyle.HCENTER);
 		setCallback(this);
 
 		selected_bg = Utility.resizeBitmap(Bitmap
-				.getBitmapResource("res/news_list_selected.png"), GuiConst.SCREENWIDTH, fixRowHeight);
+				.getBitmapResource("res/news_list_selected.png"),
+				GuiConst.SCREENWIDTH, fixRowHeight);
 		unselected_bg = Utility.resizeBitmap(Bitmap
-				.getBitmapResource("res/news_list.png"), GuiConst.SCREENWIDTH, fixRowHeight);
-		
+				.getBitmapResource("res/news_list.png"), GuiConst.SCREENWIDTH,
+				fixRowHeight);
+
 		more_details = Bitmap.getBitmapResource("res/moreDetails.png");
 		setRowHeight(GuiConst.HEADER_ROW_HEIGHT + border.getHeight());
 
@@ -82,7 +87,9 @@ public class CustomListField extends ListField implements ListFieldCallback {
 		/*
 		 * Table Numbers: 1 - List Country 2 - TV Schedule 3 - Tour Schedule
 		 */
-		writable_width = GuiConst.SCREENWIDTH - (padding * 2) - more_details.getWidth();
+		writable_width = GuiConst.SCREENWIDTH - (padding * 2)
+				- more_details.getWidth();
+		more_details_y = (getRowHeight() - more_details.getHeight()) / 2;
 		switch (tableNo) {
 
 		case 1:
@@ -91,20 +98,26 @@ public class CustomListField extends ListField implements ListFieldCallback {
 				background(g, index, y);
 				g.setColor(GuiConst.FONT_COLOR_BLACK);
 				g.setFont(textFont);
-				
+
 				text_y = (instrHeight - textFont.getHeight()) / 2;
-				
+
 				g.drawText(Lang.SELECT_COUNTRY_INSTRUCTION, padding, text_y);
-				
-				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border.getHeight())) && (index == 0)) {
+
+				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border
+						.getHeight()))
+						&& (index == 0)) {
 					setRowHeight(fixRowHeight);
 				}
 			} else {
 				background(g, index, y);
-				
-				item = (DataCentre) _elements.elementAt(index-1);
-				
+
+				item = (DataCentre) _elements.elementAt(index - 1);
+
 				insertData(g, item.country, y);
+
+				g.drawBitmap(writable_width + padding, more_details_y, more_details
+						.getWidth(), more_details.getHeight(), more_details, 0,
+						0);
 			}
 			break;
 
@@ -114,25 +127,30 @@ public class CustomListField extends ListField implements ListFieldCallback {
 				background(g, index, y);
 				g.setColor(GuiConst.FONT_COLOR_BLACK);
 				g.setFont(textFont);
-				
+
 				text_y = (instrHeight - textFont.getHeight()) / 2;
-				
+
 				g.drawText(Lang.SELECT_ROW_INSTRUCTION, padding, text_y);
-				
-				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border.getHeight())) && (index == 0)) {
+
+				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border
+						.getHeight()))
+						&& (index == 0)) {
 					setRowHeight(fixRowHeight);
 				}
 			} else {
+				item = (DataCentre) _elements.elementAt(index - 1);
 				if (item.tvRegion == selected_country) {
 					background(g, index, y);
-					
-					item = (DataCentre) _elements.elementAt(index-1);
-					
+
 					insertData(g, item.tvName, y);
-					
+
 					textFont = GuiConst.FONT_DATE;
 					g.setFont(textFont);
 					g.drawText(item.tvDate, text_x, text_y);
+					
+					g.drawBitmap(writable_width + padding, more_details_y, more_details
+							.getWidth(), more_details.getHeight(), more_details, 0,
+							0);
 				}
 			}
 			break;
@@ -142,24 +160,30 @@ public class CustomListField extends ListField implements ListFieldCallback {
 				background(g, index, y);
 				g.setColor(GuiConst.FONT_COLOR_BLACK);
 				g.setFont(textFont);
-				
+
 				text_y = (instrHeight - textFont.getHeight()) / 2;
-				
+
 				g.drawText(Lang.SELECT_ROW_INSTRUCTION, padding, text_y);
-				
-				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border.getHeight())) && (index == 0)) {
+
+				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border
+						.getHeight()))
+						&& (index == 0)) {
 					setRowHeight(fixRowHeight);
 				}
 			} else {
 				background(g, index, y);
-				
-				item = (DataCentre) _elements.elementAt(index-1);
-				
+
+				item = (DataCentre) _elements.elementAt(index - 1);
+
 				insertData(g, item.tourName, y);
-				
+
 				textFont = GuiConst.FONT_DATE;
 				g.setFont(textFont);
-				g.drawText(item.tourDate + ", " + item.tourCountry, text_x, text_y);
+				g.drawText(item.tourDate + ", " + item.tourCountry, text_x,
+						text_y);
+				g.drawBitmap(writable_width + padding, more_details_y, more_details
+						.getWidth(), more_details.getHeight(), more_details, 0,
+						0);
 			}
 			break;
 		}
@@ -169,36 +193,35 @@ public class CustomListField extends ListField implements ListFieldCallback {
 	public void background(Graphics g, int index, int y) {
 		if (index == 0) {
 			y = GuiConst.HEADER_ROW_HEIGHT;
-			g.drawBitmap(0, y, this.getPreferredWidth(), border
-					.getHeight(), border, 0, 0);
+			g.drawBitmap(0, y, this.getPreferredWidth(), border.getHeight(),
+					border, 0, 0);
 		} else {
 			if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
-				g.drawBitmap(0, y, this.getPreferredWidth(), selected_bg
+				g.drawBitmap(0, y, selected_bg.getWidth(), selected_bg
 						.getHeight(), selected_bg, 0, 0);
-				y += selected_bg.getHeight();
-				g.drawBitmap(0, y, this.getPreferredWidth(), border
-						.getHeight(), border, 0, 0);
+				y += getRowHeight() - border.getHeight();
+				g.drawBitmap(0, y, border.getWidth(), border.getHeight(),
+						border, 0, 0);
 			} else {
-				g.drawBitmap(0, y, this.getPreferredWidth(), unselected_bg
+				g.drawBitmap(0, y, unselected_bg.getWidth(), unselected_bg
 						.getHeight(), unselected_bg, 0, 0);
-				y += unselected_bg.getHeight();
-				g.drawBitmap(0, y, this.getPreferredWidth(), border
-						.getHeight(), border, 0, 0);
+				y += getRowHeight() - border.getHeight();
+				g.drawBitmap(0, y, border.getWidth(), border.getHeight(),
+						border, 0, 0);
 			}
 		}
 	}
-	
+
 	private void insertData(Graphics g, String printText, int y) {
 		Vector vText = Utility.breakIntoWords(printText);
 		int lineNo = 1;
-		
+
 		textFont = GuiConst.FONT_TABLE;
 		g.setFont(textFont);
 		g.setColor(GuiConst.FONT_COLOR_BLACK);
-                                              
+
 		if (textFont.getAdvance(printText) <= writable_width) {
-			text_y = y
-					+ ((getRowHeight() - textFont.getHeight()) / 2);
+			text_y = y + ((getRowHeight() - textFont.getHeight()) / 2);
 			g.drawText(printText + " ", text_x, text_y);
 		} else {
 			for (int word = 0; word < vText.size(); word++) {
@@ -215,12 +238,11 @@ public class CustomListField extends ListField implements ListFieldCallback {
 						tempString = "...";
 					} else {
 						if (word != 0) {
-							text_y += GuiConst.FONT_TABLE.getHeight()
-									+ padding;
+							text_y += GuiConst.FONT_TABLE.getHeight() + padding;
 							text_x = temp_x;
 						} else {
 							text_y = y
-							+ ((getRowHeight() - textFont.getHeight()) / 2);
+									+ ((getRowHeight() - textFont.getHeight()) / 2);
 						}
 					}
 					lineNo++;
@@ -231,7 +253,8 @@ public class CustomListField extends ListField implements ListFieldCallback {
 			}
 		}
 		text_y = y + padding;
-		//temp_x += compareWidth + padding + header_separator.getWidth() + padding;
+		// temp_x += compareWidth + padding + header_separator.getWidth() +
+		// padding;
 		text_x = padding;
 	}
 
