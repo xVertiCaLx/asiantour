@@ -124,9 +124,10 @@ public class MenuScreen extends TransitionableMainScreen implements
 			AnimatedImageField loading = new AnimatedImageField(300, load_icon
 					.getHeight(), load_icon, 12, 100, Field.FIELD_HCENTER
 					| Field.FOCUSABLE);
-			
+			loading.startAnimation();
 			vFM.add(loading);
 			add(vFM);
+
 		}
 	}
 
