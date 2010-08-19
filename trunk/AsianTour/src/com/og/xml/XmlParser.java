@@ -1,3 +1,10 @@
+/*
+ * MenuScreen.getInstance().repainteverything();
+				MenuScreen.getInstance().initSchedulePkg(2);
+				MenuScreen.getInstance().addPanels("loaded");
+ */
+
+
 package com.og.xml;
 
 import java.io.ByteArrayInputStream;
@@ -15,6 +22,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.og.app.gui.MenuScreen;
+import com.og.app.gui.schedule.DataPanel;
 
 public class XmlParser {
 	
@@ -77,7 +85,6 @@ public class XmlParser {
 				xmlItem.index = count;
 				xmlItemCollection.addElement(xmlItem);
 				count = 1;
-
 			} catch (ParserConfigurationException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -88,6 +95,8 @@ public class XmlParser {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("how many meh meh jumping over the wall?");
+			
 		} else if (parseType == "Tour") {
 			// Vector<XmlTourScheduleItem>
 			try {

@@ -137,15 +137,14 @@ public class XmlHelper {
 					}
 				}
 			});
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("aloy.downloadedTvTimes.exceptione: " + e);
 			return;
 		}
 		
-		MenuScreen.getInstance().repainteverything();
-		MenuScreen.getInstance().initSchedulePkg(2);
-		MenuScreen.getInstance().addPanels("loaded");
+		
 	}
 
 	// download data for TV Schedule data
@@ -225,6 +224,9 @@ public class XmlHelper {
 				return new Vector();
 			}
 			collection = XmlParser.parse(data, parseType);
+			MenuScreen.getInstance().repainteverything();
+			MenuScreen.getInstance().initSchedulePkg(2);
+			MenuScreen.getInstance().addPanels("loaded");
 		} else if (parseType == "Tour") {
 			try {
 				data = data.substring(data.indexOf("<ArrayOfAnyType"));
