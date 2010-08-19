@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import net.rim.device.api.system.Application;
 import net.rim.device.api.system.Characters;
-import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
 
 import com.og.app.gui.MenuScreen;
@@ -86,8 +85,6 @@ public class DataListField extends CustomListField {
 						// here change V
 						DataCentre item = (DataCentre) MenuScreen.getInstance().tvTimesCollection
 								.elementAt(getSelectedIndex()-1);
-						Screen s = UiApplication.getUiApplication()
-								.getActiveScreen();
 						// here change V
 						item.tvIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(
@@ -108,8 +105,6 @@ public class DataListField extends CustomListField {
 						// here change V
 						DataCentre item = (DataCentre) MenuScreen.getInstance().tourScheduleCollection
 								.elementAt(getSelectedIndex()-1);
-						Screen s = UiApplication.getUiApplication()
-								.getActiveScreen();
 						// here change V
 						item.tourIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(
@@ -137,8 +132,7 @@ public class DataListField extends CustomListField {
 	}
 	
 	public void loadTableData(int tableNo) {
-		// setRowHeight();
-		synchronized (lock) {
+		//synchronized (lock) {
 			/*
 			 * Table No: 1 - TV Schedule 2 - Tour Schedule 3 - Live Score 4 -
 			 * Order of Merit
@@ -150,16 +144,18 @@ public class DataListField extends CustomListField {
 					add((DataCentre) country.elementAt(i));
 				}
 
-			} else if (tableNo == 2) {
+			} 
+
+			if (tableNo == 2) {
 
 				Vector tvTimes = MenuScreen.getInstance().tvTimesCollection;
 				for (int i = 0; i < tvTimes.size(); i++) {
 					add((DataCentre) tvTimes.elementAt(i));
 				}
 				
-				
+			} 
 
-			} else if (tableNo == 3) {
+			if (tableNo == 3) {
 
 				Vector tourSchedule = MenuScreen.getInstance().tourScheduleCollection;
 				for (int i = 0; i < tourSchedule.size(); i++) {
@@ -167,6 +163,6 @@ public class DataListField extends CustomListField {
 				}
 
 			} 
-		}
+		//}
 	}
 }

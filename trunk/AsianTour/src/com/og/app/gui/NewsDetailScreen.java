@@ -23,7 +23,6 @@ import com.og.app.gui.component.ShareButtonField;
 import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
-import com.og.app.gui.listener.ImageButtonListener;
 import com.og.app.util.ConnectionMgr;
 import com.og.app.util.Utility;
 import com.og.xml.ANewsItemObj;

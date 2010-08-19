@@ -9,7 +9,6 @@ import net.rim.device.api.ui.UiApplication;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
 
-//
 public class TableDataListField extends TableListField {
 
 	private TablePanel tablePanel = null;
@@ -82,8 +81,6 @@ public class TableDataListField extends TableListField {
 					synchronized (Application.getEventLock()) {
 						DataCentre item = (DataCentre) MenuScreen.getInstance().tvTimesCollection
 								.elementAt(getSelectedIndex() - 1);
-						Screen s = UiApplication.getUiApplication()
-								.getActiveScreen();
 						item.tvIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(
 								new TableDetailsScreen(table, item));
@@ -104,8 +101,6 @@ public class TableDataListField extends TableListField {
 						// here change V
 						DataCentre item = (DataCentre) MenuScreen.getInstance().tourScheduleCollection
 								.elementAt(getSelectedIndex());
-						Screen s = UiApplication.getUiApplication()
-								.getActiveScreen();
 						// here change V
 						item.tourIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(

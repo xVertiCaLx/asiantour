@@ -2,22 +2,17 @@ package com.og.app.gui;
 
 import java.io.IOException;
 
-import javax.wireless.messaging.BinaryMessage;
+import net.rim.device.api.system.Application;
+import net.rim.device.api.ui.Screen;
+import net.rim.device.api.ui.UiApplication;
 
-import com.og.app.gui.listener.*;
+import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.Utility;
 import com.og.app.util.WebDataCallback;
 import com.og.xml.ANewsItemObj;
 
-import net.rim.device.api.collection.Collection;
-import net.rim.device.api.collection.SortableCollection;
-import net.rim.device.api.system.*;
-import net.rim.device.api.ui.*;
-
 public class NewsListField extends CustomListField {
 	private NewsPanel newsPanel = null;
-	private String feedname = "";
-	private int newsID = 0;
 	ANewsItemObj[] item = new ANewsItemObj[5];
 
 	public NewsListField(NewsPanel newsPanel, ListFieldListener listener) {
@@ -64,7 +59,6 @@ public class NewsListField extends CustomListField {
 			try{
 				synchronized(Application.getEventLock() ){
 					ANewsItemObj ni = (ANewsItemObj)MenuScreen.getInstance().newsCollection.elementAt(getSelectedIndex());
-					Screen s = UiApplication.getUiApplication().getActiveScreen();
 					ni.index=getSelectedIndex();
 					UiApplication.getUiApplication().pushScreen(new NewsDetailScreen(this, ni));
 				}

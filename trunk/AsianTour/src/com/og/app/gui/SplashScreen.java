@@ -1,8 +1,6 @@
 package com.og.app.gui;
 
 //import com.og.app.fakeRecordStore.*;
-import com.og.xml.XmlHelper;
-
 import net.rim.device.api.system.Application;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
@@ -10,6 +8,8 @@ import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.container.MainScreen;
+
+import com.og.xml.XmlHelper;
 
 public class SplashScreen extends MainScreen implements Runnable
 {

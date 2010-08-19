@@ -140,7 +140,7 @@ public class GuiConst{
             datefont_size++;
         }while(true);         
 
-            if ( net.rim.device.api.system.Display.getWidth()>320 )
+		if (net.rim.device.api.system.Display.getWidth()>320 )
                 FONT_VERSION  = defaultFont.getFontFamily().getFont(Font.PLAIN, FONTSIZE_ARR2[2]);
             else
                 FONT_VERSION  = defaultFont.getFontFamily().getFont(Font.PLAIN, FONTSIZE_ARR[2]);        
