@@ -28,15 +28,19 @@ public class DataListField extends CustomListField {
 			//right
 			if ((tableNo == 1) || (tableNo == 2)) {
 				MenuScreen.getInstance().showTourScheduleTab();
+				MenuScreen.getInstance().setSelectedTab(4);
 			} else if (tableNo == 3) {
 				MenuScreen.getInstance().showOOMTab();
+				MenuScreen.getInstance().setSelectedTab(5);
 			}
 		} else if (dx < 0) {
 			//left
 			if ((tableNo == 1) || (tableNo == 2)) {
 				MenuScreen.getInstance().showLiveScoreTab();
+				MenuScreen.getInstance().setSelectedTab(2);
 			} else if (tableNo == 3) {
 				MenuScreen.getInstance().showTVScheduleTab();
+				MenuScreen.getInstance().setSelectedTab(3);
 			}
 		}
 		dataPanel.invalidate();

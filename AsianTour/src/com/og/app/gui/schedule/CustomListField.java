@@ -2,7 +2,6 @@ package com.og.app.gui.schedule;
 
 import java.util.Vector;
 
-import net.rim.device.api.system.Application;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
 import net.rim.device.api.system.Display;
@@ -10,8 +9,6 @@ import net.rim.device.api.ui.DrawStyle;
 import net.rim.device.api.ui.Font;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
-import net.rim.device.api.ui.Screen;
-import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.ListField;
 import net.rim.device.api.ui.component.ListFieldCallback;
 
@@ -32,6 +29,7 @@ public class CustomListField extends ListField implements ListFieldCallback {
 	protected Bitmap next_icon = null;
 	protected Bitmap border = null;
 	protected Bitmap more_details = null;
+	protected Bitmap header_bg = null;
 
 	protected Object lock = new Object();
 	protected ListFieldListener listener = null;
@@ -46,7 +44,6 @@ public class CustomListField extends ListField implements ListFieldCallback {
 	protected int text_y = padding;
 	protected int more_details_y;
 	protected int text_x = padding;
-	protected int temp_x = 0;
 	protected int writable_width;
 	protected int fixRowHeight;
 	protected int instrHeight;
@@ -62,13 +59,16 @@ public class CustomListField extends ListField implements ListFieldCallback {
 		if (tableNo == 1) {
 			fixRowHeight = GuiConst.HEADER_ROW_HEIGHT + border.getHeight();
 		} else {
-			fixRowHeight = (GuiConst.FONT_BOLD.getHeight() * 2) + (padding * 2)
+			fixRowHeight = (GuiConst.FONT_BOLD.getHeight() * 2) + (padding * 4)
 					+ GuiConst.FONT_DATE.getHeight() + border.getHeight();
 		}
 
 		setEmptyString("", DrawStyle.HCENTER);
 		setCallback(this);
 
+		header_bg = Utility.resizeBitmap(Bitmap
+				.getBitmapResource("res/table_header_bg.png"), this
+				.getPreferredWidth(), GuiConst.HEADER_ROW_HEIGHT);
 		selected_bg = Utility.resizeBitmap(Bitmap
 				.getBitmapResource("res/news_list_selected.png"),
 				GuiConst.SCREENWIDTH, fixRowHeight);
@@ -89,14 +89,16 @@ public class CustomListField extends ListField implements ListFieldCallback {
 		 */
 		writable_width = GuiConst.SCREENWIDTH - (padding * 2)
 				- more_details.getWidth();
-		more_details_y = (getRowHeight() - more_details.getHeight()) / 2;
+
 		switch (tableNo) {
 
 		case 1:
 			/* List Country */
 			if (index == 0) {
+
+				textFont = GuiConst.FONT_TABLE_HEADER;
 				background(g, index, y);
-				g.setColor(GuiConst.FONT_COLOR_BLACK);
+				g.setColor(GuiConst.FONT_COLOR_WHITE);
 				g.setFont(textFont);
 
 				text_y = (instrHeight - textFont.getHeight()) / 2;
@@ -109,23 +111,31 @@ public class CustomListField extends ListField implements ListFieldCallback {
 					setRowHeight(fixRowHeight);
 				}
 			} else {
+
 				background(g, index, y);
 
 				item = (DataCentre) _elements.elementAt(index - 1);
 
 				insertData(g, item.country, y);
 
-				g.drawBitmap(writable_width + padding, more_details_y, more_details
-						.getWidth(), more_details.getHeight(), more_details, 0,
-						0);
+				g.drawBitmap(writable_width + padding, more_details_y,
+						more_details.getWidth(), more_details.getHeight(),
+						more_details, 0, 0);
+
+				more_details_y = y
+						+ (getRowHeight() - more_details.getHeight()) / 2;
+				g.drawBitmap(writable_width + padding, more_details_y,
+						more_details.getWidth(), more_details.getHeight(),
+						more_details, 0, 0);
 			}
 			break;
 
 		case 2:
 			/* TV Schedule */
 			if (index == 0) {
+				textFont = GuiConst.FONT_TABLE_HEADER;
 				background(g, index, y);
-				g.setColor(GuiConst.FONT_COLOR_BLACK);
+				g.setColor(GuiConst.FONT_COLOR_WHITE);
 				g.setFont(textFont);
 
 				text_y = (instrHeight - textFont.getHeight()) / 2;
@@ -147,18 +157,21 @@ public class CustomListField extends ListField implements ListFieldCallback {
 					textFont = GuiConst.FONT_DATE;
 					g.setFont(textFont);
 					g.drawText(item.tvDate, text_x, text_y);
-					
-					g.drawBitmap(writable_width + padding, more_details_y, more_details
-							.getWidth(), more_details.getHeight(), more_details, 0,
-							0);
+
+					more_details_y = y
+							+ (getRowHeight() - more_details.getHeight()) / 2;
+					g.drawBitmap(writable_width + padding, more_details_y,
+							more_details.getWidth(), more_details.getHeight(),
+							more_details, 0, 0);
 				}
 			}
 			break;
 		case 3:
 			/* Tour Schedule */
 			if (index == 0) {
+				textFont = GuiConst.FONT_TABLE_HEADER;
 				background(g, index, y);
-				g.setColor(GuiConst.FONT_COLOR_BLACK);
+				g.setColor(GuiConst.FONT_COLOR_WHITE);
 				g.setFont(textFont);
 
 				text_y = (instrHeight - textFont.getHeight()) / 2;
@@ -181,9 +194,11 @@ public class CustomListField extends ListField implements ListFieldCallback {
 				g.setFont(textFont);
 				g.drawText(item.tourDate + ", " + item.tourCountry, text_x,
 						text_y);
-				g.drawBitmap(writable_width + padding, more_details_y, more_details
-						.getWidth(), more_details.getHeight(), more_details, 0,
-						0);
+				more_details_y = y
+						+ (getRowHeight() - more_details.getHeight()) / 2;
+				g.drawBitmap(writable_width + padding, more_details_y,
+						more_details.getWidth(), more_details.getHeight(),
+						more_details, 0, 0);
 			}
 			break;
 		}
@@ -192,6 +207,8 @@ public class CustomListField extends ListField implements ListFieldCallback {
 
 	public void background(Graphics g, int index, int y) {
 		if (index == 0) {
+			g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg
+					.getHeight(), header_bg, 0, 0);
 			y = GuiConst.HEADER_ROW_HEIGHT;
 			g.drawBitmap(0, y, this.getPreferredWidth(), border.getHeight(),
 					border, 0, 0);
@@ -215,22 +232,26 @@ public class CustomListField extends ListField implements ListFieldCallback {
 	private void insertData(Graphics g, String printText, int y) {
 		Vector vText = Utility.breakIntoWords(printText);
 		int lineNo = 1;
-
-		textFont = GuiConst.FONT_TABLE;
+		text_y = padding;
+		textFont = GuiConst.FONT_BOLD;
 		g.setFont(textFont);
 		g.setColor(GuiConst.FONT_COLOR_BLACK);
 
 		if (textFont.getAdvance(printText) <= writable_width) {
-			text_y = y + ((getRowHeight() - textFont.getHeight()) / 2);
+			text_y = y
+					+ ((getRowHeight() - (textFont.getHeight() + GuiConst.FONT_DATE
+							.getHeight())) / 2);
 			g.drawText(printText + " ", text_x, text_y);
+			text_y += textFont.getHeight() + padding;
 		} else {
+			text_y += y;
 			for (int word = 0; word < vText.size(); word++) {
 				if (lineNo > 2) {
 					break;
 				}
 
 				String tempString = (String) vText.elementAt(word);
-				int wordWidth = GuiConst.FONT_TABLE
+				int wordWidth = GuiConst.FONT_TABLE_HEADER
 						.getAdvance(tempString + " ");
 				if ((text_x + wordWidth >= writable_width)
 						|| ((lineNo == 2) && (text_x + wordWidth >= ((writable_width * 75) / 100)))) {
@@ -238,8 +259,8 @@ public class CustomListField extends ListField implements ListFieldCallback {
 						tempString = "...";
 					} else {
 						if (word != 0) {
-							text_y += GuiConst.FONT_TABLE.getHeight() + padding;
-							text_x = temp_x;
+							text_y += GuiConst.FONT_TABLE_HEADER.getHeight() + padding;
+							text_x = padding;
 						} else {
 							text_y = y
 									+ ((getRowHeight() - textFont.getHeight()) / 2);
@@ -247,15 +268,15 @@ public class CustomListField extends ListField implements ListFieldCallback {
 					}
 					lineNo++;
 				}
-
+				
 				g.drawText(tempString + " ", text_x, text_y);
 				text_x += wordWidth;
+				
 			}
+			text_y += textFont.getHeight() + padding;
 		}
-		text_y = y + padding;
-		// temp_x += compareWidth + padding + header_separator.getWidth() +
-		// padding;
 		text_x = padding;
+
 	}
 
 	public void onUnfocus() {
@@ -308,16 +329,6 @@ public class CustomListField extends ListField implements ListFieldCallback {
 		}
 		return super.keyChar(key, status, time);
 	}
-
-	// public synchronized void saveChanges(DataCentre ni, int index) {
-	// try {
-	// // to save news as loaded/read
-	// // System.out.println("saveeeededdd");
-	// } catch (Exception e) {
-	// //
-	// System.out.println("aloy.CustomListField.exceptione.saveChanges(ni, index):"+e);
-	// }
-	// }
 
 	public boolean navigationClick(int status, int time) {
 		// System.out.println("aloy.CustomListField.navigationClick: got enter or not?");

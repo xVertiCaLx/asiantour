@@ -34,6 +34,7 @@ public class TableDataListField extends TableListField {
 				if (page == 1) {
 					if (getSize() == 0) {
 						MenuScreen.getInstance().showTVScheduleTab();
+						MenuScreen.getInstance().setSelectedTab(3);
 					} else {
 						page = 2;
 					}
@@ -41,6 +42,7 @@ public class TableDataListField extends TableListField {
 					page = 3;
 				} else if (page == 3) {
 					MenuScreen.getInstance().showTVScheduleTab();
+					MenuScreen.getInstance().setSelectedTab(3);
 				}
 				System.out.println(page);
 
@@ -52,6 +54,7 @@ public class TableDataListField extends TableListField {
 					page = 1;
 				} else if (page == 1) {
 					MenuScreen.getInstance().showNewsTab();
+					MenuScreen.getInstance().setSelectedTab(1);
 				}
 				System.out.println(page);
 				// move left
@@ -59,6 +62,7 @@ public class TableDataListField extends TableListField {
 		} else if (table == 4) {
 			if (dx < 0) {
 				MenuScreen.getInstance().showTourScheduleTab();
+				MenuScreen.getInstance().setSelectedTab(4);
 			}
 		}
 		tablePanel.invalidate();
