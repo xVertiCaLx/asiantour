@@ -1,5 +1,6 @@
 package com.og.app.gui;
 
+import net.rim.device.api.system.Application;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.Color;
@@ -23,11 +24,11 @@ import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
 import com.og.app.gui.listener.ImageButtonListener;
+import com.og.app.util.ConnectionMgr;
 import com.og.app.util.Utility;
 import com.og.xml.ANewsItemObj;
 
-public class NewsDetailScreen extends MainScreen implements Runnable,
-		ImageButtonListener {
+public class NewsDetailScreen extends MainScreen implements Runnable {
 
 	private VerticalFieldManager mainFM = null;
 	private HorizontalFieldManager bottomFM = new HorizontalFieldManager(
@@ -39,22 +40,16 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 	private int myIndex = -1;
 	private int finalWidth = 0;
 	private int finalHeight = 0;
-	private int index_btnSaved = 0;
-	private int headLineHeight = 0;
 
 	private ArticlePanel vFM = null;
 	private ImagePanel childPanel = null;
 
 	private BitmapField webImg = null;
-	private BitmapField newsImg = null;
 	private TitleField lblTitle = null;
 	private SpaceField spaceField = null;
 	private CustomListField listField = null;
 	private AnimatedImageField animatedImg = null;
-	private ShareButtonField button = null;
 	private ANewsItemObj newsItem = null;
-
-	// private ClickableImageField bannerField = null;
 
 	public NewsDetailScreen(CustomListField listField,
 			final ANewsItemObj newsItem) {
@@ -67,18 +62,18 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 
 		if (newsItem.hasread == false) {
 			newsItem.hasread = true;
-			// listField.saveChanges(newsItem, myIndex);
 		}
 
-		// button = new ShareButtonField("fb", newsItem);
-
-		Bitmap settingIcon = Bitmap.getBitmapResource("res/icon_news.png");
-		lblTitle = new TitleField("Full Article", settingIcon);
-		headLineHeight = lblTitle.getPreferredHeight();
+		lblTitle = new TitleField("Full Article", Bitmap
+				.getBitmapResource("res/icon_news.png"));
 
 		mainFM = new VerticalFieldManager(Manager.VERTICAL_SCROLL
 				| Manager.VERTICAL_SCROLLBAR);
 
+		drawScreen();
+	}
+
+	private void drawScreen() {
 		RichTextField lblHeadlineField = new RichTextField(newsItem.title);
 		lblHeadlineField.select(false);
 
@@ -108,80 +103,12 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		lblDesc.select(false);
 		lblDesc.setFont(GuiConst.FONT_PLAIN); // | DrawStyle.HFULL);
 
-		finalWidth = newsItem.imagewidth;
-		finalHeight = newsItem.imageheight;
-
-		if (finalHeight != 0 && finalWidth != 0) {
-			if (finalWidth > finalHeight) {
-				int tmpWidth = (int) ((GuiConst.SCREENWIDTH - 20) * 0.5);
-				int tmpHeight = (int) ((double) tmpWidth * finalHeight / finalWidth);
-				if (tmpHeight > (GuiConst.SCREENHEIGHT - headLineHeight) * 0.5) {
-					tmpHeight = (int) ((GuiConst.SCREENHEIGHT - headLineHeight) * 0.5);
-					tmpWidth = (int) ((double) tmpHeight * finalWidth / finalHeight);
-				}
-
-				if (tmpWidth <= finalWidth && tmpHeight <= finalHeight) {
-					finalWidth = tmpWidth;
-					finalHeight = tmpHeight;
-				}
-			} else {
-				int tmpHeight = (int) ((GuiConst.SCREENHEIGHT - headLineHeight) * 0.5);
-				int tmpWidth = (int) ((double) tmpHeight * finalWidth / finalHeight);
-				if (tmpWidth <= finalWidth && tmpHeight <= finalHeight) {
-					finalWidth = tmpWidth;
-					finalHeight = tmpHeight;
-				}
-			}
+		if (newsItem.imageurl.length() != 0) {
+			loadImage();
 		}
 
-		if (newsItem.imageurl.length() == 0) {
-			// this means NO THUMBNAIL
-			if (finalHeight != 0 && finalWidth != 0
-					& newsItem.imageurl.equals("")) {
-				Bitmap loadingimg = Bitmap.getBitmapResource("res/loading.png");
-				animatedImg = new AnimatedImageField(300, loadingimg.getHeight(),
-						loadingimg, 12, 100, Field.FIELD_HCENTER
-								| Field.FOCUSABLE);
-				animatedImg.startAnimation();
-				childPanel = new ImagePanel(finalHeight);
-				childPanel.add(animatedImg);
-				Thread thread = new Thread(this);
-				thread.start();
-			}
-		} else {
-			try {
-				if (newsItem.image == null || newsItem.image.length < 1) {
-					webImg = new WebBitmapField(newsItem.imageurl,
-							newsItem.guid);
-					Bitmap loadingimg = Bitmap.getBitmapResource("res/loading.png");
-					animatedImg = new AnimatedImageField(300, loadingimg.getHeight(),
-							loadingimg, 12, 100, Field.FIELD_HCENTER
-									| Field.FOCUSABLE);
-					animatedImg.startAnimation();
-					childPanel = new ImagePanel(loadingimg.getHeight());
-					childPanel.add(animatedImg);
-					Thread thread = new Thread(this);
-					thread.start();
-				} else {
-//					webImg = new BitmapField(Bitmap.createBitmapFromBytes(
-//							newsItem.image, 0, newsItem.image.length, 1));
-
-					Bitmap bmp = getScaledBitmapImage(Bitmap.createBitmapFromBytes(
-							newsItem.image, 0, newsItem.image.length, 1), GuiConst.SCREENWIDTH);
-					bmp = Utility.resizeBitmap(bmp, 300, (300/bmp.getWidth())*bmp.getHeight());
-					webImg = new BitmapField(bmp);
-					childPanel = new ImagePanel(webImg.getHeight());
-					childPanel.add(webImg);
-				}
-
-			} catch (Exception e) {
-				System.out.println("aloy.NewsDetailScreen.whiledrawing.exceptione: " + e);
-			}
-		}
-		// define the vertical field manager's screen details
 		vFM = new ArticlePanel(GuiConst.SCREENHEIGHT
 				- lblTitle.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
-		// adds a headline
 		vFM.add(lblHeadlineField);
 		// adds a <hr>
 		vFM.add(new LineField(2, GuiConst.LINE_COLOR_BYLINE));
@@ -198,7 +125,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 
 		vFM.add(hFM);
 		vFM.add(new LineField(2));
-		
+
 		if (childPanel != null) {
 			System.out.println("i believe this is for the thumbnail");
 			vFM.add(childPanel);
@@ -238,38 +165,66 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		mainFM.add(bottomFM);
 
 		add(mainFM);
-
 	}
 
-	protected void paint(Graphics graphics) {
+	private void loadImage() {
 		try {
-			super.paint(graphics);
 
-			spaceField.repaintField();
+			finalWidth = (GuiConst.SCREENWIDTH / 100) * 85;
+			finalHeight = 300;
+
+			if (newsItem.image == null || newsItem.image.length < 1) {
+				webImg = new WebBitmapField(newsItem.imageurl, newsItem.guid);
+				Bitmap loadingimg = Bitmap.getBitmapResource("res/loading.png");
+				animatedImg = new AnimatedImageField(finalWidth, finalHeight,
+						loadingimg, 12, 100, Field.FIELD_HCENTER
+								| Field.FOCUSABLE);
+				animatedImg.startAnimation();
+				childPanel = new ImagePanel(finalHeight);
+				childPanel.add(animatedImg);
+				Thread thread = new Thread(this);
+				thread.start();
+			} else {
+				Bitmap bmp = Bitmap.createBitmapFromBytes(newsItem.image, 0,
+						newsItem.image.length, 1);
+				bmp = Utility.resizeBitmap(bmp, finalWidth, (finalWidth / bmp
+						.getWidth())
+						* bmp.getHeight());
+				webImg = new BitmapField(bmp);
+				childPanel = new ImagePanel(webImg.getHeight());
+				childPanel.add(webImg);
+			}
+
 		} catch (Exception e) {
+			System.out
+					.println("aloy.NewsDetailScreen.whiledrawing.exceptione: "
+							+ e);
 		}
 	}
 
 	public void run() {
 		byte[] imgbytes = null;
-		/*
-		  try { imgbytes = ConnectionMgr.loadImage(newsItem.imageurl); if (
-		  imgbytes!=null ){ newsItem.image=imgbytes; Bitmap tmpbitmap =
-		  Bitmap.createBitmapFromBytes(imgbytes, 0, -1, 1);
-		  newsItem.imageheight=tmpbitmap.getHeight();
-		  newsItem.imagewidth=tmpbitmap.getWidth();
-		  tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);
-		  listfield.saveChanges(newsitem, myindex);
-		  
-		  synchronized(Application.getEventLock() ){
-		  animatedimg.stopAnimation(tmpbitmap); } } }catch (Exception e){
-		  e.printStackTrace(); //System.out.println("run error:"+e); }
-		 */
-		imgbytes = null;
-	}
+		try {
+			imgbytes = ConnectionMgr.loadImage(newsItem.imageurl);
+			if (imgbytes != null) {
+				newsItem.image = imgbytes;
+				Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(imgbytes, 0,
+						-1, 1);
+				newsItem.imageheight = tmpbitmap.getHeight();
+				newsItem.imagewidth = tmpbitmap.getWidth();
 
-	public void setNewsImage(BitmapField newsimg) {
-		this.newsImg = newsimg;
+				tmpbitmap = Utility.resizeBitmap(tmpbitmap, finalWidth,
+						finalHeight);
+				listField.saveChanges(newsItem, myIndex);
+
+				synchronized (Application.getEventLock()) {
+					animatedImg.stopAnimation(tmpbitmap);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		imgbytes = null;
 	}
 
 	protected boolean navigationMovement(int dx, int dy, int status, int time) {
@@ -300,60 +255,11 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 		bottomFM = null;
 		vFM = null;
 		webImg = null;
-		newsImg = null;
 		listField = null;
 		childPanel = null;
 		animatedImg = null;
 	}
 
-	//noted,ver:added these three following methods for scaling bitmap image
-	private Bitmap getScaledBitmapImage(Bitmap imgOrigin, int targetWidth)
-    {
-		//get the image origin size
-        int w = imgOrigin.getWidth();
-        int h = imgOrigin.getHeight();
-        
-		//compute desired image size to fit the screen
-		int desiredWidth = targetWidth;
-		int desiredHeight = (targetWidth * h) / w;
-		
-        return resizeBitmap(imgOrigin, desiredWidth, desiredHeight);
-    }	
-	public static Bitmap resizeBitmap(Bitmap image, int width, int height)
-	{
-        int w = image.getWidth();
-        int h = image.getHeight();
-
-        //Need an array (for RGB, with the size of original image)
-		int rgb[] = new int[w*h];
-
-		//Get the RGB array of image into "rgb"
-		image.getARGB(rgb, 0, w, 0, 0, w, h);
-
-		//Call to our function and obtain RGB2
-		int rgb2[] = rescaleArray(rgb, w, h, width, height);
-
-		//Create an image with that RGB array
-		Bitmap imgScaled = new Bitmap(width, height);
-		imgScaled.setARGB(rgb2, 0, width, 0, 0, width, height);
-        
-        return imgScaled;
-	}
-	private static int[] rescaleArray(int[] ini, int x, int y, int x2, int y2)
-	{
-		int out[] = new int[x2*y2];
-		for (int yy = 0; yy < y2; yy++)
-		{
-			int dy = yy * y / y2;
-			for (int xx = 0; xx < x2; xx++)
-			{
-				int dx = xx * x / x2;
-				out[(x2 * yy) + xx] = ini[(x * dy) + dx];
-			}
-		}
-		return out;
-	}
-	
 	class ArticlePanel extends VerticalFieldManager {
 		int fixheight = 0;
 		int fixwidth = 0;
