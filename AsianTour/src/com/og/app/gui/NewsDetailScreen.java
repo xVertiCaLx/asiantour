@@ -211,8 +211,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 				Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(imgbytes, 0,
 						-1, 1);
 				newsItem.imageheight = tmpbitmap.getHeight();
-				newsItem.imagewidth = tmpbitmap.getWidth();
-
+				
 				tmpbitmap = Utility.resizeBitmap(tmpbitmap, finalWidth,
 						finalHeight);
 				listField.saveChanges(newsItem, myIndex);
