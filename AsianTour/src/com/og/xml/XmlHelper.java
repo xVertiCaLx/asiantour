@@ -115,13 +115,13 @@ public class XmlHelper {
 	}
 	
 	// download data for TV Schedule data
-	private static final String tvTimes_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimes";
+	private static final String tvTimes_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimesViaCountry?Country=";
 	public static String tvTimes_xml = "";
 
-	public static void downloadTvTimes() {
+	public static void downloadTvTimes(String country) {
 		System.out.println("enter downloadTvTimes");
 		try {
-			Utility.getWebData(tvTimes_url, new WebDataCallback() {
+			Utility.getWebData(tvTimes_url+country+"$", new WebDataCallback() {
 				public void callback(byte[] data) {
 					tvTimes_xml = new String(data);
 					Vector xmlTvTimes = parse(tvTimes_xml, "TV");
@@ -142,6 +142,10 @@ public class XmlHelper {
 			System.out.println("aloy.downloadedTvTimes.exceptione: " + e);
 			return;
 		}
+		
+		MenuScreen.getInstance().repainteverything();
+		MenuScreen.getInstance().initSchedulePkg(2);
+		MenuScreen.getInstance().addPanels("loaded");
 	}
 
 	// download data for TV Schedule data

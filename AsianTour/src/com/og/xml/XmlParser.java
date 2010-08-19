@@ -14,6 +14,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.og.app.gui.MenuScreen;
+
 public class XmlParser {
 	
 	public static Vector parse(String strToParse, String parseType) {
@@ -25,6 +27,7 @@ public class XmlParser {
 				.newInstance();
 		if (parseType == "TV") {
 			// Vector<XmlTvTimesItem>
+			
 			try {
 				DocumentBuilder docBuilder = docBuilderFactory
 						.newDocumentBuilder();

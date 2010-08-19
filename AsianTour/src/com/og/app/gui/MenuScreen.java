@@ -2,11 +2,16 @@ package com.og.app.gui;
 
 import java.util.Vector;
 
+import net.rim.device.api.system.Bitmap;
+import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Graphics;
+import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.Dialog;
+import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.datastore.RecordStoreHelper;
+import com.og.app.gui.component.AnimatedImageField;
 import com.og.app.gui.component.TabField;
 import com.og.app.gui.component.TransitionableMainScreen;
 import com.og.app.gui.listener.ListFieldListener;
@@ -73,9 +78,9 @@ public class MenuScreen extends TransitionableMainScreen implements
 
 		newsCollection = RecordStoreHelper.getNewsCollection();
 		System.out.println(GuiConst.SCREENWIDTH);
-		
+
 		XmlHelper.downloadNews();
-		
+
 	}
 
 	public void initTablePkg(int tableNo) {
@@ -101,21 +106,28 @@ public class MenuScreen extends TransitionableMainScreen implements
 		GuiConst.LOGOPANEL_HEIGHT = logoPanel.getPreferredHeight();
 		GuiConst.TABPANEL_HEIGHT = tabPanel.getPreferredHeight();
 
-		// newsPanel = NewsPanel.getInstance(this,
-		// GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT);
-		// tablePanel = TablePanel.getInstance(this,
-		// GuiConst.SCREENHEIGHT-GuiConst.TABPANEL_HEIGHT-GuiConst.LOGOPANEL_HEIGHT,
-		// tableNo,1);
 		dataPanel = DataPanel
 				.getInstance(this, GuiConst.SCREENHEIGHT
 						- GuiConst.TABPANEL_HEIGHT - GuiConst.LOGOPANEL_HEIGHT,
 						tableNo);
 	}
 
-	public void addPanels() {
+	public void addPanels(String status) {
 		add(logoPanel);
 		add(tabPanel);
-		add(dataPanel);
+		if (status == "loaded") {
+			add(dataPanel);
+		} else if (status == "loading") {
+			VerticalFieldManager vFM = new VerticalFieldManager(
+					Manager.USE_ALL_WIDTH);
+			Bitmap load_icon = Bitmap.getBitmapResource("res/loading.png");
+			AnimatedImageField loading = new AnimatedImageField(300, load_icon
+					.getHeight(), load_icon, 12, 100, Field.FIELD_HCENTER
+					| Field.FOCUSABLE);
+			
+			vFM.add(loading);
+			add(vFM);
+		}
 	}
 
 	public boolean onClose() {

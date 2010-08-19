@@ -31,7 +31,7 @@ public class SplashScreen extends MainScreen implements Runnable
 		thread.start();
 		
 		XmlHelper.downloadCountry();
-		XmlHelper.downloadTvTimes();
+		//XmlHelper.downloadTvTimes();
 		XmlHelper.downloadTourSchedule();
 		XmlHelper.downloadOOM();
 		

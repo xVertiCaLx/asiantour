@@ -3,6 +3,7 @@ package com.og.app.gui.schedule;
 import java.util.Vector;
 
 import net.rim.device.api.system.Application;
+import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
 
@@ -10,6 +11,7 @@ import com.og.app.gui.MenuScreen;
 import com.og.app.gui.TableDetailsScreen;
 import com.og.app.gui.listener.ListFieldListener;
 import com.og.app.util.DataCentre;
+import com.og.xml.XmlHelper;
 
 public class DataListField extends CustomListField {
 
@@ -29,6 +31,8 @@ public class DataListField extends CustomListField {
 			if ((tableNo == 1) || (tableNo == 2)) {
 				MenuScreen.getInstance().showTourScheduleTab();
 				MenuScreen.getInstance().setSelectedTab(4);
+				if (tableNo == 2)
+					MenuScreen.getInstance().tvTimesCollection.removeAllElements();
 			} else if (tableNo == 3) {
 				MenuScreen.getInstance().showOOMTab();
 				MenuScreen.getInstance().setSelectedTab(5);
@@ -38,11 +42,13 @@ public class DataListField extends CustomListField {
 			if ((tableNo == 1) || (tableNo == 2)) {
 				MenuScreen.getInstance().showLiveScoreTab();
 				MenuScreen.getInstance().setSelectedTab(2);
+				if (tableNo == 2)
+					MenuScreen.getInstance().tvTimesCollection.removeAllElements();
 			} else if (tableNo == 3) {
 				MenuScreen.getInstance().showTVScheduleTab();
 				MenuScreen.getInstance().setSelectedTab(3);
 			}
-		}
+		} 
 		dataPanel.invalidate();
 		return false;
 	}
@@ -59,11 +65,14 @@ public class DataListField extends CustomListField {
 					DataCentre item = (DataCentre) MenuScreen.getInstance().countryCollection
 					.elementAt(getSelectedIndex()-1);
 					selected_country = item.country;
+					
+					XmlHelper.downloadTvTimes(selected_country);	
+					
 					MenuScreen.getInstance().repainteverything();
 					MenuScreen.getInstance().initSchedulePkg(2);
-					//MenuScreen.getInstance().add(field)
-					MenuScreen.getInstance().addPanels();
+					MenuScreen.getInstance().addPanels("loading");
 				}
+				return true;
 			} catch (Exception e) {
 				
 			}
@@ -98,7 +107,7 @@ public class DataListField extends CustomListField {
 					synchronized (Application.getEventLock()) {
 						// here change V
 						DataCentre item = (DataCentre) MenuScreen.getInstance().tourScheduleCollection
-								.elementAt(getSelectedIndex());
+								.elementAt(getSelectedIndex()-1);
 						Screen s = UiApplication.getUiApplication()
 								.getActiveScreen();
 						// here change V
@@ -115,6 +124,16 @@ public class DataListField extends CustomListField {
 		}
 		dataPanel.invalidate();
 		return false;
+	}
+	
+	public boolean keyChar(char key, int status, int time) {
+		switch (key) {
+		case Characters.ESCAPE:
+			MenuScreen.getInstance().showTVScheduleTab();
+			MenuScreen.getInstance().setSelectedTab(3);
+			break;
+		}
+		return true;
 	}
 	
 	public void loadTableData(int tableNo) {
