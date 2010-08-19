@@ -23,6 +23,7 @@ import com.og.app.gui.component.SpaceField;
 import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
 import com.og.app.gui.listener.ImageButtonListener;
+import com.og.app.util.Utility;
 import com.og.xml.ANewsItemObj;
 
 public class NewsDetailScreen extends MainScreen implements Runnable,
@@ -138,7 +139,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 			if (finalHeight != 0 && finalWidth != 0
 					& newsItem.imageurl.equals("")) {
 				Bitmap loadingimg = Bitmap.getBitmapResource("res/loading.png");
-				animatedImg = new AnimatedImageField(finalWidth, finalHeight,
+				animatedImg = new AnimatedImageField(300, loadingimg.getHeight(),
 						loadingimg, 12, 100, Field.FIELD_HCENTER
 								| Field.FOCUSABLE);
 				animatedImg.startAnimation();
@@ -152,16 +153,25 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 				if (newsItem.image == null || newsItem.image.length < 1) {
 					webImg = new WebBitmapField(newsItem.imageurl,
 							newsItem.guid);
+					Bitmap loadingimg = Bitmap.getBitmapResource("res/loading.png");
+					animatedImg = new AnimatedImageField(300, loadingimg.getHeight(),
+							loadingimg, 12, 100, Field.FIELD_HCENTER
+									| Field.FOCUSABLE);
+					animatedImg.startAnimation();
+					childPanel = new ImagePanel(loadingimg.getHeight());
+					childPanel.add(animatedImg);
+					Thread thread = new Thread(this);
+					thread.start();
 				} else {
 //					webImg = new BitmapField(Bitmap.createBitmapFromBytes(
 //							newsItem.image, 0, newsItem.image.length, 1));
 
-//					webImg = new BitmapField(Bitmap.createBitmapFromBytes(
-//							newsItem.thumbnail, 0, newsItem.thumbnail.length, 1));
-
 					Bitmap bmp = getScaledBitmapImage(Bitmap.createBitmapFromBytes(
 							newsItem.image, 0, newsItem.image.length, 1), GuiConst.SCREENWIDTH);
+					bmp = Utility.resizeBitmap(bmp, 300, (300/bmp.getWidth())*bmp.getHeight());
 					webImg = new BitmapField(bmp);
+					childPanel = new ImagePanel(webImg.getHeight());
+					childPanel.add(webImg);
 				}
 
 			} catch (Exception e) {
@@ -188,15 +198,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 
 		vFM.add(hFM);
 		vFM.add(new LineField(2));
-		if (webImg != null) {
-			//noted,ver:comment
-			//vFM.add(webImg);
-
-			//noted,ver:add these instead
-			HorizontalFieldManager hfm = new HorizontalFieldManager(Field.FIELD_HCENTER | Field.FIELD_VCENTER);
-			hfm.add(webImg);
-			vFM.add(hfm);
-		}
+		
 		if (childPanel != null) {
 			System.out.println("i believe this is for the thumbnail");
 			vFM.add(childPanel);
@@ -251,17 +253,17 @@ public class NewsDetailScreen extends MainScreen implements Runnable,
 	public void run() {
 		byte[] imgbytes = null;
 		/*
-		 * try{ imgbytes = ConnectionMgr.loadImage(newsItem.imageurl); if (
-		 * imgbytes!=null ){ newsItem.image=imgbytes; Bitmap tmpbitmap =
-		 * Bitmap.createBitmapFromBytes(imgbytes, 0, -1, 1);
-		 * newsItem.imageheight=tmpbitmap.getHeight();
-		 * newsItem.imagewidth=tmpbitmap.getWidth();
-		 * tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);
-		 * listfield.saveChanges(newsitem, myindex);
-		 * 
-		 * synchronized(Application.getEventLock() ){
-		 * animatedimg.stopAnimation(tmpbitmap); } } }catch (Exception e){
-		 * e.printStackTrace(); //System.out.println("run error:"+e); }
+		  try { imgbytes = ConnectionMgr.loadImage(newsItem.imageurl); if (
+		  imgbytes!=null ){ newsItem.image=imgbytes; Bitmap tmpbitmap =
+		  Bitmap.createBitmapFromBytes(imgbytes, 0, -1, 1);
+		  newsItem.imageheight=tmpbitmap.getHeight();
+		  newsItem.imagewidth=tmpbitmap.getWidth();
+		  tmpbitmap=Utility.resizeBitmap(tmpbitmap, finalWidth, finalHeight);
+		  listfield.saveChanges(newsitem, myindex);
+		  
+		  synchronized(Application.getEventLock() ){
+		  animatedimg.stopAnimation(tmpbitmap); } } }catch (Exception e){
+		  e.printStackTrace(); //System.out.println("run error:"+e); }
 		 */
 		imgbytes = null;
 	}
