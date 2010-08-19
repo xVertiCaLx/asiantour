@@ -1,6 +1,5 @@
 package com.og.app.gui.component;
 
-import net.oauth.j2me.OAuthServiceProviderException;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Characters;
 import net.rim.device.api.ui.Field;
@@ -9,10 +8,8 @@ import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.ButtonField;
 import net.rim.device.api.ui.component.Dialog;
 
-import com.og.app.Const;
-import com.og.app.gui.Lang;
 import com.og.app.gui.listener.ImageButtonListener;
-import com.og.app.social.TwitterHelper;
+import com.og.app.gui.social.TwitterLoginScreen;
 import com.og.app.util.DataCentre;
 import com.og.xml.ANewsItemObj;
 
@@ -30,6 +27,7 @@ public class ShareButtonField extends Field {
 	private ANewsItemObj newsItem = null;
 	private DataCentre obj = null;
 	private static ImageButtonListener listener = null;
+	private TwitterLoginScreen twitter;
 		
 	public ShareButtonField(String buttonName, String shareType,
 			DataCentre obj, ANewsItemObj newsItem) {
@@ -116,75 +114,14 @@ public class ShareButtonField extends Field {
 		if (buttonName == "fb") {
 			Dialog.alert("FACEBOOK!");
 		} else if (buttonName == "tw") {
-
 			if (shareType == "News") {
-				Runnable r = new Runnable() {
-
-					public void run() {
-						try {
-							TwitterHelper
-									.UpdateStatus("Check this out: " + Const.NEWS_SHARE_BASE_URL
-											+ newsItem.guid);
-						} catch (OAuthServiceProviderException e) {
-							e.printStackTrace();
-						}
-					}
-				};
-				UiApplication.getUiApplication().invokeLater(r);
-				if(TwitterHelper.GetAccessToken()==null){
-					Dialog.inform(Lang.TWITTER_CONNECT_ALERT);
-				}
-				
+				twitter = new TwitterLoginScreen("AT News");
 			} else if (shareType == "TV") {
-				Runnable r = new Runnable() {
-
-					public void run() {
-						try {
-							TwitterHelper.UpdateStatus(obj.tvName + " on "
-									+ obj.tvBroadcaster
-									+ " [ " + obj.tvDate + ", " + obj.tvBroadcastTime + " GMT +8] "
-									);
-						} catch (OAuthServiceProviderException e) {
-							e.printStackTrace();
-						}
-					}
-				};
-				UiApplication.getUiApplication().invokeLater(r);
-				if(TwitterHelper.GetAccessToken()==null){
-					UiApplication.getUiApplication().invokeLater(new Runnable() {
-						
-						public void run() {
-							Dialog.inform(Lang.TWITTER_CONNECT_ALERT);
-							
-						}
-					});
-					
-				}
+				twitter = new TwitterLoginScreen("AT TV News");
 			} else if (shareType == "Tour") {
-				Runnable r = new Runnable() {
-
-					public void run() {
-						try {
-							TwitterHelper.UpdateStatus("Check out the " + obj.tourName + " details at http://www.asiantour.com !");
-						} catch (OAuthServiceProviderException e) {
-							e.printStackTrace();
-						}
-					}
-				};
-				UiApplication.getUiApplication().invokeLater(r);
-				
-				if(TwitterHelper.GetAccessToken()==null){
-					UiApplication.getUiApplication().invokeLater(new Runnable() {
-						
-						public void run() {
-							Dialog.inform(Lang.TWITTER_CONNECT_ALERT);
-							
-						}
-					});
-					
-				}
+				twitter = new TwitterLoginScreen("AT Tour News");
 			}
-
+			UiApplication.getUiApplication().pushScreen(twitter);
 		}
 
 		return true;
