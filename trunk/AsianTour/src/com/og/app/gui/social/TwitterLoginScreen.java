@@ -175,7 +175,7 @@ public class TwitterLoginScreen extends MainScreen implements FieldChangeListene
     		}
         } catch (Exception ex) { 
             System.out.println(ex.getMessage()+" "+response); 
-            Dialog.alert(Lang.TWITTER_ERROR);
+            Dialog.alert(Lang.TWITTER_ERROR + ex.getMessage());
         } 
     } 
  

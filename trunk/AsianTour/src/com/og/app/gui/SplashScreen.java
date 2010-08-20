@@ -24,16 +24,15 @@ public class SplashScreen extends MainScreen implements Runnable
 		} catch(Exception e) {
 			e.printStackTrace();
 		}  
-
+		XmlHelper.downloadCountry();
 		logoicon= Bitmap.getBitmapResource("res/ASIAN-TOUR-SPLASH.png");
 
 		thread = new Thread(this);
 		thread.start();
 		
-		XmlHelper.downloadCountry();
+		
 		//XmlHelper.downloadTvTimes();
-		XmlHelper.downloadTourSchedule();
-		XmlHelper.downloadOOM();
+		
 		
 	}
 
