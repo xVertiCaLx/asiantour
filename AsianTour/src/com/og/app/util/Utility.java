@@ -321,6 +321,9 @@ public class Utility {
 									}
 								});
 					} catch (final Exception ex) {
+						System.out
+						.println("errrrrrrr 1 aloy.Utility.getWebData.tryThread:  >>>>>>>>>>>>>>>>>> "
+										+ ex + "|" + ex.getMessage());
 						UiApplication.getUiApplication().invokeLater(
 								new Runnable() {
 									public void run() {
@@ -336,16 +339,19 @@ public class Utility {
 			} else {
 				try {
 					Thread.sleep(1000);
-					System.out.println("Thread retry...");
+					System.out.println("Thread retry..." + url);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					System.out
+					.println("errrrrrrr 2 aloy.Utility.getWebData.tryThread:  >>>>>>>>>>>>>>>>>> "
+									+ e + " | " + e.getMessage());
 				}
 				break retry;
 			}
 		} catch (Exception e) {
 			System.out
-					.println("aloy.Utility.getWebData.tryThread:  >>>>>>>>>>>>>>>>>> "
-							+ e);
+			.println("errrrrrrr 3 aloy.Utility.getWebData.tryThread:  >>>>>>>>>>>>>>>>>> "
+							+ e + " | " + e.getMessage());
 		}
 
 	}
