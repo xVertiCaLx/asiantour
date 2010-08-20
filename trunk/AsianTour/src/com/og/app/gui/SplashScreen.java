@@ -25,6 +25,7 @@ public class SplashScreen extends MainScreen implements Runnable
 			e.printStackTrace();
 		}  
 		
+		XmlHelper.downloadOOM();
 		XmlHelper.downloadCountry();
 		XmlHelper.downloadNews();
 		

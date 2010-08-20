@@ -80,7 +80,7 @@ public class MenuScreen extends TransitionableMainScreen implements
 		System.out.println(GuiConst.SCREENWIDTH);
 
 		XmlHelper.downloadTourSchedule();
-		XmlHelper.downloadOOM();
+		
 		
 	}
 
