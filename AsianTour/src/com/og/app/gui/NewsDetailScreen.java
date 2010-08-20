@@ -9,6 +9,7 @@ import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
+import net.rim.device.api.ui.XYPoint;
 import net.rim.device.api.ui.component.BitmapField;
 import net.rim.device.api.ui.component.LabelField;
 import net.rim.device.api.ui.component.NullField;
@@ -16,13 +17,16 @@ import net.rim.device.api.ui.component.RichTextField;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
+//import net.rim.device.api.ui.TouchEvent;
 
 import com.og.app.gui.component.AnimatedImageField;
 import com.og.app.gui.component.LineField;
 import com.og.app.gui.component.ShareButtonField;
 import com.og.app.gui.component.SpaceField;
+import com.og.app.gui.component.TabField;
 import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
+import com.og.app.gui.social.TwitterLoginScreen;
 import com.og.app.util.ConnectionMgr;
 import com.og.app.util.Utility;
 import com.og.xml.ANewsItemObj;
@@ -327,6 +331,17 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 		}
 
 	}
+	
+//	protected boolean touchEvent(TouchEvent te) {
+//		if(te.getEvent() == TouchEvent.CLICK){
+//			int gX = te.getX(1);
+//			int gY = te.getY(1);
+//			System.out.println("TE: " + gX + ", " + gY);
+//			TwitterLoginScreen twitter = new TwitterLoginScreen("AT News");;
+//			UiApplication.getUiApplication().pushScreen(twitter);
+//		}
+//		return super.touchEvent(te);
+//	}
 
 	public void imageButtonClicked(int id) {
 		// TODO Auto-generated method stub
