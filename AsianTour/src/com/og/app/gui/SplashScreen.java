@@ -26,14 +26,10 @@ public class SplashScreen extends MainScreen implements Runnable
 		}  
 		XmlHelper.downloadCountry();
 		logoicon= Bitmap.getBitmapResource("res/ASIAN-TOUR-SPLASH.png");
-
+		//wait for 3 sec then go into main screen, can be changed
 		thread = new Thread(this);
 		thread.start();
-		
-		
-		//XmlHelper.downloadTvTimes();
-		
-		
+			
 	}
 
 	protected void paint(Graphics graphics) {
@@ -45,7 +41,6 @@ public class SplashScreen extends MainScreen implements Runnable
 
 		int x = (scrwidth-logowidth)/2;
 		int y = (scrheight-logoheight-GuiConst.FONT_VERSION.getHeight()*2)/2;
-		//System.out.println("x:"+x+" , y:"+y);
 		graphics.setColor(0);
 		graphics.fillRect(-10, -10, getWidth()+20, getHeight()+20);
 		graphics.drawBitmap(x, y+30, 300, 300, logoicon , 0, 0);        
