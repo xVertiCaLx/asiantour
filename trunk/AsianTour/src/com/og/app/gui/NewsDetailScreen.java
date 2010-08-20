@@ -9,7 +9,6 @@ import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
-import net.rim.device.api.ui.XYPoint;
 import net.rim.device.api.ui.component.BitmapField;
 import net.rim.device.api.ui.component.LabelField;
 import net.rim.device.api.ui.component.NullField;
@@ -17,16 +16,13 @@ import net.rim.device.api.ui.component.RichTextField;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
-//import net.rim.device.api.ui.TouchEvent;
 
 import com.og.app.gui.component.AnimatedImageField;
 import com.og.app.gui.component.LineField;
 import com.og.app.gui.component.ShareButtonField;
 import com.og.app.gui.component.SpaceField;
-import com.og.app.gui.component.TabField;
 import com.og.app.gui.component.TitleField;
 import com.og.app.gui.component.WebBitmapField;
-import com.og.app.gui.social.TwitterLoginScreen;
 import com.og.app.util.ConnectionMgr;
 import com.og.app.util.Utility;
 import com.og.xml.ANewsItemObj;
@@ -116,18 +112,18 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 		// adds a <hr>
 		vFM.add(new LineField(2, GuiConst.LINE_COLOR_BYLINE));
 		// adds the author name(s), published date and other information.
-
 		vFM.add(lblNewsInfo);
 		vFM.add(new LineField(1));
-		ButtonPanel buttonPanel = new ButtonPanel();
-		// buttonPanel.add(new ShareButtonField("fb", newsItem));
-		buttonPanel.add(new ShareButtonField("tw", "News", null, newsItem));
-
-		HorizontalFieldManager hFM = new HorizontalFieldManager();
-		hFM.add(buttonPanel);
-
-		vFM.add(hFM);
-		vFM.add(new LineField(2));
+		// TWITTER's BUTTON, uncomment to add buttons
+//		ButtonPanel buttonPanel = new ButtonPanel();
+//		// buttonPanel.add(new ShareButtonField("fb", newsItem));
+//		buttonPanel.add(new ShareButtonField("tw", "News", null, newsItem));
+//
+//		HorizontalFieldManager hFM = new HorizontalFieldManager();
+//		hFM.add(buttonPanel);
+//
+//		vFM.add(hFM);
+//		vFM.add(new LineField(2));
 
 		if (childPanel != null) {
 			System.out.println("i believe this is for the thumbnail");
@@ -173,7 +169,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 	private void loadImage() {
 		try {
 
-			finalWidth = (GuiConst.SCREENWIDTH / 100) * 85;
+			finalWidth = 300;//(GuiConst.SCREENWIDTH * 85) / 100 ;
 			finalHeight = 300;
 
 			if (newsItem.image == null || newsItem.image.length < 1) {
@@ -190,9 +186,8 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 			} else {
 				Bitmap bmp = Bitmap.createBitmapFromBytes(newsItem.image, 0,
 						newsItem.image.length, 1);
-				bmp = Utility.resizeBitmap(bmp, finalWidth, (finalWidth / bmp
-						.getWidth())
-						* bmp.getHeight());
+				finalHeight = (finalWidth*bmp.getHeight())/bmp.getWidth();
+				bmp = Utility.resizeBitmap(bmp, finalWidth, finalHeight);
 				webImg = new BitmapField(bmp);
 				childPanel = new ImagePanel(webImg.getHeight());
 				childPanel.add(webImg);
@@ -214,6 +209,8 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 				Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(imgbytes, 0,
 						-1, 1);
 				newsItem.imageheight = tmpbitmap.getHeight();
+				
+				finalHeight = (finalWidth*tmpbitmap.getHeight())/tmpbitmap.getWidth();
 				
 				tmpbitmap = Utility.resizeBitmap(tmpbitmap, finalWidth,
 						finalHeight);
@@ -342,19 +339,4 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 //		}
 //		return super.touchEvent(te);
 //	}
-
-	public void imageButtonClicked(int id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void imageButtonOnFocus(int id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void imageButtonOnUnfocus(int id) {
-		// TODO Auto-generated method stub
-
-	}
 }
