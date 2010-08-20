@@ -1,4 +1,5 @@
 package com.og.xml;
+
 //
 import java.io.IOException;
 import java.util.Vector;
@@ -99,7 +100,8 @@ public class XmlHelper {
 					for (int i = 0; i < xmlCountry.size(); i++) {
 						XmlCountryItem xmlCountryItem = (XmlCountryItem) xmlCountry
 								.elementAt(i);
-						DataCentre itemObj = new DataCentre(xmlCountryItem.country);
+						DataCentre itemObj = new DataCentre(
+								xmlCountryItem.country);
 						// System.out.println("Added tour schedules : " +
 						// itemObj);
 						MenuScreen.getInstance().countryCollection
@@ -113,7 +115,7 @@ public class XmlHelper {
 			return;
 		}
 	}
-	
+
 	// download data for TV Schedule data
 	private static final String tvTimes_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListTVTimesViaCountry?Country=";
 	public static String tvTimes_xml = "";
@@ -121,32 +123,35 @@ public class XmlHelper {
 	public static void downloadTvTimes(String country) {
 		System.out.println("enter downloadTvTimes");
 		try {
-			Utility.getWebData(tvTimes_url+country+"$", new WebDataCallback() {
-				public void callback(byte[] data) {
-					tvTimes_xml = new String(data);
-					Vector xmlTvTimes = parse(tvTimes_xml, "TV");
-					for (int i = 0; i < xmlTvTimes.size(); i++) {
-						XmlTvTimesItem xmlTvItem = (XmlTvTimesItem) xmlTvTimes
-								.elementAt(i);
-						DataCentre itemObj = new DataCentre(xmlTvItem.index,
-								xmlTvItem.programmeName, xmlTvItem.date,
-								xmlTvItem.time, xmlTvItem.broadcaster,
-								xmlTvItem.region);
-						MenuScreen.getInstance().tvTimesCollection
-								.addElement(itemObj);
-					}
-				}
-			});
-			MenuScreen.getInstance().repainteverything();
-			MenuScreen.getInstance().initSchedulePkg(2);
-			MenuScreen.getInstance().addPanels("loaded");
+			Utility.getWebData(tvTimes_url + country + "$",
+					new WebDataCallback() {
+						public void callback(byte[] data) {
+							tvTimes_xml = new String(data);
+							Vector xmlTvTimes = parse(tvTimes_xml, "TV");
+							for (int i = 0; i < xmlTvTimes.size(); i++) {
+								XmlTvTimesItem xmlTvItem = (XmlTvTimesItem) xmlTvTimes
+										.elementAt(i);
+								DataCentre itemObj = new DataCentre(
+										xmlTvItem.index,
+										xmlTvItem.programmeName,
+										xmlTvItem.date, xmlTvItem.time,
+										xmlTvItem.broadcaster, xmlTvItem.region);
+								MenuScreen.getInstance().tvTimesCollection
+										.addElement(itemObj);
+							}
+							MenuScreen.getInstance().repainteverything();
+							MenuScreen.getInstance().initSchedulePkg(2);
+							MenuScreen.getInstance().addPanels("loaded");
+						}
+					});
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("aloy.downloadedTvTimes.exceptione: " + e);
 			return;
 		}
-		
-		
+		MenuScreen.getInstance().repainteverything();
+		MenuScreen.getInstance().initSchedulePkg(2);
+		MenuScreen.getInstance().addPanels("loading");
 	}
 
 	// download data for Tour Schedule data
@@ -181,7 +186,8 @@ public class XmlHelper {
 		}
 	}
 
-	private static final String oom_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListOOM?Year=2010";// + formattedDate;
+	private static final String oom_url = "http://203.116.88.166:9191/BlackBerry/BlackBerryWebService.asmx/ListOOM?Year=2010";// +
+																																// formattedDate;
 	public static String oom_xml = "";
 
 	public static void downloadOOM() {
@@ -226,7 +232,7 @@ public class XmlHelper {
 				return new Vector();
 			}
 			collection = XmlParser.parse(data, parseType);
-			
+
 		} else if (parseType == "Tour") {
 			try {
 				data = data.substring(data.indexOf("<ArrayOfAnyType"));
