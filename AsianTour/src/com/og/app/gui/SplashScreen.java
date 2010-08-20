@@ -24,7 +24,10 @@ public class SplashScreen extends MainScreen implements Runnable
 		} catch(Exception e) {
 			e.printStackTrace();
 		}  
+		
 		XmlHelper.downloadCountry();
+		XmlHelper.downloadNews();
+		
 		logoicon= Bitmap.getBitmapResource("res/ASIAN-TOUR-SPLASH.png");
 		//wait for 3 sec then go into main screen, can be changed
 		thread = new Thread(this);
@@ -58,7 +61,7 @@ public class SplashScreen extends MainScreen implements Runnable
 
 	public void run(){
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				loadMenuScreen();
 				e.printStackTrace();

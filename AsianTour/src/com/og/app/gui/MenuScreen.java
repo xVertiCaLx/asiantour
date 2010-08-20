@@ -79,11 +79,8 @@ public class MenuScreen extends TransitionableMainScreen implements
 		newsCollection = RecordStoreHelper.getNewsCollection();
 		System.out.println(GuiConst.SCREENWIDTH);
 
-		XmlHelper.downloadCountry();
 		XmlHelper.downloadTourSchedule();
 		XmlHelper.downloadOOM();
-		
-		XmlHelper.downloadNews();
 		
 	}
 

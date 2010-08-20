@@ -183,13 +183,20 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 				Thread thread = new Thread(this);
 				thread.start();
 			} else {
-				Bitmap bmp = Bitmap.createBitmapFromBytes(newsItem.image, 0,
+				final Bitmap bmp = Bitmap.createBitmapFromBytes(newsItem.image, 0,
 						newsItem.image.length, 1);
-				finalHeight = (finalWidth * bmp.getHeight()) / bmp.getWidth(); 
-				bmp = Utility.resizeBitmap(bmp,finalWidth, finalHeight);
-				webImg = new BitmapField(bmp);
-				 childPanel = new ImagePanel(finalHeight);
-				 childPanel.add(webImg);
+				finalHeight = (finalWidth * bmp.getHeight()) / bmp.getWidth();
+				final Bitmap bmp2 = Utility.resizeBitmap(bmp, finalWidth, finalHeight);
+				webImg = new BitmapField(bmp2) {
+					protected void paint(Graphics graphics) {
+						graphics.drawBitmap(
+								(getPreferredWidth() - finalWidth) / 2,
+								(getHeight() - finalHeight) / 2,
+								bmp2.getWidth(), bmp2.getHeight(), bmp2, 0, 0);
+					}
+				};
+				childPanel = new ImagePanel(finalHeight);
+				childPanel.add(webImg);
 			}
 
 		} catch (Exception e) {
