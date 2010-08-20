@@ -126,7 +126,6 @@ public class MenuScreen extends TransitionableMainScreen implements
 			loading.startAnimation();
 			vFM.add(loading);
 			add(vFM);
-
 		}
 	}
 

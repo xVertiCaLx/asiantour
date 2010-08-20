@@ -30,8 +30,8 @@ public class DataListField extends CustomListField {
 			if ((tableNo == 1) || (tableNo == 2)) {
 				MenuScreen.getInstance().showTourScheduleTab();
 				MenuScreen.getInstance().setSelectedTab(4);
-				if (tableNo == 2)
-					MenuScreen.getInstance().tvTimesCollection.removeAllElements();
+//				if (tableNo == 2)
+//					MenuScreen.getInstance().tvTimesCollection.removeAllElements();
 			} else if (tableNo == 3) {
 				MenuScreen.getInstance().showOOMTab();
 				MenuScreen.getInstance().setSelectedTab(5);
@@ -41,8 +41,8 @@ public class DataListField extends CustomListField {
 			if ((tableNo == 1) || (tableNo == 2)) {
 				MenuScreen.getInstance().showLiveScoreTab();
 				MenuScreen.getInstance().setSelectedTab(2);
-				if (tableNo == 2)
-					MenuScreen.getInstance().tvTimesCollection.removeAllElements();
+//				if (tableNo == 2)
+//					MenuScreen.getInstance().tvTimesCollection.removeAllElements();
 			} else if (tableNo == 3) {
 				MenuScreen.getInstance().showTVScheduleTab();
 				MenuScreen.getInstance().setSelectedTab(3);
@@ -61,15 +61,11 @@ public class DataListField extends CustomListField {
 			//reload to TV Sched
 			try {
 				synchronized (Application.getEventLock()) {
+					MenuScreen.thisInstance.tvTimesCollection.removeAllElements();
 					DataCentre item = (DataCentre) MenuScreen.getInstance().countryCollection
 					.elementAt(getSelectedIndex()-1);
 					selected_country = item.country;
-					
 					XmlHelper.downloadTvTimes(selected_country);	
-					
-					MenuScreen.getInstance().repainteverything();
-					MenuScreen.getInstance().initSchedulePkg(2);
-					MenuScreen.getInstance().addPanels("loading");
 				}
 				return true;
 			} catch (Exception e) {
@@ -144,18 +140,14 @@ public class DataListField extends CustomListField {
 					add((DataCentre) country.elementAt(i));
 				}
 
-			} 
-
-			if (tableNo == 2) {
+			} else if (tableNo == 2) {
 
 				Vector tvTimes = MenuScreen.getInstance().tvTimesCollection;
 				for (int i = 0; i < tvTimes.size(); i++) {
 					add((DataCentre) tvTimes.elementAt(i));
 				}
 				
-			} 
-
-			if (tableNo == 3) {
+			} else if (tableNo == 3) {
 
 				Vector tourSchedule = MenuScreen.getInstance().tourScheduleCollection;
 				for (int i = 0; i < tourSchedule.size(); i++) {
