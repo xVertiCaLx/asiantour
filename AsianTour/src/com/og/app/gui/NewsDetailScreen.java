@@ -102,12 +102,11 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 		lblDesc.select(false);
 		lblDesc.setFont(GuiConst.FONT_PLAIN); // | DrawStyle.HFULL);
 
+		vFM = new ArticlePanel(GuiConst.SCREENHEIGHT
+				- lblTitle.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
 		if (newsItem.imageurl.length() != 0) {
 			loadImage();
 		}
-
-		vFM = new ArticlePanel(GuiConst.SCREENHEIGHT
-				- lblTitle.getPreferredHeight(), GuiConst.SCREENWIDTH - 20);
 		vFM.add(lblHeadlineField);
 		// adds a <hr>
 		vFM.add(new LineField(2, GuiConst.LINE_COLOR_BYLINE));
@@ -115,15 +114,15 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 		vFM.add(lblNewsInfo);
 		vFM.add(new LineField(1));
 		// TWITTER's BUTTON, uncomment to add buttons
-//		ButtonPanel buttonPanel = new ButtonPanel();
-//		// buttonPanel.add(new ShareButtonField("fb", newsItem));
-//		buttonPanel.add(new ShareButtonField("tw", "News", null, newsItem));
-//
-//		HorizontalFieldManager hFM = new HorizontalFieldManager();
-//		hFM.add(buttonPanel);
-//
-//		vFM.add(hFM);
-//		vFM.add(new LineField(2));
+		// ButtonPanel buttonPanel = new ButtonPanel();
+		// // buttonPanel.add(new ShareButtonField("fb", newsItem));
+		// buttonPanel.add(new ShareButtonField("tw", "News", null, newsItem));
+		//
+		// HorizontalFieldManager hFM = new HorizontalFieldManager();
+		// hFM.add(buttonPanel);
+		//
+		// vFM.add(hFM);
+		// vFM.add(new LineField(2));
 
 		if (childPanel != null) {
 			System.out.println("i believe this is for the thumbnail");
@@ -169,7 +168,7 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 	private void loadImage() {
 		try {
 
-			finalWidth = 300;//(GuiConst.SCREENWIDTH * 85) / 100 ;
+			finalWidth = 300;// (GuiConst.SCREENWIDTH * 85) / 100 ;
 			finalHeight = 300;
 
 			if (newsItem.image == null || newsItem.image.length < 1) {
@@ -186,17 +185,17 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 			} else {
 				Bitmap bmp = Bitmap.createBitmapFromBytes(newsItem.image, 0,
 						newsItem.image.length, 1);
-				finalHeight = (finalWidth*bmp.getHeight())/bmp.getWidth();
-				bmp = Utility.resizeBitmap(bmp, finalWidth, finalHeight);
+				finalHeight = (finalWidth * bmp.getHeight()) / bmp.getWidth(); 
+				bmp = Utility.resizeBitmap(bmp,finalWidth, finalHeight);
 				webImg = new BitmapField(bmp);
-				childPanel = new ImagePanel(webImg.getHeight());
-				childPanel.add(webImg);
+				 childPanel = new ImagePanel(finalHeight);
+				 childPanel.add(webImg);
 			}
 
 		} catch (Exception e) {
 			System.out
 					.println("aloy.NewsDetailScreen.whiledrawing.exceptione: "
-							+ e);
+							+ e.getMessage());
 		}
 	}
 
@@ -209,9 +208,10 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 				Bitmap tmpbitmap = Bitmap.createBitmapFromBytes(imgbytes, 0,
 						-1, 1);
 				newsItem.imageheight = tmpbitmap.getHeight();
-				
-				finalHeight = (finalWidth*tmpbitmap.getHeight())/tmpbitmap.getWidth();
-				
+
+				finalHeight = (finalWidth * tmpbitmap.getHeight())
+						/ tmpbitmap.getWidth();
+
 				tmpbitmap = Utility.resizeBitmap(tmpbitmap, finalWidth,
 						finalHeight);
 				listField.saveChanges(newsItem, myIndex);
@@ -328,15 +328,15 @@ public class NewsDetailScreen extends MainScreen implements Runnable {
 		}
 
 	}
-	
-//	protected boolean touchEvent(TouchEvent te) {
-//		if(te.getEvent() == TouchEvent.CLICK){
-//			int gX = te.getX(1);
-//			int gY = te.getY(1);
-//			System.out.println("TE: " + gX + ", " + gY);
-//			TwitterLoginScreen twitter = new TwitterLoginScreen("AT News");;
-//			UiApplication.getUiApplication().pushScreen(twitter);
-//		}
-//		return super.touchEvent(te);
-//	}
+
+	// protected boolean touchEvent(TouchEvent te) {
+	// if(te.getEvent() == TouchEvent.CLICK){
+	// int gX = te.getX(1);
+	// int gY = te.getY(1);
+	// System.out.println("TE: " + gX + ", " + gY);
+	// TwitterLoginScreen twitter = new TwitterLoginScreen("AT News");;
+	// UiApplication.getUiApplication().pushScreen(twitter);
+	// }
+	// return super.touchEvent(te);
+	// }
 }
