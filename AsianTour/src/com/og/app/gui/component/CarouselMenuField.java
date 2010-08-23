@@ -4,8 +4,9 @@ import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.component.BitmapField;
+import net.rim.device.api.ui.component.ListField;
 
-public class CarouselMenuField extends BitmapField implements Runnable {
+public class CarouselMenuField extends ListField implements Runnable {
 	private Thread thread = null;
 	private boolean animate = true;
 	private int interval = 100;
@@ -18,25 +19,30 @@ public class CarouselMenuField extends BitmapField implements Runnable {
 	private int imgHeight = 120;
 	private int imgWidth = 320;
 	public String menu;
-	
+	private String movement;
 
-	public CarouselMenuField(String menu, Bitmap bitmap,
-			long style) {
-		super(bitmap, style);
+	public CarouselMenuField(String menu, Bitmap bitmap, String movement) {
+		super();
 		this.bitmap = bitmap;
 		this.menu = menu;
+		this.movement = movement;
+		if (movement == "right") {
+			index = 0;
+		} else {
+			index = 4;
+		}
 	}
 
 	protected void paint(Graphics graphics) {
-		if (animate)
-			graphics.drawBitmap((fieldWidth - imgWidth) / 2,
-					(fieldHeight - imgHeight) / 2, imgWidth,
-					bitmap.getHeight(), bitmap, imgWidth * index, 0);
-		else
-			graphics.drawBitmap((fieldWidth - finalbitmap.getWidth()) / 2,
-					(fieldHeight - finalbitmap.getHeight()) / 2, finalbitmap
-							.getWidth(), finalbitmap.getHeight(), finalbitmap,
-					0, 0);
+			if (animate)
+				graphics.drawBitmap((fieldWidth - imgWidth) / 2,
+						(fieldHeight - imgHeight) / 2, imgWidth, bitmap
+								.getHeight(), bitmap, imgWidth * index, 0);
+			else
+				graphics.drawBitmap((fieldWidth - finalbitmap.getWidth()) / 2,
+						(fieldHeight - finalbitmap.getHeight()) / 2,
+						finalbitmap.getWidth(), finalbitmap.getHeight(),
+						finalbitmap, 0, 0);
 	}
 
 	public int getPreferredWidth() {
@@ -57,11 +63,11 @@ public class CarouselMenuField extends BitmapField implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 	}
-	
+
 	public String checkCurrentMenu() {
 		return menu;
 	}
-	
+
 	public boolean checkRunStatus() {
 		return animate;
 	}
@@ -75,9 +81,9 @@ public class CarouselMenuField extends BitmapField implements Runnable {
 
 	public void stopAnimation() {
 		// System.out.println("stopAnimation");
-		index = 0;
+		// index = 0;
 		animate = false;
-		finalbitmap = Bitmap.getBitmapResource(menu + ".png");
+		finalbitmap = Bitmap.getBitmapResource("res/carousel/" + menu + ".png");
 	}
 
 	public void run() {
@@ -87,33 +93,20 @@ public class CarouselMenuField extends BitmapField implements Runnable {
 				Thread.sleep(interval);
 			} catch (Exception e) {
 			}
-			/*if (index + 1 >= frameno)
-				index = 0;
-			else*/ if (index + 1 == frameno)
-				stopAnimation();
-			else
-				index++;
+			if (movement == "right") {
+				if (index + 1 == frameno)
+					stopAnimation();
+				else
+					index++;
+			} else if (movement == "left") {
+				if (index == 0)
+					stopAnimation();
+				else
+					index --;
+			}
+			
 			invalidate();
 		}
 	}
-	
-	protected boolean navigationMovement(int dx, int dy, int status, int time) {
-		if (dx > 0) {
-			//right
-			System.out.println("right movement");
-			if (checkCurrentMenu() == null) {
-				
-			} else if (checkCurrentMenu() == "news") {
-				if (!checkRunStatus()) {
-					bitmap = Bitmap.getBitmapResource("oom_transit.png");
-					//menu = new CarouselMenuField("oom", image, Field.FIELD_HCENTER);
-					startAnimation();
-				}
-			}
-			
-		} else if (dx < 0) {
-			//left
-		}
-		return false;
-	}
+
 }
