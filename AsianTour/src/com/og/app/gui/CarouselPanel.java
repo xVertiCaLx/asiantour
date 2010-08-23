@@ -18,17 +18,18 @@ public class CarouselPanel extends VerticalFieldManager {
 	int count = 0;
 	CarouselMenuField menu;
 	
-	public synchronized static CarouselPanel getInstance(CarouselMenuField menu, ListFieldListener listener){
+	
+	public synchronized static CarouselPanel getInstance(CarouselMenuField menu, ListFieldListener listener, int fixHeight){
 		if ( carouselPanel == null ) {
-			carouselPanel = new CarouselPanel(menu, listener);
+			carouselPanel = new CarouselPanel(menu, listener, fixHeight);
 		}
 		return carouselPanel;
 	}
 	
-	private CarouselPanel(CarouselMenuField menu, ListFieldListener listener) {
-		super(Manager.FOCUSABLE);        
-		fixHeight = 120;
-		carouselPanel = this;
+	private CarouselPanel(CarouselMenuField menu, ListFieldListener listener, int fixHeight) {
+		super(Manager.FOCUSABLE);  
+		this.fixHeight = fixHeight;
+		//carouselPanel = this;
 
 		//childPanel = new ChildPanel(childTabWidth);   
 		this.menu = menu;
@@ -70,31 +71,31 @@ public class CarouselPanel extends VerticalFieldManager {
 			} else if (menu.checkCurrentMenu() == "news") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/oom_transit.png");
-					menu = new CarouselMenuField("oom", image, "right", 120);
+					menu = new CarouselMenuField("oom", image, "right", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "oom") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tour_transit.png");
-					menu = new CarouselMenuField("tour", image, "right", 120);
+					menu = new CarouselMenuField("tour", image, "right", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tour") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tv_transit.png");
-					menu = new CarouselMenuField("tv", image, "right", 120);
+					menu = new CarouselMenuField("tv", image, "right", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tv") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/live_transit.png");
-					menu = new CarouselMenuField("live", image, "right", 120);
+					menu = new CarouselMenuField("live", image, "right", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "live") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/news_transit.png");
-					menu = new CarouselMenuField("news", image, "right", 120);
+					menu = new CarouselMenuField("news", image, "right", fixHeight);
 					reinitMenu();
 				}
 			}
@@ -107,31 +108,31 @@ public class CarouselPanel extends VerticalFieldManager {
 			} else if (menu.checkCurrentMenu() == "news") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/news_transit.png");
-					menu = new CarouselMenuField("live", image, "left", 120);
+					menu = new CarouselMenuField("live", image, "left", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "oom") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/oom_transit.png");
-					menu = new CarouselMenuField("news", image, "left", 120);
+					menu = new CarouselMenuField("news", image, "left", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tour") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tour_transit.png");
-					menu = new CarouselMenuField("oom", image, "left", 120);
+					menu = new CarouselMenuField("oom", image, "left", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tv") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tv_transit.png");
-					menu = new CarouselMenuField("tour", image, "left", 120);
+					menu = new CarouselMenuField("tour", image, "left", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "live") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/live_transit.png");
-					menu = new CarouselMenuField("tv", image, "left", 120);
+					menu = new CarouselMenuField("tv", image, "left", fixHeight);
 					reinitMenu();
 				}
 			}

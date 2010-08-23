@@ -9,7 +9,7 @@ import net.rim.device.api.ui.component.ListField;
 public class CarouselMenuField extends ListField implements Runnable {
 	private Thread thread = null;
 	private boolean animate = true;
-	private int interval = 100;
+	private int interval = 10;
 	private int index = 0;
 	private Bitmap bitmap = null;
 	private int frameno = 5;
@@ -42,7 +42,7 @@ public class CarouselMenuField extends ListField implements Runnable {
 
 	protected void paint(Graphics graphics) {
 
-		graphics.drawBitmap(0, 0, bg.getWidth(), bg.getHeight(), bg, 0, 0);
+		graphics.drawBitmap(0, 0, bg.getWidth(), fieldHeight, bg, 0, 0);
 
 		if (animate)
 			graphics.drawBitmap((fieldWidth - imgWidth) / 2,
