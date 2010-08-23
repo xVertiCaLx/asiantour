@@ -5,11 +5,15 @@ import com.og.app.gui.listener.ListFieldListener;
 
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.component.BitmapField;
 import net.rim.device.api.ui.container.MainScreen;
 
 public class CarouselMenuScreen extends MainScreen implements ListFieldListener {
 	
 	private static CarouselMenuScreen thisInstance = null;
+	//LogoPanel logoPanel;
+	BitmapField logoPanel = new BitmapField(Bitmap.getBitmapResource("res/titleBar/W" + GuiConst.SCREENWIDTH + "/default.png"));
+	int fixHeight;
 	
 	public synchronized static CarouselMenuScreen getInstance() {
 		if (thisInstance == null) {
@@ -19,9 +23,18 @@ public class CarouselMenuScreen extends MainScreen implements ListFieldListener 
 	}
 	
 	public CarouselMenuScreen() {
-		CarouselMenuField menu = new CarouselMenuField("news", Bitmap.getBitmapResource("res/carousel/news_transit.png"), "right", 120);
-		CarouselPanel menuPanel = CarouselPanel.getInstance(menu, this);
+		//logoPanel = LogoPanel.getInstance();
+		fixHeight = GuiConst.SCREENHEIGHT - logoPanel.getHeight();
+		//fixHeight = 200;
+		CarouselMenuField menu = new CarouselMenuField("news", Bitmap.getBitmapResource("res/carousel/news_transit.png"), "right", fixHeight);
+		CarouselPanel menuPanel = CarouselPanel.getInstance(menu, this, fixHeight);
+		
+		add(logoPanel);
 		add(menuPanel);
+	}
+	
+	public void clearResources() {
+		thisInstance = null;
 	}
 
 	public boolean isListFieldFocus() {
