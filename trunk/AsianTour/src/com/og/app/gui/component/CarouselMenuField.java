@@ -1,9 +1,9 @@
 package com.og.app.gui.component;
 
+import com.og.app.gui.GuiConst;
+
 import net.rim.device.api.system.Bitmap;
-import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Graphics;
-import net.rim.device.api.ui.component.BitmapField;
 import net.rim.device.api.ui.component.ListField;
 
 public class CarouselMenuField extends ListField implements Runnable {
@@ -14,18 +14,25 @@ public class CarouselMenuField extends ListField implements Runnable {
 	private Bitmap bitmap = null;
 	private int frameno = 5;
 	private int fieldHeight = 120;
-	private int fieldWidth = net.rim.device.api.system.Display.getWidth();
+	private int fieldWidth = GuiConst.SCREENWIDTH;
+	private Bitmap bg = null;
+
 	private Bitmap finalbitmap = null;
 	private int imgHeight = 120;
 	private int imgWidth = 320;
 	public String menu;
 	private String movement;
+	
 
-	public CarouselMenuField(String menu, Bitmap bitmap, String movement) {
+	public CarouselMenuField(String menu, Bitmap bitmap, String movement,
+			int fieldHeight) {
 		super();
 		this.bitmap = bitmap;
 		this.menu = menu;
 		this.movement = movement;
+		this.fieldHeight = fieldHeight;
+		bg = Bitmap.getBitmapResource("res/titleBar/W" + GuiConst.SCREENWIDTH
+				+ "/background.jpg");
 		if (movement == "right") {
 			index = 0;
 		} else {
@@ -34,15 +41,18 @@ public class CarouselMenuField extends ListField implements Runnable {
 	}
 
 	protected void paint(Graphics graphics) {
-			if (animate)
-				graphics.drawBitmap((fieldWidth - imgWidth) / 2,
-						(fieldHeight - imgHeight) / 2, imgWidth, bitmap
-								.getHeight(), bitmap, imgWidth * index, 0);
-			else
-				graphics.drawBitmap((fieldWidth - finalbitmap.getWidth()) / 2,
-						(fieldHeight - finalbitmap.getHeight()) / 2,
-						finalbitmap.getWidth(), finalbitmap.getHeight(),
-						finalbitmap, 0, 0);
+
+		graphics.drawBitmap(0, 0, bg.getWidth(), bg.getHeight(), bg, 0, 0);
+
+		if (animate)
+			graphics.drawBitmap((fieldWidth - imgWidth) / 2,
+					(fieldHeight - imgHeight) / 2, imgWidth,
+					bitmap.getHeight(), bitmap, imgWidth * index, 0);
+		else
+			graphics.drawBitmap((fieldWidth - finalbitmap.getWidth()) / 2,
+					(fieldHeight - finalbitmap.getHeight()) / 2, finalbitmap
+							.getWidth(), finalbitmap.getHeight(), finalbitmap,
+					0, 0);
 	}
 
 	public int getPreferredWidth() {
@@ -102,9 +112,9 @@ public class CarouselMenuField extends ListField implements Runnable {
 				if (index == 0)
 					stopAnimation();
 				else
-					index --;
+					index--;
 			}
-			
+
 			invalidate();
 		}
 	}

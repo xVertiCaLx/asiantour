@@ -51,15 +51,6 @@ public class SplashScreen extends MainScreen implements Runnable
 
 	}
 
-	public boolean keyChar(char key, int status, int time) {
-		switch (key) {
-		case Characters.ESCAPE:
-			System.exit(0);
-			break;
-		}
-		return true;
-	}  
-
 	public void run(){
 			try {
 				Thread.sleep(5000);
