@@ -7,7 +7,7 @@ import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.container.MainScreen;
 
-public class CarouselMenuScreen extends MainScreen implements ListFieldListener{
+public class CarouselMenuScreen extends MainScreen implements ListFieldListener {
 	
 	private static CarouselMenuScreen thisInstance = null;
 	
@@ -19,7 +19,7 @@ public class CarouselMenuScreen extends MainScreen implements ListFieldListener{
 	}
 	
 	public CarouselMenuScreen() {
-		CarouselMenuField menu = new CarouselMenuField("news", Bitmap.getBitmapResource("res/carousel/news_transit.png"), "right");
+		CarouselMenuField menu = new CarouselMenuField("news", Bitmap.getBitmapResource("res/carousel/news_transit.png"), "right", 120);
 		CarouselPanel menuPanel = CarouselPanel.getInstance(menu, this);
 		add(menuPanel);
 	}

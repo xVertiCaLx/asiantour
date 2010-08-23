@@ -6,12 +6,14 @@ import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.Dialog;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.datastore.RecordStoreHelper;
 import com.og.app.gui.component.AnimatedImageField;
+import com.og.app.gui.component.CarouselMenuField;
 import com.og.app.gui.component.TabField;
 import com.og.app.gui.component.TransitionableMainScreen;
 import com.og.app.gui.listener.ListFieldListener;
@@ -41,6 +43,7 @@ public class MenuScreen extends TransitionableMainScreen implements
 
 	public int selectedTab;
 	private boolean isTabFocus = true;
+	
 
 	private LogoPanel logoPanel = null;
 	private TabPanel tabPanel = null;
@@ -130,14 +133,18 @@ public class MenuScreen extends TransitionableMainScreen implements
 	}
 
 	public boolean onClose() {
-		if (Dialog.ask(Dialog.D_YES_NO, "Do you want to exit?") == Dialog.YES) {
-			System.out.println("aloy.endapp");
-			RecordStoreHelper.setNewsCollection(newsCollection);
-			clearResource();
-			UiApplication.getUiApplication().requestBackground();
-			System.exit(0);
-		}
-		return true;
+		
+		Screen s = UiApplication.getUiApplication().getActiveScreen();
+		UiApplication.getUiApplication().popScreen(s);
+		s.deleteAll();
+		CarouselMenuScreen screen = CarouselMenuScreen.getInstance();
+		UiApplication.getUiApplication().pushScreen(screen); 
+		
+		RecordStoreHelper.setNewsCollection(newsCollection);
+		clearResource();
+		UiApplication.getUiApplication().requestBackground();
+		
+		return false;
 	}
 
 	public void clearResource() {

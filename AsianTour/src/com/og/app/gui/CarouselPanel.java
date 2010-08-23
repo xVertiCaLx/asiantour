@@ -1,13 +1,14 @@
 package com.og.app.gui;
 
-import com.og.app.gui.component.CarouselMenuField;
-import com.og.app.gui.listener.ListFieldListener;
-
 import net.rim.device.api.system.Bitmap;
-import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.Screen;
+import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.component.Dialog;
 import net.rim.device.api.ui.container.VerticalFieldManager;
+
+import com.og.app.gui.component.CarouselMenuField;
+import com.og.app.gui.listener.ListFieldListener;
 
 public class CarouselPanel extends VerticalFieldManager {
 	private static CarouselPanel carouselPanel = null;
@@ -69,31 +70,31 @@ public class CarouselPanel extends VerticalFieldManager {
 			} else if (menu.checkCurrentMenu() == "news") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/oom_transit.png");
-					menu = new CarouselMenuField("oom", image, "right");
+					menu = new CarouselMenuField("oom", image, "right", 120);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "oom") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tour_transit.png");
-					menu = new CarouselMenuField("tour", image, "right");
+					menu = new CarouselMenuField("tour", image, "right", 120);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tour") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tv_transit.png");
-					menu = new CarouselMenuField("tv", image, "right");
+					menu = new CarouselMenuField("tv", image, "right", 120);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tv") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/live_transit.png");
-					menu = new CarouselMenuField("live", image, "right");
+					menu = new CarouselMenuField("live", image, "right", 120);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "live") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/news_transit.png");
-					menu = new CarouselMenuField("news", image, "right");
+					menu = new CarouselMenuField("news", image, "right", 120);
 					reinitMenu();
 				}
 			}
@@ -106,34 +107,87 @@ public class CarouselPanel extends VerticalFieldManager {
 			} else if (menu.checkCurrentMenu() == "news") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/news_transit.png");
-					menu = new CarouselMenuField("live", image, "left");
+					menu = new CarouselMenuField("live", image, "left", 120);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "oom") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/oom_transit.png");
-					menu = new CarouselMenuField("news", image, "left");
+					menu = new CarouselMenuField("news", image, "left", 120);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tour") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tour_transit.png");
-					menu = new CarouselMenuField("oom", image, "left");
+					menu = new CarouselMenuField("oom", image, "left", 120);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tv") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tv_transit.png");
-					menu = new CarouselMenuField("tour", image, "left");
+					menu = new CarouselMenuField("tour", image, "left", 120);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "live") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/live_transit.png");
-					menu = new CarouselMenuField("tv", image, "left");
+					menu = new CarouselMenuField("tv", image, "left", 120);
 					reinitMenu();
 				}
 			}
+		}
+		return true;
+	}
+	
+	public boolean navigationClick(int status, int time) {
+		System.out.println("Clicked at "+ menu.checkCurrentMenu() +" item");
+		if (menu.checkCurrentMenu() == "tv") {
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
+			MenuScreen screen = MenuScreen.getInstance();
+			screen.showTVScheduleTab();
+			screen.setSelectedTab(3);
+			UiApplication.getUiApplication().pushScreen(screen); 
+		} else if (menu.checkCurrentMenu() == "news") {
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
+			MenuScreen screen = MenuScreen.getInstance();
+			UiApplication.getUiApplication().pushScreen(screen); 
+		} else if (menu.checkCurrentMenu() == "live") {
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
+			MenuScreen screen = MenuScreen.getInstance();
+			screen.showLiveScoreTab();
+			screen.setSelectedTab(2);
+			UiApplication.getUiApplication().pushScreen(screen); 
+		} else if (menu.checkCurrentMenu() == "tour") {
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
+			MenuScreen screen = MenuScreen.getInstance();
+			screen.showTourScheduleTab();
+			screen.setSelectedTab(4);
+			UiApplication.getUiApplication().pushScreen(screen); 
+		} else if (menu.checkCurrentMenu() == "oom") {
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
+			MenuScreen screen = MenuScreen.getInstance();
+			screen.showOOMTab();
+			screen.setSelectedTab(5);
+			UiApplication.getUiApplication().pushScreen(screen); 
+		}
+		return false;
+	}
+	
+	public boolean onClose() {
+		if (Dialog.ask(Dialog.D_YES_NO, "Do you want to exit?") == Dialog.YES) {
+			System.out.println("aloy.endapp");
+			
+			System.exit(0);
 		}
 		return true;
 	}
