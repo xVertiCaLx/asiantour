@@ -207,7 +207,8 @@ public class XmlHelper {
 								.elementAt(i);
 						DataCentre itemObj = new DataCentre(xmlMeritItem.index,
 								xmlMeritItem.playerName, xmlMeritItem.pos,
-								xmlMeritItem.earnings);
+								xmlMeritItem.earnings, xmlMeritItem.playerPhotoURL, 
+								xmlMeritItem.played, null, null);
 						// System.out.println("Added tour schedules : " +
 						// itemObj);
 						MenuScreen.getInstance().meritCollection
