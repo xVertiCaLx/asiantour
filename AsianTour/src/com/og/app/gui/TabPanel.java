@@ -71,7 +71,7 @@ class TabPanel extends HorizontalFieldManager {
 		childTabPanel.reinit();
 		tabFields.removeAllElements();
 		addTabs("News");
-		addTabs("Live Score");
+		addTabs("Live Scoring");
 		addTabs("TV Schedule");
 		addTabs("Tour Schedule");
 		addTabs("Order of Merit");
