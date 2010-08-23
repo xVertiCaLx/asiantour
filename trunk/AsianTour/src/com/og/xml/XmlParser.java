@@ -221,6 +221,10 @@ public class XmlParser {
 						xmlItem.playerName = element;
 					} else if (node.equals("Earning")) {
 						xmlItem.earnings = element;
+					} else if (node.equals("PlayerPhoto")) {
+						xmlItem.playerPhotoURL = "http://www.asiantour.com/" + element;
+					} else if (node.equals("Played")) {
+						xmlItem.played = element;
 					}
 				}
 				xmlItem.index = count;

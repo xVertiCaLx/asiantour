@@ -85,13 +85,24 @@ public class DataCentre implements net.rim.device.api.util.Persistable {
 	public String merit_player = "";
 	public String merit_pos = "";
 	public String merit_prize = "";
+	public String merit_playerphotoURL = "";
+	public String merit_played = "";
+	public String temp1 = "";
+	public String temp2 = "";
+	public byte[] merit_playerphoto = null;
 
+	//TODO-noted,ver:add temp1 and temp2 params to prevend duplicate method overriding
 	public DataCentre(int merit_index, String merit_player, String merit_pos,
-			String merit_prize) {
+			String merit_prize, String merit_playerphotoURL, String merit_played, 
+			String temp1, String temp2) {
 		this.merit_index = merit_index;
 		this.merit_player = merit_player;
 		this.merit_pos = merit_pos;
 		this.merit_prize = merit_prize;
+		this.merit_playerphotoURL = merit_playerphotoURL;
+		this.merit_played = merit_played;
+		this.temp1 = temp1;
+		this.temp2 = temp2;
 	}
 
 	public String country = "";

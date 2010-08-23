@@ -6,5 +6,8 @@ public class XmlMeritItem {
 	public String playerName = "";
 	public String pos = "";
 	public String earnings = "";
+	public String playerPhotoURL = "";
+    public byte[] playerPhoto= null;
+	public String played = "";
 	
 }
