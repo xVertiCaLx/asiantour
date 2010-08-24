@@ -63,7 +63,7 @@ public class DataListField extends CustomListField {
 				synchronized (Application.getEventLock()) {
 					MenuScreen.thisInstance.tvTimesCollection.removeAllElements();
 					DataCentre item = (DataCentre) MenuScreen.getInstance().countryCollection
-					.elementAt(getSelectedIndex()-1);
+					.elementAt(getSelectedIndex());
 					selected_country = item.country;
 					XmlHelper.downloadTvTimes(selected_country);	
 				}
@@ -80,7 +80,7 @@ public class DataListField extends CustomListField {
 					synchronized (Application.getEventLock()) {
 						// here change V
 						DataCentre item = (DataCentre) MenuScreen.getInstance().tvTimesCollection
-								.elementAt(getSelectedIndex()-1);
+								.elementAt(getSelectedIndex());
 						// here change V
 						item.tvIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(
@@ -100,7 +100,7 @@ public class DataListField extends CustomListField {
 					synchronized (Application.getEventLock()) {
 						// here change V
 						DataCentre item = (DataCentre) MenuScreen.getInstance().tourScheduleCollection
-								.elementAt(getSelectedIndex()-1);
+								.elementAt(getSelectedIndex());
 						// here change V
 						item.tourIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(

@@ -67,6 +67,7 @@ public class XmlHelper {
 					MenuScreen.getInstance().newsPanel.loadNews(0);
 					NewsPanel.newsPanel.newsList.setSize(MenuScreen
 							.getInstance().newsCollection.size());
+					
 				}
 			});
 		} catch (IOException e) {
@@ -141,7 +142,7 @@ public class XmlHelper {
 							}
 							MenuScreen.getInstance().repainteverything();
 							MenuScreen.getInstance().initSchedulePkg(2);
-							MenuScreen.getInstance().addPanels("loaded");
+							MenuScreen.getInstance().addPanels("loaded", 3);
 						}
 					});
 		} catch (IOException e) {
@@ -151,7 +152,7 @@ public class XmlHelper {
 		}
 		MenuScreen.getInstance().repainteverything();
 		MenuScreen.getInstance().initSchedulePkg(2);
-		MenuScreen.getInstance().addPanels("loading");
+		MenuScreen.getInstance().addPanels("loading",3);
 	}
 
 	// download data for Tour Schedule data

@@ -9,7 +9,7 @@ import net.rim.device.api.ui.component.ListField;
 public class CarouselMenuField extends ListField implements Runnable {
 	private Thread thread = null;
 	private boolean animate = true;
-	private int interval = 10;
+	private int interval = 70;
 	private int index = 0;
 	private Bitmap bitmap = null;
 	private int frameno = 5;
@@ -22,15 +22,15 @@ public class CarouselMenuField extends ListField implements Runnable {
 	private int imgWidth = 320;
 	public String menu;
 	private String movement;
-	
 
-	public CarouselMenuField(String menu, Bitmap bitmap, String movement,
-			int fieldHeight) {
+	public CarouselMenuField(String menu, Bitmap bitmap, Bitmap finalbitmap,
+			String movement, int fieldHeight) {
 		super();
 		this.bitmap = bitmap;
 		this.menu = menu;
 		this.movement = movement;
 		this.fieldHeight = fieldHeight;
+		this.finalbitmap = finalbitmap;
 		bg = Bitmap.getBitmapResource("res/titleBar/W" + GuiConst.SCREENWIDTH
 				+ "/background.jpg");
 		if (movement == "right") {
@@ -46,13 +46,18 @@ public class CarouselMenuField extends ListField implements Runnable {
 
 		if (animate)
 			graphics.drawBitmap((fieldWidth - imgWidth) / 2,
-					(fieldHeight - imgHeight) / 2, imgWidth,
+					((fieldHeight - imgHeight) / 2)-10, imgWidth,
 					bitmap.getHeight(), bitmap, imgWidth * index, 0);
-		else
-			graphics.drawBitmap((fieldWidth - finalbitmap.getWidth()) / 2,
-					((fieldHeight - finalbitmap.getHeight()) / 2) - 10, finalbitmap
-							.getWidth(), finalbitmap.getHeight(), finalbitmap,
-					0, 0);
+		else {
+			if (movement == "right")
+				graphics.drawBitmap((fieldWidth - imgWidth) / 2,
+						((fieldHeight - imgHeight) / 2)-10, imgWidth, bitmap
+								.getHeight(), bitmap, imgWidth * index, 0);
+			else
+				graphics.drawBitmap((fieldWidth - imgWidth) / 2,
+						((fieldHeight - imgHeight) / 2)-10, imgWidth, finalbitmap
+								.getHeight(), finalbitmap, imgWidth*4, 0);
+		}
 	}
 
 	public int getPreferredWidth() {
@@ -90,10 +95,7 @@ public class CarouselMenuField extends ListField implements Runnable {
 	}
 
 	public void stopAnimation() {
-		// System.out.println("stopAnimation");
-		// index = 0;
 		animate = false;
-		finalbitmap = Bitmap.getBitmapResource("res/carousel/" + menu + ".png");
 	}
 
 	public void run() {

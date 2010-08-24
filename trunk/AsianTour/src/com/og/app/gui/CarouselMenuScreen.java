@@ -26,7 +26,7 @@ public class CarouselMenuScreen extends MainScreen implements ListFieldListener 
 		//logoPanel = LogoPanel.getInstance();
 		fixHeight = GuiConst.SCREENHEIGHT - logoPanel.getHeight();
 		//fixHeight = 200;
-		CarouselMenuField menu = new CarouselMenuField("news", Bitmap.getBitmapResource("res/carousel/news_transit.png"), "right", fixHeight);
+		CarouselMenuField menu = new CarouselMenuField("news", Bitmap.getBitmapResource("res/carousel/news_transit.png"), Bitmap.getBitmapResource("res/carousel/live_transit.png"), "right", fixHeight);
 		CarouselPanel menuPanel = CarouselPanel.getInstance(menu, this, fixHeight);
 		
 		add(logoPanel);
