@@ -67,8 +67,8 @@ public class SplashScreen extends MainScreen implements Runnable
 				Screen s = UiApplication.getUiApplication().getActiveScreen();
 				UiApplication.getUiApplication().popScreen(s);
 				s.deleteAll();
-//				MenuScreen screen = MenuScreen.getInstance();
-				CarouselMenuScreen screen = CarouselMenuScreen.getInstance();
+				MenuScreen screen = MenuScreen.getInstance();
+				//CarouselMenuScreen screen = CarouselMenuScreen.getInstance();
 				UiApplication.getUiApplication().pushScreen(screen); 
 			}catch(Exception e){
 			}
