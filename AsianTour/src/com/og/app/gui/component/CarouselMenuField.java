@@ -50,7 +50,7 @@ public class CarouselMenuField extends ListField implements Runnable {
 					bitmap.getHeight(), bitmap, imgWidth * index, 0);
 		else
 			graphics.drawBitmap((fieldWidth - finalbitmap.getWidth()) / 2,
-					(fieldHeight - finalbitmap.getHeight()) / 2, finalbitmap
+					((fieldHeight - finalbitmap.getHeight()) / 2) - 10, finalbitmap
 							.getWidth(), finalbitmap.getHeight(), finalbitmap,
 					0, 0);
 	}
