@@ -153,19 +153,19 @@ public class MenuScreen extends TransitionableMainScreen implements
 		return true;
 	}
 
-	// public boolean onClose() {
-
-	// if (Dialog.ask(Dialog.D_YES_NO, "Do you want to exit?") == Dialog.YES) {
-	// System.out.println("aloy.endapp");
-	// RecordStoreHelper.setNewsCollection(newsCollection);
-	// clearResource();
-	// System.exit(0);
-	// }
-	//		
-	//		
-	//		
-	// return true;
-	// }
+//	 public boolean onClose() {
+//
+//	 if (Dialog.ask(Dialog.D_YES_NO, "Do you want to exit?") == Dialog.YES) {
+//	 System.out.println("aloy.endapp");
+//	 RecordStoreHelper.setNewsCollection(newsCollection);
+//	 clearResource();
+//	 System.exit(0);
+//	 }
+//			
+//			
+//			
+//	 return true;
+//	 }
 
 	public void clearResource() {
 		tabPanel = null;
