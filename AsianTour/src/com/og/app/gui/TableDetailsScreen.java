@@ -105,7 +105,7 @@ public class TableDetailsScreen extends MainScreen {
 		vFM.add(lblTitle);
 		vFM.add(horizontalBreak);
 		vFM.add(paraPadding);
-		vFM.add(new ShareButtonField("tw", "TV", item, null));
+		//vFM.add(new ShareButtonField("tw", "TV", item, null));
 		vFM.add(new LineField(1));
 		vFM.add(lblCountry);
 		vFM.add(new LineField(1));
@@ -168,7 +168,7 @@ public class TableDetailsScreen extends MainScreen {
 		vFM.add(lblTitle);
 		vFM.add(horizontalBreak);
 		vFM.add(new LineField(1));
-		vFM.add(new ShareButtonField("tw", "Tour", item, null));
+		//vFM.add(new ShareButtonField("tw", "Tour", item, null));
 		vFM.add(new LineField(1));
 		vFM.add(lblDate);
 		vFM.add(new LineField(1));
