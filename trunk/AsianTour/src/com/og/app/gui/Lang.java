@@ -25,4 +25,39 @@ public final class Lang {
 	public final static String DEFAULT_NO_NEWS = "There are no available contents for this tab at the moment.";
 	public final static String LIVESCORE_NO_NEWS = "Live Score has no available content at the moment. To view, please try again when there is a match. Thank You.";
 	
+	public static String ogReplaceAll(String origin, String oldStr, String newStr)
+	{
+		if (origin == null) return "";
+		
+        int getIndex = origin.indexOf(oldStr);
+        int oldStr_len = oldStr.length();
+        int origin_len = origin.length();
+        String tempStr = "";
+        
+        while (getIndex >= 0)
+        {
+            if(getIndex > 0)
+            {
+                tempStr = origin.substring(0,getIndex);
+                tempStr += newStr;
+                tempStr += origin.substring((getIndex + oldStr_len),origin_len);
+            }
+            else
+            {
+                tempStr =  newStr + origin.substring((getIndex + oldStr_len),origin_len);
+            }
+            origin = tempStr;
+            tempStr = "";
+            getIndex = origin.indexOf(oldStr);
+            origin_len = origin.length();
+        }
+        
+        //reset
+        getIndex = 0;
+        oldStr_len = 0;
+        origin_len = 0;
+        
+		return origin;
+	}
+	
 }
