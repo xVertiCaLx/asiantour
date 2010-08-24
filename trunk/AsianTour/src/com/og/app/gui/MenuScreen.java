@@ -9,6 +9,7 @@ import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.Screen;
 import net.rim.device.api.ui.UiApplication;
+import net.rim.device.api.ui.component.Dialog;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.datastore.RecordStoreHelper;
@@ -129,26 +130,15 @@ public class MenuScreen extends TransitionableMainScreen implements
 		}
 	}
 
-	protected boolean keyChar(char c, int status, int time) {
-		switch (c) {
-		case Characters.ESCAPE:
-			if (newsCollection != null)
-				RecordStoreHelper.setNewsCollection(newsCollection);
-			// clearResource();
-			// UiApplication.getUiApplication().requestBackground();
-			try {
-				CarouselMenuScreen screen = new CarouselMenuScreen();// CarouselMenuScreen.getInstance();
-				UiApplication.getUiApplication().pushScreen(screen);
-				Screen s = UiApplication.getUiApplication().getActiveScreen();
-				UiApplication.getUiApplication().popScreen(s);
-				// this.deleteAll();
-
-			} catch (Exception e) {
-				System.out.println("EXCEPTION!!!!!!!!!!!!!!!!!!!!!!! e: " + e
-						+ " |        " + e.getMessage());
-			}
+	public boolean onClose() {
+		if(Dialog.ask(Dialog.D_YES_NO, "Do you want to exit?") == Dialog.YES)
+		{
+			System.out.println("aloy.endapp");
+			RecordStoreHelper.setNewsCollection(newsCollection);
+			clearResource();
+			System.exit(0);
 		}
-		return super.keyChar(c, status, time);
+		return true;
 	}
 
 	public void clearResource() {

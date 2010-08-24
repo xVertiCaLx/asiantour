@@ -143,39 +143,39 @@ public class CarouselPanel extends VerticalFieldManager {
 	public boolean navigationClick(int status, int time) {
 		System.out.println("Clicked at "+ menu.checkCurrentMenu() +" item");
 		if (menu.checkCurrentMenu() == "tv") {
-			Screen s = UiApplication.getUiApplication().getActiveScreen();
-			UiApplication.getUiApplication().popScreen(s);
-			s.deleteAll();
+//			Screen s = UiApplication.getUiApplication().getActiveScreen();
+//			UiApplication.getUiApplication().popScreen(s);
+//			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			screen.showTVScheduleTab();
 			screen.setSelectedTab(3);
 			UiApplication.getUiApplication().pushScreen(screen); 
 		} else if (menu.checkCurrentMenu() == "news") {
-			Screen s = UiApplication.getUiApplication().getActiveScreen();
-			UiApplication.getUiApplication().popScreen(s);
-			s.deleteAll();
+//			Screen s = UiApplication.getUiApplication().getActiveScreen();
+//			UiApplication.getUiApplication().popScreen(s);
+//			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			UiApplication.getUiApplication().pushScreen(screen); 
 		} else if (menu.checkCurrentMenu() == "live") {
-			Screen s = UiApplication.getUiApplication().getActiveScreen();
-			UiApplication.getUiApplication().popScreen(s);
-			s.deleteAll();
+//			Screen s = UiApplication.getUiApplication().getActiveScreen();
+//			UiApplication.getUiApplication().popScreen(s);
+//			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			screen.showLiveScoreTab();
 			screen.setSelectedTab(2);
 			UiApplication.getUiApplication().pushScreen(screen); 
 		} else if (menu.checkCurrentMenu() == "tour") {
-			Screen s = UiApplication.getUiApplication().getActiveScreen();
-			UiApplication.getUiApplication().popScreen(s);
-			s.deleteAll();
+//			Screen s = UiApplication.getUiApplication().getActiveScreen();
+//			UiApplication.getUiApplication().popScreen(s);
+//			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			screen.showTourScheduleTab();
 			screen.setSelectedTab(4);
 			UiApplication.getUiApplication().pushScreen(screen); 
 		} else if (menu.checkCurrentMenu() == "oom") {
-			Screen s = UiApplication.getUiApplication().getActiveScreen();
-			UiApplication.getUiApplication().popScreen(s);
-			s.deleteAll();
+//			Screen s = UiApplication.getUiApplication().getActiveScreen();
+//			UiApplication.getUiApplication().popScreen(s);
+//			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			screen.showOOMTab();
 			screen.setSelectedTab(5);
