@@ -80,7 +80,7 @@ public class TableDataListField extends TableListField {
 				try {
 					synchronized (Application.getEventLock()) {
 						DataCentre item = (DataCentre) MenuScreen.getInstance().tvTimesCollection
-								.elementAt(getSelectedIndex() - 1);
+								.elementAt(getSelectedIndex());
 						item.tvIndex = getSelectedIndex();
 						UiApplication.getUiApplication().pushScreen(
 								new TableDetailsScreen(table, item));

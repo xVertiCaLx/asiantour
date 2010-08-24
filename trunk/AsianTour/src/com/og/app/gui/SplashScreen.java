@@ -28,8 +28,9 @@ public class SplashScreen extends MainScreen implements Runnable
 		XmlHelper.downloadOOM();
 		XmlHelper.downloadCountry();
 		XmlHelper.downloadNews();
+		XmlHelper.downloadTourSchedule();
 		
-		logoicon= Bitmap.getBitmapResource("res/ASIAN-TOUR-SPLASH.png");
+		logoicon= Bitmap.getBitmapResource("res/ASIAN-TOUR-SPLASH.jpg");
 		//wait for 3 sec then go into main screen, can be changed
 		thread = new Thread(this);
 		thread.start();
@@ -44,10 +45,10 @@ public class SplashScreen extends MainScreen implements Runnable
 		int logoheight=  logoicon.getHeight();
 
 		int x = (scrwidth-logowidth)/2;
-		int y = (scrheight-logoheight-GuiConst.FONT_VERSION.getHeight()*2)/2;
-		graphics.setColor(0);
-		graphics.fillRect(-10, -10, getWidth()+20, getHeight()+20);
-		graphics.drawBitmap(x, y+30, 300, 300, logoicon , 0, 0);        
+		int y = (scrheight-logoheight)/2;
+		//graphics.setColor(0);
+		//graphics.fillRect(-10, -10, getWidth()+20, getHeight()+20);
+		graphics.drawBitmap(x, y, logoicon.getWidth(), logoicon.getHeight(), logoicon , 0, 0);        
 
 	}
 
@@ -67,8 +68,8 @@ public class SplashScreen extends MainScreen implements Runnable
 				Screen s = UiApplication.getUiApplication().getActiveScreen();
 				UiApplication.getUiApplication().popScreen(s);
 				s.deleteAll();
-				MenuScreen screen = MenuScreen.getInstance();
-				//CarouselMenuScreen screen = CarouselMenuScreen.getInstance();
+				//MenuScreen screen = MenuScreen.getInstance();
+				CarouselMenuScreen screen = CarouselMenuScreen.getInstance();
 				UiApplication.getUiApplication().pushScreen(screen); 
 			}catch(Exception e){
 			}

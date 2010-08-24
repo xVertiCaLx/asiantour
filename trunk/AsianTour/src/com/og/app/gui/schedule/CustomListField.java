@@ -29,7 +29,6 @@ public class CustomListField extends ListField implements ListFieldCallback {
 	protected Bitmap next_icon = null;
 	protected Bitmap border = null;
 	protected Bitmap more_details = null;
-	protected Bitmap header_bg = null;
 
 	protected Object lock = new Object();
 	protected ListFieldListener listener = null;
@@ -46,7 +45,6 @@ public class CustomListField extends ListField implements ListFieldCallback {
 	protected int text_x = padding;
 	protected int writable_width;
 	protected int fixRowHeight;
-	protected int instrHeight;
 
 	public CustomListField(ListFieldListener listener, int tableNo) {
 		super();
@@ -55,7 +53,6 @@ public class CustomListField extends ListField implements ListFieldCallback {
 		border = Utility.resizeBitmap(Bitmap
 				.getBitmapResource("res/news_border.png"),
 				GuiConst.SCREENWIDTH, 2);
-		instrHeight = GuiConst.HEADER_ROW_HEIGHT + border.getHeight();
 		if (tableNo == 1) {
 			fixRowHeight = GuiConst.HEADER_ROW_HEIGHT + border.getHeight();
 		} else {
@@ -66,9 +63,6 @@ public class CustomListField extends ListField implements ListFieldCallback {
 		setEmptyString("", DrawStyle.HCENTER);
 		setCallback(this);
 
-		header_bg = Utility.resizeBitmap(Bitmap
-				.getBitmapResource("res/table_header_bg.png"), this
-				.getPreferredWidth(), GuiConst.HEADER_ROW_HEIGHT);
 		selected_bg = Utility.resizeBitmap(Bitmap
 				.getBitmapResource("res/news_list_selected.png"),
 				GuiConst.SCREENWIDTH, fixRowHeight);
@@ -77,7 +71,7 @@ public class CustomListField extends ListField implements ListFieldCallback {
 				fixRowHeight);
 
 		more_details = Bitmap.getBitmapResource("res/moreDetails.png");
-		setRowHeight(GuiConst.HEADER_ROW_HEIGHT + border.getHeight());
+		setRowHeight(fixRowHeight);
 
 	}
 
@@ -94,141 +88,74 @@ public class CustomListField extends ListField implements ListFieldCallback {
 
 		case 1:
 			/* List Country */
-			if (index == 0) {
+			background(g, index, y);
 
-				textFont = GuiConst.FONT_TABLE_HEADER;
-				background(g, index, y);
-				g.setColor(GuiConst.FONT_COLOR_WHITE);
-				g.setFont(textFont);
+			item = (DataCentre) _elements.elementAt(index);
 
-				text_y = (instrHeight - textFont.getHeight()) / 2;
+			insertData(g, item.country, y, "tvC");
 
-				g.drawText(Lang.SELECT_COUNTRY_INSTRUCTION, padding, text_y);
+//			g.drawBitmap(writable_width + padding, more_details_y, more_details
+//					.getWidth(), more_details.getHeight(), more_details, 0, 0);
 
-				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border
-						.getHeight()))
-						&& (index == 0)) {
-					setRowHeight(fixRowHeight);
-				}
-			} else {
-
-				background(g, index, y);
-
-				item = (DataCentre) _elements.elementAt(index - 1);
-
-				insertData(g, item.country, y);
-
-				g.drawBitmap(writable_width + padding, more_details_y,
-						more_details.getWidth(), more_details.getHeight(),
-						more_details, 0, 0);
-
-				more_details_y = y
-						+ (getRowHeight() - more_details.getHeight()) / 2;
-				g.drawBitmap(writable_width + padding, more_details_y,
-						more_details.getWidth(), more_details.getHeight(),
-						more_details, 0, 0);
-			}
+			more_details_y = y + (getRowHeight() - more_details.getHeight())
+					/ 2;
+			g.drawBitmap(writable_width + padding, more_details_y, more_details
+					.getWidth(), more_details.getHeight(), more_details, 0, 0);
 			break;
 
 		case 2:
 			/* TV Schedule */
-			if (index == 0) {
-				textFont = GuiConst.FONT_TABLE_HEADER;
-				background(g, index, y);
-				g.setColor(GuiConst.FONT_COLOR_WHITE);
-				g.setFont(textFont);
+			background(g, index, y);
+			item = (DataCentre) _elements.elementAt(index);
+			insertData(g, item.tvName, y, "tv");
 
-				text_y = (instrHeight - textFont.getHeight()) / 2;
+			textFont = GuiConst.FONT_DATE;
+			g.setFont(textFont);
+			g.drawText(item.tvDate, text_x, text_y);
 
-				g.drawText(Lang.SELECT_ROW_INSTRUCTION, padding, text_y);
+			more_details_y = y + (getRowHeight() - more_details.getHeight())
+					/ 2;
+			g.drawBitmap(writable_width + padding, more_details_y, more_details
+					.getWidth(), more_details.getHeight(), more_details, 0, 0);
 
-				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border
-						.getHeight()))
-						&& (index == 0)) {
-					setRowHeight(fixRowHeight);
-				}
-			} else {
-
-				background(g, index, y);
-				item = (DataCentre) _elements.elementAt(index - 1);
-				insertData(g, item.tvName, y);
-
-				textFont = GuiConst.FONT_DATE;
-				g.setFont(textFont);
-				g.drawText(item.tvDate, text_x, text_y);
-
-				more_details_y = y
-						+ (getRowHeight() - more_details.getHeight()) / 2;
-				g.drawBitmap(writable_width + padding, more_details_y,
-						more_details.getWidth(), more_details.getHeight(),
-						more_details, 0, 0);
-
-			}
 			break;
 		case 3:
 			/* Tour Schedule */
-			if (index == 0) {
-				textFont = GuiConst.FONT_TABLE_HEADER;
-				background(g, index, y);
-				g.setColor(GuiConst.FONT_COLOR_WHITE);
-				g.setFont(textFont);
+			background(g, index, y);
 
-				text_y = (instrHeight - textFont.getHeight()) / 2;
+			item = (DataCentre) _elements.elementAt(index);
 
-				g.drawText(Lang.SELECT_ROW_INSTRUCTION, padding, text_y);
+			insertData(g, item.tourName, y, "tour");
 
-				if ((getRowHeight() == (GuiConst.HEADER_ROW_HEIGHT + border
-						.getHeight()))
-						&& (index == 0)) {
-					setRowHeight(fixRowHeight);
-				}
-			} else {
-				background(g, index, y);
-
-				item = (DataCentre) _elements.elementAt(index - 1);
-
-				insertData(g, item.tourName, y);
-
-				textFont = GuiConst.FONT_DATE;
-				g.setFont(textFont);
-				g.drawText(item.tourDate + ", " + item.tourCountry, text_x,
-						text_y);
-				more_details_y = y
-						+ (getRowHeight() - more_details.getHeight()) / 2;
-				g.drawBitmap(writable_width + padding, more_details_y,
-						more_details.getWidth(), more_details.getHeight(),
-						more_details, 0, 0);
-			}
+			textFont = GuiConst.FONT_DATE;
+			g.setFont(textFont);
+			g.drawText(item.tourDate + ", " + item.tourCountry, text_x, text_y);
+			more_details_y = y + (getRowHeight() - more_details.getHeight())
+					/ 2;
+			g.drawBitmap(writable_width + padding, more_details_y, more_details
+					.getWidth(), more_details.getHeight(), more_details, 0, 0);
 			break;
 		}
 
 	}
 
 	public void background(Graphics g, int index, int y) {
-		if (index == 0) {
-			g.drawBitmap(0, bg_y, this.getPreferredWidth(), header_bg
-					.getHeight(), header_bg, 0, 0);
-			y = GuiConst.HEADER_ROW_HEIGHT;
-			g.drawBitmap(0, y, this.getPreferredWidth(), border.getHeight(),
-					border, 0, 0);
+		if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
+			g.drawBitmap(0, y, selected_bg.getWidth(), selected_bg.getHeight(),
+					selected_bg, 0, 0);
+			y += getRowHeight() - border.getHeight();
+			g.drawBitmap(0, y, border.getWidth(), border.getHeight(), border,
+					0, 0);
 		} else {
-			if (index == this.getSelectedIndex() && listener.isListFieldFocus()) {
-				g.drawBitmap(0, y, selected_bg.getWidth(), selected_bg
-						.getHeight(), selected_bg, 0, 0);
-				y += getRowHeight() - border.getHeight();
-				g.drawBitmap(0, y, border.getWidth(), border.getHeight(),
-						border, 0, 0);
-			} else {
-				g.drawBitmap(0, y, unselected_bg.getWidth(), unselected_bg
-						.getHeight(), unselected_bg, 0, 0);
-				y += getRowHeight() - border.getHeight();
-				g.drawBitmap(0, y, border.getWidth(), border.getHeight(),
-						border, 0, 0);
-			}
+			g.drawBitmap(0, y, unselected_bg.getWidth(), unselected_bg
+					.getHeight(), unselected_bg, 0, 0);
+			y += getRowHeight() - border.getHeight();
+			g.drawBitmap(0, y, border.getWidth(), border.getHeight(), border,
+					0, 0);
 		}
 	}
 
-	private void insertData(Graphics g, String printText, int y) {
+	private void insertData(Graphics g, String printText, int y, String type) {
 		Vector vText = Utility.breakIntoWords(printText);
 		int lineNo = 1;
 		text_y = padding;
@@ -237,10 +164,15 @@ public class CustomListField extends ListField implements ListFieldCallback {
 		g.setColor(GuiConst.FONT_COLOR_BLACK);
 
 		if (textFont.getAdvance(printText) <= writable_width) {
-			text_y = y
-					+ ((getRowHeight() - (textFont.getHeight() + GuiConst.FONT_DATE
-							.getHeight())) / 2);
-			g.drawText(printText + " ", text_x, text_y);
+			if (type != "tvC")
+				text_y = y
+						+ ((getRowHeight() - (textFont.getHeight() + GuiConst.FONT_DATE
+								.getHeight())) / 2);
+			else
+				text_y = y
+				+ ((getRowHeight() - textFont.getHeight()) / 2);
+			
+				g.drawText(printText + " ", text_x, text_y);
 			text_y += textFont.getHeight() + padding;
 		} else {
 			text_y += y;
