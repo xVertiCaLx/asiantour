@@ -7,6 +7,7 @@ import java.util.Vector;
 import net.rim.device.api.i18n.DateFormat;
 
 import com.og.app.datastore.RecordStoreHelper;
+import com.og.app.gui.Lang;
 import com.og.app.gui.MenuScreen;
 import com.og.app.gui.NewsPanel;
 import com.og.app.util.DataCentre;
@@ -123,6 +124,7 @@ public class XmlHelper {
 
 	public static void downloadTvTimes(String country) {
 		System.out.println("enter downloadTvTimes");
+		country = Lang.ogReplaceAll(country, " ", "%20");
 		try {
 			Utility.getWebData(tvTimes_url + country + "$",
 					new WebDataCallback() {
