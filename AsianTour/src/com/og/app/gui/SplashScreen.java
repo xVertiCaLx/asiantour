@@ -36,7 +36,7 @@ public class SplashScreen extends MainScreen implements Runnable
 		thread.start();
 			
 	}
-
+//
 	protected void paint(Graphics graphics) {
 
 		int scrwidth = net.rim.device.api.system.Display.getWidth();
