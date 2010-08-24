@@ -62,9 +62,9 @@ public class XmlParser {
 						count ++;
 					} else if (node.equals("Country")) {
 						xmlItem.region = element;
-					} /*else if (node.equals("Region")) {
+					} else if (node.equals("Region")) {
 						xmlItem.region += " (" + element + ")";
-					}*/ else if (node.equals("Programme")) {
+					} else if (node.equals("Programme")) {
 						xmlItem.programmeName = element;
 					} else if (node.equals("Event")) {
 						xmlItem.programmeName += " (" + element + ")";
