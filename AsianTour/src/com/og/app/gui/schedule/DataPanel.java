@@ -12,6 +12,7 @@ import net.rim.device.api.ui.container.VerticalFieldManager;
 
 import com.og.app.gui.GuiConst;
 import com.og.app.gui.Lang;
+import com.og.app.gui.component.TableHeaderListField;
 import com.og.app.gui.listener.ListFieldListener;
 
 public class DataPanel extends VerticalFieldManager {
@@ -29,9 +30,26 @@ public class DataPanel extends VerticalFieldManager {
 		imgUp = Bitmap.getBitmapResource("res/up.png");
 		imgDown = Bitmap.getBitmapResource("res/down.png");
 
+		int tempheight = 0;
+		
+		TableHeaderListField header = null;
+
+		if (tableNo == 1) {
+			header = new TableHeaderListField("tv");
+			add(header);
+		} else {
+			header = new TableHeaderListField("tvC");
+			add(header);
+		}
+		
+		if (header != null) {
+			tempheight =  header.getRowHeight();
+		}
+
 		dataList = new DataListField(this, listener, tableNo);
-		childNewsPanel = new ChildNewsPanel(fixHeight);
+		childNewsPanel = new ChildNewsPanel(fixHeight - tempheight);
 		childNewsPanel.add(dataList);
+
 		add(childNewsPanel);
 		loadRows(tableNo);
 	}
@@ -112,6 +130,7 @@ public class DataPanel extends VerticalFieldManager {
 		public ChildNewsPanel(int fixHeight) {
 			super(Manager.VERTICAL_SCROLL | Manager.VERTICAL_SCROLLBAR);
 			this.fixHeight = fixHeight;
+			updateLayout(fixHeight);
 			return;
 		}
 
