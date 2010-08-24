@@ -77,11 +77,10 @@ public class MenuScreen extends TransitionableMainScreen implements
 		add(logoPanel);
 		add(tabPanel);
 		add(newsPanel);
+		// addPanels("loading", 1);
 
 		newsCollection = RecordStoreHelper.getNewsCollection();
 		System.out.println(GuiConst.SCREENWIDTH);
-
-		
 
 	}
 
@@ -112,34 +111,61 @@ public class MenuScreen extends TransitionableMainScreen implements
 						tableNo);
 	}
 
-	public void addPanels(String status) {
+	public void addPanels(String status, int tabNo) {
+		VerticalFieldManager vFM = new VerticalFieldManager(
+				Manager.USE_ALL_WIDTH);
+		Bitmap load_icon = Bitmap.getBitmapResource("res/loading.png");
+		AnimatedImageField loading = new AnimatedImageField(300, load_icon
+				.getHeight(), load_icon, 12, 100, Field.FIELD_HCENTER
+				| Field.FOCUSABLE);
+
 		add(logoPanel);
 		add(tabPanel);
 		if (status == "loaded") {
-			add(dataPanel);
+			if (tabNo == 1)
+				add(newsPanel);
+			else if ((tabNo == 3) || (tabNo == 4))
+				add(dataPanel);
+			else if ((tabNo == 2) || (tabNo == 5))
+				add(tablePanel);
 		} else if (status == "loading") {
-			VerticalFieldManager vFM = new VerticalFieldManager(
-					Manager.USE_ALL_WIDTH);
-			Bitmap load_icon = Bitmap.getBitmapResource("res/loading.png");
-			AnimatedImageField loading = new AnimatedImageField(300, load_icon
-					.getHeight(), load_icon, 12, 100, Field.FIELD_HCENTER
-					| Field.FOCUSABLE);
+			vFM.deleteAll();
 			loading.startAnimation();
 			vFM.add(loading);
 			add(vFM);
 		}
 	}
 
-	public boolean onClose() {
-		if(Dialog.ask(Dialog.D_YES_NO, "Do you want to exit?") == Dialog.YES)
-		{
-			System.out.println("aloy.endapp");
+	public boolean keyChar(char key, int status, int time) {
+		switch (key) {
+		case Characters.ESCAPE:
 			RecordStoreHelper.setNewsCollection(newsCollection);
-			clearResource();
-			System.exit(0);
+			//clearResource();
+			
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
+			
+			CarouselMenuScreen screen = new CarouselMenuScreen();//CarouselMenuScreen.getInstance();
+			UiApplication.getUiApplication().pushScreen(screen); 
+			break;
 		}
 		return true;
 	}
+
+	// public boolean onClose() {
+
+	// if (Dialog.ask(Dialog.D_YES_NO, "Do you want to exit?") == Dialog.YES) {
+	// System.out.println("aloy.endapp");
+	// RecordStoreHelper.setNewsCollection(newsCollection);
+	// clearResource();
+	// System.exit(0);
+	// }
+	//		
+	//		
+	//		
+	// return true;
+	// }
 
 	public void clearResource() {
 		tabPanel = null;

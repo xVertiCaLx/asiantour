@@ -55,16 +55,16 @@ public class TableHeaderListField extends ListField implements ListFieldCallback
 		g.setColor(GuiConst.FONT_COLOR_WHITE);
 		g.setFont(textFont);
 		x = padding;
-		y = y + (getRowHeight() - textFont.getHeight()) / 2;
+		this.y = y + (getRowHeight() - textFont.getHeight()) / 2;
 
 		if (tableType == "merit") {
 			g.drawBitmap(0, 0, header_bg.getWidth(), header_bg.getHeight(),
 					header_bg, 0, 0);
 
-			for (int i = 0; i < (meritLabel.length - 1); i++) {
-				g.drawText(meritLabel[i], x, y);
+			for (int i = 0; i < meritLabel.length; i++) {
+				g.drawText(meritLabel[i], x, this.y);
 				x += TableListField.meritWidth[i] + padding;
-				if (i != meritLabel.length) {
+				if (i != meritLabel.length-1) {
 					g.drawBitmap(x, y, header_separator.getWidth(),
 							header_separator.getHeight(), header_separator, 0,
 							0);

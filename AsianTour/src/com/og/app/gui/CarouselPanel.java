@@ -71,31 +71,31 @@ public class CarouselPanel extends VerticalFieldManager {
 			} else if (menu.checkCurrentMenu() == "news") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/oom_transit.png");
-					menu = new CarouselMenuField("oom", image, "right", fixHeight);
+					menu = new CarouselMenuField("oom", image,Bitmap.getBitmapResource("res/carousel/live_transit.png"),  "right", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "oom") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tour_transit.png");
-					menu = new CarouselMenuField("tour", image, "right", fixHeight);
+					menu = new CarouselMenuField("tour", image, Bitmap.getBitmapResource("res/carousel/news_stransit.png"), "right", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tour") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tv_transit.png");
-					menu = new CarouselMenuField("tv", image, "right", fixHeight);
+					menu = new CarouselMenuField("tv", image,  Bitmap.getBitmapResource("res/carousel/oom_transit.png"), "right", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tv") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/live_transit.png");
-					menu = new CarouselMenuField("live", image, "right", fixHeight);
+					menu = new CarouselMenuField("live", image,  Bitmap.getBitmapResource("res/carousel/tour_transit.png"), "right", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "live") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/news_transit.png");
-					menu = new CarouselMenuField("news", image, "right", fixHeight);
+					menu = new CarouselMenuField("news", image, Bitmap.getBitmapResource("res/carousel/tv_transit.png"), "right", fixHeight);
 					reinitMenu();
 				}
 			}
@@ -108,31 +108,31 @@ public class CarouselPanel extends VerticalFieldManager {
 			} else if (menu.checkCurrentMenu() == "news") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/news_transit.png");
-					menu = new CarouselMenuField("live", image, "left", fixHeight);
+					menu = new CarouselMenuField("live", image, Bitmap.getBitmapResource("res/carousel/live_transit.png"), "left", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "oom") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/oom_transit.png");
-					menu = new CarouselMenuField("news", image, "left", fixHeight);
+					menu = new CarouselMenuField("news", image, Bitmap.getBitmapResource("res/carousel/news_transit.png"), "left", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tour") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tour_transit.png");
-					menu = new CarouselMenuField("oom", image, "left", fixHeight);
+					menu = new CarouselMenuField("oom", image, Bitmap.getBitmapResource("res/carousel/oom_transit.png"), "left", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "tv") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/tv_transit.png");
-					menu = new CarouselMenuField("tour", image, "left", fixHeight);
+					menu = new CarouselMenuField("tour", image, Bitmap.getBitmapResource("res/carousel/tour_transit.png"), "left", fixHeight);
 					reinitMenu();
 				}
 			} else if (menu.checkCurrentMenu() == "live") {
 				if (!menu.checkRunStatus()) {
 					image = Bitmap.getBitmapResource("res/carousel/live_transit.png");
-					menu = new CarouselMenuField("tv", image, "left", fixHeight);
+					menu = new CarouselMenuField("tv", image, Bitmap.getBitmapResource("res/carousel/tv_transit.png"), "left", fixHeight);
 					reinitMenu();
 				}
 			}
@@ -143,39 +143,39 @@ public class CarouselPanel extends VerticalFieldManager {
 	public boolean navigationClick(int status, int time) {
 		System.out.println("Clicked at "+ menu.checkCurrentMenu() +" item");
 		if (menu.checkCurrentMenu() == "tv") {
-//			Screen s = UiApplication.getUiApplication().getActiveScreen();
-//			UiApplication.getUiApplication().popScreen(s);
-//			s.deleteAll();
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			screen.showTVScheduleTab();
 			screen.setSelectedTab(3);
 			UiApplication.getUiApplication().pushScreen(screen); 
 		} else if (menu.checkCurrentMenu() == "news") {
-//			Screen s = UiApplication.getUiApplication().getActiveScreen();
-//			UiApplication.getUiApplication().popScreen(s);
-//			s.deleteAll();
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			UiApplication.getUiApplication().pushScreen(screen); 
 		} else if (menu.checkCurrentMenu() == "live") {
-//			Screen s = UiApplication.getUiApplication().getActiveScreen();
-//			UiApplication.getUiApplication().popScreen(s);
-//			s.deleteAll();
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			screen.showLiveScoreTab();
 			screen.setSelectedTab(2);
 			UiApplication.getUiApplication().pushScreen(screen); 
 		} else if (menu.checkCurrentMenu() == "tour") {
-//			Screen s = UiApplication.getUiApplication().getActiveScreen();
-//			UiApplication.getUiApplication().popScreen(s);
-//			s.deleteAll();
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			screen.showTourScheduleTab();
 			screen.setSelectedTab(4);
 			UiApplication.getUiApplication().pushScreen(screen); 
 		} else if (menu.checkCurrentMenu() == "oom") {
-//			Screen s = UiApplication.getUiApplication().getActiveScreen();
-//			UiApplication.getUiApplication().popScreen(s);
-//			s.deleteAll();
+			Screen s = UiApplication.getUiApplication().getActiveScreen();
+			UiApplication.getUiApplication().popScreen(s);
+			s.deleteAll();
 			MenuScreen screen = MenuScreen.getInstance();
 			screen.showOOMTab();
 			screen.setSelectedTab(5);
